@@ -19,6 +19,7 @@ function nav_item(string $slug, string $label, string $href): string
 }
 ?>
 <!doctype html>
+
 <html lang="en">
 <head>
   <meta charset="utf-8" />
