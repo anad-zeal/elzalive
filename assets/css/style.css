@@ -532,7 +532,7 @@ h3.title {
 
 .gallery-grid .mid .mnu {
   display: flex;
-  min-width: 11vw;
+  min-width: 20vw;
   flex: 1;
   border: solid 1px red;
   justify-content: center;
