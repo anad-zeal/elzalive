@@ -354,7 +354,6 @@ h3.title {
     margin-bottom: 1vh;
 }
 
-.gallery-grid,
 .top-grid {
     display: flex;
     justify-content: space-between;
@@ -500,4 +499,54 @@ h3.title {
 .slideshow-site-header,
 .slideshow-site-header {
     visibility: hidden;
+}
+
+.gallery-grid {
+    display: flex;
+    justify-content: space-between;
+    width: 96vw;
+    height: 4rem;
+    margin: 0 auto;
+    align-items: center;
+}
+
+.gallery-grid div {
+    height: 4rem;
+}
+
+.gallery-grid .left {
+    width: 11%;
+    border: solid 1px blue;
+    text-align: left;
+    display: flex;
+    align-items: center;
+}
+
+.gallery-grid .mid {
+    width: auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+}
+
+.gallery-grid .mid .mnu {
+    display: flex;
+    min-width: 11vw;
+    flex: 1;
+    border: solid 1px red;
+    justify-content: center;
+    align-items: center;
+}
+
+.gallery-grid .right {
+    display: flex;
+    width: 10%;
+    border: solid 1px blue;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.gallery-grid .mid .mnu a {
+    font-size: 3rem;
 }
