@@ -1,4 +1,5 @@
 <?php
+
 // index.php — central router with clean slugs
 
 $page = $_GET["page"] ?? "home";
@@ -27,5 +28,6 @@ $page_title  = ucfirst(str_replace('-', ' ', $page)) . " | aepaints";
 $active_page = $page;
 
 require __DIR__ . "/includes/header.php";
+require __DIR__ . "/includes/hero.php";
 require __DIR__ . "/$file";
 require __DIR__ . "/includes/footer.php";
