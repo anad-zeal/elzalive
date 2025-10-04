@@ -78,6 +78,6 @@ function nav_item(string $slug, string $label, string $href): string
                     "/projects",
                 ) ?></mnu>
       </div>
-      <div class="right"></div>
+      <div class="right f"></div>
     </nav>
   </header>
