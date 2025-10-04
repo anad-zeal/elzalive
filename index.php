@@ -1,6 +1,5 @@
 <?php
-
-// index.php — central router with clean slugs + 404 handling
+// index.php — central router with clean slugs
 
 $page = $_GET["page"] ?? "home";
 
@@ -18,17 +17,10 @@ $map = [
     "drips"           => "pages/drips.php",
     "encaustic"       => "pages/encaustic.php",
     "projects"        => "pages/projects.php",
-
-    // 404
-    "404"             => "pages/404.php",
 ];
 
-// Resolve file; if no match, set 404
-if (!isset($map[$page])) {
-    http_response_code(404);
-    $page = "404";
-}
-$file = $map[$page];
+// Resolve file or default to home
+$file = $map[$page] ?? $map["home"];
 
 // Variables for header
 $page_title  = ucfirst(str_replace('-', ' ', $page)) . " | aepaints";

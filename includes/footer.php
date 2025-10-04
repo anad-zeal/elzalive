@@ -8,6 +8,7 @@
     import { initSlideshows } from "/assets/js/script.js";
     document.addEventListener("DOMContentLoaded", () => {
       initSlideshows();
+      // Optional: header swap via ?showSlideshow=true is inside script.js
     });
     window.addEventListener("hashchange", () => initSlideshows());
     window.addEventListener("app:navigate", () => initSlideshows());

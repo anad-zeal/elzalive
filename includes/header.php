@@ -3,16 +3,6 @@
 $page_title  = $page_title  ?? "aepaints";
 $active_page = $active_page ?? "home";
 
-// Canonical URL builder
-$host = $_SERVER['HTTP_HOST'] ?? 'example.com';
-$https = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') || (isset($_SERVER['SERVER_PORT']) && $_SERVER['SERVER_PORT'] == 443);
-$scheme = $https ? 'https' : 'http';
-$canonicalPath = '/' . ltrim($active_page, '/');
-// If you prefer "/" for home, uncomment the next line
-// if ($active_page === 'home') { $canonicalPath = '/'; }
-$canonicalUrl = sprintf('%s://%s%s', $scheme, $host, $canonicalPath);
-$is404 = ($active_page === '404');
-
 function nav_item(string $slug, string $label, string $href): string {
   global $active_page;
   $isActive = ($active_page === $slug);
@@ -33,9 +23,6 @@ function nav_item(string $slug, string $label, string $href): string {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title><?= htmlspecialchars($page_title, ENT_QUOTES, "UTF-8") ?></title>
-  <link rel="canonical" href="<?= htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8') ?>">
-  <meta property="og:url" content="<?= htmlspecialchars($canonicalUrl, ENT_QUOTES, 'UTF-8') ?>">
-  <?php if ($is404): ?><meta name="robots" content="noindex, nofollow"><?php endif; ?>
 
   <link rel="icon" href="/favicons/favicon.ico" sizes="any">
   <link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml">
@@ -45,7 +32,7 @@ function nav_item(string $slug, string $label, string $href): string {
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poiret+One&family=Spectral:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="/assets/css/style.css?v=6" />
+  <link rel="stylesheet" href="/assets/css/style.css?v=5" />
 </head>
 
 <body data-page="<?= htmlspecialchars($active_page, ENT_QUOTES, "UTF-8") ?>">
