@@ -51,7 +51,7 @@ function nav_item(string $slug, string $label, string $href): string
         <?= nav_item("contact", "CONTACT", "/contact") ?>
       </div>
       <div class="right">
-        <span class="portfolio-text">GALLERY NAME</span>
+      &nbsp;
       </div>
     </nav>
 
@@ -61,11 +61,7 @@ function nav_item(string $slug, string $label, string $href): string
         <h3 class="title">Alexis Elza</h3>
       </div>
       <div class="mid">
-        <?= nav_item(
-            "black-and-white",
-            "BLACK &amp; WHITE",
-            "/black-and-white",
-        ) ?>
+        <?= nav_item("black-and-white", "BLACK & WHITE", "/black-and-white") ?>
         <?= nav_item("drips", "DRIPS", "/drips") ?>
         <?= nav_item("encaustic", "ENCAUSTIC", "/encaustic") ?>
         <?= nav_item("projects", "PROJECTS", "/projects") ?>
