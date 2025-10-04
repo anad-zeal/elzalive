@@ -527,8 +527,7 @@ h3.title {
   justify-items: center;
   text-align: center;
   flex: 1 1 auto;
-  min-width: 240px;
-  width: 30vw;
+  width: 80vw;
 }
 
 .gallery-grid .mid .mnu {
