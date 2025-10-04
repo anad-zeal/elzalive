@@ -497,6 +497,7 @@ h3.title {
 }
 
 .gallery-grid div {
+  max-height: fit-content;
   height: 4rem;
 }
 
