@@ -60,7 +60,7 @@ function nav_item(string $slug, string $label, string $href): string
       <div class="left">
         <h3 class="title">Alexis Elza</h3>
       </div>
-      <div class="gllery-grid mid">
+      <div class="gallery-grid mid">
         <?= nav_item("black-and-white", "BLACK & WHITE", "/black-and-white") ?>
         <?= nav_item("drips", "DRIPS", "/drips") ?>
         <?= nav_item("encaustic", "ENCAUSTIC", "/encaustic") ?>
