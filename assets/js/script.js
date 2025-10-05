@@ -231,6 +231,7 @@ function swapHeadersViaQueryParam() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  mainMenu();
   initSlideshows();
   swapHeadersViaQueryParam();
 });
