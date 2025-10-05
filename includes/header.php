@@ -40,7 +40,7 @@ function nav_item(string $slug, string $label, string $href): string
 <body data-page="<?= htmlspecialchars($active_page, ENT_QUOTES, "UTF-8") ?>">
   <header class="site-header">
     <!-- Primary nav -->
-    <section id="top-grid-wrapper">
+    <div id="top-grid-wrapper">
     <nav class="top-grid main-nav" aria-label="Primary Nav">
         <div class="top-grid">
                 <div class="flex-item col-1">Alexis Elza</div>
@@ -50,9 +50,9 @@ function nav_item(string $slug, string $label, string $href): string
                 <div class="flex-item col-5">Gallery</div>
             </div>
     </nav>
-    </section>
+    </div>
     <!-- Galleries nav section-->
-    <section id="gallery-grid-wrapper">
+    <div id="gallery-grid-wrapper">
     <nav class="gallery-grid gallery-nav" aria-label="Galleries">
       <div class="left"><h3 class="title">Alexis Elza</h3></div>
       <div class="mid">
@@ -80,5 +80,5 @@ function nav_item(string $slug, string $label, string $href): string
       </div>
       <div class="right">&nbsp;</div>
     </nav>
-    </section>
+    </div>
   </header>
