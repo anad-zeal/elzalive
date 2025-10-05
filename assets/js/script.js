@@ -1,5 +1,5 @@
-// assets/js/descripts.js
-// Vanilla JS slideshows (ES module). ARIA-friendly and SPA-safe .
+// assets/js/script.js
+// Vanilla JS slideshow (ES module). ARIA-friendly and SPA-safe.
 
 function createEl(tag, dataRole) {
   const el = document.createElement(tag);
@@ -214,9 +214,7 @@ export class Slideshow {
     };
     if (first.complete && first.naturalWidth > 0) requestAnimationFrame(reveal);
     else {
-      first.addEventListener('load', () => requestAnimationFrame(reveal), {
-        once: true,
-      });
+      first.addEventListener('load', () => requestAnimationFrame(reveal), { once: true });
       first.addEventListener(
         'error',
         () => {
@@ -279,13 +277,7 @@ export function initSlideshows(root = document) {
       const autoplay = el.getAttribute('data-autoplay') !== 'false';
       const pauseOnHover = el.getAttribute('data-pause-on-hover') !== 'false';
       try {
-        return new Slideshow(el, {
-          jsonUrl,
-          interval,
-          fadeMs,
-          autoplay,
-          pauseOnHover,
-        });
+        return new Slideshow(el, { jsonUrl, interval, fadeMs, autoplay, pauseOnHover });
       } catch (e) {
         console.error('Error initializing slideshow:', e);
         el.innerHTML = `<p style="text-align:center; padding: 20px; color:#b00;">Failed to load slideshow: ${e.message}</p>`;
@@ -302,23 +294,15 @@ function swapHeadersViaQueryParam() {
   const siteHeader = document.querySelector('.site-header');
   const slideshowHeader =
     document.querySelector('.slideshow-site-header') ||
-    document.querySelector('.slideshow-site-header');
+    document.querySelector('.slidesshow-site-header');
   if (siteHeader) siteHeader.style.visibility = 'hidden';
   if (slideshowHeader) slideshowHeader.style.visibility = 'visible';
   document.body.classList.add('is-slideshow');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  mainMenu();
   initSlideshows();
   swapHeadersViaQueryParam();
 });
 window.addEventListener('hashchange', () => initSlideshows());
 window.addEventListener('app:navigate', () => initSlideshows());
-window.addEventListener('hashchange', () => mainMenu());
-window.addEventListener('app:navigate', () => mainMenu());
-
-function mainMenu() {
-  const mnuHTML = document.querySelector('.site-header');
-  if (mnuHTML) mnuHTML.innerHTML = `<?= $mainNav ?>`;
-}

@@ -1,5 +1,5 @@
 <?php
-// includes/header.php//
+// includes/header.php
 $page_title = $page_title ?? "aepaints";
 $active_page = $active_page ?? "home";
 
@@ -19,7 +19,6 @@ function nav_item(string $slug, string $label, string $href): string
 }
 ?>
 <!doctype html>
-
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -39,21 +38,39 @@ function nav_item(string $slug, string $label, string $href): string
 
 <body data-page="<?= htmlspecialchars($active_page, ENT_QUOTES, "UTF-8") ?>">
   <header class="site-header">
-      <?php $mainNav =
-          "<nav class='top-grid main-nav' aria-label='Primary'>
-        <div class='mid'>
-          " .
-          nav_item("home", "HOME", "/home") .
-          "
-          " .
-          nav_item("artworks", "ARTWORKS", "/artworks") .
-          "
-          " .
-          nav_item("biography", "BIOGRAPHY", "/biography") .
-          "
-          " .
-          nav_item("contact", "CONTACT", "/contact") .
-          "
-        </div>
-      </nav>"; ?>
+    <!-- Primary nav -->
+    <nav class="top-grid main-nav" aria-label="Primary">x
+      <div class="left">
+        <a href="/home" class="brand" aria-label="Go to Home"><span class="visually-hidden">aepaints</span></a>
+      </div>
+      <div class="mid">
+        <?= nav_item("home", "HOME", "/home") ?>
+        <?= nav_item("artworks", "ARTWORKS", "/artworks") ?>
+        <?= nav_item("biography", "BIOGRAPHY", "/biography") ?>
+        <?= nav_item("contact", "CONTACT", "/contact") ?>x
+      </div>
+      <div class="right">
+        <span class="portfolio-text">GALLERY NAME</span>
+      </div>
+    </nav>
+
+    <!-- Galleries nav -->
+    <nav class="top-grid main-nav" aria-label="Galleries">
+      <div class="left">
+        <h3 class="title">Alexis Elza</h3>
+      </div>
+      <div class="mid">
+        <?= nav_item(
+            "black-and-white",
+            "BLACK &amp; WHITE",
+            "/black-and-white",
+        ) ?>
+        <?= nav_item("drips", "DRIPS", "/drips") ?>
+        <?= nav_item("encaustic", "ENCAUSTIC", "/encaustic") ?>
+        <?= nav_item("projects", "PROJECTS", "/projects") ?>
+        <?= nav_item("restoration", "RESTORATION", "/restoration") ?>
+        <?= nav_item("decorative", "DECORATIVE", "/decorative") ?>
+      </div>
+      <div class="right"></div>
+    </nav>
   </header>
