@@ -317,11 +317,11 @@ window.addEventListener('hashchange', () => initSlideshows());
 window.addEventListener('app:navigate', () => initSlideshows());
 
 function mainMenu() {
-  var mainNav = "<div class='main-mnu'>
+  var mainNav = `<div class='main-mnu'>
     <div class='left'>Biography</div>
-  <div class='middle'>Home</div>
-  <div class='right'>Contact</div>
-  </div>";
+    <div class='middle'>Home</div>
+    <div class='right'>Contact</div>
+  </div>`;
 
   const mnuHTML = document.querySelector('.site-header');
 
