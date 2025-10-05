@@ -38,6 +38,6 @@ function nav_item(string $slug, string $label, string $href): string
 </head>
 
 <body data-page="<?= htmlspecialchars($active_page, ENT_QUOTES, "UTF-8") ?>">
-  <header class="site-header">
+  <header class="site-header tempo">
 
   </header>
