@@ -59,7 +59,7 @@ function nav_item(string $slug, string $label, string $href): string
         <div class="mnu">HOME</div>
         <div class="mnu"><class="mnu"><?= nav_item(
             "black-and-white",
-            "Black & White",
+            "Black & Whites",
             "/black-and-white",
         ) ?></div>
         <div class="mnu"><class="mnu"><?= nav_item(
