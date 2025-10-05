@@ -370,10 +370,7 @@ h3.title {
   flex-wrap: wrap;
   min-height: 2.5rem;
 }
-.top-grid .left {
-  width: 35vw;
-  text-align: left;
-}
+
 .top-grid .mid {
   width: 30vw;
   display: flex;
@@ -390,10 +387,6 @@ h3.title {
 .top-grid .mid a:hover {
   color: var(--ink-muted);
   transform: scale(1.05);
-}
-.top-grid .right {
-  width: 35vw;
-  text-align: right;
 }
 
 .gallery-grid {
