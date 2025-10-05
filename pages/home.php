@@ -1,4 +1,4 @@
-<main id="main" class="page-content-wrapper" tabindex="-2">
+<main id="main" class="page-content-wrapper" tabindex="-1">
   <section class="body-paragraphs" aria-labelledby="home-page-heading">
     <h1 id="home-page-heading" class="page-title">Home</h1>
     <h2 id="portfolio-heading" class="visually-hidden">Portfolio</h2>
