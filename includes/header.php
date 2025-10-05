@@ -69,7 +69,7 @@ function nav_item(string $slug, string $label, string $href): string
         ) ?></div>
         <div class="mnu"><class="mnu"> <?= nav_item(
             "encaustic",
-            "Encaustic",
+            "Encaustics",
             "/encaustic",
         ) ?></div>
         <div class="mnu"><class="mnu"> <?= nav_item(
