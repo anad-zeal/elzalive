@@ -317,11 +317,14 @@ window.addEventListener('hashchange', () => initSlideshows());
 window.addEventListener('app:navigate', () => initSlideshows());
 
 function mainMenu() {
-  var mainNav = `<div class='main-mnu'>
-    <div class='left'>Biography</div>
-    <div class='middle'>Home</div>
-    <div class='right'>Contact</div>
-  </div>`;
+  var mainNav = `<nav class='top-grid main-nav' aria-label='Primary'>
+        <div class='mid'>
+          <?= nav_item('home', 'HOME', '/home') ?>
+          <?= nav_item('artworks', 'ARTWORKS', '/artworks') ?>
+          <?= nav_item('biography', 'BIOGRAPHY', '/biography') ?>
+          <?= nav_item('contact', 'CONTACT', '/contact') ?>
+        </div>
+      </nav>>`;
 
   const mnuHTML = document.querySelector('.site-header');
 
