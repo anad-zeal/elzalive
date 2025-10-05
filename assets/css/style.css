@@ -354,7 +354,7 @@ h3.title {
 }
 
 section #top-grid-wrapper {
-  visibility: hidden;
+  visibility: hidden !important;
 }
 
 .top-grid {
@@ -399,9 +399,7 @@ section #top-grid-wrapper {
   font-weight: 500;
 }
 
-section #gallery-grid-wrapper {
-  visibility: hidden;
-}
+/* Removed invalid selector: section #gallery-grid-wrapper !important { visibility: hidden; } */
 
 .gallery-grid {
   display: flex;
