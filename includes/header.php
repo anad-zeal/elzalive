@@ -41,18 +41,13 @@ function nav_item(string $slug, string $label, string $href): string
   <header class="site-header">
     <!-- Primary nav -->
     <nav class="top-grid main-nav" aria-label="Primary">
-      <div class="left">
-        <a href="/home" class="brand" aria-label="Go to Home"><span class="visually-hidden">aepaints</span></a>
-      </div>
-      <div class="mid">
-        <?= nav_item("home", "HOME", "/home") ?>
-        <?= nav_item("artworks", "ARTWORKS", "/artworks") ?>
-        <?= nav_item("biography", "BIOGRAPHY", "/biography") ?>
-        <?= nav_item("contact", "CONTACT", "/contact") ?>
-      </div>
-      <div class="right">
-      &nbsp;
-      </div>
+        <div class="top-grid">
+                <div class="flex-item col-1">Alexis Elza</div>
+                <div class="flex-item col-2">HOME</div>
+                <div class="flex-item col-3">BIOGRAPHY</div>
+                <div class="flex-item col-4">CONTACT</div>
+                <div class="flex-item col-5">Gallery</div>
+            </div>
     </nav>
 
     <!-- Galleries nav -->
