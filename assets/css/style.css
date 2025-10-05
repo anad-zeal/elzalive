@@ -1,5 +1,5 @@
 /* =========================================
-   Design Tokens/
+   Design Tokens
 ========================================= */
 :root {
   /* Colors */
@@ -357,55 +357,47 @@ h3.title {
   margin-bottom: 1vh;
 }
 
-#top-grid-wrapper {
-  height: 0;
-}
-
-.top-grid {
+.main-mnu {
   display: flex;
   justify-content: space-between;
   width: 96vw;
-  height: 2.2rem;
-  margin: 0 auto;
-  align-items: center;
-  font-family: var(--font-ui);
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  min-height: 2.5rem;
+  height: 4rem;
+  text-transform: uppercase;
 }
-.top-grid .left {
-  width: 35vw;
-  text-align: left;
+
+.main-mnu div {
+  height: 4rem;
 }
-.top-grid .mid {
-  width: 30vw;
+
+.main-mnu .left {
   display: flex;
+  width: 45%;
+  justify-content: flex-end;
   align-items: center;
-  justify-content: space-around;
-  flex: 1 1 auto;
-  min-width: 240px;
 }
 
-.top-grid .mid a,
-.gallery-grid .mid a {
-  text-decoration: none;
-  color: var(--brand);
-  transition: color 250ms ease, transform 250ms ease;
-}
-.top-grid .mid a:hover,
-.gallery-grid .mid a:hover {
-  color: var(--ink-muted);
-  transform: scale(1.05);
-}
-.top-grid .right {
-  width: 35vw;
-  text-align: right;
-  font-weight: 500;
+.main-mnu .middle {
+  display: flex;
+  width: 10%;
+  justify-content: center;
+  align-items: center;
 }
 
-/* Removed invalid selector: */
-#gallery-grid-wrapper {
-  height: 0;
+.main-mnu .right {
+  display: flex;
+  width: 45%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+* {
+  box-sizing: border-box;
+}
+body {
+  padding: 20px;
+}
+v .flex-grid {
+  margin: 0 0 20px 0;
 }
 
 .gallery-grid {

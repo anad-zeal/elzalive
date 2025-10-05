@@ -1,5 +1,5 @@
 <?php
-// includes/header.php ////
+// includes/header.php /
 $page_title = $page_title ?? "aepaints";
 $active_page = $active_page ?? "home";
 
@@ -33,11 +33,46 @@ function nav_item(string $slug, string $label, string $href): string
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poiret+One&family=Spectral:ital,wght@0,200..800;1,200..800&display=swap" rel="stylesheet">
-  <script type="text/javascript" src="https://cdn.jsdelivr.net/gh/c-kick/mobileConsole/hnl.mobileconsole.min.js?ver=1.4.0" id="con-js"></script>
+
   <link rel="stylesheet" href="/assets/css/style.css?v=5" />
 </head>
 
 <body data-page="<?= htmlspecialchars($active_page, ENT_QUOTES, "UTF-8") ?>">
-  <header class="site-header tempo">
-
+  <header class="site-header">
+    <!-- Primary nav -->
+    <div class="main-mnu">
+      <div class="left">Biography</div>
+    <div class="middle">Home</div>
+      <div class="right">Contact</div>
+    </div>
+    <!-- Galleries nav section-->
+    <div id="gallery-grid-wrapper">
+    <nav class="gallery-grid gallery-nav" aria-label="Galleries">
+      <div class="left"><h3 class="title">Alexis Elza</h3></div>
+      <div class="mid">
+        <div class="mnu">HOME</div>
+        <div class="mnu"><class="mnu"><?= nav_item(
+            "black-and-white",
+            "Black & Whites",
+            "/black-and-white",
+        ) ?></div>
+        <div class="mnu"><class="mnu"><?= nav_item(
+            "drips",
+            "Drip Series",
+            "/drips",
+        ) ?></div>
+        <div class="mnu"><class="mnu"> <?= nav_item(
+            "encaustic",
+            "Encaustics",
+            "/encaustic",
+        ) ?></div>
+        <div class="mnu"><class="mnu"> <?= nav_item(
+            "projects",
+            "Project Series",
+            "/projects",
+        ) ?></div>
+      </div>
+      <div class="right">&nbsp;</div>
+    </nav>
+    </div>
   </header>
