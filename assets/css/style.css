@@ -397,54 +397,55 @@ h3.title {
     text-align: right;
 }
 
-/*.gallery-grid {
-  display: flex;
-  justify-content: space-between;
-  width: 96vw;
-  height: 4rem;
-  margin: 0 auto;
-  align-items: center;
+/* Optional hidden alt header */
+.slideshow-site-header {
+    visibility: hidden;
+}
+
+.gallery-grid {
+    display: flex;
+    justify-content: space-between;
+    width: 96vw;
+    height: 4rem;
+    margin: 0 auto;
+    align-items: center;
 }
 
 .gallery-grid div {
-  height: 4rem;
+    height: 4rem;
 }
 
 .gallery-grid .left {
-  width: 11%;
-  border: solid 1px blue;
-  text-align: left;
-  display: flex;
-  align-items: center;
+    width: 201%;
+    text-align: left;
+    display: flex;
+    align-items: center;
 }
 
 .gallery-grid .mid {
-  width: auto;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  justify-items: center;
+    width: auto;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-items: center;
 }
 
 .gallery-grid .mid .mnu {
-  display: flex;
-  min-width: 11vw;
-  flex: 1;
-  border: solid 1px red;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    min-width: 11vw;
+    flex: 1;
+    border: solid 1px red;
+    justify-content: center;
+    align-items: center;
 }
 
-.mnu a {
-  font-size: 4rem important;
-}
 .gallery-grid .right {
-  display: flex;
-  width: 10%;
-  border: solid 1px blue;
-  justify-content: flex-end;
-  align-items: center;
-}*/
+    display: flex;
+    width: 2%;
+    border: solid 1px blue;
+    justify-content: flex-end;
+    align-items: center;
+}
 
 /* =========================================
    Slideshow — Hardened Overrides
@@ -483,55 +484,4 @@ h3.title {
 /* Active link styling */
 :root {
     --link-active: hsl(180 72% 35%);
-}
-
-√
-/* Optional hidden alt header */
-.slideshow-site-header {
-    visibility: hidden;
-}
-
-.gallery-grid {
-    display: flex;
-    justify-content: space-between;
-    width: 96vw;
-    height: 4rem;
-    margin: 0 auto;
-    align-items: center;
-}
-
-.gallery-grid div {
-    height: 4rem;
-}
-
-.gallery-grid .left {
-    width: 11%;
-    text-align: left;
-    display: flex;
-    align-items: center;
-}
-
-.gallery-grid .mid {
-    width: auto;
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-items: center;
-}
-
-.gallery-grid .mid .mnu {
-    display: flex;
-    min-width: 11vw;
-    flex: 1;
-    border: solid 1px red;
-    justify-content: center;
-    align-items: center;
-}
-
-.gallery-grid .right {
-    display: flex;
-    width: 10%;
-    border: solid 1px blue;
-    justify-content: flex-end;
-    align-items: center;
 }
