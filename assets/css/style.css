@@ -126,7 +126,7 @@ video {
 }
 
 #home-page-heading {
-  display: none;
+  display: block;
 }
 
 .page-header {
