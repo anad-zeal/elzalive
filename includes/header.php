@@ -1,5 +1,5 @@
 <?php
-// include/header.php and more and more
+// include/header.php and more
 $page_title = $page_title ?? "aepaints";
 $active_page = $active_page ?? "home";
 
@@ -41,31 +41,26 @@ function nav_item(string $slug, string $label, string $href): string
 
 <body data-page="<?= htmlspecialchars($active_page, ENT_QUOTES, "UTF-8") ?>">
     <header class="site-header">
-
         <!-- Primary nav -->
-        <nav class="top-grid main-nav front-page" aria-label="Primary">
+        <nav class="top-grid main-nav" aria-label="Primary">
 
             <div class="mid">
                 <?= nav_item("home", "HOME", "/home") ?>
                 <?= nav_item("artworks", "ARTWORKS", "/artworks") ?>
                 <?= nav_item("biography", "BIOGRAPHY", "/biography") ?>
                 <?= nav_item("contact", "CONTACT", "/contact") ?>
+            </div>
         </nav>
 
         <!-- Galleries nav -->
-        <nav class="bottom-grid main-nav galleries" aria-label="Galleries">
+        <nav class="top-grid main-nav" aria-label="Galleries">
 
             <div class="mid">
-                <?= nav_item(
-                    "black-and-white",
-                    "BLACK and WHITE",
-                    "/black-and-white",
-                ) ?>
+                <?= nav_item("black-and-white", "BLACK and WHITE", "/black-and-white") ?>
                 <?= nav_item("drips", "DRIP SERIES", "/drips") ?>
                 <?= nav_item("encaustic", "ENCAUSTIC", "/encaustic") ?>
                 <?= nav_item("projects", "PROJECT SERIES", "/projects") ?>
             </div>
 
         </nav>
-
     </header>
