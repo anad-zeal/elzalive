@@ -310,19 +310,6 @@ function swapHeadersViaQueryParam() {
 document.addEventListener('DOMContentLoaded', () => {
   initSlideshows();
   swapHeadersViaQueryParam();
-});
-
-window.addEventListener('hashchange', () => initSlideshows());
-window.addEventListener('app:navigate', () => initSlideshows());
-
-const links = document.querySelectorAll('.main-nav .mid a');
-links.forEach((link) => {
-  if (link.href === window.location.href) {
-    link.classList.add('active');
-  }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.querySelectorAll('nav .mid a');
   const subTitleElement = document.querySelector('p.sub-title'); // Select your existing sub-title element
 
@@ -377,3 +364,15 @@ document.addEventListener('DOMContentLoaded', () => {
     subTitleElement.textContent = 'Welcome to the Site!';
   }
 });
+
+window.addEventListener('hashchange', () => initSlideshows());
+window.addEventListener('app:navigate', () => initSlideshows());
+
+const links = document.querySelectorAll('.main-nav .mid a');
+links.forEach((link) => {
+  if (link.href === window.location.href) {
+    link.classList.add('active');
+  }
+});
+
+document.addEventListener('DOMContentLoaded', () => {});
