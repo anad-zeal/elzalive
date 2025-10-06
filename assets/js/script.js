@@ -316,9 +316,9 @@ document.addEventListener('DOMContentLoaded', () => {
   // Define the titles for each path
   const pageTitles = {
     '/home': 'The life of an artist',
-    '/artworks': 'Artworks Page',
-    '/biography': 'Biography Page',
-    '/contact': 'Contact Page',
+    '/artworks': 'Artwork Categories',
+    '/biography': 'How I became an artist',
+    '/contact': 'CSend me a message',
   };
 
   // Function to update the sub-title and active class
