@@ -311,6 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initSlideshows();
   swapHeadersViaQueryParam();
 });
+
 window.addEventListener('hashchange', () => initSlideshows());
 window.addEventListener('app:navigate', () => initSlideshows());
 
