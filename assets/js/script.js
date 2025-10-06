@@ -342,7 +342,6 @@ document.addEventListener('DOMContentLoaded', () => {
       subTitleElement.textContent = pageTitles[path] || 'Welcome!'; // Use a default if not found
     }
   }
-
   // Add click event listener to each navigation link
   navLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
