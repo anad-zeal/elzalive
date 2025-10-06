@@ -126,7 +126,7 @@ Page Shell
   max-width: 1100px;
   margin-inline: auto;
   padding: 1rem 2rem;
-  border-color: rgb(239, 7, 42);
+  border: solid 1px red;
 }
 
 .page-header {
@@ -205,7 +205,7 @@ h3.title {
   width: min(100%, var(--narrow-max));
   margin-inline: auto;
   font-family: var(--font-body);
-  /* border: solid 1px red; */
+  border: solid 1px red;
 }
 
 .section-format p,
