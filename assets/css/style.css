@@ -244,8 +244,6 @@ h3.title {
 
 /* Corrected selector for p.sub-title */
 .sub-title {
-  position: relative; /* Consider if 'relative' is truly needed; might be better to position parent */
-  top: 1vh; /* Consider if '1vh' is always desired; might push content down unnaturally */
   font-family: var(--font-family-script);
   font-size: var(--font-size-sub-title-clamp);
   font-weight: 200;
