@@ -1,3 +1,4 @@
-<main id="main-content-fade-area" class="page-content-wrapper fade-target">
-    <!-- The sub-title is part of the content that will fade -->
-    <p class="sub-title"></p>
+<main id="main" tabindex="-1">
+    <section class="hero">
+        <h1>class="sub-title">The life of an artist</h1>
+    </section>

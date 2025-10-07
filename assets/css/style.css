@@ -1,4 +1,42 @@
-/* =========================================
+<header class="site-header">
+        <!-- Primary nav -->
+        <nav class="top-grid main-nav" aria-label="Primary">
+
+            <div class="mid">
+                <?= nav_item("home", "HOME", "/home") ?>
+                <?= nav_item("artworks", "ARTWORKS", "/artworks") ?>
+                <?= nav_item("biography", "BIOGRAPHY", "/biography") ?>
+                <?= nav_item("contact", "CONTACT", "/contact") ?>
+            </div>
+        </nav>
+
+        <!-- Galleries nav -->
+        <nav class="top-grid main-nav galleries" aria-label="Galleries">
+
+            <div class="mid">
+                <?= nav_item(
+                    "black-and-white",
+                    "BLACK and WHITE",
+                    "/black-and-white",
+                ) ?>
+                <?= nav_item("drips", "DRIP SERIES", "/drips") ?>
+                <?= nav_item("encaustic", "ENCAUSTIC", "/encaustic") ?>
+                <?= nav_item("projects", "PROJECT SERIES", "/projects") ?>
+            </div>
+
+        </nav>
+    </header>
+```
+hero.php
+``` html
+<main id="main" tabindex="-1">
+    <section class="hero">
+        <h2 class="sub-title">The life of an artist</h2>
+    </section>
+```
+style.css
+``` css
+	/* =========================================
    Design Tokens
    ========================================= */
 :root {
@@ -544,23 +582,18 @@ a.is-active {
   text-align: center;
 }
 
-/* Add this for the fade effect */
-.fade-target {
-  transition: opacity var(--transition-speed-base) var(--transition-easing-ease-out);
+/* Add a new class for navigation links */
+.nav-link {
+  min-width: 20vw; /* This might be too wide on very large screens or too small on small screens. Consider `min-content` or `flex-grow` on the parent. */
+  text-align: center;
 }
 
-/* Base style for sub-title, remove any 'top' that causes jumps */
-.sub-title {
-  /* Existing styles */
-  font-family: var(--font-family-script);
-  font-size: var(--font-size-sub-title-clamp);
-  font-weight: 200;
-  letter-spacing: -0.02em;
-  text-align: center;
-  margin: 0;
-  color: var(--color-ink);
-  /* No 'position: relative' or 'top: 1vh' here unless absolutely necessary
-       and if you can control its initial state very precisely. */
-  transition: font-size var(--transition-speed-base) var(--transition-easing-ease-out),
-    opacity var(--transition-speed-base) var(--transition-easing-ease-out); /* Add opacity transition */
+/* Add a new class for navigation links */
+.nav-link:hover {
+  color: var(--color-primary); /* Use design token */
+}
+
+/* Add a new class for navigation links */
+.nav-link:focus {
+  outline: 2px solid var(--color-primary); /* Use design token */
 }
