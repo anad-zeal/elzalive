@@ -166,8 +166,7 @@ video {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 80vw;
-  height: 4rem;
+  height: auto;
   background-color: var(--color-primary);
   color: var(--color-soft);
   text-align: center;
@@ -246,7 +245,7 @@ h3.title {
 /* Corrected selector for p.sub-title */
 .sub-title {
   font-family: var(--font-family-script);
-  font-size: 6rem
+  font-size: var(--font-size-sub-title-clamp);
   font-weight: 200;
   letter-spacing: -0.02em;
   text-align: center;
