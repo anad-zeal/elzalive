@@ -246,7 +246,7 @@ h3.title {
 /* Corrected selector for p.sub-title */
 .sub-title {
   font-family: var(--font-family-script);
-  font-size: var(--font-size-sub-title-clamp);
+  font-size: 6rem
   font-weight: 200;
   letter-spacing: -0.02em;
   text-align: center;
