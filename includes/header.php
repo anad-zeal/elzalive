@@ -53,7 +53,7 @@ function nav_item(string $slug, string $label, string $href): string
         </nav>
 
         <!-- Galleries nav -->
-        <nav class="top-grid main-nav" aria-label="Galleries">
+        <nav class="top-grid main-nav galleries" aria-label="Galleries">
 
             <div class="mid">
                 <?= nav_item(
