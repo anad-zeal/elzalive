@@ -242,7 +242,6 @@ h3.title {
    If h3 should be smaller than h1, adjust its clamp values specifically.
 */
 
-/* Corrected selector for p.sub-title */
 .sub-title {
   font-family: var(--font-family-script);
   font-size: var(--font-size-sub-title-clamp);
@@ -543,4 +542,25 @@ a.is-active {
 .mid a {
   min-width: 20vw; /* This might be too wide on very large screens or too small on small screens. Consider `min-content` or `flex-grow` on the parent. */
   text-align: center;
+}
+
+/* Add this for the fade effect */
+.fade-target {
+  transition: opacity var(--transition-speed-base) var(--transition-easing-ease-out);
+}
+
+/* Base style for sub-title, remove any 'top' that causes jumps */
+.sub-title {
+  /* Existing styles */
+  font-family: var(--font-family-script);
+  font-size: var(--font-size-sub-title-clamp);
+  font-weight: 200;
+  letter-spacing: -0.02em;
+  text-align: center;
+  margin: 0;
+  color: var(--color-ink);
+  /* No 'position: relative' or 'top: 1vh' here unless absolutely necessary
+       and if you can control its initial state very precisely. */
+  transition: font-size var(--transition-speed-base) var(--transition-easing-ease-out),
+    opacity var(--transition-speed-base) var(--transition-easing-ease-out); /* Add opacity transition */
 }

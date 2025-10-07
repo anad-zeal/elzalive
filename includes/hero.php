@@ -1,4 +1,3 @@
-<main id="main" tabindex="-1">
-    <section class="hero">
-        <p class="sub-title">The life of an artist</p>
-    </section>
+<main id="main-content-fade-area" class="page-content-wrapper fade-target">
+    <!-- The sub-title is part of the content that will fade -->
+    <p class="sub-title"></p>

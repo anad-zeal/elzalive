@@ -208,7 +208,7 @@ export class Slideshow {
       this.stage.appendChild(img);
       return img;
     });
-  }
+  }s
 
   _fadeInFirst() {
     if (!this.images.length) return;
@@ -302,7 +302,6 @@ export function initSlideshows(root = document) {
     .filter(Boolean);
 }
 
-/* Optional header swap via ?showSlideshow=true */
 function swapHeadersViaQueryParam() {
   const params = new URLSearchParams(window.location.search);
   if (params.get("showSlideshow") !== "true") return;
@@ -319,8 +318,7 @@ document.addEventListener("DOMContentLoaded", () => {
   initSlideshows();
   swapHeadersViaQueryParam();
   const navLinks = document.querySelectorAll("nav .mid a");
-  const subTitleElement = document.querySelector("p.sub-title"); // Select your existing sub-title element
-
+  const subTitleElement = document.querySelector("h2.sub-title");
 
 });
 
@@ -341,31 +339,26 @@ function updatePageContent(activeLink) {
   });
 
   activeLink.classList.add("is-active");
-  // Extract the clean href for aria-current
+
   const cleanHref = activeLink.getAttribute("href").replace(/~\[|\]~/g, "");
   const pageName = cleanHref.substring(1); // Get "home", "artworks" etc.
   activeLink.setAttribute("aria-current", `${pageName} page`);
 
-  // 2. Update the sub-title
+
   if (subTitleElement) {
     // Check if the sub-title element exists on the page
     const path = activeLink.getAttribute("href").replace(/~\[|\]~/g, ""); // Clean the href
     subTitleElement.textContent = pageTitles[path] || "Welcome!"; // Use a default if not found
   }
 }
-// Add click event listener to each navigation link
+
 navLinks.forEach((link) => {
   link.addEventListener("click", (event) => {
-    // event.preventDefault(); // Prevent the default link behavior (page reload)
     updatePageContent(link);
-
-    // Optional: You might want to update the URL hash or use history.pushState
-    // if you want this to reflect in the browser's URL without a full reload.
-    // window.history.pushState({}, pageTitles[path], link.getAttribute('href').replace(/~\[|\]~/g, ''));
   });
 });
 
-// Initial setup: Set the sub-title based on the initially active link (if any)
+
 const initialActiveLink = document.querySelector("nav .mid a.is-active");
 if (initialActiveLink) {
   updatePageContent(initialActiveLink);
@@ -383,3 +376,109 @@ links.forEach((link) => {
 if (link.href === window.location.href) {
   link.classList.add("active");
 }
+
+const navLinks = document.querySelectorAll('nav .mid a');
+   const subTitleElement = document.querySelector('p.sub-title');
+   const mainContentFadeArea = document.getElementById('main-content-fade-area'); // The container you want to fade
+
+   // Define the titles for each path
+   const pageTitles = {
+       '/home': 'The life of an artist',
+       '/artworks': 'Artworks Page',
+       '/biography': 'Biography Page',
+       '/contact': 'Contact Page'
+   };
+
+   let isTransitioning = false; // Flag to prevent multiple rapid clicks during transition
+
+   // Function to update the sub-title and active class with cross-fade
+   async function updatePageContent(activeLink) {
+       if (isTransitioning) return; // Prevent new transitions while one is active
+       isTransitioning = true;
+
+       const cleanHref = activeLink.getAttribute('href').replace(/~\[|\]~/g, '');
+       const pageName = cleanHref.substring(1);
+       const newSubTitleText = pageTitles[cleanHref] || 'Welcome!';
+
+       // 1. Fade out current content
+       if (mainContentFadeArea) {
+           mainContentFadeArea.style.opacity = 0;
+           // Wait for the fade-out transition to complete
+           await new Promise(resolve => setTimeout(resolve, parseInt(getComputedStyle(mainContentFadeArea).transitionDuration) * 1000 || 280)); // Use CSS transition duration
+       } else if (subTitleElement) {
+           // Fallback: just fade out the sub-title if no main fade area
+           subTitleElement.style.opacity = 0;
+           await new Promise(resolve => setTimeout(resolve, parseInt(getComputedStyle(subTitleElement).transitionDuration) * 1000 || 280));
+       }
+
+
+       // 2. Update the 'is-active' class and 'aria-current'
+       navLinks.forEach(link => {
+           link.classList.remove('is-active');
+           link.removeAttribute('aria-current');
+       });
+       activeLink.classList.add('is-active');
+       activeLink.setAttribute('aria-current', `${pageName} page`);
+
+
+       // 3. Update the sub-title text (and other dynamic content if you have it)
+       if (subTitleElement) {
+           subTitleElement.textContent = newSubTitleText;
+           // If you have other page content that changes, update it here:
+           // Example: document.getElementById('page-specific-content').innerHTML = `<h2>Content for ${pageName}</h2><p>...</p>`;
+           // Or use an actual router/component loader here if building a SPA
+       }
+
+
+       // 4. Fade in new content
+       if (mainContentFadeArea) {
+           mainContentFadeArea.style.opacity = 1;
+       } else if (subTitleElement) {
+           // Fallback: just fade in the sub-title
+           subTitleElement.style.opacity = 1;
+       }
+
+       isTransitioning = false;
+   }
+
+   // Add click event listener to each navigation link
+   navLinks.forEach(link => {
+       link.addEventListener('click', (event) => {
+           event.preventDefault(); // Prevent the default link behavior (page reload)
+           updatePageContent(link);
+           // Optional: Update URL hash or use history.pushState if desired for deep linking
+       });
+   });
+
+   // Initial setup: Set the sub-title and content based on the initially active link (if any)
+   const initialActiveLink = document.querySelector('nav .mid a.is-active');
+   if (initialActiveLink) {
+       updatePageContent(initialActiveLink).then(() => {
+           // Ensure initial content is visible after setup
+           if (mainContentFadeArea) mainContentFadeArea.style.opacity = 1;
+           else if (subTitleElement) subTitleElement.style.opacity = 1;
+       });
+   } else {
+       // If no link is initially active, set a default sub-title
+       if (subTitleElement) {
+           subTitleElement.textContent = "Welcome to the Site!";
+           if (mainContentFadeArea) mainContentFadeArea.style.opacity = 1;
+           else subTitleElement.style.opacity = 1;
+       } else if (mainContentFadeArea) {
+            mainContentFadeArea.style.opacity = 1;
+       }
+   }
+
+   // Ensure the main content area is initially visible
+   if (mainContentFadeArea) {
+       mainContentFadeArea.style.opacity = 1;
+   } else if (subTitleElement) {
+       subTitleElement.style.opacity = 1;
+   }
+
+
+   // Helper to get transition duration from CSS
+   function getComputedStyle(element) {
+       if (!element) return { transitionDuration: '0s' };
+       return window.getComputedStyle(element);
+   }
