@@ -14,5 +14,5 @@
     <p>It was serendipity that brought me to my career in historic conservation and restoration. While visiting an
         1848 Gothic Revival house that was undergoing decorative painting and plaster restoration I realized what a
         joy it would be to apply my art training to such endeavors. That same day I convinced the project supervisor
-        to hire me, and so began my twenty-five year adventure in historic conservation and restoration.</p>-->
+        to hire me, and so began my twenty-five year adventure in historic conservation and restoration.</p>
 </section>
