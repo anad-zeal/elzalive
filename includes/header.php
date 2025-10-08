@@ -25,7 +25,8 @@ function nav_item(string $slug, string $label, string $href): string
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title><?= htmlspecialchars($page_title, ENT_QUOTES, "UTF-8") ?></title>
-
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/gh/c-kick/mobileConsole/hnl.mobileconsole.min.js?ver=1.4.0" id="con-js"></script>
     <link rel="icon" href="/favicons/favicon.ico" sizes="any">
     <link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png">
