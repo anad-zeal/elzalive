@@ -1,4 +1,4 @@
-<section class="body-paragraphs" aria-labelledby="bio-heading">
+<section class="body-paragraphs" aria-labelledby="bio-heading-page-heading">
     <h1 id="bio-heading" class="page-title"></h1>
 
     <p>As a child I spent many hours in my father’s wood shop. He was a master cabinet maker, restorer of antique
