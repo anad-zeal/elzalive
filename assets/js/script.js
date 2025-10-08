@@ -1,6 +1,12 @@
 // assets/js/script.js
 // Vanilla JS slideshow (ES module). ARIA-friendly and SPA-safe.
 
+document.querySelectorAll('a').forEach((a) => {
+  a.addEventListener('click', (e) => {
+    console.log('Clicked:', a.href);
+  });
+});
+
 /**
  * Creates a DOM element with an optional data-role attribute.
  * @param {string} tag - The HTML tag name.
@@ -446,9 +452,3 @@ window.addEventListener('app:navigate', () => initSlideshows());
 
 // Note: The previous mainMenu function and galleryNav variable are no longer present.
 // The navigation is now handled by the updatePageContent function within DOMContentLoaded.
-
-document.querySelectorAll('a').forEach((a) => {
-  a.addEventListener('click', (e) => {
-    console.log('Clicked:', a.href);
-  });
-});
