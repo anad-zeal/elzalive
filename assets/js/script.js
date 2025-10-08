@@ -406,13 +406,12 @@ document.addEventListener('DOMContentLoaded', () => {
     isTransitioning = false;
   }
 
-  // Add click event listener to each navigation link
+  const navLinks = document.querySelectorAll('nav a');
   navLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
-      event.preventDefault(); // Prevent the default link behavior (page reload)
+      event.preventDefault();
       updatePageContent(link);
-      // Optional: Update URL hash or use history.pushState if desired for deep linking
-      // For example: history.pushState(null, '', link.href);
+      history.pushState(null, '', link.href);
     });
   });
 
