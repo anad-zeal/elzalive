@@ -7,10 +7,9 @@ function getTransitionDuration(element) {
 
 const pageTitles = {
   '/home': 'The life of an artist',
-  '/artworks': 'Artworks', // Changed from 'Artwork Categories'
-  '/biography': 'Biography', // Changed from 'How I became an artist'
-  '/contact': 'Contact', // Changed from 'Send me a message'
-  '/black-and-white': 'Black & White Artworks',
+  '/artworks': 'Artwork Categories',
+  '/biography': 'How I became an artist',
+  '/contact': 'Send me a message',
   '/drips': 'Drip Series Collection',
   '/encaustic': 'Encaustic Works',
   '/projects': 'Project Series Gallery',
@@ -75,6 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     const fadeElement = mainContentFadeArea || subTitleElement;
     if (fadeElement) fadeElement.style.opacity = 1;
-    if (subTitleElement) subTitleElement.textContent = 'Welcome to the Site!'; // Fallback text if no link is active
+    if (subTitleElement) subTitleElement.textContent = 'Welcome to the Site!';
   }
 });
