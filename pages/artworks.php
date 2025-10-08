@@ -1,27 +1,18 @@
-<section class="body-paragraphs" aria-labelledby="artworks-page-heading">
-    <h1 id="artworks-page-heading" class="page-title">Artworks</h1>
+<section class="body-paragraphs" aria-labelledby="">
+    <h1 id="bio-heading" class="page-title"></h1>
 
-    <p>
-        <a href="/black-and-white?showSlideshow=true" class="dropcap mnu-change" data-gallery="black-and-white"
-            aria-label="Go to the Black and White Gallery">B</a>
-        lack and White — Chiaroscuro explorations, tonal balance, and rhythmic abstraction.
+    <p>As a child I spent many hours in my father’s wood shop. He was a master cabinet maker, restorer of antique
+        furniture, and a wood sculptor. My mother was an inventor and patent holder. It is no surprise, given the
+        talent I was exposed to at such an early age, that I made the decision to attend art school. It was at the
+        School of the Worcester Art Museum in Worcester, Massachusetts that I began my formal education in the arts.
     </p>
 
-    <p>
-        <a href="/drips?showSlideshow=true" class="dropcap mnu-change" data-gallery="drips"
-            aria-label="Go to the Drips Series">D</a>
-        rips Series — Gravity, chance, and lyrical accident, where gesture and flow shape surface.
-    </p>
+    <p>While at that school I was honored to receive the Frances Kinnicutt Foreign Travel Award for Women, which
+        gave me the opportunity to study Minoan and Mycenaean art history and architecture on the island of Crete. I
+        went on to earn a BA at Clark University in Worcester, Massachusetts.</p>
 
-    <p>
-        <a href="/encaustic?showSlideshow=true" class="dropcap mnu-change" data-gallery="encaustic"
-            aria-label="Go to the Encaustic Gallery">E</a>
-        ncaustic — Wax and pigment in luminous strata, heat and texture fusing color into depth.
-    </p>
-
-    <p>
-        <a href="/projects?showSlideshow=true" class="dropcap mnu-change" data-gallery="projects"
-            aria-label="Go to the Project Series">P</a>
-        roject Series — Seriality, grids, and conceptual practice, each work a fragment of an evolving atelier.
-    </p>
-</section>
+    <p>It was serendipity that brought me to my career in historic conservation and restoration. While visiting an
+        1848 Gothic Revival house that was undergoing decorative painting and plaster restoration I realized what a
+        joy it would be to apply my art training to such endeavors. That same day I convinced the project supervisor
+        to hire me, and so began my twenty-five year adventure in historic conservation and restoration. </p>
+    <p>bio-heading-page-heading</p>
