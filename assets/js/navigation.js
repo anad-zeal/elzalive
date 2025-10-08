@@ -7,9 +7,9 @@ function getTransitionDuration(element) {
 
 const pageTitles = {
   '/home': 'The life of an artist',
-  '/artworks': 'Artwork Categories',
-  '/biography': 'How I became an artist',
-  '/contact': 'Send me a message',
+  '/artworks': 'Artworks', // Changed from 'Artwork Categories'
+  '/biography': 'Biography', // Changed from 'How I became an artist'
+  '/contact': 'Contact', // Changed from 'Send me a message'
   '/black-and-white': 'Black & White Artworks',
   '/drips': 'Drip Series Collection',
   '/encaustic': 'Encaustic Works',
@@ -30,7 +30,14 @@ document.addEventListener('DOMContentLoaded', () => {
     isTransitioning = true;
     const cleanHref = activeLink.getAttribute('href').replace(/~\[|\]~/g, '');
     const pageName = cleanHref.substring(1) || 'home';
-    const newSubTitleText = pageTitles[cleanHref] || 'Welcome!';
+
+    let newSubTitleText;
+    if (cleanHref === '/home') {
+      newSubTitleText = pageTitles['/home']; // Specific title for home
+    } else {
+      newSubTitleText = activeLink.textContent; // Use link text for other pages
+    }
+
     const fadeElement = mainContentFadeArea || subTitleElement;
     if (fadeElement) {
       fadeElement.style.opacity = 0;
@@ -68,6 +75,6 @@ document.addEventListener('DOMContentLoaded', () => {
   } else {
     const fadeElement = mainContentFadeArea || subTitleElement;
     if (fadeElement) fadeElement.style.opacity = 1;
-    if (subTitleElement) subTitleElement.textContent = 'Welcome to the Site!';
+    if (subTitleElement) subTitleElement.textContent = 'Welcome to the Site!'; // Fallback text if no link is active
   }
 });
