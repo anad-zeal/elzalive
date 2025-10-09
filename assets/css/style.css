@@ -586,7 +586,7 @@ p::first-letter {
   top: 5em; /* Nudge it down a little */
 }
 
-p::first-letter :hover {
+p:hover {
   color: var(--color-focus-ring);
 }
 p::first-letter :focus-visible {
