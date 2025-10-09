@@ -281,6 +281,30 @@ h3.title {
   line-height: 1.6; /* Ensure consistent line height */
 }
 
+.dropcap {
+  float: left;
+  font-family: var(--font-family-script);
+  font-weight: 700;
+  font-size: var(--font-size-dropcap-clamp, 2em); /* fallback for clamp variable */
+  line-height: 1; /* more balanced with 2em font size */
+  margin-right: 0.3em; /* slightly more breathing room */
+  padding-top: 0.08em;
+  color: var(--color-brand);
+  min-width: 1ch;
+  text-decoration: none; /* ensures no underline if it's a link */
+  font-variant-ligatures: none;
+  cursor: default; /* override if interactive */
+}
+
+.dropcap:hover {
+  color: var(--color-focus-ring);
+}
+.dropcap:focus-visible {
+  outline: 1px solid var(--color-focus-ring);
+  outline-offset: 3px;
+  border-radius: var(--border-radius-base);
+}
+
 /* =========================================
    Main Layout & Components
    ========================================= */
