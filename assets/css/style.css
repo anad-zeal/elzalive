@@ -558,3 +558,47 @@ a.is-active {
 .nav-link:focus {
   outline: 2px solid var(--color-primary); /* Use design token */
 }
+
+ :root {
+            --color-ink: #333; /* Example color */
+            --max-width-wide: clamp(16rem, 90vw, 1200px);
+            --max-width-narrow: 80ch;
+        }
+
+        section {
+            font-family: Arial, sans-serif;
+            color: var(--color-ink);
+            line-height: 1.6;
+            margin: 2rem;
+            max-width: var(--max-width-wide);
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        p {
+            margin-bottom: 1em;
+            max-width: var(--max-width-narrow);
+        }
+
+        p::first-letter {
+            font-family: 'Bonheur Royale', cursive;
+            font-size: 4em; /* Adjust as needed */
+            color: var(--color-ink);
+            float: left;
+            margin-right: 0.1em;
+            line-height: 0.8;
+            /* Further styling for visual appeal */
+            padding-right: 5px;
+            padding-bottom: 5px;
+        }
+
+        h2 {
+            font-family: 'Bonheur Royale', cursive;
+            color: var(--color-ink);
+            margin-top: 2em;
+        }
+
+        strong {
+            font-weight: bold;
+        }
+    </style>
