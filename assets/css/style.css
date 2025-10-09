@@ -293,14 +293,6 @@ h3.title {
   text-decoration: none;
   font-variant-ligatures: none;
 }
-.dropcap:hover {
-  color: var(--color-focus-ring);
-}
-.dropcap:focus-visible {
-  outline: 3px solid var(--color-focus-ring);
-  outline-offset: 3px;
-  border-radius: 0.2rem;
-}
 
 /* =========================================
    Main Layout & Components
@@ -592,6 +584,15 @@ p::first-letter {
   /* Adding a slight top margin or vertical-align if further fine-tuning is needed */
   position: relative; /* Allows for more precise positioning */
   top: 5em; /* Nudge it down a little */
+}
+
+p::first-letter:hover {
+  color: var(--color-focus-ring);
+}
+p::first-letter:focus-visible {
+  outline: 3px solid var(--color-focus-ring);
+  outline-offset: 3px;
+  border-radius: 0.2rem;
 }
 
 h2 {
