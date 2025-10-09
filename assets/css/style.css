@@ -586,10 +586,10 @@ p::first-letter {
   top: 5em; /* Nudge it down a little */
 }
 
-p::first-letter:hover {
+p::first-letter :hover {
   color: var(--color-focus-ring);
 }
-p::first-letter:focus-visible {
+p::first-letter :focus-visible {
   outline: 3px solid var(--color-focus-ring);
   outline-offset: 3px;
   border-radius: 0.2rem;
