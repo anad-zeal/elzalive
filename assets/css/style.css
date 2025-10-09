@@ -280,29 +280,26 @@ h3.title {
   font-size: var(--font-size-body); /* Use design token */
   line-height: 1.6; /* Ensure consistent line height */
 }
-
 .dropcap {
   float: left;
-  font-family: var(--font-family-script);
+  font-family: var(--font-script);
   font-weight: 700;
-  font-size: var(--font-size-dropcap-clamp, 2em); /* fallback for clamp variable */
-  line-height: 1; /* more balanced with 2em font size */
-  margin-right: 0.3em; /* slightly more breathing room */
+  font-size: clamp(3.2rem, 8vw, 5rem);
+  line-height: 0.9;
+  margin-right: 0.25em;
   padding-top: 0.08em;
-  color: var(--color-brand);
+  color: var(--brand);
   min-width: 1ch;
-  text-decoration: none; /* ensures no underline if it's a link */
+  text-decoration: none;
   font-variant-ligatures: none;
-  cursor: default; /* override if interactive */
 }
-
 .dropcap:hover {
-  color: var(--color-focus-ring);
+  color: var(--focus-ring);
 }
 .dropcap:focus-visible {
-  outline: 1px solid var(--color-focus-ring);
+  outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
-  border-radius: var(--border-radius-base);
+  border-radius: 0.2rem;
 }
 
 /* =========================================
