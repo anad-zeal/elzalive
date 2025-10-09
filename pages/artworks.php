@@ -1,4 +1,4 @@
-<section class="body-paragraphs" aria-labelledby="artworks-page-heading">
+<section class="body-paragraphs" aria-labelledby="artworks-page">
     <h1 id="artworks-page-heading" class="page-title">Artworks</h1>
 
     <p>
