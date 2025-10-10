@@ -167,12 +167,12 @@ video {
   align-items: center;
   justify-content: center;
   height: auto;
-  padding: 2em 0;
+  padding: 0.5em 0;
   background-color: var(--color-primary);
   color: var(--color-soft);
   text-align: center;
   position: relative;
-  z-index: 999;
+  z-index: 0;
 }
 
 .page-content-wrapper {
