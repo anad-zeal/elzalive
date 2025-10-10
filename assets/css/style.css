@@ -17,7 +17,7 @@
   /* Navigation Colors (consolidated to use 'color-brand' as base) */
   --color-nav-link: var(--color-brand);
   --color-nav-link-hover: hsl(350, 80%, 45%); /* Slightly lighter brand on hover */
-  --color-nav-link-active: hsl(350, 80%, 55%); /* Even lighter/more vibrant when active */
+  --color-nav-link-active: hsl(350, 80%, 20%); /* Even lighter/more vibrant when active */
 
   /* Typography */
   --font-family-base: 'Montserrat', ui-sans-serif, system-ui, -apple-system, sans-serif;
