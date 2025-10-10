@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   navLinks.forEach((link) => {
     link.addEventListener('click', (e) => {
-      e.preventDefault();
+      // e.preventDefault();
       updatePageContent(link);
     });
   });
