@@ -225,6 +225,10 @@ h1.title {
   line-height: 1;
 }
 
+.hero h1 {
+  font-family: var(--font-family-title);
+}
+
 h3.title {
   font-family: var(--font-family-title);
   font-size: var(--font-size-h3-clamp); /* If you need h3 to be the same scale as h1 */
