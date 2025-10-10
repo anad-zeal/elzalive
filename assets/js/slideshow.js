@@ -40,7 +40,7 @@ function injectCoreStylesOnce(fadeMs = 1500) {
   document.head.appendChild(s);
 }
 
-export class Slideshow {
+class Slideshow {
   constructor(rootEl, opts = {}) {
     if (!rootEl) throw new Error('Slideshow root element is required.');
     this.root = rootEl;
@@ -264,7 +264,7 @@ export class Slideshow {
   }
 }
 
-export function initSlideshows(root = document) {
+function initSlideshows(root = document) {
   const nodes = [...root.querySelectorAll('[data-slides]')];
   return nodes
     .map((el) => {
