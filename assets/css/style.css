@@ -468,16 +468,7 @@ a {
   white-space: nowrap; /* Prevent nav links from breaking onto multiple lines */
 }
 /* Focus-visible already handled globally for accessibility */
-a:hover {
-  color: var(--color-nav-link-hover);
-  transform: scale(1.15);
-}
-a.is-active {
-  /* Explicit class for active state */
-  color: var(--color-nav-link-active);
-  font-weight: 600; /* Emphasize active link */
-  /* No transform on active to avoid jumpiness unless explicitly desired */
-}
+
 /* Removed redundant a:active. The :active pseudo-class is for the moment the user clicks,
    not the persistent active state, which should be handled by a class like `is-active`. */
 
