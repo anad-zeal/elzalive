@@ -553,7 +553,7 @@ a.is-active {
 
 .dropcap {
   float: left;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Bonheur Royale', sans-serif;
   font-weight: 300;
   font-size: clamp(4rem, 10vw, 7rem);
   line-height: 0.9;
