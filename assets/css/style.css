@@ -245,7 +245,7 @@ h3.title {
 */
 
 .sub-title {
-  font-family: var(--font-family-script);
+  font-family: var(--font-family-title);
   font-size: var(--font-size-sub-title-clamp);
   font-weight: 200;
   letter-spacing: -0.02em;
