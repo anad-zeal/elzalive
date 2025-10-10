@@ -555,7 +555,7 @@ a.is-active {
   float: left;
   font-family: 'Bonheur Royale', sans-serif;
   font-weight: 300;
-  font-size: clamp(4rem, 10vw, 7rem);
+  font-size: clamp(6rem, 12vw, 8rem);
   line-height: 1;
   margin-right: 0.5em;
   padding-top: 0.08em;
