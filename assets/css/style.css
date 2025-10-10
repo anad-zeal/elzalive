@@ -22,7 +22,7 @@
   /* Typography */
   --font-family-base: 'Montserrat', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-family-display: 'Montserrat', sans-serif; /* If display needs distinct properties */
-  --font-family-title: 'Playfair Display', serif;
+  --font-family-title: 'Montserrat', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-family-script: 'Bonheur Royale', cursive;
 
   /* Font Sizes */
