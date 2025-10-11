@@ -1,7 +1,7 @@
-<h1 id="biography-page-heading" class="page-title">Biography</h1>
-<section class="body-paragraphs" aria-labelledby="biography-page">
+<h1 id="home-page-heading" class="page-title">Home</h1>
+<section class="body-paragraphs" aria-labelledby="home-page">
 
-     <main id="main-content-area"></main>
+    <main id="main-content-area"></main>
 
 
 </section>
