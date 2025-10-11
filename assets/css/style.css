@@ -21,15 +21,16 @@
 
   /* Typography */
   --font-family-base: 'Montserrat', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-family-display: 'Montserrat', sans-serif; /* If display needs distinct properties */
-  --font-family-title: 'Playfair Display', serif;
+  --font-family-display: 'Montserrat', sans-serif;
+  --font-family-hero-title: 'Montserrat', sans-serif;
+  --font-family-title: 'Playfair Display', 'Times New Roman', Times, serif
   --font-family-script: 'Bonheur Royale', cursive;
 
   /* Font Sizes */
   --font-size-base: 1.1rem; /* Base for rem calculations */
   --font-size-small: 0.95rem;
   --font-size-body: 1.125rem; /* For p.section-format and p.body-paragraphs */
-  --font-size=title: 3.5rem; /* For h1.title and h3.title */
+  --font-size-title: 3.5rem; /* For h1.title and h3.title */
   --font-size-h2: 1.51rem; /* For .page-title-container h2 */
 
   /* Headings Clamp Values (scaled and rounded from your previous inputs) */
@@ -218,10 +219,6 @@ h3 {
   line-height: 1.2; /* Better readability for headings */
   margin-top: 0; /* Reset default browser margins for consistency */
   margin-bottom: var(--spacing-sm); /* Consistent bottom margin */
-}
-
-.page-title {
-  font-family: 'Playfair Display', 'Times New Roman', Times, serif;
 }
 
 h1.title {
