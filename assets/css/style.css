@@ -22,13 +22,14 @@
   /* Typography */
   --font-family-base: 'Montserrat', ui-sans-serif, system-ui, -apple-system, sans-serif;
   --font-family-display: 'Montserrat', sans-serif; /* If display needs distinct properties */
-  --font-family-title: 'Montserrat', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-family-title: 'Playfair Display', serif;
   --font-family-script: 'Bonheur Royale', cursive;
 
   /* Font Sizes */
   --font-size-base: 1.1rem; /* Base for rem calculations */
   --font-size-small: 0.95rem;
   --font-size-body: 1.125rem; /* For p.section-format and p.body-paragraphs */
+  --font-size=title: 3.5rem; /* For h1.title and h3.title */
   --font-size-h2: 1.51rem; /* For .page-title-container h2 */
 
   /* Headings Clamp Values (scaled and rounded from your previous inputs) */
@@ -219,9 +220,8 @@ h3 {
   margin-bottom: var(--spacing-sm); /* Consistent bottom margin */
 }
 
-/* The original .page-title was `display: none;`, keeping it as such but if it's meant to be used, consider removing the display:none */
 .page-title {
-  display: none;
+  font-family: 'Playfair Display', 'Times New Roman', Times, serif;
 }
 
 h1.title {

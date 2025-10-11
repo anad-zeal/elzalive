@@ -1,7 +1,6 @@
 <?php
 // includes/footer.php
 ?>
-</main>
 <footer class="site-footer">
     <p>&copy; <?= date("Y") ?> elzalive • All rights reserved.</p>
 </footer>
