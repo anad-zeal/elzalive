@@ -1,14 +1,17 @@
-/ /assets/js/slideshow.js
-// No changes needed, as confirmed it does not use 'export'
-// You might consider removing the DOMContentLoaded, hashchange, app:navigate listeners if you solely rely on navigation.js
-// for initialization after content loads, but it's not strictly necessary for it to work.
+function createEl(tag, dataRole) {
+  /* ... */
+}
+function injectCoreStylesOnce(fadeMs = 1500) {
+  /* ... */
+}
 
-function createEl(tag, dataRole) { /* ... */ }
-function injectCoreStylesOnce(fadeMs = 1500) { /* ... */ }
+class Slideshow {
+  /* ... */
+}
 
-class Slideshow { /* ... */ }
-
-function initSlideshows(root = document) { /* ... */ }
+function initSlideshows(root = document) {
+  /* ... */
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   initSlideshows();
@@ -16,7 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
 window.addEventListener('hashchange', () => initSlideshows());
 window.addEventListener('app:navigate', () => initSlideshows());
 // /assets/js/misc.js
-function swapHeadersViaQueryParam() { /* ... */ }
+function swapHeadersViaQueryParam() {
+  /* ... */
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   swapHeadersViaQueryParam();
@@ -32,7 +37,9 @@ function swapHeadersViaQueryParam() {
   document.body.classList.add('is-slideshow');
 }
 // /assets/js/misc.js
-function swapHeadersViaQueryParam() { /* ... */ }
+function swapHeadersViaQueryParam() {
+  /* ... */
+}
 
 document.addEventListener('DOMContentLoaded', () => {
   swapHeadersViaQueryParam();
