@@ -2,22 +2,15 @@
     <h1 id="home-page-heading" class="page-title">Home Page</h1>
     <p>
         <a href="/restoration?showSlideshow=true" class="dropcap" data-gallery="restoration"
-            aria-label="Go to Restoration Projects">R</a>estoration Projects — Astral DOGs travel to any point in
-        the universe is now possible via the implementation of hyperbolic sub-resonant variations, combined with
-        isomorphic silicon overlays manifesting dolor sit amet
-        consectetur adipiscing elit.
+            aria-label="Go to Restoration Projects">R</a>estoration Projects —
     </p>
 
     <p>
         <a href="/decorative?showSlideshow=true" class="dropcap" data-gallery="decorative"
             aria-label="Go to Decorative Painting">D</a>
-        ecorative Painting — The woodsman saved the day by capturing the robber. Next time the orphan went for a
-        stroll in the forest they would call the small child first!
+        ecorative Painting —
     </p>
 
-    <p>
-        <a href="/artworks?showSlideshow=true" class="dropcap" data-gallery="artworks" aria-label="Go to Artworks">A</a>
-        rtworks — Chicharrones irony kogi enamel pin paleo la croix kinfolk banjo meggings voluptate. Viral etsy
-        occaecat DSA dreamcatcher prism commodo coloring book tilde.
-    </p>
+    <a href="/artworks?showSlideshow=true" class="dropcap" data-gallery="artworks" aria-label="Go to Artworks">A</a>
+    rtworks —
 </section>
