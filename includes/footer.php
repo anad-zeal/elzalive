@@ -1,6 +1,9 @@
 </div> <!-- Closes #dynamic-page-wrapper -->
 <!-- Optional loading spinner -->
-<div id="loading-spinner" style="display:none; text-align:center; padding:20px;">Loading content...</div>
+<div id="loading-spinner" style="display:none; text-align:center; padding:20px;">
+    <img src="images/misc-images/spinner.gif" alt="Loading..." style="width:50px; height:50px;">
+    <p>Loading content...</p>
+</div>
 </main>
 
 <footer class="site-footer">
