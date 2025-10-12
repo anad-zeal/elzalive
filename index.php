@@ -21,7 +21,8 @@ $map = [
 ];
 
 // Resolve file or default to home
-$file = $map[$page] ?? $map["home"];
+//$file = $map[$page] ?? $map["home"];
+$file = "FILE";
 
 // Variables for header
 $page_title = ucfirst(str_replace("-", " ", $page)) . " | aepaints";
