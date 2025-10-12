@@ -22,7 +22,8 @@ $map = [
 
 // Resolve file or default to home
 //$file = $map[$page] ?? $map["home"];
-$file = "<p>Decorative painting is the art of transforming ordinary surfaces into visually captivating works that reflect
+$file = "<h1 id='contact-heading' class='page-title'>Contact</h1>
+<p>Decorative painting is the art of transforming ordinary surfaces into visually captivating works that reflect
         style, history, and personality. Through techniques such as faux finishes, glazing, marbling, stenciling, and
         gilding, artists create texture, depth, and illusion. Blending craftsmanship with creativity, decorative
         painting
