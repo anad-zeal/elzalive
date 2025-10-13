@@ -3,6 +3,4 @@
     <!-- The subtitle for the current page will be updated by JS -->
     <p class="sub-title"><?= $page_title ?></p> <!-- Initial subtitle text for current page -->
 </section>
-<div id="dynamic-page-wrapper">
-    <!-- Initial content (from pages/home.php, pages/artworks.php, etc.) will be placed here on first load.
-                 Subsequent dynamic content loads will replace the innerHTML of this div. -->
+<div id="dynamic-page-wrapper"></div>
