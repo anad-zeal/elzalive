@@ -155,7 +155,8 @@ h3 {
   font-weight: 100;
   line-height: 1;
   text-align: center;
-   color: var(--brand);
+  color: var(--brand);
+}
 
 h1.title {
   font-family: var(--font-title);
