@@ -35,5 +35,5 @@
         </nav>
     </header>
 
-    <main id="main-content-area" tabindex="-1">
+    <main id="dynamic-page-wrapper" tabindex="-1">
         <!-- The hero section from includes/hero.php will go after this -->
