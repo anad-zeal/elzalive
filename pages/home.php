@@ -1,10 +1,3 @@
-<?php
-$page_title = "Home | aepaints";
-$active_page = "home";
-require __DIR__ . "/includes/header.php";
-require __DIR__ . "/includes/hero.php";
-?>
-
 <section class="body-paragraphs" aria-labelledby="home-page-heading">
     <h2 id="portfolio-heading" class="visually-hidden">Portfolio</h2>
 
@@ -35,5 +28,3 @@ require __DIR__ . "/includes/hero.php";
     </p>
 
 </section>
-
-<?php require __DIR__ . "/includes/footer.php"; ?>
