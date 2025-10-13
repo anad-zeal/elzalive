@@ -39,10 +39,26 @@ function nav_item(string $slug, string $label, string $href): string
         href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
         rel="stylesheet">
 
-    <link rel="stylesheet" href="/assets/css/style.css?v=6" />
+    <?php
+    function getFileHash($filePath) {
+        if (file_exists($filePath)) {
+            return md5_file($filePath); // Generate MD5 hash of the file content
+        }
+        return time(); // Fallback if file doesn't exist
+    }
+
+    $cssFile = '/assets/css/style.css';
+    $jsFile = '/assets/js/navigation.js';
+
+    $cssV = getFileHash($cssFile);`
+    $jsV = getFileHash($jsFile);
+    ?>
+
+    <link rel="stylesheet" href="<?php echo $cssFile . '?h=' . $cssV; ?>">>
 </head>
 
 <body>
+    <link rel="stylesheet" href="<?php echo $cssFile . '?h=' . $cssV; ?>">
     <header class="site-header">
         <nav class="top-grid main-nav" aria-label="Primary">
             <div class="mid flex">

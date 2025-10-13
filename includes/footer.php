@@ -1,7 +1,7 @@
 </section>
 
 </div>
-<div id="loading-spinner" style="display:block; text-align:center; padding:20px;">
+<div id="loading-spinner" style="display:none; text-align:center; padding:20px;">
     <img src="/assets/images/misc-images/spinner.gif" alt="Loading..." style="width:40px; height:auto;" />
     <div>Loading content...</div>
 </div>
@@ -12,7 +12,8 @@
 </footer>
 
 <script src="/assets/js/slideshow.js"></script>
-<script src="/assets/js/navigation.js"></script>
+<!-- <script src="/assets/js/navigation.js"></script> -->
+<script src="<?php echo $jsFile . '?h=' . $jsV; ?>"></script>
 <script src="/assets/js/misc.js"></script>
 </body>
 
