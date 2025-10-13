@@ -3,4 +3,4 @@
     <!-- The subtitle for the current page will be updated by JS -->
     <p class="page-title"><?= $page_title ?></p> <!-- Initial subtitle text for current page -->
 </section>
-<!-- <div id="dynamic-page-wrapper"></div> -->
+<div id="main-content-area"></div>
