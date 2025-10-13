@@ -26,13 +26,11 @@ function normalizePath(href) {
   try {
     const u = new URL(href, window.location.origin);
     let p = u.pathname || '/';
-    // Remove trailing slash unless it's the root path '/'
     if (p.length > 1 && p.endsWith('/')) {
       p = p.slice(0, -1);
     }
     return p;
   } catch (e) {
-    // Fallback for invalid URLs, though URL constructor is quite robust
     let p = String(href || '');
     if (!p.startsWith('/')) p = '/' + p;
     if (p.length > 1 && p.endsWith('/')) {
@@ -43,7 +41,6 @@ function normalizePath(href) {
 }
 
 const pageTitles = {
-  // Map clean paths to human-readable titles (for subtitle and document title parts)
   '/home': 'Home',
   '/artworks': 'Artwork Categories',
   '/biography': 'Biography',
@@ -58,19 +55,18 @@ const pageTitles = {
 
 document.addEventListener('DOMContentLoaded', () => {
   const navLinks = Array.from(document.querySelectorAll('nav a'));
-  const heroTitleElement = document.querySelector('h1.title'); // The main, consistent title
-  const subTitleElement = document.querySelector('p.sub-title'); // The dynamic subtitle
+  const heroTitleElement = document.querySelector('h1.title');
+  const subTitleElement = document.querySelector('p.sub-title');
   const dynamicPageWrapper = document.getElementById('dynamic-page-wrapper');
-  // Target the main content area for a full content fade during navigation
-  const mainContentFadeArea = document.getElementById('main-content-area'); // Targets the <main> element
+  const mainContentFadeArea = document.getElementById('main-content-area');
   const loadingSpinner = document.getElementById('loading-spinner');
   let isTransitioning = false;
 
-  // Add a transition to the main content area if it doesn't have one
+  // Add default transitions if not defined in CSS.
+  // This is a safety for quick development but ideally should be in style.css
   if (mainContentFadeArea && !getTransitionDuration(mainContentFadeArea)) {
-    mainContentFadeArea.style.transition = `opacity 280ms ease-in-out`; // Default speed if none defined
+    mainContentFadeArea.style.transition = `opacity 280ms ease-in-out`;
   }
-  // Also ensure the subtitle has a transition
   if (subTitleElement && !getTransitionDuration(subTitleElement)) {
     subTitleElement.style.transition = `opacity 280ms ease-in-out`;
   }
@@ -108,10 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  async function loadPageContent(path) {
+  async function loadPageContentAndDispatch(path, targetElement) {
     if (loadingSpinner) loadingSpinner.style.display = 'block';
-    if (!dynamicPageWrapper) {
-      console.error('Dynamic page wrapper (#dynamic-page-wrapper) not found!');
+    if (!targetElement) {
+      console.error('Target element for content loading not found!');
       return false;
     }
 
@@ -127,21 +123,21 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       const html = await response.text();
       const fragmentHtml = await extractFragmentFromHtml(html, '#dynamic-page-wrapper');
-      dynamicPageWrapper.innerHTML = fragmentHtml;
+      targetElement.innerHTML = fragmentHtml;
 
-      executeScriptsFromNode(dynamicPageWrapper);
+      executeScriptsFromNode(targetElement);
 
       window.dispatchEvent(
         new CustomEvent('app:navigate', {
-          detail: { targetElement: dynamicPageWrapper, path: path },
+          detail: { targetElement: targetElement, path: path },
         })
       );
 
       return true;
     } catch (err) {
       console.error('Error loading page content:', err);
-      if (dynamicPageWrapper) {
-        dynamicPageWrapper.innerHTML = `<div role="alert" aria-live="assertive"><p style="color:red;">Failed to load content. ${err.message}</p></div>`;
+      if (targetElement) {
+        targetElement.innerHTML = `<div role="alert" aria-live="assertive"><p style="color:red;">Failed to load content. ${err.message}</p></div>`;
       }
       return false;
     } finally {
@@ -149,8 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  async function updatePageContent(activeLink, pushState = true, isInitialLoad = false) {
-    // Added isInitialLoad
+  async function updatePageContent(activeLink, pushState = true) {
     if (isTransitioning) return;
     isTransitioning = true;
 
@@ -159,14 +154,13 @@ document.addEventListener('DOMContentLoaded', () => {
       const cleanHref = normalizePath(rawHref);
       const pageKey = cleanHref;
 
-      // Only fade out if it's NOT the initial load
-      if (!isInitialLoad && mainContentFadeArea) {
+      // Fade out the main content area (including hero)
+      if (mainContentFadeArea) {
         const fadeDuration = getTransitionDuration(mainContentFadeArea);
         mainContentFadeArea.style.opacity = 0;
-        if (subTitleElement) subTitleElement.style.opacity = 0; // Fade subtitle with main area
+        if (subTitleElement) subTitleElement.style.opacity = 0;
         await new Promise((r) => setTimeout(r, fadeDuration + 50));
-      } else if (!isInitialLoad && subTitleElement) {
-        // Fallback if mainContentFadeArea isn't defined
+      } else if (subTitleElement) {
         const fadeDuration = getTransitionDuration(subTitleElement);
         subTitleElement.style.opacity = 0;
         await new Promise((r) => setTimeout(r, fadeDuration + 50));
@@ -187,28 +181,17 @@ document.addEventListener('DOMContentLoaded', () => {
       if (subTitleElement) subTitleElement.textContent = newPageTitle;
       document.title = `${newPageTitle} | aepaints`;
 
-      // If it's the initial load, the content is already there, so we don't need to load it again via fetch.
-      // However, we still need to run scripts and dispatch events.
-      if (!isInitialLoad) {
-        await loadPageContent(cleanHref);
-      } else {
-        // On initial load, the content is server-rendered. We still need to run any scripts
-        // within #dynamic-page-wrapper that might not have run on initial DOMContentLoaded.
-        executeScriptsFromNode(dynamicPageWrapper);
-        window.dispatchEvent(
-          new CustomEvent('app:navigate', {
-            detail: { targetElement: dynamicPageWrapper, path: cleanHref },
-          })
-        );
-      }
+      // Load new content and dispatch the 'app:navigate' event
+      await loadPageContentAndDispatch(cleanHref, dynamicPageWrapper);
 
-      // Always fade in, even if it was the initial load (to ensure opacity is 1 after all JS)
+      // Fade in the main content area
       if (mainContentFadeArea) {
         requestAnimationFrame(() => {
           mainContentFadeArea.style.opacity = 1;
         });
       }
       if (subTitleElement) {
+        // Always ensure subtitle fades in too
         requestAnimationFrame(() => {
           subTitleElement.style.opacity = 1;
         });
@@ -234,10 +217,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const path = normalizePath(window.location.pathname);
     const active = findNavLinkByPath(path);
     if (active) {
-      // Popstate is never an initial load, but it's not a PUSH_STATE navigation
-      updatePageContent(active, false, false).catch((e) => console.error('Popstate error:', e));
+      updatePageContent(active, false).catch((e) => console.error('Popstate error:', e));
     } else {
-      loadPageContent(path).catch((e) => console.error('Popstate load content error:', e));
+      // If no nav link for the popstate path, just load content without updating nav UI
+      loadPageContentAndDispatch(path, dynamicPageWrapper).catch((e) =>
+        console.error('Popstate load content error:', e)
+      );
+      // Ensure current main content fade area is visible (e.g. if coming from external site)
+      if (mainContentFadeArea) mainContentFadeArea.style.opacity = 1;
+      if (subTitleElement) subTitleElement.style.opacity = 1;
     }
   });
 
@@ -252,37 +240,47 @@ document.addEventListener('DOMContentLoaded', () => {
     if (a.hash && targetPath === currentPath) return;
 
     ev.preventDefault();
-    // This is always a user-initiated navigation, so isInitialLoad is false
-    updatePageContent(a, true, false).catch((e) => console.error('Navigation click error:', e));
+    updatePageContent(a, true).catch((e) => console.error('Navigation click error:', e));
   });
 
-  // Initial load logic
+  // --- Initial page load handler ---
   const initialPath = normalizePath(window.location.pathname);
   const initialLink = findNavLinkByPath(initialPath) || findNavLinkByPath('/home');
 
+  // Set initial active link
   if (initialLink) {
-    // Crucially, pass isInitialLoad = true here to skip the fade-out
-    updatePageContent(initialLink, false, true).catch((e) =>
-      console.error('Initial load error:', e)
-    );
+    navLinks.forEach((link) => {
+      link.classList.remove('is-active');
+      link.removeAttribute('aria-current');
+    });
+    initialLink.classList.add('is-active');
+    initialLink.setAttribute('aria-current', 'page');
+
+    const newPageTitle = pageTitles[initialPath] || initialLink.textContent.trim();
+    if (subTitleElement) subTitleElement.textContent = newPageTitle;
+    document.title = `${newPageTitle} | aepaints`;
   } else {
-    // If no initial link, still ensure opacities are 1, and load content if necessary
-    console.warn(
-      `No navigation link found for initial path: ${initialPath}. Ensuring content visibility.`
-    );
-    // Since content is likely already rendered by PHP, just ensure scripts run and opacities are 1
-    executeScriptsFromNode(dynamicPageWrapper);
-    window.dispatchEvent(
-      new CustomEvent('app:navigate', {
-        detail: { targetElement: dynamicPageWrapper, path: initialPath },
-      })
-    );
-    if (mainContentFadeArea) mainContentFadeArea.style.opacity = 1;
-    if (subTitleElement) subTitleElement.style.opacity = 1;
+    // If no specific nav link found, ensure the home link is active as a fallback
     const homeLink = findNavLinkByPath('/home');
     if (homeLink) {
       homeLink.classList.add('is-active');
       homeLink.setAttribute('aria-current', 'page');
+      const newPageTitle = pageTitles['/home'] || homeLink.textContent.trim();
+      if (subTitleElement) subTitleElement.textContent = newPageTitle;
+      document.title = `${newPageTitle} | aepaints`;
     }
   }
+
+  // For the initial server-rendered content:
+  // 1. Ensure opacities are 1 (they should be by default CSS, but this reinforces it)
+  // 2. Execute any scripts that were already in the server-rendered #dynamic-page-wrapper
+  // 3. Dispatch 'app:navigate' so components like slideshows can initialize on initial content.
+  if (mainContentFadeArea) mainContentFadeArea.style.opacity = 1;
+  if (subTitleElement) subTitleElement.style.opacity = 1;
+  executeScriptsFromNode(dynamicPageWrapper);
+  window.dispatchEvent(
+    new CustomEvent('app:navigate', {
+      detail: { targetElement: dynamicPageWrapper, path: initialPath },
+    })
+  );
 });
