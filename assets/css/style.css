@@ -389,14 +389,16 @@ h3.title {
   margin-bottom: 1vh;
 }
 .mid.flex {
-  display: flex; /* Enables Flexbox */
-  justify-content: center; /* Horizontally centers the items */
-  width: 96vw; /* 100vw - 2vw (left margin) - 2vw (right margin) */
-  margin-left: 2vw; /* Left margin */
-  margin-right: 2vw; /* Right margin */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-  flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
-  gap: 10px; /* Adds space between menu items */
+  display: flex;
+  justify-content: space-between;
+  width: 96vw;
+  height: 2rem;
+  margin: 0 auto;
+  align-items: center;
+  font-family: var(--font-ui);
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  min-height: 2.5rem;
 }
 
 .mid.flex a {
