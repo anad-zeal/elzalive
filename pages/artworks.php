@@ -11,12 +11,13 @@
     </p>
 
     <p>
-        <a href="/encaustic" class="images" data-gallery="encaustic" aria-label="Go to Encaustic Artworks">Encaustic</a>
+        <a href="/encaustic" class="images" data-gallery="encaustic_paintings"
+            aria-label="Go to Encaustic Paintings">Encaustic Paintings</a>
     </p>
 
     <p>
-        <a href="/projects.php?showSlideshow=true" class="images" data-gallery="project_series"
+        <a href="/projects.php?showSlideshow=true" class=allery="project_series"
             aria-label="Go to Project Series">Project Series</a>
     </p>
-</section>
+</section>"images" data-g
 <hr class="section-divider">
