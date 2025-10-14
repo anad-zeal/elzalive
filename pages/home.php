@@ -6,8 +6,8 @@
     </p>
 
     <p>
-        <a href="/black-white" class="images" data-gallery="black_and_white"
-            aria-label=" Go to Decorative Painting">Decorative Painting</a>
+        <a href="/black-and-white" class="category" data-gallery="black_and_white"
+            aria-label=" Go to Black & White">Black & White</a>
     </p>
 
     <p>
