@@ -2,16 +2,21 @@
     <h2 id="artworks-heading" class="visually-hidden">Artworks</h2>
 
     <p>
-        <a href="/black-white.php" class="dropcap" data-gallery="black-and-white"
-            aria-label="Go to the Black and White Gallery">B</a>lack and White Gallery
+        <a href="/black-white.php" class="images" data-gallery="black_and_white"
+            aria-label="Go to the Black and White Gallery">Black and White Gallery</a>
     </p>
 
-    <p><a href="/decorative-painting.php" class="dropcap" data-gallery="decorative"
-            aria-label="Go to Decorative Painting">D</a>ecorative Painting
+    <p><a href="/decorative-painting.php" class="images" data-gallery="decorative_painting"
+            aria-label="Go to Decorative Painting">Decorative Painting</a>
     </p>
 
     <p>
-        <a href="/artworks.php?showSlideshow=true" class="dropcap" data-gallery="artworks"
-            aria-label="Go to Artworks">A</a>rtworks
+        <a href="/encaustic.php?showSlideshow=true" class="images" data-gallery="encaustic"
+            aria-label="Go to Encaustic Artworks">Encaustic</a>
+    </p>
+
+    <p>
+        <a href="/projects.php?showSlideshow=true" class="images" data-gallery="project_series"
+            aria-label="Go to Project Series">Project Series</a>
     </p>
 </section>
