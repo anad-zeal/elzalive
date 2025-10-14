@@ -1,6 +1,7 @@
 <section class="hero">
     <h1 class="sub-title">The Life of an Artist</h1>
-    <!-- The subtitle for the current page will be updated by JS -->
-    <p class="page-title"><?= $page_title ?></p> <!-- Initial subtitle text for current page -->
+    <p class="page-title"><?= $page_title ?></p>
 </section>
-<div id="main-content-area"></div>
+<div id="main-content-area">
+    <!-- Initial page content will be inserted here by index.php -->
+    <!-- Dynamic content will be loaded here by navigation.js -->
