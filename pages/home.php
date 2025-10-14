@@ -5,7 +5,8 @@
                 aria-label="Go to Restoration Projects">Restoration Projects</a>
         </div>
         <div class="menu-grid-item">
-            <a href="/decorative" class="category" data-gallery="decorative" aria-label="Go to Decorative">Decorative
+            <a href="/decorative" class="category" data-gallery="decorative"
+                aria-label="Go to Decorative Painting">Decorative
                 Painting</a>
         </div>
         <div class="menu-grid-item">
