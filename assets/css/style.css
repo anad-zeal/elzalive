@@ -388,30 +388,37 @@ h3.title {
   text-align: center;
   margin-bottom: 1vh;
 }
-
-.top-grid {
-  display: flex;
-  justify-content: space-between;
-  width: 96vw;
-  height: 2rem;
-  margin: 0 auto;
-  align-items: center;
-  font-family: var(--font-ui);
+.mid.flex {
+  display: flex; /* Enables Flexbox */
+  justify-content: center; /* Horizontally centers the items */
+  width: 96vw; /* 100vw - 2vw (left margin) - 2vw (right margin) */
+  margin-left: 2vw; /* Left margin */
+  margin-right: 2vw; /* Right margin */
+  box-sizing: border-box; /* Include padding and border in the element's total width and height */
+  flex-wrap: wrap; /* Allow items to wrap to the next line on smaller screens */
+  gap: 10px; /* Adds space between menu items */
 }
 
-.top-grid .left {
-  width: 35vw;
-  text-align: left;
+.mid.flex a {
+  padding: 10px 15px; /* Adjust padding as needed */
+  text-decoration: none; /* Removes underline from links */
+  color: #333; /* Default link color */
+  white-space: nowrap; /* Prevents text from wrapping within a link */
 }
 
-/* Space the middle links evenly */
-.top-grid .mid {
-  width: 30vw;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
+.mid.flex a.is-active,
+.mid.flex a:hover {
+  background-color: #eee; /* Example active/hover background */
+  color: #007bff; /* Example active/hover text color */
 }
 
+/* Optional: Add media queries for even better responsiveness on very small screens */
+@media (max-width: 600px) {
+  .mid.flex {
+    flex-direction: column; /* Stack items vertically on small screens */
+    align-items: center; /* Center items when stacked vertically */
+  }
+}
 /* Link styles */
 .top-grid .mid a {
   text-decoration: none;
