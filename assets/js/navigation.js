@@ -45,12 +45,12 @@ const pageTitles = {
   '/artworks': 'Artworks',
   '/biography': 'Biography',
   '/contact': 'Contact Me',
-  '/drips': 'Drip Series',
-  '/encaustic': 'Encaustic Works',
-  '/projects': 'Project Series',
+  '/drips': 'Drip Series Paintings',
+  '/encaustic': 'Encaustic Paintings',
+  '/projects': 'Project Series Paintings',
   '/restoration': 'Restoration Projects',
-  '/decorative': 'Decorative Art',
-  '/black-and-white': 'Black and White Series',
+  '/decorative': 'Decorative Painting',
+  '/black-and-white': 'Black and White Paintings',
 };
 
 document.addEventListener('DOMContentLoaded', () => {
