@@ -1,16 +1,38 @@
-<?php $page_title = $page_title ?? "aepaints";
+<?php
+// Default values, can be overridden by specific page scripts
+$page_title = $page_title ?? "Home"; // Changed default to "Home" for the home page
 $active_page = $active_page ?? "home";
+$site_name = "AEPaints"; // Assuming a site name for full title
+
+// Construct the full page title
+$full_page_title = $page_title . " | " . $site_name;
+
+// Server and scheme detection for canonical URL
 $host = $_SERVER["HTTP_HOST"] ?? "example.com";
 $https =
     (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") ||
     (isset($_SERVER["SERVER_PORT"]) && $_SERVER["SERVER_PORT"] == 443);
 $scheme = $https ? "https" : "http";
+
+// Canonical path and URL
 $canonicalPath = "/" . ltrim($active_page, "/");
 $canonicalUrl = sprintf("%s://%s%s", $scheme, $host, $canonicalPath);
+
+// 404 flag
 $is404 = $active_page === "404";
+
+/**
+ * Helper function to generate a navigation item.
+ * Adds 'is-active' class and 'aria-current' attribute for the active page.
+ *
+ * @param string $slug The unique identifier for the page (e.g., "home", "artworks").
+ * @param string $label The display text for the link (e.g., "HOME").
+ * @param string $href The URL for the link (e.g., "/home").
+ * @return string The generated HTML <a> tag.
+ */
 function nav_item(string $slug, string $label, string $href): string
 {
-    global $active_page;
+    global $active_page; // Access the global active_page variable
     $isActive = $active_page === $slug;
     $class = $isActive ? "is-active" : "";
     $aria = $isActive ? ' aria-current="page"' : "";
@@ -30,16 +52,23 @@ function nav_item(string $slug, string $label, string $href): string
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($full_page_title) ?></title>
+
+    <!-- Favicons -->
     <link rel="icon" href="/favicons/favicon.ico" sizes="any">
     <link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png">
 
+    <!-- Canonical URL for SEO -->
+    <link rel="canonical" href="<?= htmlspecialchars($canonicalUrl) ?>">
+
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
         rel="stylesheet">
 
+    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
 
@@ -47,30 +76,11 @@ function nav_item(string $slug, string $label, string $href): string
     <header class="site-header">
         <nav class="top-grid main-nav" aria-label="Primary">
             <div class="mid flex">
-                <a href="/home" class="<?= $active_page === "home"
-                    ? "is-active"
-                    : "" ?>"
-                    aria-current="<?= $active_page === "home"
-                        ? "page"
-                        : "" ?>">HOME</a>
-                <a href="/artworks" class="<?= $active_page === "artworks"
-                    ? "is-active"
-                    : "" ?>"
-                    aria-current="<?= $active_page === "artworks"
-                        ? "page"
-                        : "" ?>">ARTWORKS</a>
-                <a href="/biography" class="<?= $active_page === "biography"
-                    ? "is-active"
-                    : "" ?>"
-                    aria-current="<?= $active_page === "biography"
-                        ? "page"
-                        : "" ?>">BIOGRAPHY</a>
-                <a href="/contact" class="<?= $active_page === "contact"
-                    ? "is-active"
-                    : "" ?>"
-                    aria-current="<?= $active_page === "contact"
-                        ? "page"
-                        : "" ?>">CONTACT</a>
+                <!-- Using the nav_item helper function for cleaner code -->
+                <?= nav_item("home", "HOME", "/home") ?>
+                <?= nav_item("artworks", "ARTWORKS", "/artworks") ?>
+                <?= nav_item("biography", "BIOGRAPHY", "/biography") ?>
+                <?= nav_item("contact", "CONTACT", "/contact") ?>
                 <!-- Add other navigation links if desired -->
             </div>
         </nav>
@@ -79,4 +89,3 @@ function nav_item(string $slug, string $label, string $href): string
     <main id="dynamic-page-wrapper" data-page="<?= htmlspecialchars(
         $active_page,
     ) ?>" tabindex="-1">
-        <!-- The hero section from includes/hero.php will go after this -->
