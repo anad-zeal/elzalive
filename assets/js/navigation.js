@@ -1,4 +1,5 @@
-// Improved, drop-in replacement for your SPA navigation logic.
+// /assets/js/navigation.js
+// Fixed to work with the actual page structure
 
 function parseDurationValue(value) {
   value = (value || '').trim();
@@ -54,17 +55,22 @@ const pageTitles = {
 
 document.addEventListener('DOMContentLoaded', () => {
   const navLinks = Array.from(document.querySelectorAll('nav a'));
-  const heroTitleElement = document.querySelector('h1.title');
-  const subTitleElement = document.querySelector('p.sub-title');
+  const subTitleElement = document.querySelector('p.page-title');
   const dynamicPageWrapper = document.getElementById('dynamic-page-wrapper');
-  const mainContentFadeArea = document.getElementById('main-content-area');
+  const mainContentArea = document.getElementById('main-content-area');
   const loadingSpinner = document.getElementById('loading-spinner');
   let isTransitioning = false;
 
+  // DEBUG: Verify elements exist
+  console.log('Elements found:');
+  console.log('- mainContentArea:', mainContentArea);
+  console.log('- subTitleElement:', subTitleElement);
+  console.log('- dynamicPageWrapper:', dynamicPageWrapper);
+  console.log('- loadingSpinner:', loadingSpinner);
+
   // Add default transitions if not defined in CSS.
-  // This is a safety for quick development but ideally should be in style.css
-  if (mainContentFadeArea && !getTransitionDuration(mainContentFadeArea)) {
-    mainContentFadeArea.style.transition = `opacity 280ms ease-in-out`;
+  if (mainContentArea && !getTransitionDuration(mainContentArea)) {
+    mainContentArea.style.transition = `opacity 280ms ease-in-out`;
   }
   if (subTitleElement && !getTransitionDuration(subTitleElement)) {
     subTitleElement.style.transition = `opacity 280ms ease-in-out`;
@@ -73,12 +79,6 @@ document.addEventListener('DOMContentLoaded', () => {
   function findNavLinkByPath(pathname) {
     const norm = normalizePath(pathname);
     return navLinks.find((a) => normalizePath(a.getAttribute('href') || a.href) === norm);
-  }
-
-  async function extractFragmentFromHtml(html, selector = '#dynamic-page-wrapper') {
-    const doc = new DOMParser().parseFromString(html, 'text/html');
-    const fragmentRoot = doc.querySelector(selector);
-    return fragmentRoot ? fragmentRoot.innerHTML : '';
   }
 
   function executeScriptsFromNode(container) {
@@ -103,7 +103,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  async function loadPageContentAndDispatch(path, targetElement) {
+  async function loadPageContent(path, targetElement) {
     if (loadingSpinner) loadingSpinner.style.display = 'block';
     if (!targetElement) {
       console.error('Target element for content loading not found!');
@@ -120,9 +120,20 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!response.ok) {
         throw new Error(`${response.status} ${response.statusText}`);
       }
+
       const html = await response.text();
-      const fragmentHtml = await extractFragmentFromHtml(html, '#dynamic-page-wrapper');
-      targetElement.innerHTML = fragmentHtml;
+
+      // DEBUG: Log what we received
+      console.log('Fetched HTML length:', html.length);
+      console.log('First 500 chars:', html.substring(0, 500));
+      console.log('Target element:', targetElement);
+
+      // The response should be just the page content fragment
+      // Insert it directly into the target element
+      targetElement.innerHTML = html;
+
+      // DEBUG: Check if content was inserted
+      console.log('Content after insert:', targetElement.innerHTML.substring(0, 200));
 
       executeScriptsFromNode(targetElement);
 
@@ -153,18 +164,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const cleanHref = normalizePath(rawHref);
       const pageKey = cleanHref;
 
-      // Fade out the main content area (including hero)
-      if (mainContentFadeArea) {
-        const fadeDuration = getTransitionDuration(mainContentFadeArea);
-        mainContentFadeArea.style.opacity = 0;
+      // Fade out the content area
+      if (mainContentArea) {
+        const fadeDuration = getTransitionDuration(mainContentArea);
+        mainContentArea.style.opacity = 0;
         if (subTitleElement) subTitleElement.style.opacity = 0;
-        await new Promise((r) => setTimeout(r, fadeDuration + 50));
-      } else if (subTitleElement) {
-        const fadeDuration = getTransitionDuration(subTitleElement);
-        subTitleElement.style.opacity = 0;
         await new Promise((r) => setTimeout(r, fadeDuration + 50));
       }
 
+      // Update navigation active state
       navLinks.forEach((link) => {
         link.classList.remove('is-active');
         link.removeAttribute('aria-current');
@@ -176,35 +184,41 @@ document.addEventListener('DOMContentLoaded', () => {
         history.pushState({ path: cleanHref }, '', cleanHref);
       }
 
+      // Update page title
       const newPageTitle = pageTitles[pageKey] || activeLink.textContent.trim();
       if (subTitleElement) subTitleElement.textContent = newPageTitle;
       document.title = `${newPageTitle} | aepaints`;
 
-      // Load new content and dispatch the 'app:navigate' event
-      await loadPageContentAndDispatch(cleanHref, dynamicPageWrapper);
+      // Update data-page attribute
+      if (dynamicPageWrapper) {
+        dynamicPageWrapper.setAttribute('data-page', pageKey.replace('/', ''));
+      }
 
-      // Fade in the main content area
-      if (mainContentFadeArea) {
+      // Load new content into main-content-area
+      await loadPageContent(cleanHref, mainContentArea);
+
+      // Fade in the content area
+      if (mainContentArea) {
         requestAnimationFrame(() => {
-          mainContentFadeArea.style.opacity = 1;
+          mainContentArea.style.opacity = 1;
         });
       }
       if (subTitleElement) {
-        // Always ensure subtitle fades in too
         requestAnimationFrame(() => {
           subTitleElement.style.opacity = 1;
         });
       }
 
+      // Focus management
       requestAnimationFrame(() => {
-        const heading = dynamicPageWrapper.querySelector(
+        const heading = mainContentArea.querySelector(
           'h1, h2, .page-title, .page-content-wrapper h2'
         );
         if (heading) {
           heading.setAttribute('tabindex', '-1');
           heading.focus({ preventScroll: true });
         } else {
-          mainContentFadeArea?.focus({ preventScroll: true });
+          mainContentArea?.focus({ preventScroll: true });
         }
       });
     } finally {
@@ -218,12 +232,10 @@ document.addEventListener('DOMContentLoaded', () => {
     if (active) {
       updatePageContent(active, false).catch((e) => console.error('Popstate error:', e));
     } else {
-      // If no nav link for the popstate path, just load content without updating nav UI
-      loadPageContentAndDispatch(path, dynamicPageWrapper).catch((e) =>
+      loadPageContent(path, mainContentArea).catch((e) =>
         console.error('Popstate load content error:', e)
       );
-      // Ensure current main content fade area is visible (e.g. if coming from external site)
-      if (mainContentFadeArea) mainContentFadeArea.style.opacity = 1;
+      if (mainContentArea) mainContentArea.style.opacity = 1;
       if (subTitleElement) subTitleElement.style.opacity = 1;
     }
   });
@@ -258,28 +270,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const newPageTitle = pageTitles[initialPath] || initialLink.textContent.trim();
     if (subTitleElement) subTitleElement.textContent = newPageTitle;
     document.title = `${newPageTitle} | aepaints`;
-  } else {
-    // If no specific nav link found, ensure the home link is active as a fallback
-    const homeLink = findNavLinkByPath('/home');
-    if (homeLink) {
-      homeLink.classList.add('is-active');
-      homeLink.setAttribute('aria-current', 'page');
-      const newPageTitle = pageTitles['/home'] || homeLink.textContent.trim();
-      if (subTitleElement) subTitleElement.textContent = newPageTitle;
-      document.title = `${newPageTitle} | aepaints`;
-    }
   }
 
-  // For the initial server-rendered content:
-  // 1. Ensure opacities are 1 (they should be by default CSS, but this reinforces it)
-  // 2. Execute any scripts that were already in the server-rendered #dynamic-page-wrapper
-  // 3. Dispatch 'app:navigate' so components like slideshows can initialize on initial content.
-  if (mainContentFadeArea) mainContentFadeArea.style.opacity = 1;
+  // For initial content, ensure visibility and execute scripts
+  if (mainContentArea) mainContentArea.style.opacity = 1;
   if (subTitleElement) subTitleElement.style.opacity = 1;
-  executeScriptsFromNode(dynamicPageWrapper);
-  window.dispatchEvent(
-    new CustomEvent('app:navigate', {
-      detail: { targetElement: dynamicPageWrapper, path: initialPath },
-    })
-  );
+  if (mainContentArea) {
+    executeScriptsFromNode(mainContentArea);
+    window.dispatchEvent(
+      new CustomEvent('app:navigate', {
+        detail: { targetElement: mainContentArea, path: initialPath },
+      })
+    );
+  }
 });
