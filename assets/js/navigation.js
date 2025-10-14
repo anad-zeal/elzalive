@@ -127,6 +127,8 @@ document.addEventListener('DOMContentLoaded', () => {
       console.log('Fetched HTML length:', html.length);
       console.log('First 500 chars:', html.substring(0, 500));
       console.log('Target element:', targetElement);
+      console.log('Target element opacity BEFORE:', window.getComputedStyle(targetElement).opacity);
+      console.log('Target element display BEFORE:', window.getComputedStyle(targetElement).display);
 
       // The response should be just the page content fragment
       // Insert it directly into the target element
@@ -134,6 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // DEBUG: Check if content was inserted
       console.log('Content after insert:', targetElement.innerHTML.substring(0, 200));
+      console.log('Target element opacity AFTER:', window.getComputedStyle(targetElement).opacity);
+      console.log('Target element display AFTER:', window.getComputedStyle(targetElement).display);
 
       executeScriptsFromNode(targetElement);
 
@@ -197,10 +201,20 @@ document.addEventListener('DOMContentLoaded', () => {
       // Load new content into main-content-area
       await loadPageContent(cleanHref, mainContentArea);
 
+      console.log(
+        'After loadPageContent, mainContentArea opacity:',
+        window.getComputedStyle(mainContentArea).opacity
+      );
+
       // Fade in the content area
       if (mainContentArea) {
+        console.log('About to fade in mainContentArea');
         requestAnimationFrame(() => {
           mainContentArea.style.opacity = 1;
+          console.log(
+            'Set opacity to 1, computed:',
+            window.getComputedStyle(mainContentArea).opacity
+          );
         });
       }
       if (subTitleElement) {
