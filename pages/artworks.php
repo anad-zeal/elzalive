@@ -2,8 +2,8 @@
     <h2 id="artworks-heading" class="visually-hidden">Artworks</h2>
 
     <p>
-        <a href="/black-white" class="images" data-gallery="black_and_white"
-            aria-label="Go to the Black and White Gallery">Black and White Gallery</a>
+        <a href="/black-white" class="images" data-gallery="black_and_white_paintings"
+            aria-label="Go to Black and White Paintings">Black and White Paintings</a>
     </p>
 
     <p><a href="/decorative-painting" class="images" data-gallery="decorative_painting"
@@ -11,13 +11,13 @@
     </p>
 
     <p>
-        <a href="/encaustic" class="images" data-gallery="encaustic_paintings"
+        <a href="/encaustic-paintings" class="images" data-gallery="encaustic_paintings"
             aria-label="Go to Encaustic Paintings">Encaustic Paintings</a>
     </p>
 
     <p>
-        <a href="/projects.php?showSlideshow=true" class=allery="project_series"
-            aria-label="Go to Project Series">Project Series</a>
+        <a href="/project-series" class="images" data-gallery="project_series_paintings"
+            aria-label="Go to Project Series Paintings">Project Series Paintings</a>
     </p>
-</section>"images" data-g
+</section>
 <hr class="section-divider">
