@@ -6,13 +6,13 @@
     </p>
 
     <p>
-        <a href="/black-and-white" class="category" data-gallery="black_and_white"
-            aria-label=" Go to Black & White">Black &
-            White</a>
+        <a href="/black-and-white" class="category" data-gallery="black-and-white"
+            aria-label="Go to Black & White">Black & White</a>
     </p>
 
     <p>
-        <a href="/artworks" class="category" data-gallery="artworks" aria-label="Go to Artworks">Artworks</a>
+        <a href="/artworks" class="category" data-gallery="artworks"
+            aria-label="Go to Artworks">Artworks</a>
     </p>
 
 </section>
