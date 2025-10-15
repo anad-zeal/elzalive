@@ -451,7 +451,7 @@ h3.title {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: darkgoldenrod;
+  background-color: darkgrey;
 }
 
 .slideshow [data-role='stage'] {
