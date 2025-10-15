@@ -267,7 +267,7 @@ h3.title {
   height: auto;
   aspect-ratio: 16/9;
   max-height: 90vh;
-  background-color: var(--paper);
+  /* background-color: var(--paper); */
   display: flex;
   align-items: center;
   justify-content: center;
