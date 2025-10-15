@@ -151,7 +151,7 @@ h3 {
 
 .page-title {
   font-family: var(--font-title);
-  font-size: clamp(2.88rem, 10.08vw, 5.76rem);
+  font-size: 10vw;
   font-weight: 100;
   line-height: 1;
   text-align: center;
