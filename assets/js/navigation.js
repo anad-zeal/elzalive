@@ -1,6 +1,21 @@
 // /assets/js/navigation.js
 // Fixed to work with the actual page structure
 
+// Shrink to 5vw when a.category is clicked
+document.querySelectorAll('a.category').forEach((link) => {
+  link.addEventListener('click', () => {
+    alert('Category link clicked');
+    pageTitle.style.fontSize = '5vw';
+  });
+});
+
+// Reset to 10vw when a.landing-mnu is clicked
+document.querySelectorAll('a.landing-mnu').forEach((link) => {
+  link.addEventListener('click', () => {
+    pageTitle.style.fontSize = '10vw';
+  });
+});
+
 function parseDurationValue(value) {
   value = (value || '').trim();
   if (!value) return 0;
@@ -298,21 +313,4 @@ document.addEventListener('DOMContentLoaded', () => {
     );
   }
   const pageTitle = document.querySelector('p.page-title');
-
-  // Shrink to 5vw when a.category is clicked
-  document.querySelectorAll('a.category').forEach((link) => {
-    link.addEventListener('click', () => {
-      alert('Category link clicked');
-      pageTitle.style.fontSize = '5vw';
-    });
-  });
-
-  // Reset to 10vw when a.landing-mnu is clicked
-  document.querySelectorAll('a.landing-mnu').forEach((link) => {
-    link.addEventListener('click', () => {
-      pageTitle.style.fontSize = '10vw';
-    });
-  });
 });
-// Note: The dynamic font size adjustment for the page title on category and landing menu clicks
-// has been reintroduced as per the user's request.
