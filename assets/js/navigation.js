@@ -225,9 +225,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Focus management
       requestAnimationFrame(() => {
-        const heading = mainContentArea.querySelector(
-          'h1, h2, .page-title, .page-content-wrapper h2'
-        );
+        const heading = mainContentArea.querySelector('h1, h2, h3, h4, h5, h6');
         if (heading) {
           heading.setAttribute('tabindex', '-1');
           heading.focus({ preventScroll: true });
