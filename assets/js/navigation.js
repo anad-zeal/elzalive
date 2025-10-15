@@ -61,38 +61,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const loadingSpinner = document.getElementById('loading-spinner');
   let isTransitioning = false;
 
-  const pageTitle = document.querySelector('p.page-title'); // Get the page-title element once
-
-  // Function to handle clicking on a.category
-  document.querySelectorAll('a.category').forEach(function (categoryLink) {
-    categoryLink.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent default link behavior if desired
-
-      if (pageTitle) {
-        // Ensure the element exists
-        pageTitle.style.fontSize = '5vw';
-      }
-    });
-  });
-
-  // Function to handle clicking on a.landing-mnu
-  document.querySelectorAll('a.landing-mnu').forEach(function (landingMenuLink) {
-    landingMenuLink.addEventListener('click', function (event) {
-      //event.preventDefault(); // Prevent default link behavior if desired
-
-      if (pageTitle) {
-        // Ensure the element exists
-        // Check if the current font-size is 5vw (or close to it due to browser rendering)
-        // We'll check the computed style to be safe, though direct style setting is usually reliable.
-        // For simplicity, let's assume we're checking the inline style we set.
-        if (pageTitle.style.fontSize === '5vw') {
-          pageTitle.style.fontSize = '10vw'; // Revert to 10vw
-        }
-        // If it's not 5vw, we don't do anything as per your requirement
-      }
-    });
-  });
-
   // DEBUG: Verify elements exist
   console.log('Elements found:');
   console.log('- mainContentArea:', mainContentArea);
@@ -257,7 +225,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Focus management
       requestAnimationFrame(() => {
-        const heading = mainContentArea.querySelector('h1, h2, h3, h4, h5, h6');
+        const heading = mainContentArea.querySelector(
+          'h1, h2, .page-title, .page-content-wrapper h2'
+        );
         if (heading) {
           heading.setAttribute('tabindex', '-1');
           heading.focus({ preventScroll: true });

@@ -159,8 +159,9 @@ h3 {
   color: var(--ink);
 }
 
-.page-title-small {
+.page-title .small {
   font-size: clamp(1.4rem, 5vw, 2.5rem);
+  display: none;
 }
 
 h1.title {
