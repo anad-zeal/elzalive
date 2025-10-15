@@ -297,9 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
       })
     );
   }
-});
-
-document.addEventListener('DOMContentLoaded', function () {
   const pageTitle = document.querySelector('p.page-title');
 
   // Shrink to 5vw when a.category is clicked
@@ -316,3 +313,5 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 });
+// Note: The dynamic font size adjustment for the page title on category and landing menu clicks
+// has been reintroduced as per the user's request.
