@@ -389,6 +389,14 @@ h2.sub-title {
   text-align: center;
   margin-bottom: 1vh;
 }
+
+.main-nav a {
+  padding: 10px 15px; /* Adjust padding as needed */
+  text-decoration: none; /* Removes underline from links */
+  color: #333; /* Default link color */
+  white-space: nowrap; /* Prevents text from wrapping within a link */
+}
+
 .home-main {
   display: flex;
   justify-content: space-between;
@@ -402,42 +410,30 @@ h2.sub-title {
   min-height: 2.5rem;
 }
 
-.mid.flex a {
-  padding: 10px 15px; /* Adjust padding as needed */
-  text-decoration: none; /* Removes underline from links */
-  color: #333; /* Default link color */
-  white-space: nowrap; /* Prevents text from wrapping within a link */
-}
-
-.mid.flex a.is-active,
-.mid.flex a:hover {
+.main-nav a.is-active,
+.main-nav a:hover {
   background-color: #eee; /* Example active/hover background */
   color: #007bff; /* Example active/hover text color */
 }
 
 /* Optional: Add media queries for even better responsiveness on very small screens */
 @media (max-width: 600px) {
-  .mid.flex {
+  .main-nav {
     flex-direction: column; /* Stack items vertically on small screens */
     align-items: center; /* Center items when stacked vertically */
   }
 }
 /* Link styles */
-.main-nav .mid a {
+.main-nav a {
   text-decoration: none;
   color: var(--brand);
   transition: color 250ms ease, transform 250ms ease;
 }
 
 /* Link hover */
-.main-nav .mid a:hover {
+.main-nav a:hover {
   color: var(--ink-muted);
   transform: scale(1.05);
-}
-
-.main-nav .right {
-  width: 35vw;
-  text-align: right;
 }
 
 /* =========================================
