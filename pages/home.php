@@ -1,4 +1,4 @@
-<div class="grid-wrapper">
+<!-- <div class="grid-wrapper">
     <div class="menu-grid-container">
         <div class="menu-grid-item">
             <a href="/restoration" class="category" data-gallery="restoration"
@@ -25,22 +25,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Black and white | AEPaints</title>
 
-    <!-- Favicons -->
     <link rel="icon" href="/favicons/favicon.ico" sizes="any">
     <link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png">
 
-    <!-- Canonical URL for SEO -->
     <link rel="canonical" href="https://elzalive.com/black-and-white">
 
-    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
         href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap"
         rel="stylesheet">
 
-    <!-- Main Stylesheet -->
     <link rel="stylesheet" href="/assets/css/style.css" />
 </head>
 
@@ -48,8 +44,10 @@
     <header class="site-header">
         <nav class="top-grid main-nav" aria-label="Primary">
             <div class="mid flex">
-                <!-- Using the nav_item helper function for cleaner code -->
-                <a href="/home" class="">HOME</a>                <a href="/artworks" class="">ARTWORKS</a>                <a href="/biography" class="">BIOGRAPHY</a>                <a href="/contact" class="">CONTACT</a>                <!-- Add other navigation links if desired -->
+                <a href="/home" class="">HOME</a>
+                <a href="/artworks" class="">ARTWORKS</a>
+                <a href="/biography" class="">BIOGRAPHY</a>
+                <a href="/contact" class="">CONTACT</a>
             </div>
         </nav>
     </header>
@@ -77,4 +75,4 @@
 <script src="/assets/js/misc.js"></script>
 </body>
 
-</html>
+</html> -->
