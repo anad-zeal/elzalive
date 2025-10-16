@@ -116,31 +116,16 @@ video {
 /* =========================================
    Page Shell
 ========================================= */
-.page-content-wrapper {
-  width: 100%;
-  max-width: 1100px;
-  margin-inline: auto;
-  padding: 1rem 2rem;
-}
 
-/* .page-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-block-end: 2rem;
-  padding-block-end: 1rem;
-  border-block-end: 1px solid #eaeaea;
-} */
-
-/* =========================================
-   Navigation
-========================================= */
 .site-header {
   width: 100%;
   text-align: center;
   margin-bottom: 1vh;
 }
 
+/* =========================================
+   Navigation
+========================================= */
 .main-nav a {
   padding: 10px 15px; /* Adjust padding as needed */
   text-decoration: none; /* Removes underline from links */
@@ -286,14 +271,14 @@ h2.sub-title {
 /* =========================================
    Main Layout & Components (Container, Slideshow, Footer)
 ========================================= */
-.container {
+/* .container {
   max-width: var(--wide);
   margin: 0 auto;
   padding: var(--gutter);
   display: flex;
   flex-direction: column;
   min-height: 100vh;
-}
+} */
 
 /* Header Grid - Specific Styles */
 .portfolio-text {
