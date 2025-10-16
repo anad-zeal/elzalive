@@ -271,27 +271,10 @@ h2.sub-title {
 /* =========================================
    Main Layout & Components (Container, Slideshow, Footer)
 ========================================= */
-/* .container {
-  max-width: var(--wide);
-  margin: 0 auto;
-  padding: var(--gutter);
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh;
-} */
-
-/* Header Grid - Specific Styles */
-.portfolio-text {
-  font-family: var(--font-display);
-  font-weight: 600;
-  font-size: 1.2rem;
-  color: var(--brand);
-  margin: 0;
-}
 
 .slideshow-container {
   flex-grow: 1;
-  display: flex;
+  display: none;
   flex-direction: column;
   align-items: center;
   justify-content: center;
