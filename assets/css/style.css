@@ -281,7 +281,7 @@ h2.sub-title {
 }
 
 .restoration-projects {
-  justify-self: center;
+  justify-self: flex-end;
   align-self: center;
   grid-area: restoration-projects;
 }
@@ -293,7 +293,7 @@ h2.sub-title {
 }
 
 .decorative-painting {
-  justify-self: center;
+  justify-self: flex-start;
   align-self: center;
   grid-area: decorative-painting;
 }
