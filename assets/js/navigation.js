@@ -1,21 +1,10 @@
 // /assets/js/navigation.js
 // Fixed to work with the actual page structure
 
-// Shrink to 5vw when a.category is clicked
-document.querySelectorAll('a.category').forEach((link) => {
-  link.addEventListener('click', () => {
-    alert('Category link clicked');
-    pageTitle.style.fontSize = '1rem';
-  });
-});
+// Declare subTitleElement at a higher scope so all functions can access it
+let subTitleElement; // Use 'let' because it will be assigned later in DOMContentLoaded
 
-// Reset to 10vw when a.landing-mnu is clicked
-document.querySelectorAll('a.landing-mnu').forEach((link) => {
-  link.addEventListener('click', () => {
-    pageTitle.style.fontSize = '10vw';
-  });
-});
-
+// --- Start of existing helper functions ---
 function parseDurationValue(value) {
   value = (value || '').trim();
   if (!value) return 0;
@@ -67,23 +56,30 @@ const pageTitles = {
   '/decorative': 'Decorative Painting',
   '/black-and-white': 'Black and White Paintings',
 };
+// --- End of existing helper functions ---
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Assign subTitleElement here, within DOMContentLoaded,
+  // where the element is guaranteed to exist.
+  subTitleElement = document.querySelector('p.page-title');
+
   const navLinks = Array.from(document.querySelectorAll('nav a'));
-  const subTitleElement = document.querySelector('p.page-title');
   const dynamicPageWrapper = document.getElementById('dynamic-page-wrapper');
   const mainContentArea = document.getElementById('main-content-area');
   const loadingSpinner = document.getElementById('loading-spinner');
   let isTransitioning = false;
 
+  // --- Event listeners for font size changes ---
   // Function to handle clicking on a.category
   document.querySelectorAll('a.category').forEach(function (categoryLink) {
     categoryLink.addEventListener('click', function (event) {
       event.preventDefault(); // Prevent default link behavior if desired
 
       if (subTitleElement) {
-        alert('Category link clicked');
+        console.log('Category link clicked. Setting font-size to 5vw.'); // Use console.log for debugging
         subTitleElement.style.fontSize = '5vw';
+      } else {
+        console.warn('Category link clicked, but p.page-title (subTitleElement) not found.');
       }
     });
   });
@@ -94,23 +90,29 @@ document.addEventListener('DOMContentLoaded', () => {
       event.preventDefault(); // Prevent default link behavior if desired
 
       if (subTitleElement) {
-        // Ensure the element exists
-        // Check if the current font-size is 5vw (or close to it due to browser rendering)
-        // We'll check the computed style to be safe, though direct style setting is usually reliable.
-        // For simplicity, let's assume we're checking the inline style we set.
-        if (subTitleElement.style.fontSize === '5vw') {
+        // Check if the current font-size is 5vw
+        // Using getComputedStyle for robustness against browser differences,
+        // although direct style.fontSize should work if we're setting it programmatically.
+        const currentFontSize = subTitleElement.style.fontSize;
+        console.log('Landing menu link clicked. Current font-size:', currentFontSize);
+
+        if (currentFontSize === '5vw') {
+          console.log('Font-size is 5vw, reverting to 10vw.');
           subTitleElement.style.fontSize = '10vw'; // Revert to 10vw
+        } else {
+          console.log('Font-size is not 5vw, no change.');
         }
-        // If it's not 5vw, we don't do anything as per your requirement
+      } else {
+        console.warn('Landing menu link clicked, but p.page-title (subTitleElement) not found.');
       }
     });
   });
+  // --- End of event listeners for font size changes ---
 
-  //
   // DEBUG: Verify elements exist
   console.log('Elements found:');
   console.log('- mainContentArea:', mainContentArea);
-  console.log('- subTitleElement:', subTitleElement);
+  console.log('- subTitleElement (global):', subTitleElement); // Now global
   console.log('- dynamicPageWrapper:', dynamicPageWrapper);
   console.log('- loadingSpinner:', loadingSpinner);
 
