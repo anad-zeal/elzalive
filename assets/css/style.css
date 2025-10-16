@@ -149,7 +149,7 @@ h3 {
   font-family: var(--font-display);
 }
 
-.page-title {
+p.page-title {
   font-family: var(--font-title);
   font-size: 10vw;
   font-weight: 100;
@@ -157,6 +157,10 @@ h3 {
   text-align: center;
   margin: 0;
   color: var(--ink);
+}
+
+p.page-title .small-title {
+  display: none;
 }
 
 h1.title {
