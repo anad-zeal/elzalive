@@ -87,7 +87,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Function to handle clicking on a.landing-mnu
   document.querySelectorAll('a.landing-mnu').forEach(function (landingMenuLink) {
     landingMenuLink.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent default link behavior if desired
+      //event.preventDefault(); // Prevent default link behavior if desired
 
       if (subTitleElement) {
         // Check if the current font-size is 5vw
