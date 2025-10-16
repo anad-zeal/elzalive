@@ -159,7 +159,7 @@ p.page-title {
   color: var(--ink);
 }
 
-p.page-title .small-title {
+p.page-title.small-title {
   display: none;
 }
 
