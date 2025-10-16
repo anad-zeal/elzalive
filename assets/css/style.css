@@ -141,6 +141,61 @@ video {
 }
 
 /* =========================================
+   Navigation
+========================================= */
+.site-header {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 1vh;
+}
+
+.main-nav a {
+  padding: 10px 15px; /* Adjust padding as needed */
+  text-decoration: none; /* Removes underline from links */
+  color: #333; /* Default link color */
+  white-space: nowrap; /* Prevents text from wrapping within a link */
+}
+
+.home-main {
+  display: flex;
+  justify-content: space-between;
+  width: 96vw;
+  height: 2rem;
+  margin: 0 auto;
+  align-items: center;
+  font-family: var(--font-ui);
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  min-height: 2.5rem;
+}
+
+.main-nav a.is-active,
+.main-nav a:hover {
+  background-color: #eee; /* Example active/hover background */
+  color: #007bff; /* Example active/hover text color */
+}
+
+/* Optional: Add media queries for even better responsiveness on very small screens */
+@media (max-width: 600px) {
+  .main-nav {
+    flex-direction: column; /* Stack items vertically on small screens */
+    align-items: center; /* Center items when stacked vertically */
+  }
+}
+/* Link styles */
+.main-nav a {
+  text-decoration: none;
+  color: var(--brand);
+  transition: color 250ms ease, transform 250ms ease;
+}
+
+/* Link hover */
+.main-nav a:hover {
+  color: var(--ink-muted);
+  transform: scale(1.05);
+}
+
+/* =========================================
    Typography
 ========================================= */
 h1,
@@ -334,26 +389,6 @@ h2.sub-title {
    Media Queries for Responsiveness
 ========================================= */
 @media (max-width: 768px) {
-  .flex-grid-thirds {
-    flex-direction: column;
-    gap: var(--gap);
-  }
-
-  .flex-grid-thirds .col {
-    width: 100%;
-    text-align: center;
-    padding: 0;
-  }
-
-  .flex-grid-thirds .col:nth-child(1),
-  .flex-grid-thirds .col:nth-child(3) {
-    text-align: center;
-  }
-
-  .logo-img {
-    max-width: 120px;
-  }
-
   .main-menu ul {
     flex-direction: column;
     gap: 0.5rem;
@@ -367,73 +402,6 @@ h2.sub-title {
   .prev-next-icon {
     width: 25px;
   }
-}
-
-@media (max-width: 480px) {
-  .flex-grid-thirds {
-    padding: var(--gutter) 0;
-  }
-  .main-menu ul {
-    align-items: center;
-  }
-  .slideshow {
-    max-height: 40vh;
-  }
-}
-
-/* =========================================
-   Navigation
-========================================= */
-.site-header {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 1vh;
-}
-
-.main-nav a {
-  padding: 10px 15px; /* Adjust padding as needed */
-  text-decoration: none; /* Removes underline from links */
-  color: #333; /* Default link color */
-  white-space: nowrap; /* Prevents text from wrapping within a link */
-}
-
-.home-main {
-  display: flex;
-  justify-content: space-between;
-  width: 96vw;
-  height: 2rem;
-  margin: 0 auto;
-  align-items: center;
-  font-family: var(--font-ui);
-  gap: 0.5rem;
-  flex-wrap: wrap;
-  min-height: 2.5rem;
-}
-
-.main-nav a.is-active,
-.main-nav a:hover {
-  background-color: #eee; /* Example active/hover background */
-  color: #007bff; /* Example active/hover text color */
-}
-
-/* Optional: Add media queries for even better responsiveness on very small screens */
-@media (max-width: 600px) {
-  .main-nav {
-    flex-direction: column; /* Stack items vertically on small screens */
-    align-items: center; /* Center items when stacked vertically */
-  }
-}
-/* Link styles */
-.main-nav a {
-  text-decoration: none;
-  color: var(--brand);
-  transition: color 250ms ease, transform 250ms ease;
-}
-
-/* Link hover */
-.main-nav a:hover {
-  color: var(--ink-muted);
-  transform: scale(1.05);
 }
 
 /* =========================================
