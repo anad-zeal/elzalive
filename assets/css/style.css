@@ -298,7 +298,6 @@ h2.sub-title {
     'project-series drips-series';
   justify-items: center;
   align-items: start;
-  border: solid 2px var(--brand);
 }
 
 .black-and-white {
@@ -317,7 +316,6 @@ h2.sub-title {
 .category-menu div {
   width: 25vw;
   height: 22vh;
-  border: solid 1px red;
 }
 
 a.category {
@@ -326,12 +324,10 @@ a.category {
   font-weight: 600;
   color: #333;
   white-space: nowrap;
-  background-color: var(--ink-muted);
 }
 
 .category-menu p {
   min-width: 25vw;
-  background-color: var(--ink-muted);
 }
 
 /* =========================================
