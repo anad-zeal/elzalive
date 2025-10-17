@@ -184,7 +184,7 @@ h3 {
 .dynamic-page-wrapper [data-page='artworks'] {
   position: relative;
   z-index: 1;
-  background-color: var(--paper);
+  background-color: red;
 }
 
 p.page-title {
