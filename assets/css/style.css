@@ -321,7 +321,7 @@ a.category {
 
 .landing-menu div {
   width: 25vw;
-  height: 25vh;
+  height: 22vh;
   border: solid 1px red;
 }
 
@@ -469,11 +469,10 @@ a.category {
 .slideshow-site-header {
   visibility: hidden;
 }
-
-.category-menu {
-  width: 40vw;
+.landing-menu {
+  width: 60vw;
   height: 10vw;
-  margin: 0 auto; /* This will center the block-level element horizontally */
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   grid-template-rows: 1fr 1fr;
@@ -483,7 +482,7 @@ a.category {
     'black-and-white encaustic'
     'project-series drips-series';
   justify-items: center;
-  align-items: center;
+  align-items: start;
 }
 
 .black-and-white {
@@ -501,9 +500,15 @@ a.category {
 
 a.category {
   text-decoration: none;
-  font-family: var(--font-ui);
+  font-family: sans-serif;
+  font-weight: 600;
   color: #333; /* Default link color */
   white-space: nowrap; /* Prevents text from wrapping within a link */
+}
+
+.landing-menu div {
+  width: 25vw;
+  height: 26vh;
 }
 
 @media (max-width: 600px) {
