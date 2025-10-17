@@ -6,7 +6,8 @@
                 Paintings</a>
             <p>Bruschetta soufflé mango chutney pancetta. Tiramisu radicchio simmered gnocchi flambé. Umami croissant
                 drizzle saffron aioli, marinate biscotti. Poached truffle risotto, caramelized shallots, fig compote.
-                Zest roux paprika, seared scallops with crème fraîche. Baste tempura</p>
+                Zest roux paprika, seared scallops with crème fraîche. Baste tempura
+            </p>
         </div>
 
         <hr>
