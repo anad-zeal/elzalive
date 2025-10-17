@@ -435,7 +435,7 @@ h2.sub-title {
   display: grid;
   place-items: center;
 }
-#dynamic-page-wrapper [data-page='artworks'] {
+
 .slideshow [data-role='stage'] img {
   position: absolute !important;
   inset: 0 !important;
@@ -463,7 +463,7 @@ h2.sub-title {
 
 .category-menu {
   width: 40vw;
-  height:10vw;
+  height: 10vw;
   margin: 0 auto; /* This will center the block-level element horizontally */
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -471,62 +471,35 @@ h2.sub-title {
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
-    "black-and-white encaustic"
-    "project-series drips-series";
-   justify-items: center;
+    'black-and-white encaustic'
+    'project-series drips-series';
+  justify-items: center;
   align-items: center;
 }
 
-.black-and-white { grid-area: black-and-white;
+.black-and-white {
+  grid-area: black-and-white;
 }
-.encaustic { grid-area: encaustic;
+.encaustic {
+  grid-area: encaustic;
 }
-.project-series { grid-area: project-series;
+.project-series {
+  grid-area: project-series;
 }
-.drips-series { grid-area: drips-series;
+.drips-series {
+  grid-area: drips-series;
 }
 
 a.category {
-text-decoration: none;
-font-family: var(--font-ui);
-color: #333; /* Default link color */
+  text-decoration: none;
+  font-family: var(--font-ui);
+  color: #333; /* Default link color */
   white-space: nowrap; /* Prevents text from wrapping within a link */
 }
-
 
 @media (max-width: 600px) {
   .menu-grid-container {
     grid-template-columns: 1fr;
     grid-template-rows: auto;
   }
-}
-
-.category-menu {
-  width: 100vw;
-  display: grid;
-  grid-template-columns: 20vw 20vw;
-  grid-template-rows: 2vh 2vh;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  justify-items: center;
-  align-items: center;
-  grid-template-areas:
-    'black-and-white-paintings decorative-painting'
-    'encaustic-paintings project-series-paintings';
-}
-
-.decorative-painting {
-  grid-area: decorative-painting;
-}
-
-.encaustic-paintings {
-  grid-area: encaustic-paintings;
-}
-
-.project-series-paintings {
-  grid-area: project-series-paintings;
-}
-
-.black-and-white-paintings {
-  grid-area: black-and-white-paintings;
 }
