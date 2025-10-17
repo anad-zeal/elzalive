@@ -284,15 +284,50 @@ h2.sub-title {
    Main Layout & Components (Container, Slideshow, Footer)
 ========================================= */
 
-/* .slideshow-container {
-  flex-grow: 1;
+.site-footer {
+  padding-block: 3rem 2rem;
+  color: var(--ink-muted);
+  text-align: center;
+  font-size: 0.95rem;
+  border-top: 1px solid #eaeaea;
+  margin-top: 4rem;
+}
+.site-footer p {
+  margin: 0;
+}
+
+/* =========================================
+   Media Queries for Responsiveness
+========================================= */
+@media (max-width: 768px) {
+  .main-menu ul {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .prev-next.circle {
+    width: 50px;
+    height: 50px;
+  }
+
+  .prev-next-icon {
+    width: 25px;
+  }
+}
+
+/* =========================================
+   Slideshow — Hardened Overrides (put last)
+   Ensures stage has height and images never collapse to 0×0.
+========================================= */
+
+.slideshow-section {
+  margin: 0;
+  padding: 0;
+  width: 100%;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  position: relative;
-  width: var(--wide);
-} */
+  align-items: center;
+}
 
 .slideshow {
   align-items: center;
@@ -344,51 +379,6 @@ h2.sub-title {
   color: var(--ink-muted);
 }
 
-.site-footer {
-  padding-block: 3rem 2rem;
-  color: var(--ink-muted);
-  text-align: center;
-  font-size: 0.95rem;
-  border-top: 1px solid #eaeaea;
-  margin-top: 4rem;
-}
-.site-footer p {
-  margin: 0;
-}
-
-/* =========================================
-   Media Queries for Responsiveness
-========================================= */
-@media (max-width: 768px) {
-  .main-menu ul {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .prev-next.circle {
-    width: 50px;
-    height: 50px;
-  }
-
-  .prev-next-icon {
-    width: 25px;
-  }
-}
-
-/* =========================================
-   Slideshow — Hardened Overrides (put last)
-   Ensures stage has height and images never collapse to 0×0.
-========================================= */
-
-.slideshow-section {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .slideshow [data-role='stage'] {
   position: relative;
   /* keep height even if other CSS interferes */
@@ -399,7 +389,7 @@ h2.sub-title {
   display: grid;
   place-items: center;
 }
-
+/*
 .slideshow [data-role='stage'] img {
   position: absolute !important;
   inset: 0 !important;
@@ -411,7 +401,7 @@ h2.sub-title {
   object-fit: contain !important;
   opacity: 0;
   transition: opacity 1.5s ease-in-out;
-}
+} */
 
 .slideshow [data-role='caption-wrap'] {
   position: static;
@@ -423,52 +413,4 @@ h2.sub-title {
 
 .slideshow-site-header {
   visibility: hidden;
-}
-.landing-menu {
-  width: 60vw;
-  height: 10vw;
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    'black-and-white encaustic'
-    'project-series drips-series';
-  justify-items: center;
-  align-items: start;
-}
-
-.black-and-white {
-  grid-area: black-and-white;
-}
-.encaustic {
-  grid-area: encaustic;
-}
-.project-series {
-  grid-area: project-series;
-}
-.drips-series {
-  grid-area: drips-series;
-}
-
-a.category {
-  text-decoration: none;
-  font-family: sans-serif;
-  font-weight: 600;
-  color: #333; /* Default link color */
-  white-space: nowrap; /* Prevents text from wrapping within a link */
-}
-
-.landing-menu div {
-  width: 25vw;
-  height: 26vh;
-}
-
-@media (max-width: 600px) {
-  .menu-grid-container {
-    grid-template-columns: 1fr;
-    grid-template-rows: auto;
-  }
 }
