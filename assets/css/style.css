@@ -435,7 +435,7 @@ h2.sub-title {
   display: grid;
   place-items: center;
 }
-
+#dynamic-page-wrapper [data-page='artworks'] {
 .slideshow [data-role='stage'] img {
   position: absolute !important;
   inset: 0 !important;
@@ -509,6 +509,7 @@ h2.sub-title {
 }
 
 .category-menu {
+  width: 100%;
   display: grid;
   grid-template-columns: 50% 50%;
   grid-template-rows: auto auto;
