@@ -511,8 +511,8 @@ h2.sub-title {
 .category-menu {
   width: 100vw;
   display: grid;
-  grid-template-columns: 50% 50%;
-  grid-template-rows: auto auto;
+  grid-template-columns: 20vw 20vw;
+  grid-template-rows: 2vh 2vh;
   gap: 0px 0px;
   grid-auto-flow: row;
   justify-items: center;
