@@ -181,7 +181,7 @@ h3 {
   font-family: var(--font-display);
 }
 
-.dynamic-page-wrapper [data-page='artworks'] {
+#dynamic-page-wrapper [data-page='artworks'] {
   position: relative;
   z-index: 1;
   background-color: red;
