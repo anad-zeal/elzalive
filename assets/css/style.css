@@ -181,6 +181,12 @@ h3 {
   font-family: var(--font-display);
 }
 
+.dynamic-page-wrapper [data-page='artworks'] {
+  position: relative;
+  z-index: 1;
+  background-color: var(--paper);
+}
+
 p.page-title {
   font-family: var(--font-title);
   font-size: clamp(2.5rem, 7vw, 4rem);
