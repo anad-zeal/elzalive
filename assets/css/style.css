@@ -320,7 +320,7 @@ a.category {
   font-weight: 600;
   color: #333;
   white-space: nowrap;
-  background-color: var(--navajo-white-light);
+  background-color: var(--ink-muted);
 }
 
 .category-menu div {
