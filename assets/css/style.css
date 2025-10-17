@@ -329,6 +329,10 @@ a.category {
   border: solid 1px red;
 }
 
+.category-menu p {
+  background-color: var(--ink-muted);
+}
+
 /* =========================================
    Slideshow — Hardened Overrides (put last)
    Ensures stage has height and images never collapse to 0×0.
