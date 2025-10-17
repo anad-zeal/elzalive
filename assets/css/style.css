@@ -285,7 +285,7 @@ h2.sub-title {
 ========================================= */
 
 .category-menu {
-  width: 60vw;
+  width: 30vw;
   height: 60vw;
   margin: 0 auto;
   display: grid;
@@ -315,6 +315,7 @@ h2.sub-title {
 }
 
 a.category {
+  line-height: 1;
   text-decoration: none;
   font-family: sans-serif;
   font-weight: 600;
