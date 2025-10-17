@@ -321,6 +321,8 @@ a.category {
   color: #333;
   white-space: nowrap;
   background-color: var(--ink-muted);
+  padding: 0;
+  margin: 0;
 }
 
 .category-menu div {
