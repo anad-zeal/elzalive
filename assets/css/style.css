@@ -284,7 +284,7 @@ h2.sub-title {
   position: relative;
   top: 5vh;
   width: 60vw;
-  height: 20vw;
+  height: 30vw;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
