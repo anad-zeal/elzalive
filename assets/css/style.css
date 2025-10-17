@@ -461,45 +461,38 @@ h2.sub-title {
   visibility: hidden;
 }
 
-.grid-wrapper {
-  margin: 0;
-  padding: 0;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-family: sans-serif;
-  background-color: transparent;
-}
-
-.menu-grid-container {
+.category-menu {
+  width: 40vw;
+  height:10vw;
+  margin: 0 auto; /* This will center the block-level element horizontally */
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-template-rows: repeat(2, 1fr);
-  gap: 10px;
-  width: 80vw;
-  max-width: 600px;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    "black-and-white encaustic"
+    "project-series drips-series";
+   justify-items: center;
+  align-items: center;
 }
 
-.menu-grid-item {
-  background-color: transparent;
-  color: var(--brand);
-  padding: 40px;
-  text-align: center;
-  border-radius: 8px;
-  font-size: 1.2em;
+.black-and-white { grid-area: black-and-white;
+}
+.encaustic { grid-area: encaustic;
+}
+.project-series { grid-area: project-series;
+}
+.drips-series { grid-area: drips-series;
 }
 
-.menu-grid-item a {
-  text-decoration: none;
-  color: var(--brand);
-  font-family: var(--font-title);
-  font-size: 1.75rem;
-  font-weight: 100;
-  line-height: 1;
-  text-align: center;
-  margin: 0;
+a.category {
+text-decoration: none;
+font-family: var(--font-ui);
+color: #333; /* Default link color */
+  white-space: nowrap; /* Prevents text from wrapping within a link */
 }
+
 
 @media (max-width: 600px) {
   .menu-grid-container {
