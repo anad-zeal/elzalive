@@ -326,6 +326,8 @@ a.category {
 .category-menu div {
   width: 25vw;
   height: 26vh;
+  padding: 0;
+  margin: 0;
   border: solid 1px red;
 }
 
