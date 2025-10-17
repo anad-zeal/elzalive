@@ -189,6 +189,7 @@ p.page-title {
   text-align: center;
   margin: 0;
   color: var(--ink);
+  padding: 0;
 }
 
 p.page-title.small-title {
