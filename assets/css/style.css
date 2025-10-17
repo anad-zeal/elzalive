@@ -528,7 +528,6 @@ h2.sub-title {
 .decorative-painting {
   grid-area: decorative-painting;
   width: 40vw;
-  border: solid 1px red;
 }
 
 .encaustic-paintings {

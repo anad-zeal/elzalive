@@ -9,7 +9,7 @@
         <a href="/encaustic" class="category images" data-gallery="encaustic_paintings"
             aria-label="Go to Encaustic Paintings">Encaustic Paintings</a>
     </div>
-    <div class="project-se      ries-paintings">
+    <div class="project-series-paintings">
         <a href="/encaustic" class="category images" data-gallery="encaustic_paintings"
             aria-label="Go to Encaustic Paintings">Encaustic Paintings</a>
     </div>
