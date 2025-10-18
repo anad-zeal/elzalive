@@ -308,7 +308,7 @@ h2.sub-title {
 
 .page-menu p {
   text-align: left;
-  font-family: var(--font-body);
+  font-family: Montserrat;
   font-size: 1rem;
   color: var(--ink-muted);
   margin-top: 0.5rem;
