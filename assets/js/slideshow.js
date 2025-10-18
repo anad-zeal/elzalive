@@ -9,7 +9,11 @@ function injectCoreStylesOnce(fadeMs = 1500) {
   const s = document.createElement('style');
   s.setAttribute('data-slideshow-core', '1');
   s.textContent = `
-    .slideshow { width: min(1200px, 90vw); margin-inline: auto; position: relative; }
+    .slideshow {
+      width: min(1200px, 90vw);
+      margin-inline: auto;
+      position: relative; }
+
     .slideshow [data-role="stage"]{
       position: relative; aspect-ratio: 16 / 9; min-height: 320px;
       background:#c0ad97; overflow:hidden; border-radius:8px;
@@ -18,7 +22,7 @@ function injectCoreStylesOnce(fadeMs = 1500) {
     }
     .slideshow [data-role="stage"] img{
       position:absolute; inset:0; margin:auto; display:block;
-      width:100%; height:100%; min-width:1px; min-height:1px; object-fit:contain;
+      width:100vw; height:100vh; min-width:1px; min-height:1px; object-fit:contain;
       opacity:0; transition:opacity ${fadeMs}ms ease-in-out;
     }
     .slideshow [data-role="caption-wrap"]{
