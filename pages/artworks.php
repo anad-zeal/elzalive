@@ -11,11 +11,12 @@
         </div>
 
         <div class="encaustic gallery"><a href="/encaustic" class="gallery-link" data-gallery="encaustic_paintings"
-                aria-label="Go to Encaustic Paintings">Encaustic Paintings</a>
-            <p>Baste tempura, fennel purée, cocoa nibs. Sourdough béchamel, roasted chestnuts, lemon verbena glaze.
-                Infused gazpacho, heirloom tomatoes, miso broth. Pickled ramps, velvety mousse, charred leeks.
-            </p>
+                aria-label="Go to encaustic Paintings">Encaustic Paintings</a>
+            <p>Triangle quadrilateral pentagon hexagon octagon dodecagon circle ellipse radius diameter chord arc sector
+                segment angle vertex edge face surface volume area perimeter symmetry congruence similarity tessellation
+                reflection rotation translation dilation coordinate.</p>
         </div>
+
 
         <div class="project-series gallery"><a href="/projects" class="gallery-link"
                 data-gallery="project_series_paintings" aria-label="Go to Project Series Paintings">Project Series
