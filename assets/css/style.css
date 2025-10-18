@@ -305,6 +305,11 @@ h2.sub-title {
   background-color: var(--ink-muted);
 }
 
+.img-home {
+  height: 24vh;
+  width: auto;
+}
+
 .restoration {
   grid-area: restoration;
 }
