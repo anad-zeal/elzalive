@@ -237,7 +237,6 @@ h2.sub-title {
 
 .body-paragraphs {
   position: relative;
-  left: 12vw;
   top: 0;
   display: flex;
   flex-direction: column;
