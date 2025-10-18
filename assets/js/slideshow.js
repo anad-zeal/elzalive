@@ -10,33 +10,46 @@ function injectCoreStylesOnce(fadeMs = 1500) {
   s.setAttribute('data-slideshow-core', '1');
   s.textContent = `
     .slideshow {
-      width: min(1200px, 90vw);
-      margin-inline: auto;
-      position: relative; }
+      width: 100%; /* Take full width of its parent */
+      height: 100%; /* Take full height of its parent */
+      margin: 0; /* Remove auto margin */
+      position: relative;
+    }
 
     .slideshow [data-role="stage"]{
-      position: relative; aspect-ratio: 16 / 9; min-height: 320px;
-      background:#c0ad97; overflow:hidden; border-radius:8px;
-      box-shadow:0 4px 8px rgb(0 0 0 / 0.1); display:grid; place-items:center;
+      position: relative;
+      aspect-ratio: unset; /* Remove aspect ratio */
+      min-height: unset; /* Remove min-height */
+      width: 100%;
+      height: 100%;
+      background:#c0ad97; overflow:hidden; border-radius:0; /* No border-radius for full viewport */
+      box-shadow:none; /* No box-shadow for full viewport */
+      display:grid; place-items:center;
       isolation:isolate;
     }
     .slideshow [data-role="stage"] img{
       position:absolute; inset:0; margin:auto; display:block;
-      width:100vw; height:100vh; min-width:1px; min-height:1px; object-fit:contain;
+      width:100%; height:100%; /* Fill the stage */
+      min-width:1px; min-height:1px;
+      object-fit:cover; /* Use cover to fill and maintain aspect ratio */
       opacity:0; transition:opacity ${fadeMs}ms ease-in-out;
     }
     .slideshow [data-role="caption-wrap"]{
-      position:static; text-align:center; padding:.75rem 0; color:#555; font-style:italic;
+      position:absolute; bottom:0; left:0; right:0; text-align:center;
+      padding:.75rem; color:#fff; font-style:italic;
+      background:rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+      z-index:10;
     }
     .slideshow [data-role="previous"], .slideshow [data-role="next"]{
-      position:absolute; top:50%; transform:translateY(-50%); z-index:10;
+      position:absolute; top:50%; transform:translateY(-50%); z-index:11;
     }
-    .slideshow [data-role="previous"]{ left:.5rem; }
-    .slideshow [data-role="next"]{ right:.5rem; }
+    .slideshow [data-role="previous"]{ left:1rem; } /* Adjust button position */
+    .slideshow [data-role="next"]{ right:1rem; } /* Adjust button position */
     .slideshow button[data-action]{
       background:#8b0000; color:#fff; border:0; border-radius:50%;
       width:56px; height:56px; display:grid; place-items:center; cursor:pointer;
       transition: background-color 0.2s ease;
+      box-shadow:0 2px 5px rgb(0 0 0 / 0.3); /* Add subtle shadow */
     }
     .slideshow button[data-action]:hover{ background:#c53030; }
     .slideshow button[data-action]:focus{ outline:2px solid #c53030; outline-offset:2px; }
@@ -115,11 +128,13 @@ class Slideshow {
 
     this.stage = this.root.querySelector('[data-role="stage"]') || createEl('div', 'stage');
     if (!this.stage.parentNode) this.root.appendChild(this.stage);
-    const ar = getComputedStyle(this.stage).aspectRatio;
-    if (!ar || ar === 'auto') {
-      this.stage.style.aspectRatio = '16 / 9';
-      if (!this.stage.style.minHeight) this.stage.style.minHeight = '320px';
-    }
+    // Remove the explicit aspect-ratio and min-height setting here
+    // as it's handled by CSS and we want it to be dynamic
+    // const ar = getComputedStyle(this.stage).aspectRatio;
+    // if (!ar || ar === 'auto') {
+    //   this.stage.style.aspectRatio = '16 / 9';
+    //   if (!this.stage.style.minHeight) this.stage.style.minHeight = '320px';
+    // }
 
     let capWrap = this.root.querySelector('[data-role="caption-wrap"]');
     if (!capWrap) capWrap = createEl('div', 'caption-wrap');

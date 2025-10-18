@@ -476,17 +476,38 @@ h2.sub-title {
   color: var(--ink-muted);
 }
 
+.slideshow-section {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* Add height 100vh to make the section fill the viewport height */
+  height: 100vh;
+}
+
+.slideshow-container.slideshow {
+  /* Allow the slideshow container to take up more space */
+  width: 100%;
+  height: 100%;
+  max-width: unset; /* Remove max-width constraint */
+  margin: 0; /* Remove auto margins */
+}
+
 .slideshow [data-role='stage'] {
   position: relative;
-  /* keep height even if other CSS interferes */
-  aspect-ratio: 16 / 9;
-  min-height: 640px;
+  /* Remove aspect-ratio and min-height to allow dynamic sizing */
+  aspect-ratio: unset;
+  min-height: unset;
+  width: 100%; /* Fill available width */
+  height: 100%; /* Fill available height */
   background-color: purple;
   overflow: hidden;
   display: grid;
   place-items: center;
 }
-/*
+
 .slideshow [data-role='stage'] img {
   position: absolute !important;
   inset: 0 !important;
@@ -495,17 +516,50 @@ h2.sub-title {
   height: 100% !important;
   min-width: 1px !important;
   min-height: 1px !important;
-  object-fit: contain !important;
+  /* Use object-fit: cover to make images fill the stage while maintaining aspect ratio */
+  object-fit: cover !important;
   opacity: 0;
   transition: opacity 1.5s ease-in-out;
-} */
+}
 
 .slideshow [data-role='caption-wrap'] {
-  position: static;
+  position: absolute; /* Position caption over the image */
+  bottom: 0;
+  left: 0;
+  right: 0;
   text-align: center;
-  padding: 0.75rem 0;
-  color: #555;
+  padding: 0.75rem;
+  color: #fff; /* Make caption text white for better contrast on images */
+  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
   font-style: italic;
+  z-index: 10; /* Ensure caption is above the image */
+}
+
+/* Adjust button positioning for full-viewport slideshow */
+.slideshow [data-role='previous'],
+.slideshow [data-role='next'] {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 11; /* Above caption */
+  background: #8b0000;
+  color: #fff;
+  border: 0;
+  border-radius: 50%;
+  width: 56px;
+  height: 56px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  padding: 0; /* Remove default padding from buttons */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
+}
+.slideshow [data-role='previous'] {
+  left: 1rem;
+}
+.slideshow [data-role='next'] {
+  right: 1rem;
 }
 
 .slideshow-site-header {
