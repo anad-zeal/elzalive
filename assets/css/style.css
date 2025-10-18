@@ -17,7 +17,7 @@
   --font-body: 'Montserrat', ui-sans-serif;
   --font-ui: Inter, sans-serif;
   --font-display: 'Montserrat', sans-serif;
-  --font-title: 'Playfair Display', serif;
+  --font-title: 'Playfair Display', sans-serif;
   --font-script: 'Bonheur Royale', cursive;
 
   /* Layout */
@@ -221,7 +221,7 @@ h3.title {
 h2.sub-title {
   /* position: relative;
   top: 1vh; */
-  font-family: var(--font-title);
+  font-family: var(--font-script);
   font-size: clamp(1.75rem, 4.5vw, 3rem);
   font-weight: 200;
   letter-spacing: -0.02em;
@@ -311,11 +311,11 @@ h2.sub-title {
 
 .page-menu a {
   text-decoration: none;
-  font-family: var(--font-title);
+  font-family: var(--font-ui);
   font-size: 1.25rem;
   font-weight: 400;
   line-height: 1;
-  color: var(--ink);
+  color: var(--ink)
   white-space: nowrap; /* Prevents text from wrapping within a link */
 }
 
