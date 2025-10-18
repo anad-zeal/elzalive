@@ -1,4 +1,3 @@
-<!-- <h2 id="artworks-heading" class="visually-hidden">Artworks</h2> -->
 <section class="body-paragraphs" aria-labelledby="artworks-page-heading">
     <div class="gallery-menu">
         <div class="black-and-white gallery"><a href="/black-and-white" class="gallery-link"
