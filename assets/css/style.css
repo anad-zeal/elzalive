@@ -581,7 +581,7 @@ h2.sub-title {
 }
 .ccbtn {
   display: block;
-  background: var(--navajo-white-light);
+  background: lightyellow;
   color: var(--brand);
   padding: 12px 25px;
   cursor: pointer;
