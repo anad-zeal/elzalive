@@ -21,8 +21,8 @@
             reflection rotation translation dilation coordinate.</p>
     </div>
 
-    <div class="landing-menu-item"><a href="/landing-image" class="category" data-item="landing-image"
-            aria-label="Landing Image"><img src="https://elzalive.com/assets/images/misc-images/bama-sunset.jpg"
-                height="100" ;> </a>
+    <div class="landing-menu-item">
+        <a href="/landing-image" class="category" data-item="landing-image" aria-label="Landing Image"><img
+                src="https://elzalive.com/assets/images/misc-images/bama-sunset.jpg" class="img-home"></a>
     </div>
 </div>
