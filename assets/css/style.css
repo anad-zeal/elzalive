@@ -421,6 +421,7 @@ h2.sub-title {
   display: flex;
   justify-content: center;
   align-items: center;
+  border: solid 1px red;
 }
 
 .slideshow {
@@ -436,6 +437,7 @@ h2.sub-title {
   width: var(--wide);
   max-height: 90vh;
   overflow: hidden;
+  border: solid 1px rgb(157, 0, 255);
 }
 
 /* Prev/Next buttons (base) */
