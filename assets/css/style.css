@@ -283,6 +283,47 @@ h2.sub-title {
 /* =========================================
    Main Layout & Components (Container, Slideshow, Footer)
 ========================================= */
+.landing-menu {
+  width: 60vw;
+  height: 10vw;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    ‘restoration decorative
+    ‘artworks landing-image;
+  justify-items: center;
+  align-items: start;
+}
+
+.landing-menu div {
+  width: 25vw;
+  height: 26vh;
+}
+
+.restoration {
+  grid-area: restoration;
+}
+.decorative {
+  grid-area: decorative;
+}
+.artworks {
+  grid-area: artworks;
+}
+.landing-image {
+  grid-area: landing-image;
+}
+
+a.category {
+  text-decoration: none;
+  font-family: sans-serif;
+  font-weight: 600;
+  color: #333; /* Default link color */
+  white-space: nowrap; /* Prevents text from wrapping within a link */
+}
 
 .category-menu {
   width: 60vw;
