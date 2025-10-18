@@ -14,8 +14,8 @@
   --ivory-inspired: hsl(45, 30%, 94%);
 
   /* Typography */
-  --font-body: 'Montserrat', ui-sans-serif;
-  --font-ui: Inter, sans-serif;
+  --font-body: 'Montserrat', sans-serif;
+  --font-ui: 'Inter', sans-serif;
   --font-display: 'Montserrat', sans-serif;
   --font-title: 'Playfair Display', sans-serif;
   --font-script: 'Bonheur Royale', cursive;
