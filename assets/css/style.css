@@ -304,6 +304,11 @@ h2.sub-title {
   height: 24vh;
 }
 
+landing-menu-item {
+  justify-items: center;
+  align-items: center;
+}
+
 .img-home {
   height: 24vh;
   width: auto;
