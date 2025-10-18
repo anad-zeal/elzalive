@@ -536,3 +536,53 @@ h2.sub-title {
 .site-footer p {
   margin: 0;
 }
+
+
+
+/* Form CSS*/
+.ccform {
+   margin: 0 auto;
+    width: 800px;
+}
+.ccfield-prepend{
+	margin-bottom:10px;
+	width:100%;
+}
+
+.ccform-addon{
+	color:#f8ae45;
+	float:left;
+	padding:8px;
+	width:8%;
+	background:#FFFFFF;
+	text-align:center;
+}
+
+.ccformfield {
+	color:#000000;
+	background:#FFFFFF;
+	border:none;
+	padding:15.5px;
+	width:91.9%;
+	display:block;
+	font-family: 'Lato',Arial,sans-serif;
+	font-size:14px;
+}
+
+.ccformfield {
+	font-family: 'Lato',Arial,sans-serif;
+}
+.ccbtn{
+	display:block;
+	border:none;
+	background:#f8ae45;
+	color:#FFFFFF;
+	padding:12px 25px;
+	cursor:pointer;
+	text-decoration:none;
+	font-weight:bold;
+}
+.ccbtn:hover{
+	background:#d8850e;
+
+}
