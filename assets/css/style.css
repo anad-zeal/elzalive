@@ -320,6 +320,14 @@ h2.sub-title {
   align-items: center;
 }
 
+.category p {
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink-muted);
+  margin-top: 0.5rem;
+}
+
 .category a {
   text-decoration: none;
   font-family: var(--font-ui);
