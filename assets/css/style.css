@@ -338,10 +338,9 @@ h2.sub-title {
 .landing-image {
   grid-area: landing-image;
 }
-
-.gallery-menu {
+.gallery-menu  {
   width: 60vw;
-  height: 49vh;
+  height: 60vh;
   margin: 2vh auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -349,21 +348,18 @@ h2.sub-title {
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
-    'black-and-white encaustic'
-    'project-series drips-series';
+    'restoration decorative'
+    'artworks landing-image';
   justify-items: center;
-  align-items: center;
+  align-items: start;
 }
 
-.gallery-menu p {
-  text-align: left;
-  font-family: var(--font-body);
-  font-size: 1rem;
-  color: var(--ink-muted);
-  margin-top: 0.5rem;
+.gallery-menu  div {
+  width: 25vw;
+  height: 24vh;
 }
 
-.gallery-menu a {
+.gallery-menu  a {
   text-decoration: none;
   font-family: var(--font-ui);
   font-size: 1.25rem;
@@ -373,8 +369,8 @@ h2.sub-title {
   white-space: nowrap; /* Prevents text from wrapping within a link */
 }
 
-.gallery-menu a:is-active,
-.gallery-menu a:hover {
+.gallery-menu  a:is-active,
+.gallery-menu  a:hover {
   color: var(--brand);
   transform: scale(1.25);
   transition: color 250ms ease, transform 250ms ease;
