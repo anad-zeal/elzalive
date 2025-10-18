@@ -302,6 +302,14 @@ h2.sub-title {
   height: 24vh;
 }
 
+.page-menu p {
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink-muted);
+  margin-top: 0.5rem;
+}
+
 .page-menu a {
   text-decoration: none;
   font-family: var(--font-ui);
