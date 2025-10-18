@@ -304,7 +304,7 @@ h2.sub-title {
   height: 24vh;
 }
 
-.landing-menu-item a.img-lnk {
+a.img-lnk {
   width: 25vw;
   justify-items: center;
   align-items: center;
