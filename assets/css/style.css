@@ -323,8 +323,9 @@ h2.sub-title {
 .category a {
   text-decoration: none;
   font-family: var(--font-ui);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   font-weight: 400;
+  line-height: 1;
   color: var(--ink)
   white-space: nowrap; /* Prevents text from wrapping within a link */
 }
