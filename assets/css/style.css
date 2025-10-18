@@ -301,6 +301,53 @@ h2.sub-title {
   height: 24vh;
 }
 
+# css tempo
+#AEP_Website
+
+
+.page-menu {
+  width: 60vw;
+  height: 49vh;
+  margin: 2vh auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 0px 0px;
+  grid-auto-flow: row;
+  grid-template-areas:
+    'black-and-white encaustic'
+    'project-series drips-series';
+  justify-items: center;
+  align-items: center;
+}
+
+.gallery p {
+  text-align: left;
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--ink-muted);
+  margin-top: 0.5rem;
+}
+
+.page-menu a {
+  text-decoration: none;
+  font-family: var(--font-ui);
+  font-size: 1.25rem;
+  font-weight: 400;
+  line-height: 1;
+  color: var(--ink)
+  white-space: nowrap; /* Prevents text from wrapping within a link */
+}
+
+.page-menu a:is-active,
+.page-menu a:hover {
+  color: var(--brand);
+  transform: scale(1.25);
+  transition: color 250ms ease, transform 250ms ease;
+}
+
+
+
 .last-item p {
   width: 25vw;
   text-align: center;
@@ -323,7 +370,7 @@ h2.sub-title {
 }
 
 
-.category-menu {
+.gallery-menu {
   width: 60vw;
   height: 49vh;
   margin: 2vh auto;
@@ -339,7 +386,7 @@ h2.sub-title {
   align-items: center;
 }
 
-.category p {
+.gallery p {
   text-align: left;
   font-family: var(--font-body);
   font-size: 1rem;
@@ -347,7 +394,7 @@ h2.sub-title {
   margin-top: 0.5rem;
 }
 
-.category a {
+.gallery-menu a {
   text-decoration: none;
   font-family: var(--font-ui);
   font-size: 1.25rem;
@@ -357,8 +404,8 @@ h2.sub-title {
   white-space: nowrap; /* Prevents text from wrapping within a link */
 }
 
-.category a:is-active,
-.category a:hover {
+.gallery-menu a:is-active,
+.gallery-menu a:hover {
   color: var(--brand);
   transform: scale(1.25);
   transition: color 250ms ease, transform 250ms ease;
