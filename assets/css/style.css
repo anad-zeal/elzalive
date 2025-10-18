@@ -569,7 +569,8 @@ h2.sub-title {
 	width:91.9%;
 	display:block;
 	font-family: var(--font-ui);
-	font: size 1.25rem;;
+	font: size 1.25rem;
+  border-radius: 10px;
 }
 
 .ccformfield {
@@ -577,7 +578,6 @@ h2.sub-title {
 }
 .ccbtn{
 	display:block;
-	border:none;
 background:var(--navajo-white-dark);
 	color:var(--brand);
 	padding: 12px 25px;
@@ -585,7 +585,9 @@ background:var(--navajo-white-dark);
 	text-decoration: none;
 	font-weight:400;
   font-size: 1.5rem;
+  border-radius: 10px;
 }
 .ccbtn:hover{
   background:var(--paper);
+
 }
