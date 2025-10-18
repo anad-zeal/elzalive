@@ -302,6 +302,7 @@ h2.sub-title {
 .landing-menu div {
   width: 25vw;
   height: 26vh;
+  background-color: var(--ink-muted);
 }
 
 .restoration {
