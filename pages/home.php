@@ -6,7 +6,6 @@
             derivative gradient divergence curl Laplacian vector field scalar field.</p>
     </div>
 
-
     <div class="landing-menu-item page"><a href="/restoration" class="page-link" data-gallery="encaustic_paintings"
             aria-label="Go to Restoration Projects">Restoration Projects</a>
         <p>Matrix parabola quotient variable coefficient binomial exponent modulus integer polynomial function domain
@@ -21,9 +20,9 @@
             reflection rotation translation dilation coordinate.</p>
     </div>
 
-    <div class="landing-menu-item last-item">
+    <!-- <div class="landing-menu-item last-item">
         <p>
             <img src="https://elzalive.com/assets/images/misc-images/bama-sunset.jpg" class="img-home">
         </p>
-    </div>
+    </div> -->
 </div>
