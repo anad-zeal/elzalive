@@ -359,7 +359,7 @@ h2.sub-title {
   height: 24vh;
 }
 
-.gallery-menu  a {
+.gallery a {
   text-decoration: none;
   font-family: var(--font-ui);
   font-size: 1.25rem;
@@ -369,8 +369,8 @@ h2.sub-title {
   white-space: nowrap; /* Prevents text from wrapping within a link */
 }
 
-.gallery-menu  a:is-active,
-.gallery-menu  a:hover {
+.gallery a:is-active,
+.gallery a:hover {
   color: var(--brand);
   transform: scale(1.25);
   transition: color 250ms ease, transform 250ms ease;

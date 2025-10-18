@@ -10,8 +10,6 @@
             </p>
         </div>
 
-        <hr>
-
         <div class="encaustic gallery"><a href="/encaustic" class="gallery-link" data-gallery="encaustic_paintings"
                 aria-label="Go to Encaustic Paintings">Encaustic Paintings</a>
             <p>Baste tempura, fennel purée, cocoa nibs. Sourdough béchamel, roasted chestnuts, lemon verbena glaze.
