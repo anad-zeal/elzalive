@@ -572,7 +572,7 @@ h2.sub-title {
   width: 91.9%;
   display: block;
   font-family: var(--font-ui);
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   font-weight: 200;
 }
 
@@ -586,8 +586,9 @@ h2.sub-title {
   padding: 12px 25px;
   cursor: pointer;
   text-decoration: none;
+  font-family: var(--font-ui);
   font-weight: 200;
-  font-size: 1.25rem;
+  font-size: 1.125rem;
   border-radius: 10px;
   border: none;
 }
