@@ -151,6 +151,7 @@ video {
 .main-nav-menu a:hover {
   color: var(--ink-muted);
   transform: scale(1.05);
+  transition: color 250ms ease, transform 250ms ease;
 }
 
 /* Optional: Add media queries for even better responsiveness on very small screens */
@@ -159,12 +160,6 @@ video {
     flex-direction: column; /* Stack items vertically on small screens */
     align-items: center; /* Center items when stacked vertically */
   }
-}
-/* Link styles */
-.main-nav-menu a {
-  text-decoration: none;
-  color: var(--brand);
-  transition: color 250ms ease, transform 250ms ease;
 }
 
 /* =========================================
