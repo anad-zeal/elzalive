@@ -322,13 +322,6 @@ h2.sub-title {
   grid-area: landing-image;
 }
 
-a.category {
-  text-decoration: none;
-  font-family: var(--font-ui);
-  font-weight: 600;
-  color: var(--ink)
-  white-space: nowrap; /* Prevents text from wrapping within a link */
-}
 
 .category-menu {
   width: 60vw;
@@ -344,6 +337,21 @@ a.category {
     'project-series drips-series';
   justify-items: center;
   align-items: center;
+}
+
+.category a {
+  text-decoration: none;
+  font-family: var(--font-ui);
+  font-weight: 600;
+  color: var(--ink)
+  white-space: nowrap; /* Prevents text from wrapping within a link */
+}
+
+.category a.is-active,
+.category a:hover {
+  color: var(--brand);
+  transform: scale(1.25);
+  transition: color 250ms ease, transform 250ms ease;
 }
 
 .black-and-white {
