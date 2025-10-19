@@ -1,58 +1,106 @@
 [
   {
-    "src": "/assets/images/restoration-projects/12image12.jpg",
-    "caption": "12image12"
+    "src": "/assets/images/encaustic-paintings/Encaustic XI.jpg",
+    "caption": "Encaustic XI"
   },
   {
-    "src": "/assets/images/restoration-projects/08image8.jpg",
-    "caption": "08image8"
+    "src": "/assets/images/encaustic-paintings/Encaustic VIII.jpg",
+    "caption": "Encaustic VIII"
   },
   {
-    "src": "/assets/images/restoration-projects/09image9.jpg",
-    "caption": "09image9"
+    "src": "/assets/images/encaustic-paintings/Encaustic VII.jpg",
+    "caption": "Encaustic VII"
   },
   {
-    "src": "/assets/images/restoration-projects/10image7.jpg",
-    "caption": "10image7"
+    "src": "/assets/images/encaustic-paintings/Encaustic VI.jpg",
+    "caption": "Encaustic VI"
   },
   {
-    "src": "/assets/images/restoration-projects/magic-flute.jpg",
-    "caption": "Magic Flute"
+    "src": "/assets/images/encaustic-paintings/Encaustic IX.jpg",
+    "caption": "Encaustic IX"
   },
   {
-    "src": "/assets/images/restoration-projects/0800.jpg",
-    "caption": "0800"
+    "src": "/assets/images/encaustic-paintings/Encaustic IV.jpg",
+    "caption": "Encaustic IV"
   },
   {
-    "src": "/assets/images/restoration-projects/calliope.jpg",
-    "caption": "Calliope"
+    "src": "/assets/images/encaustic-paintings/Encaustic II.jpg",
+    "caption": "Encaustic II"
   },
   {
-    "src": "/assets/images/restoration-projects/radish.jpg",
-    "caption": "Radish"
+    "src": "/assets/images/encaustic-paintings/Encaustic III.jpg",
+    "caption": "Encaustic III"
   },
   {
-    "src": "/assets/images/restoration-projects/9bw09image9.jpg",
-    "caption": "9bw09image9"
+    "src": "/assets/images/encaustic-paintings/Encaustic I.jpg",
+    "caption": "Encaustic I"
   },
   {
-    "src": "/assets/images/restoration-projects/bw4image4.jpg",
-    "caption": "bw4image4"
+    "src": "/assets/images/encaustic-paintings/Wynken, Blynken and Nod.jpg",
+    "caption": "Wynken, Blynken and Nod"
   },
   {
-    "src": "/assets/images/restoration-projects/8bwimage8.jpg",
-    "caption": "8bwimage8"
+    "src": "/assets/images/encaustic-paintings/Under the Bridge.jpg",
+    "caption": "Under the Bridge"
   },
   {
-    "src": "/assets/images/restoration-projects/11bwimage11.jpg",
-    "caption": "11bwimage11"
+    "src": "/assets/images/encaustic-paintings/Stage Two Over Cosmos.jpg",
+    "caption": "Stage Two Over Cosmos"
   },
   {
-    "src": "/assets/images/restoration-projects/tui.jpg",
-    "caption": "Tui"
+    "src": "/assets/images/encaustic-paintings/Red Line.jpg",
+    "caption": "Red Line"
   },
   {
-    "src": "/assets/images/restoration-projects/morphean.jpg",
-    "caption": "Morphean"
+    "src": "/assets/images/encaustic-paintings/Microbial II.jpg",
+    "caption": "Microbial II"
+  },
+  {
+    "src": "/assets/images/encaustic-paintings/Microbial I.jpg",
+    "caption": "Microbial I"
+  },
+  {
+    "src": "/assets/images/encaustic-paintings/Light Years Away III.jpg",
+    "caption": "Light Years Away III"
+  },
+  {
+    "src": "/assets/images/encaustic-paintings/Light Years Away II.jpg",
+    "caption": "Light Years Away II"
+  },
+  {
+    "src": "/assets/images/encaustic-paintings/Light Years Away I.jpg",
+    "caption": "Light Years Away I"
+  },
+  {
+    "src": "/assets/images/encaustic-paintings/In the Fog.jpg",
+    "caption": "In the Fog"
+  },
+  {
+    "src": "/assets/images/encaustic-paintings/Ground Control to Major Tom III.jpg",
+    "caption": "Ground Control to Major Tom III"
+  },
+  {
+    "src": "/assets/images/encaustic-paintings/Ground Control to Major Tom I.jpg",
+    "caption": "Ground Control to Major Tom I"
+  },
+  {
+    "src": "/assets/images/encaustic-paintings/Ground Control to Major Tom II.jpg",
+    "caption": "Ground Control to Major Tom II"
+  },
+  {
+    "src": "/assets/images/encaustic-paintings/Darkness Visible.jpg",
+    "caption": "Darkness Visible"
+  },
+  {
+    "src": "/assets/images/encaustic-paintings/Dark Side of the Moon.jpg",
+    "caption": "Dark Side of the Moon"
+  },
+  {
+    "src": "/assets/images/encaustic-paintings/Birth of a Hunting Tool.jpg",
+    "caption": "Birth of a Hunting Tool"
+  },
+  {
+    "src": "/assets/images/encaustic-paintings/All Thats Left.jpg",
+    "caption": "All Thats Left"
   }
 ]

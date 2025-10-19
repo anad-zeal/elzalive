@@ -1,1 +1,70 @@
-[]
+[
+  {
+    "src": "/assets/images/drip-series-paintings/triptych.jpg",
+    "caption": "triptych"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/this-much-craziness.jpg",
+    "caption": "this-much-craziness"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/tangarine.jpg",
+    "caption": "tangarine"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/szabo.jpg",
+    "caption": "szabo"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/sextet.jpg",
+    "caption": "sextet"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/sextet-all.jpg",
+    "caption": "sextet-all"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/raining-red.jpg",
+    "caption": "raining-red"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/rainforest.jpg",
+    "caption": "rainforest"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/rainforest-iii.jpg",
+    "caption": "rainforest-iii"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/rainforest-ii.jpg",
+    "caption": "rainforest-ii"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/mocha.jpg",
+    "caption": "mocha"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/history-repeats-itself.jpg",
+    "caption": "history-repeats-itself"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/entry-ii.jpg",
+    "caption": "entry-ii"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/drips-06_0.jpg",
+    "caption": "drips-06_0"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/drips-05.jpg",
+    "caption": "drips-05"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/bleu.jpg",
+    "caption": "bleu"
+  },
+  {
+    "src": "/assets/images/drip-series-paintings/andreas-folly.jpg",
+    "caption": "andreas-folly"
+  }
+]
