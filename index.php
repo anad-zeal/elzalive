@@ -17,7 +17,7 @@ $map = [
     "black-and-white" => "pages/black-and-white.php",
     "drips" => "pages/drips.php",
     "encaustic" => "pages/encaustic.php",
-    "projects" => "pages/projects.php",
+    "project-series" => "pages/projects.php",
 ];
 
 // Resolve file or default to home
