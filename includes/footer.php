@@ -1,10 +1,6 @@
 </section>
 
 </div>
-<!-- <div id="loading-spinner" style="display:none; text-align:center; padding:20px;">
-    <img src="/assets/images/misc-images/spinner.gif" alt="Loading..." style="width:40px; height:auto;" />
-    <div>Loading content...</div>
-</div> -->
 </main>
 
 <footer class="site-footer">
