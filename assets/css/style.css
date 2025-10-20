@@ -655,3 +655,7 @@ h2.sub-title {
   background-color: royalblue;
   border: none;
 }
+
+.slideshow-container.slideshow {
+  background-color: red;
+}
