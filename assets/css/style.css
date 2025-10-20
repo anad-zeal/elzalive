@@ -650,9 +650,8 @@ h2.sub-title {
   transform: scale(1.125);
   transition: color 250ms ease, transform 250ms ease;
 }
-
-.slideshow-section {
-  background-color: royalblue;
+q .slideshow-section {
+  background: none;
   border: none;
 }
 
