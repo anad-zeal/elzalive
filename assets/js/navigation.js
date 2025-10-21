@@ -42,7 +42,6 @@ function normalizePath(href) {
     }
     return p;
   }
-  1;
 }
 
 const pageTitles = {
