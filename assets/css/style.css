@@ -1,11 +1,3 @@
-I can help with that! It looks like you want to merge some new CSS navigation styles into your existing CSS. I'll combine the `main-nav`, `main-nav-menu`, `main-nav-menu a`, `main-nav-menu a.active`, `nav-title`, and `nav-title .sub-title` rules into your existing stylesheet, prioritizing the new values where they conflict.
-
-Here's the merged CSS:
-
-```css
-/* =========================================
-   Design Tokens
-========================================= */
 :root {
   /* Colors */
   --ink: hsl(0 0% 10%);
@@ -651,7 +643,7 @@ h2.sub-title {
 }
 
 /* Form CSS*/
-.ccform {
+.form {
   margin: 0 auto;
   width: 800px;
 }
@@ -660,7 +652,7 @@ h2.sub-title {
   width: 100%;
 }
 
-.ccform-addon {
+.form-addon {
   color: #f8ae45;
   float: left;
   padding: 8px;
@@ -669,7 +661,7 @@ h2.sub-title {
   text-align: center;
 }
 
-.ccformfield {
+.formfield {
   color: var(--brand);
   background: hsl(60, 100%, 100%);
   border: none;
@@ -681,7 +673,7 @@ h2.sub-title {
   font-weight: 200;
 }
 
-.ccformfield {
+.formfield {
   font-family: var(--font-ui);
 }
 .ccbtn {
