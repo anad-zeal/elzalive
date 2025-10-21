@@ -667,6 +667,10 @@ q .slideshow-section {
   background: none;
 }
 
+.main-nav-menu a {
+  border: solid 1px red;
+}
+
 .main-nav-menu a:nth-of-type(2) {
   text-align: left;
 }
