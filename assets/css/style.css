@@ -1,3 +1,6 @@
+/* =========================================
+   Design Tokens
+========================================= */
 :root {
   /* Colors */
   --ink: hsl(0 0% 10%);
@@ -130,49 +133,37 @@ video {
    Navigation
 ========================================= */
 
-/* New .main-nav */
-.main-nav {
-  background-color: #f6f5ef;
-  text-align: center;
-  padding: 0.5rem 0;
-}
-
 .main-nav-menu {
   display: flex;
-  justify-content: center; /* Changed from space-between to center */
-  width: 80vw; /* Retained */
-  height: 2rem; /* Retained */
+  justify-content: space-between;
+  width: 80vw;
+  height: 2rem;
   margin: 0 auto;
   align-items: center;
-  font-family: 'Helvetica Neue', sans-serif; /* Updated font */
-  gap: 3rem; /* Updated gap */
-  flex-wrap: wrap; /* Retained */
-  min-height: 2.5rem; /* Retained */
+  font-family: var(--font-ui);
+  gap: 0.5rem;
+  flex-wrap: wrap;
+  min-height: 2.5rem;
 }
 
 .main-nav-menu a {
-  margin: 0; /* Removed margin 0 35px */
+  margin: 0 35px;
   padding: 10px 0; /* Adjust padding as needed */
   text-decoration: none; /* Removes underline from links */
-  color: #000; /* Updated color */
+  color: var(--ink);
   white-space: nowrap; /* Prevents text from wrapping within a link */
-  font-family: 'Helvetica Neue', sans-serif; /* Updated font */
-  font-weight: 500; /* Updated font-weight */
-  transition: color 0.3s ease; /* Updated transition */
 }
 
 .main-nav-menu a.is-active,
 .main-nav-menu a:hover {
-  color: var(
-    --brand
-  ); /* Retained existing hover color for consistency unless .active takes precedence */
-  transform: scale(1.25); /* Retained */
-  transition: color 250ms ease, transform 250ms ease; /* Retained */
+  color: var(--brand);
+  transform: scale(1.25);
+  transition: color 250ms ease, transform 250ms ease;
 }
-
-.main-nav-menu a.active {
-  color: #601c17; /* Active page color */
-}
+/*
+.main-nav-menu a {
+  border: solid 1px red;
+} */
 
 .category a.is-active,
 .category a:hover {
@@ -294,31 +285,6 @@ h2.sub-title {
   outline: 3px solid var(--focus-ring);
   outline-offset: 3px;
   border-radius: 0.2rem;
-}
-
-/* New .nav-title */
-.nav-title {
-  position: relative;
-  min-width: 250px;
-  text-align: center;
-  overflow: hidden;
-}
-
-/* New .nav-title .sub-title (overrides existing h2.sub-title if used in this context) */
-.nav-title .sub-title {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: #000;
-  margin: 0;
-  line-height: 1.2;
-  opacity: 1;
-  transition: opacity 0.6s ease;
-}
-
-/* Crossfade effect */
-.nav-title.fade-out .sub-title {
-  opacity: 0;
 }
 
 /* =========================================
@@ -642,7 +608,7 @@ h2.sub-title {
 }
 
 /* Form CSS*/
-.form {
+.ccform {
   margin: 0 auto;
   width: 800px;
 }
@@ -651,7 +617,7 @@ h2.sub-title {
   width: 100%;
 }
 
-.form-addon {
+.ccform-addon {
   color: #f8ae45;
   float: left;
   padding: 8px;
@@ -660,7 +626,7 @@ h2.sub-title {
   text-align: center;
 }
 
-.formfield {
+.ccformfield {
   color: var(--brand);
   background: hsl(60, 100%, 100%);
   border: none;
@@ -672,7 +638,7 @@ h2.sub-title {
   font-weight: 200;
 }
 
-.formfield {
+.ccformfield {
   font-family: var(--font-ui);
 }
 .ccbtn {
@@ -704,4 +670,54 @@ q .slideshow-section {
 
 .slideshow {
   background: none;
+}
+
+css to add and merge
+/* === Navigation Styles === */
+.main-nav {
+  background-color: #f6f5ef;
+  text-align: center;
+  padding: 0.5rem 0;
+}
+
+.main-nav-menu {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+}
+
+.main-nav-menu a {
+  text-decoration: none;
+  color: #000;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.main-nav-menu a.active {
+  color: #601c17; /* Active page color */
+}
+
+.nav-title {
+  position: relative;
+  min-width: 250px;
+  text-align: center;
+  overflow: hidden;
+}
+
+.nav-title .sub-title {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem;
+  font-weight: 400;
+  color: #000;
+  margin: 0;
+  line-height: 1.2;
+  opacity: 1;
+  transition: opacity 0.6s ease;
+}
+
+/* Crossfade effect */
+.nav-title.fade-out .sub-title {
+  opacity: 0;
 }
