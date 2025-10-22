@@ -3,8 +3,7 @@
             aria-label="Go to Decorative Painting">Decorative Painting</a>
         <p>LDesire is the quiet architect of human behavior, and the orectic impulse—our innate drive toward what we
             crave—shapes every facet of life. From the hunger that fuels survival to the yearning for connection,
-            beauty, or truth, orectic energy pulses beneath our choices, ambitions, and creations. It is not merely
-            appetite in the physical sense, but a broader motivational force that propels us toward fulfillment.
+            beauty, or truth, orectic energy.
         </p>
     </div>
 
