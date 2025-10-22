@@ -4,35 +4,27 @@
     "caption": "SideTable"
   },
   {
-    "src": "/assets/images/restoration-projects/Cross Cabinet036.jpg",
+    "src": "/assets/images/restoration-projects/CrossCabinet036.jpg",
     "caption": "Cross Cabinet036"
   },
   {
-    "src": "/assets/images/restoration-projects/Cross Cabinet 039.jpg",
+    "src": "/assets/images/restoration-projects/CrossCabinet039.jpg",
     "caption": "Cross Cabinet 039"
   },
   {
-    "src": "/assets/images/restoration-projects/Painting Ceiling 1.jpg",
+    "src": "/assets/images/restoration-projects/PaintingCeiling1.jpg",
     "caption": "Painting Ceiling 1"
   },
   {
-    "src": "/assets/images/restoration-projects/Wall Background-Section SH House.jpg",
+    "src": "/assets/images/restoration-projects/Wall Background-SectionSHHouse.jpg",
     "caption": "Wall Background-Section SH House"
-  },
+    ],
   {
-    "src": "/assets/images/restoration-projects/Bronze.jpg",
-    "caption": "Bronze"
-  },
-  {
-    "src": "/assets/images/restoration-projects/Leather.jpg",
-    "caption": "Leather"
-  },
-  {
-    "src": "/assets/images/restoration-projects/Senate Pres Wall-Sample 2.jpg",
+    "src": "/assets/images/restoration-projects/SenatePresWall-Sample2.jpg",
     "caption": "Senate Pres Wall-Sample 2"
   },
   {
-    "src": "/assets/images/restoration-projects/Senate Pres Wall-Sample.jpg",
+    "src": "/assets/images/restoration-projects/SenatePresWall-Sample.jpg",
     "caption": "Senate Pres Wall-Sample"
   },
   {
@@ -40,19 +32,7 @@
     "caption": "Old South Church-Sample"
   },
   {
-    "src": "/assets/images/restoration-projects/Mahogany.jpg",
-    "caption": "Mahogany"
-  },
-  {
-    "src": "/assets/images/restoration-projects/Tortoise Shell.jpg",
-    "caption": "Tortoise Shell"
-  },
-  {
-    "src": "/assets/images/restoration-projects/Wall Background-Section Adams.jpg",
-    "caption": "Wall Background-Section Adams"
-  },
-  {
-    "src": "/assets/images/restoration-projects/Wall Background-Section Booth.jpg",
+    "src": "/assets/images/restoration-projects/WallBackground-SectionBooth.jpg",
     "caption": "Wall Background-Section Booth"
   },
   {
@@ -60,31 +40,24 @@
     "caption": "Wall Background-2"
   },
   {
-    "src": "/assets/images/restoration-projects/Wall Background.jpg",
+    "src": "/assets/images/restoration-projects/Wallackground.jpg",
     "caption": "Wall Background"
   },
+
   {
-    "src": "/assets/images/restoration-projects/Table and Box.jpg",
-    "caption": "Table and Box"
-  },
-  {
-    "src": "/assets/images/restoration-projects/Senate Pres Wall 2.jpg",
+    "src": "/assets/images/restoration-projects/SenatePresWall2.jpg",
     "caption": "Senate Pres Wall 2"
   },
   {
-    "src": "/assets/images/restoration-projects/Senate Pres Wall.jpg",
+    "src": "/assets/images/restoration-projects/SenatePresWall.jpg",
     "caption": "Senate Pres Wall"
   },
   {
-    "src": "/assets/images/restoration-projects/Old South Church.jpg",
+    "src": "/assets/images/restoration-projects/OldSouthChurch.jpg",
     "caption": "Old South Church"
   },
   {
-    "src": "/assets/images/restoration-projects/St. Paul's.jpg",
+    "src": "/assets/images/restoration-projects/St.Pauls.jpg",
     "caption": "St. Paul's"
-  },
-  {
-    "src": "/assets/images/restoration-projects/Mirror Trim.jpg",
-    "caption": "Mirror Trim"
   }
 ]
