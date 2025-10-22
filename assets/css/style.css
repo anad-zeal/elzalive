@@ -136,7 +136,7 @@ video {
 .main-nav-menu {
   display: flex;
   justify-content: space-between;
-  width: 70vw;
+  width: 80vw;
   height: 2rem;
   margin: 0 auto;
   align-items: center;
@@ -147,7 +147,7 @@ video {
 }
 
 .main-nav-menu a {
-  margin: 0 10px;
+  margin: 0 35px;
   padding: 10px 0; /* Adjust padding as needed */
   text-decoration: none; /* Removes underline from links */
   color: var(--ink);
@@ -691,7 +691,7 @@ css to add and merge
   text-decoration: none;
   color: #000;
   font-family: 'Helvetica Neue', sans-serif;
-  font-weight: 400;
+  font-weight: 500;
   transition: color 0.3s ease;
 }
 
