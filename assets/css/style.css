@@ -136,7 +136,7 @@ video {
 .main-nav-menu {
   display: flex;
   justify-content: space-between;
-  width: 80vw;
+  width: 70vw;
   height: 2rem;
   margin: 0 auto;
   align-items: center;
