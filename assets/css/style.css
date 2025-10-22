@@ -415,6 +415,17 @@ h2.sub-title {
   grid-area: drips-series;
 }
 
+.landing-menu-item {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: all var(--speed) var(--easing);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  opacity: 0;
+  animation: fadeInUp 0.6s ease forwards;
+  width: 100%;
+}
 /* =========================================
    Slideshow — Hardened Overrides (put last)
    Ensures stage has height and images never collapse to 0×0.
