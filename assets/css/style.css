@@ -426,6 +426,83 @@ h2.sub-title {
   animation: fadeInUp 0.6s ease forwards;
   width: 100%;
 }
+
+.landing-menu-item:hover {
+  background: rgba(255, 255, 255, 0.8);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+.landing-menu-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.landing-menu-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.landing-menu-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.landing-menu-item:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+/* Style the links as headings */
+.landing-menu-item .page-link {
+  display: block;
+  font-family: var(--font-title);
+  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-weight: 500;
+  color: var(--brand);
+  margin-bottom: 0.75rem;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: all var(--speed) var(--easing);
+}
+
+.landing-menu-item .page-link:hover {
+  color: var(--ink);
+  transform: translateX(4px);
+}
+
+/* Style the paragraphs */
+.landing-menu-item p {
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  color: var(--ink-muted);
+  line-height: 1.5;
+  margin: 0;
+  max-width: 35ch;
+}
+
+/* Special styling for the last item with image */
+.landing-menu-item.last-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 200px;
+}
+
+.landing-menu-item.last-item p {
+  margin: 0;
+  text-align: center;
+}
+
+.img-home {
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  transition: transform var(--speed) var(--easing);
+  max-width: 100%;
+  height: auto;
+}
+
+.img-home:hover {
+  transform: scale(1.05);
+}
+
+.last-item p {
+  margin-bottom: 0;
+}
+
 /* =========================================
    Slideshow — Hardened Overrides (put last)
    Ensures stage has height and images never collapse to 0×0.
