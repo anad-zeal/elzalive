@@ -256,6 +256,7 @@ h2.sub-title {
   width: min(100% - 2rem, var(--narrow-max));
   margin-inline: auto;
   font-family: var(--font-body);
+  background-color: blanchedalmond;
 }
 
 .section-format p,
