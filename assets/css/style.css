@@ -53,7 +53,6 @@ body {
   font-family: var(--font-body);
   line-height: 1.6;
   text-rendering: optimizeLegibility;
-  background-color: burlywood;
 }
 
 body p {
@@ -256,7 +255,6 @@ h2.sub-title {
   width: min(100% - 2rem, var(--narrow-max));
   margin-inline: auto;
   font-family: var(--font-body);
-  background-color: rgb(75, 4, 20);
 }
 
 .section-format p,
