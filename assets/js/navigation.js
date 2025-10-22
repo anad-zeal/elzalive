@@ -1,50 +1,71 @@
-// /assets/js/navigation.js
-// Fixed to work with the actual page structure
+/**
+ * Navigation.js - SPA Navigation Handler
+ * Handles client-side routing and page transitions
+ */
 
-// Declare subTitleElement at a higher scope so all functions can access it
-//let subTitleElement; // Use 'let' because it will be assigned later in DOMContentLoaded
+// Global variables
+let subTitleElement;
 
-// --- Start of existing helper functions (loadingSpinner references removed) ---
+// --- Utility Functions ---
 function parseDurationValue(value) {
-  value = (value || '').trim();
-  if (!value) return 0;
-  if (value.endsWith('ms')) return parseFloat(value);
-  if (value.endsWith('s')) return parseFloat(value) * 1000;
-  return parseFloat(value) || 0;
+  const trimmedValue = (value || '').trim();
+  if (!trimmedValue) return 0;
+
+  if (trimmedValue.endsWith('ms')) {
+    return parseFloat(trimmedValue);
+  }
+  if (trimmedValue.endsWith('s')) {
+    return parseFloat(trimmedValue) * 1000;
+  }
+  return parseFloat(trimmedValue) || 0;
 }
 
 function getTransitionDuration(element) {
   if (!element) return 0;
+
   const style = window.getComputedStyle(element);
-  const raw = style.transitionDuration || style.webkitTransitionDuration || '';
-  const parts = raw
+  const duration = style.transitionDuration || style.webkitTransitionDuration || '';
+
+  const parts = duration
     .split(',')
-    .map((p) => p.trim())
+    .map((part) => part.trim())
     .filter(Boolean);
+
   if (parts.length === 0) return 0;
+
   const msValues = parts.map(parseDurationValue);
   return Math.max(...msValues);
 }
 
 function normalizePath(href) {
   try {
-    const u = new URL(href, window.location.origin);
-    let p = u.pathname || '/';
-    if (p.length > 1 && p.endsWith('/')) {
-      p = p.slice(0, -1);
+    const url = new URL(href, window.location.origin);
+    let pathname = url.pathname || '/';
+
+    // Remove trailing slash except for root
+    if (pathname.length > 1 && pathname.endsWith('/')) {
+      pathname = pathname.slice(0, -1);
     }
-    return p;
-  } catch (e) {
-    let p = String(href || '');
-    if (!p.startsWith('/')) p = '/' + p;
-    if (p.length > 1 && p.endsWith('/')) {
-      p = p.slice(0, -1);
+
+    return pathname;
+  } catch (error) {
+    console.warn('Invalid URL provided to normalizePath:', href);
+    let path = String(href || '');
+
+    if (!path.startsWith('/')) {
+      path = '/' + path;
     }
-    return p;
+    if (path.length > 1 && path.endsWith('/')) {
+      path = path.slice(0, -1);
+    }
+
+    return path;
   }
 }
 
-const pageTitles = {
+// Page title mappings
+const PAGE_TITLES = {
+  '/': 'Home',
   '/home': 'Home',
   '/artworks': 'Artworks',
   '/biography': 'Biography',
@@ -56,104 +77,157 @@ const pageTitles = {
   '/decorative': 'Decorative Painting',
   '/black-and-white': 'Black and White Paintings',
 };
-// --- End of existing helper functions ---
 
-document.addEventListener('DOMContentLoaded', () => {
-  // Assign subTitleElement here, within DOMContentLoaded.
-  // CRITICAL DEBUG: Log its value immediately after attempting to find it.
-  subTitleElement = document.querySelector('p.page-title');
-  console.log('DOMContentLoaded: subTitleElement found:', subTitleElement);
+// --- Navigation Class ---
+class NavigationManager {
+  constructor() {
+    this.isTransitioning = false;
+    this.navLinks = [];
+    this.mainContentArea = null;
+    this.dynamicPageWrapper = null;
 
-  const navLinks = Array.from(document.querySelectorAll('nav a'));
-  const dynamicPageWrapper = document.getElementById('dynamic-page-wrapper');
-  const mainContentArea = document.getElementById('main-content-area');
-  // Removed: const loadingSpinner = document.getElementById('loading-spinner');
-  let isTransitioning = false;
+    this.init();
+  }
 
-  // --- Event listeners for font size changes ---
-  // Function to handle clicking on a.category
-  document.querySelectorAll('a.category').forEach(function (categoryLink) {
-    categoryLink.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent default link behavior if desired
-      var tempo = categoryLink.getAttribute('data-gallery');
-      // CRITICAL DEBUG: Log subTitleElement here as well
-      console.log('Category link clicked. subTitleElement:', subTitleElement);
-      console.log('dataGallerydataGallerydataGallerydataGallerydataGallery:', tempo);
-      if (subTitleElement) {
-        subTitleElement.style.fontSize = '5vw';
-      } else {
-        console.warn('Category link clicked, but p.page-title (subTitleElement) not found.');
-      }
+  init() {
+    // Cache DOM elements
+    this.cacheElements();
+
+    // Set up event listeners
+    this.setupEventListeners();
+
+    // Handle initial page load
+    this.handleInitialLoad();
+
+    // Set up default transitions
+    this.setupDefaultTransitions();
+  }
+
+  cacheElements() {
+    subTitleElement = document.querySelector('p.page-title');
+    this.navLinks = Array.from(document.querySelectorAll('nav a'));
+    this.mainContentArea = document.getElementById('main-content-area');
+    this.dynamicPageWrapper = document.getElementById('dynamic-page-wrapper');
+
+    // Debug logging
+    if (process.env.NODE_ENV === 'development') {
+      console.log('Elements cached:', {
+        subTitleElement,
+        navLinksCount: this.navLinks.length,
+        mainContentArea: this.mainContentArea,
+        dynamicPageWrapper: this.dynamicPageWrapper,
+      });
+    }
+  }
+
+  setupEventListeners() {
+    // Navigation click handler
+    const navElement = document.querySelector('nav');
+    if (navElement) {
+      navElement.addEventListener('click', this.handleNavClick.bind(this));
+    }
+
+    // Browser back/forward handler
+    window.addEventListener('popstate', this.handlePopState.bind(this));
+
+    // Font size change handlers
+    this.setupFontSizeHandlers();
+  }
+
+  setupFontSizeHandlers() {
+    // Category links
+    document.querySelectorAll('a.category').forEach((categoryLink) => {
+      categoryLink.addEventListener('click', this.handleCategoryClick.bind(this));
     });
-  });
 
-  // Function to handle clicking on a.landing-mnu
-  document.querySelectorAll('a.landing-mnu').forEach(function (landingMenuLink) {
-    landingMenuLink.addEventListener('click', function (event) {
-      event.preventDefault(); // Prevent default link behavior if desired
-
-      // CRITICAL DEBUG: Log subTitleElement here as well
-      console.log('Landing menu link clicked. subTitleElement:', subTitleElement);
-      if (subTitleElement) {
-        const currentFontSize = subTitleElement.style.fontSize;
-        console.log('Landing menu link clicked. Current font-size:', currentFontSize);
-
-        if (currentFontSize === '5vw') {
-          subTitleElement.style.fontSize = '10vw'; // Revert to 10vw
-        } else {
-          console.log('Font-size is not 5vw, no change.');
-        }
-      } else {
-        console.warn('Landing menu link clicked, but p.page-title (subTitleElement) not found.');
-      }
+    // Landing menu links
+    document.querySelectorAll('a.landing-mnu').forEach((landingMenuLink) => {
+      landingMenuLink.addEventListener('click', this.handleLandingMenuClick.bind(this));
     });
-  });
-  // --- End of event listeners for font size changes ---
-
-  // DEBUG: Verify elements exist
-  console.log('Elements found (post init):');
-  console.log('- mainContentArea:', mainContentArea);
-  console.log('- subTitleElement (global, post init):', subTitleElement);
-  console.log('- dynamicPageWrapper:', dynamicPageWrapper);
-  // Removed: console.log('- loadingSpinner:', loadingSpinner);
-
-  // Add default transitions if not defined in CSS.
-  if (mainContentArea && !getTransitionDuration(mainContentArea)) {
-    mainContentArea.style.transition = `opacity 280ms ease-in-out`;
-  }
-  if (subTitleElement && !getTransitionDuration(subTitleElement)) {
-    subTitleElement.style.transition = `opacity 280ms ease-in-out`;
   }
 
-  function findNavLinkByPath(pathname) {
-    const norm = normalizePath(pathname);
-    return navLinks.find((a) => normalizePath(a.getAttribute('href') || a.href) === norm);
+  handleCategoryClick(event) {
+    event.preventDefault();
+
+    const categoryLink = event.currentTarget;
+    const gallery = categoryLink.getAttribute('data-gallery');
+
+    if (subTitleElement) {
+      subTitleElement.style.fontSize = '5vw';
+    } else {
+      console.warn('Category link clicked, but p.page-title element not found.');
+    }
+
+    console.log('Category clicked:', gallery);
   }
 
-  function executeScriptsFromNode(container) {
+  handleLandingMenuClick(event) {
+    event.preventDefault();
+
+    if (subTitleElement) {
+      const currentFontSize = subTitleElement.style.fontSize;
+
+      if (currentFontSize === '5vw') {
+        subTitleElement.style.fontSize = '10vw';
+      }
+    } else {
+      console.warn('Landing menu link clicked, but p.page-title element not found.');
+    }
+  }
+
+  setupDefaultTransitions() {
+    const defaultTransition = 'opacity 280ms ease-in-out';
+
+    if (this.mainContentArea && !getTransitionDuration(this.mainContentArea)) {
+      this.mainContentArea.style.transition = defaultTransition;
+    }
+
+    if (subTitleElement && !getTransitionDuration(subTitleElement)) {
+      subTitleElement.style.transition = defaultTransition;
+    }
+  }
+
+  findNavLinkByPath(pathname) {
+    const normalizedPath = normalizePath(pathname);
+    return this.navLinks.find((link) => {
+      const linkHref = link.getAttribute('href') || link.href;
+      return normalizePath(linkHref) === normalizedPath;
+    });
+  }
+
+  executeScriptsFromNode(container) {
+    if (!container) return;
+
     const scripts = Array.from(container.querySelectorAll('script'));
-    scripts.forEach((old) => {
-      if (old.type === 'module' || old.dataset.processed === 'true') {
+
+    scripts.forEach((oldScript) => {
+      // Skip module scripts and already processed scripts
+      if (oldScript.type === 'module' || oldScript.dataset.processed === 'true') {
         return;
       }
 
-      const script = document.createElement('script');
-      if (old.src) {
-        script.src = old.src;
-        script.async = false;
-        script.dataset.processed = 'true';
+      const newScript = document.createElement('script');
+
+      if (oldScript.src) {
+        newScript.src = oldScript.src;
+        newScript.async = false;
+        newScript.dataset.processed = 'true';
       } else {
-        script.textContent = old.textContent;
+        newScript.textContent = oldScript.textContent;
       }
-      Array.from(old.attributes).forEach((attr) => {
-        if (attr.name !== 'src') script.setAttribute(attr.name, attr.value);
+
+      // Copy attributes
+      Array.from(oldScript.attributes).forEach((attr) => {
+        if (attr.name !== 'src') {
+          newScript.setAttribute(attr.name, attr.value);
+        }
       });
-      old.parentNode.replaceChild(script, old);
+
+      oldScript.parentNode.replaceChild(newScript, oldScript);
     });
   }
 
-  async function loadPageContent(path, targetElement) {
-    // Removed: if (loadingSpinner) loadingSpinner.style.display = 'block';
+  async loadPageContent(path, targetElement) {
     if (!targetElement) {
       console.error('Target element for content loading not found!');
       return false;
@@ -164,186 +238,223 @@ document.addEventListener('DOMContentLoaded', () => {
         credentials: 'same-origin',
         headers: {
           'X-Fetched-With': 'SPA-Fetch',
+          Accept: 'text/html',
         },
       });
+
       if (!response.ok) {
-        throw new Error(`${response.status} ${response.statusText}`);
+        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
       }
 
       const html = await response.text();
 
-      // DEBUG: Log what we received
-      console.log('Fetched HTML length:', html.length);
-      console.log('First 500 chars:', html.substring(0, 500));
-      console.log('Target element:', targetElement);
-      console.log('Target element opacity BEFORE:', window.getComputedStyle(targetElement).opacity);
-      console.log('Target element display BEFORE:', window.getComputedStyle(targetElement).display);
-
-      // The response should be just the page content fragment
-      // Insert it directly into the target element
+      // Insert content
       targetElement.innerHTML = html;
 
-      // DEBUG: Check if content was inserted
-      console.log('Content after insert:', targetElement.innerHTML.substring(0, 200));
-      console.log('Target element opacity AFTER:', window.getComputedStyle(targetElement).opacity);
-      console.log('Target element display AFTER:', window.getComputedStyle(targetElement).display);
+      // Execute any scripts in the new content
+      this.executeScriptsFromNode(targetElement);
 
-      executeScriptsFromNode(targetElement);
-
+      // Dispatch navigation event
       window.dispatchEvent(
         new CustomEvent('app:navigate', {
-          detail: { targetElement: targetElement, path: path },
+          detail: { targetElement, path },
         })
       );
 
       return true;
-    } catch (err) {
-      console.error('Error loading page content:', err);
+    } catch (error) {
+      console.error('Error loading page content:', error);
+
       if (targetElement) {
-        targetElement.innerHTML = `<div role="alert" aria-live="assertive"><p style="color:red;">Failed to load content. ${err.message}</p></div>`;
+        targetElement.innerHTML = `
+          <div role="alert" aria-live="assertive">
+            <p style="color: red; text-align: center; padding: 2rem;">
+              Failed to load content. ${error.message}
+            </p>
+          </div>
+        `;
       }
+
       return false;
-    } finally {
-      // Removed: if (loadingSpinner) loadingSpinner.style.display = 'none';
     }
   }
 
-  async function updatePageContent(activeLink, pushState = true) {
-    if (isTransitioning) return;
-    isTransitioning = true;
+  async updatePageContent(activeLink, pushState = true) {
+    if (this.isTransitioning || !activeLink) return;
+
+    this.isTransitioning = true;
 
     try {
       const rawHref = activeLink.getAttribute('href') || activeLink.href;
       const cleanHref = normalizePath(rawHref);
-      const pageKey = cleanHref;
 
-      // Fade out the content area
-      if (mainContentArea) {
-        const fadeDuration = getTransitionDuration(mainContentArea);
-        mainContentArea.style.opacity = 0;
-        if (subTitleElement) subTitleElement.style.opacity = 0;
-        await new Promise((r) => setTimeout(r, fadeDuration + 50));
-      }
+      // Fade out content
+      await this.fadeOutContent();
 
-      // Update navigation active state
-      navLinks.forEach((link) => {
-        link.classList.remove('is-active');
-        link.removeAttribute('aria-current');
-      });
-      activeLink.classList.add('is-active');
-      activeLink.setAttribute('aria-current', 'page');
+      // Update navigation state
+      this.updateNavigationState(activeLink);
 
+      // Update browser history
       if (pushState) {
         history.pushState({ path: cleanHref }, '', cleanHref);
       }
 
-      // Update page title
-      const newPageTitle = pageTitles[pageKey] || activeLink.textContent.trim();
-      if (subTitleElement) subTitleElement.textContent = newPageTitle;
-      document.title = `${newPageTitle} | aepaints`;
+      // Update page title and metadata
+      this.updatePageMetadata(cleanHref, activeLink);
 
-      // Update data-page attribute
-      if (dynamicPageWrapper) {
-        dynamicPageWrapper.setAttribute('data-page', pageKey.replace('/', ''));
-      }
+      // Load new content
+      await this.loadPageContent(cleanHref, this.mainContentArea);
 
-      // Load new content into main-content-area
-      await loadPageContent(cleanHref, mainContentArea);
+      // Fade in content
+      await this.fadeInContent();
 
-      console.log(
-        'After loadPageContent, mainContentArea opacity:',
-        window.getComputedStyle(mainContentArea).opacity
-      );
-
-      // Fade in the content area
-      if (mainContentArea) {
-        console.log('About to fade in mainContentArea');
-        requestAnimationFrame(() => {
-          mainContentArea.style.opacity = 1;
-          console.log(
-            'Set opacity to 1, computed:',
-            window.getComputedStyle(mainContentArea).opacity
-          );
-        });
-      }
-      if (subTitleElement) {
-        requestAnimationFrame(() => {
-          subTitleElement.style.opacity = 1;
-        });
-      }
-
-      // Focus management
-      requestAnimationFrame(() => {
-        const heading = mainContentArea.querySelector(
-          'h1, h2, .page-title, .page-content-wrapper h2'
-        );
-        if (heading) {
-          heading.setAttribute('tabindex', '-1');
-          heading.focus({ preventScroll: true });
-        } else {
-          mainContentArea?.focus({ preventScroll: true });
-        }
-      });
+      // Handle focus management
+      this.manageFocus();
+    } catch (error) {
+      console.error('Error updating page content:', error);
     } finally {
-      isTransitioning = false;
+      this.isTransitioning = false;
     }
   }
 
-  window.addEventListener('popstate', (event) => {
-    const path = normalizePath(window.location.pathname);
-    const active = findNavLinkByPath(path);
-    if (active) {
-      updatePageContent(active, false).catch((e) => console.error('Popstate error:', e));
-    } else {
-      loadPageContent(path, mainContentArea).catch((e) =>
-        console.error('Popstate load content error:', e)
-      );
-      if (mainContentArea) mainContentArea.style.opacity = 1;
-      if (subTitleElement) subTitleElement.style.opacity = 1;
+  async fadeOutContent() {
+    if (!this.mainContentArea) return;
+
+    const fadeDuration = getTransitionDuration(this.mainContentArea);
+
+    this.mainContentArea.style.opacity = '0';
+    if (subTitleElement) {
+      subTitleElement.style.opacity = '0';
     }
-  });
 
-  document.querySelector('nav').addEventListener('click', (ev) => {
-    const a = ev.target.closest('a');
-    if (!a || !a.closest('nav') || !a.href) return;
+    // Wait for transition to complete
+    await new Promise((resolve) => setTimeout(resolve, fadeDuration + 50));
+  }
 
-    if (new URL(a.href, window.location.origin).origin !== window.location.origin) return;
+  async fadeInContent() {
+    if (!this.mainContentArea) return;
 
-    const targetPath = normalizePath(a.href);
-    const currentPath = normalizePath(window.location.pathname);
-    if (a.hash && targetPath === currentPath) return;
+    requestAnimationFrame(() => {
+      this.mainContentArea.style.opacity = '1';
+      if (subTitleElement) {
+        subTitleElement.style.opacity = '1';
+      }
+    });
+  }
 
-    ev.preventDefault();
-    updatePageContent(a, true).catch((e) => console.error('Navigation click error:', e));
-  });
-
-  // --- Initial page load handler ---
-  const initialPath = normalizePath(window.location.pathname);
-  const initialLink = findNavLinkByPath(initialPath) || findNavLinkByPath('/home');
-
-  // Set initial active link
-  if (initialLink) {
-    navLinks.forEach((link) => {
+  updateNavigationState(activeLink) {
+    // Remove active state from all links
+    this.navLinks.forEach((link) => {
       link.classList.remove('is-active');
       link.removeAttribute('aria-current');
     });
-    initialLink.classList.add('is-active');
-    initialLink.setAttribute('aria-current', 'page');
 
-    const newPageTitle = pageTitles[initialPath] || initialLink.textContent.trim();
-    if (subTitleElement) subTitleElement.textContent = newPageTitle;
-    document.title = `${newPageTitle} | aepaints`;
+    // Set active state on current link
+    activeLink.classList.add('is-active');
+    activeLink.setAttribute('aria-current', 'page');
   }
 
-  // For initial content, ensure visibility and execute scripts
-  if (mainContentArea) mainContentArea.style.opacity = 1;
-  if (subTitleElement) subTitleElement.style.opacity = 1;
-  if (mainContentArea) {
-    executeScriptsFromNode(mainContentArea);
-    window.dispatchEvent(
-      new CustomEvent('app:navigate', {
-        detail: { targetElement: mainContentArea, path: initialPath },
-      })
-    );
+  updatePageMetadata(path, activeLink) {
+    const pageTitle = PAGE_TITLES[path] || activeLink.textContent.trim();
+
+    // Update subtitle element
+    if (subTitleElement) {
+      subTitleElement.textContent = pageTitle;
+    }
+
+    // Update document title
+    document.title = `${pageTitle} | aepaints`;
+
+    // Update data-page attribute
+    if (this.dynamicPageWrapper) {
+      const dataPageValue = path.replace('/', '') || 'home';
+      this.dynamicPageWrapper.setAttribute('data-page', dataPageValue);
+    }
   }
+
+  manageFocus() {
+    if (!this.mainContentArea) return;
+
+    requestAnimationFrame(() => {
+      const heading = this.mainContentArea.querySelector(
+        'h1, h2, .page-title, .page-content-wrapper h2'
+      );
+
+      if (heading) {
+        heading.setAttribute('tabindex', '-1');
+        heading.focus({ preventScroll: true });
+      } else {
+        this.mainContentArea.focus({ preventScroll: true });
+      }
+    });
+  }
+
+  handleNavClick(event) {
+    const link = event.target.closest('a');
+
+    // Validate link
+    if (!link || !link.closest('nav') || !link.href) return;
+
+    // Check if it's an external link
+    try {
+      const linkUrl = new URL(link.href, window.location.origin);
+      if (linkUrl.origin !== window.location.origin) return;
+    } catch (error) {
+      return;
+    }
+
+    // Check if it's just a hash link on the same page
+    const targetPath = normalizePath(link.href);
+    const currentPath = normalizePath(window.location.pathname);
+
+    if (link.hash && targetPath === currentPath) return;
+
+    event.preventDefault();
+    this.updatePageContent(link, true);
+  }
+
+  handlePopState(event) {
+    const path = normalizePath(window.location.pathname);
+    const activeLink = this.findNavLinkByPath(path);
+
+    if (activeLink) {
+      this.updatePageContent(activeLink, false);
+    } else {
+      // Fallback: load content directly
+      this.loadPageContent(path, this.mainContentArea);
+      this.fadeInContent();
+    }
+  }
+
+  handleInitialLoad() {
+    const initialPath = normalizePath(window.location.pathname);
+    const initialLink = this.findNavLinkByPath(initialPath) || this.findNavLinkByPath('/home');
+
+    if (initialLink) {
+      this.updateNavigationState(initialLink);
+      this.updatePageMetadata(initialPath, initialLink);
+    }
+
+    // Ensure initial content is visible
+    if (this.mainContentArea) {
+      this.mainContentArea.style.opacity = '1';
+      this.executeScriptsFromNode(this.mainContentArea);
+
+      // Dispatch initial navigation event
+      window.dispatchEvent(
+        new CustomEvent('app:navigate', {
+          detail: { targetElement: this.mainContentArea, path: initialPath },
+        })
+      );
+    }
+
+    if (subTitleElement) {
+      subTitleElement.style.opacity = '1';
+    }
+  }
+}
+
+// Initialize navigation when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+  new NavigationManager();
 });
