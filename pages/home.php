@@ -14,7 +14,7 @@
     </div>
 
     <div class="landing-menu-item page"><a href="/artworks" class="page-link" data-gallery="project_series_paintings"
-            aria-label="Go to Artworks Catefory Page">Artworks Catefory Page</a>
+            aria-label="Go to Artworks Category Page">Artworks Category</a>
         <p>Triangle quadrilateral pentagon hexagon octagon dodecagon circle ellipse radius diameter chord arc sector
             segment angle vertex edge face surface volume area perimeter symmetry congruence similarity tessellation
             reflection rotation translation dilation coordinate.</p>
