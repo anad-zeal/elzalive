@@ -203,6 +203,7 @@ p.page-title {
   text-align: center;
   margin: 0;
   color: var(--ink);
+  background-color: rgb(255, 234, 0);
 }
 
 p.page-title.small-title {
