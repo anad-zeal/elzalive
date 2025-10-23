@@ -58,8 +58,9 @@ function normalizePath(href) {
 }
 
 const mainNav = document.querySelector('.main-nav');
-
+const heroDiv = document.querySelector('.hero');
 mainNav.style.visibility = 'hidden';
+heroDiv.style.visibility = 'hidden';
 
 // Page title mappings
 const PAGE_TITLES = {
