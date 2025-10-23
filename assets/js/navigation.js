@@ -57,6 +57,10 @@ function normalizePath(href) {
   }
 }
 
+const mainNav = document.querySelector('main-nav');
+
+mainNav.style.visibility = 'hidden';
+
 // Page title mappings
 const PAGE_TITLES = {
   '/': 'Home',
