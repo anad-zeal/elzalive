@@ -192,7 +192,7 @@ h3 {
 main {
   position: relative;
   z-index: 1;
-  background-color: red;
+  background-color: rgb(179, 0, 255);
 }
 
 p.page-title {
