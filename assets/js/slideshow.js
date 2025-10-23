@@ -65,7 +65,7 @@ function injectCoreStylesOnce(fadeMs = 1500) {
     .slideshow [data-role="next"] { right: 1rem; }
     .slideshow button[data-action] {
       background: #8b0000;
-      color: #fff;
+      color: #fff; /* This will set the currentColor for SVG stroke */
       border: 0;
       border-radius: 50%;
       width: 56px;
@@ -80,6 +80,12 @@ function injectCoreStylesOnce(fadeMs = 1500) {
     .slideshow button[data-action]:focus {
       outline: 2px solid #c53030;
       outline-offset: 2px;
+    }
+    /* SVG specific styles to ensure proper sizing and alignment */
+    .slideshow button[data-action] svg {
+        width: 24px; /* Or whatever size you prefer */
+        height: 24px; /* Or whatever size you prefer */
+        display: block; /* Ensure it behaves like a block element */
     }
   `;
   document.head.appendChild(s);
@@ -166,16 +172,23 @@ class Slideshow {
     if (!this.captionEl.parentNode) capWrap.appendChild(this.captionEl);
     if (!capWrap.parentNode) this.root.appendChild(capWrap);
 
+    // Look for existing buttons with the correct data-action attributes first
     this.prevBtn =
       this.root.querySelector('[data-action="prev"]') || this._makeButton('prev', 'Previous slide');
     this.nextBtn =
       this.root.querySelector('[data-action="next"]') || this._makeButton('next', 'Next slide');
-    if (!this.prevBtn.parentNode) {
+
+    // If buttons were created by _makeButton (i.e., not found in existing HTML),
+    // then wrap them in their respective data-role divs.
+    // If they were found in HTML, assume they are already correctly wrapped or positioned.
+    if (!this.prevBtn.parentNode || this.prevBtn.parentNode === this.root) {
+      // Check if not wrapped or directly appended to root
       const w = createEl('div', 'previous');
       w.appendChild(this.prevBtn);
       this.root.appendChild(w);
     }
-    if (!this.nextBtn.parentNode) {
+    if (!this.nextBtn.parentNode || this.nextBtn.parentNode === this.root) {
+      // Check if not wrapped or directly appended to root
       const w = createEl('div', 'next');
       w.appendChild(this.nextBtn);
       this.root.appendChild(w);
@@ -227,7 +240,22 @@ class Slideshow {
     btn.type = 'button';
     btn.setAttribute('data-action', action);
     btn.setAttribute('aria-label', label);
-    btn.innerHTML = action === 'prev' ? '&#9664;' : '&#9654;';
+
+    // Inject the SVG directly
+    if (action === 'prev') {
+      btn.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M15 18L9 12L15 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+    } else {
+      // action === 'next'
+      btn.innerHTML = `
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M9 18L15 12L9 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+    }
     return btn;
   }
 
