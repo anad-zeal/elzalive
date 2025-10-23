@@ -203,6 +203,9 @@ p.page-title {
   text-align: center;
   margin: 0;
   color: var(--ink);
+}
+
+.slideshow-section {
   background-color: rgb(255, 234, 0);
 }
 
