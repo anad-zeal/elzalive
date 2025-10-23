@@ -1,63 +1,34 @@
 [
   {
-    "src": "/assets/images/restoration-projects/SideTable.jpg",
-    "caption": "SideTable"
+    "src": "/assets/images/black-and-white-paintings/Homer-or-bust.jpg",
+    "caption": "Homer-or-bust"
   },
   {
-    "src": "/assets/images/restoration-projects/CrossCabinet036.jpg",
-    "caption": "Cross Cabinet036"
+    "src": "/assets/images/black-and-white-paintings/Marble-piece.jpg",
+    "caption": "Marble-piece"
   },
   {
-    "src": "/assets/images/restoration-projects/CrossCabinet039.jpg",
-    "caption": "Cross Cabinet 039"
+    "src": "/assets/images/black-and-white-paintings/Office.jpg",
+    "caption": "Office"
   },
   {
-    "src": "/assets/images/restoration-projects/PaintingCeiling1.jpg",
-    "caption": "Painting Ceiling 1"
+    "src": "/assets/images/black-and-white-paintings/Old-South-Church.jpg",
+    "caption": "Old-South-Church"
   },
   {
-    "src": "/assets/images/restoration-projects/Wall Background-SectionSHHouse.jpg",
-    "caption": "Wall Background-Section SH House"
-    ],
-  {
-    "src": "/assets/images/restoration-projects/SenatePresWall-Sample2.jpg",
-    "caption": "Senate Pres Wall-Sample 2"
+    "src": "/assets/images/black-and-white-paintings/Painting-Ceiling-1.jpg",
+    "caption": "Painting-Ceiling-1"
   },
   {
-    "src": "/assets/images/restoration-projects/SenatePresWall-Sample.jpg",
-    "caption": "Senate Pres Wall-Sample"
+    "src": "/assets/images/black-and-white-paintings/Painting-Wall.jpg",
+    "caption": "Painting-Wall"
   },
   {
-    "src": "/assets/images/restoration-projects/Old South Church-Sample.jpg",
-    "caption": "Old South Church-Sample"
+    "src": "/assets/images/black-and-white-paintings/Senate-Pres-Wall.jpg",
+    "caption": "Senate-Pres-Wall"
   },
   {
-    "src": "/assets/images/restoration-projects/WallBackground-SectionBooth.jpg",
-    "caption": "Wall Background-Section Booth"
-  },
-  {
-    "src": "/assets/images/restoration-projects/Wall Background-2.jpg",
-    "caption": "Wall Background-2"
-  },
-  {
-    "src": "/assets/images/restoration-projects/Wallackground.jpg",
-    "caption": "Wall Background"
-  },
-
-  {
-    "src": "/assets/images/restoration-projects/SenatePresWall2.jpg",
-    "caption": "Senate Pres Wall 2"
-  },
-  {
-    "src": "/assets/images/restoration-projects/SenatePresWall.jpg",
-    "caption": "Senate Pres Wall"
-  },
-  {
-    "src": "/assets/images/restoration-projects/OldSouthChurch.jpg",
-    "caption": "Old South Church"
-  },
-  {
-    "src": "/assets/images/restoration-projects/St.Pauls.jpg",
-    "caption": "St. Paul's"
+    "src": "/assets/images/black-and-white-paintings/StPauls.jpg",
+    "caption": "StPauls"
   }
 ]
