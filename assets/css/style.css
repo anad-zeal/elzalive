@@ -189,7 +189,7 @@ h3 {
   font-family: var(--font-display);
 }
 
-#dynamic-page-wrapper [data-page='artworks'] {
+main [data-page='artworks'] {
   position: relative;
   z-index: 1;
   background-color: red;
