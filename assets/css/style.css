@@ -189,7 +189,7 @@ h3 {
   font-family: var(--font-display);
 }
 
-main [data-page='artworks'] {
+main {
   position: relative;
   z-index: 1;
   background-color: red;
