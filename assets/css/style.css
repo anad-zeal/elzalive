@@ -11,9 +11,9 @@
   --focus-ring: hsl(0, 2%, 55%);
   --navajo-white-light: hsl(45, 22%, 96%);
   --navajo-white-dark: hsl(38, 45%, 75%);
-  --ivory-inspired: hsl(45, 30%, 94%);
+  --ivory-inspired: green;
   --slideshow-background: hsl(57, 10%, 99%);
-
+  /* hsl(45, 30%, 94%); */
   /* Typography */
   --font-body: 'Montserrat', sans-serif;
   --font-ui: 'Inter', sans-serif;
@@ -160,10 +160,6 @@ video {
   transform: scale(1.25);
   transition: color 250ms ease, transform 250ms ease;
 }
-/*
-.main-nav-menu a {
-  border: solid 1px red;
-} */
 
 .category a.is-active,
 .category a:hover {
@@ -239,12 +235,6 @@ h2.sub-title {
   margin: 0px;
   line-height: 1;
 }
-/*
-.body-paragraphs {
-  position: relative;
-  left: 12vw;
-  top: 0;
-} */
 
 .body-paragraphs {
   position: relative;
@@ -510,7 +500,6 @@ h2.sub-title {
 
 .slideshow {
   align-items: center;
-  /* aspect-ratio: 16/9; REMOVED to allow dynamic image sizing */
   display: flex;
   flex-direction: column;
   flex-grow: 1;
@@ -566,7 +555,6 @@ h2.sub-title {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: red;
 }
 
 .slideshow-container .slideshow {
@@ -618,7 +606,7 @@ h2.sub-title {
   color: #fff; /* Make caption text white for better contrast on images */
   background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
   font-style: italic;
-  z-index: 10; /* Ensure caption is above the image */
+  z-index: 10;
 }
 
 /* Adjust button positioning for full-viewport slideshow */
@@ -628,7 +616,7 @@ h2.sub-title {
   top: 50%;
   transform: translateY(-50%);
   z-index: 11; /* Above caption */
-  background: #8b0000;
+  background-color: #8b0000;
   color: #fff;
   border: 0;
   border-radius: 50%;
@@ -679,6 +667,7 @@ h2.sub-title {
   border-top: 1px solid #eaeaea;
   margin-top: 4rem;
 }
+
 .site-footer p {
   margin: 0;
 }
@@ -749,7 +738,6 @@ h2.sub-title {
   background: none;
 }
 
-css to add and merge
 /* === Navigation Styles === */
 .main-nav {
   /* background-color: #f6f5ef; */
