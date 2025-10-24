@@ -1,6 +1,5 @@
-# New Website using json
-#AEP_Website
 <?php
+
 // filepath: /Users/tal/Library/Mobile Documents/com~apple~CloudDocs/Website_Projects/elzalive/index.php
 
 // Category to JSON file mapping
@@ -249,4 +248,3 @@ function generateGalleryContent($data, $category)
     $output .= '</div>';
     return $output;
 }
-?>
