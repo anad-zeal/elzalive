@@ -1,7 +1,7 @@
-<section class="hero">
+<!-- <section class="hero">
     <h2 class="sub-title">The Life of an Artist</h2>
     <p class="page-title"></p>
-</section>
+</section> -->
 
 <div id="main-content-area">
 
