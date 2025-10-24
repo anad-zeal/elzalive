@@ -240,7 +240,8 @@ h2.sub-title {
   font-weight: 200;
   letter-spacing: -0.02em;
   text-align: center;
-  margin: 1vh 0px;
+  margin: 0px;
+  line-height: 1;
 }
 /*
 .body-paragraphs {
