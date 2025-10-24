@@ -1,0 +1,20 @@
+{
+  "categories": [
+    {
+      "title": "Black and White Paintings",
+      "description": "Bruschetta soufflé mango chutney pancetta. Tiramisu radicchio simmered gnocchi flambé."
+    },
+    {
+      "title": "Encaustic Paintings",
+      "description": "Triangle quadrilateral pentagon hexagon octagon dodecagon circle ellipse radius diameter chord arc sector segment."
+    },
+    {
+      "title": "Project Series Paintings",
+      "description": "Sourdough béchamel, roasted chestnuts, lemon verbena glaze. Infused gazpacho, heirloom tomatoes, miso broth."
+    },
+    {
+      "title": "Drips Series Paintings",
+      "description": "Caviar quenelle, pistachio brittle, braised lamb. Tarragon reduction. Poached truffle risotto, caramelized shallots."
+    }
+  ]
+}
