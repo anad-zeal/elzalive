@@ -581,7 +581,6 @@ h2.sub-title {
   align-items: center;
   /* Add height 100vh to make the section fill the viewport height */
   height: 100vh;
-  background-color: var(--ivory-inspired);
 }
 
 .slideshow-container .slideshow {
@@ -601,6 +600,7 @@ h2.sub-title {
   overflow: hidden;
   display: grid;
   place-items: center;
+  background-color: var(--ivory-inspired);
 }
 
 .slideshow [data-role='stage'] img {
