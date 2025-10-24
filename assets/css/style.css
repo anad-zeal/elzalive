@@ -196,7 +196,7 @@ main {
 
 p.page-title {
   font-family: var(--font-title);
-  font-size: clamp(1rem, 2vw, 3rem);
+  font-size: clamp(1rem, 2rem, 3rem);
   font-weight: 300;
   line-height: 1;
   text-align: center;
