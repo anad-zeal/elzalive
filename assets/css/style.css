@@ -578,7 +578,7 @@ h2.sub-title {
 
 .slideshow-container {
   position: relative;
-  top: -5vh;
+  top: -4vh;
 
   .slideshow [data-role='stage'] {
     aspect-ratio: unset;
@@ -588,7 +588,6 @@ h2.sub-title {
     overflow: hidden;
     display: grid;
     place-items: center;
-    background-color: red;
   }
 }
 
