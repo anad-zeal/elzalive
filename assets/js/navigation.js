@@ -167,5 +167,5 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initial load: If you want to show the artwork categories immediately when
   // navigation.js loads and the mainContentArea is for artworks, uncomment this:
-  // renderArtworkCategories();
+  renderArtworkCategories();
 });
