@@ -571,7 +571,7 @@ document.addEventListener('DOMContentLoaded', () => {
   function getPageFromURL() {
     const path = window.location.pathname;
     // Remove leading/trailing slashes and potential .html, then get the last segment
-    const segments = path.split('/').filter((s) => s !== '' && !s.endsWith('.html'));
+    const segments = path.split('/').filter((s) => s !== '' && !s.endsWith('.php'));
     const pageName = segments.length > 0 ? segments[segments.length - 1] : DEFAULT_PAGE;
     return pageName || DEFAULT_PAGE;
   }
