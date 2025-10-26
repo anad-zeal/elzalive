@@ -1,38 +1,94 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // ==============================
+  // Configuration
+  // ==============================
+  const BASE_PATH = '/aep/json-files'; // Change if you move JSON directory
+  const DEFAULT_PAGE = 'home';
+
+  // ==============================
+  // Cached Elements
+  // ==============================
   const menuLinks = document.querySelectorAll('.landing-mnu');
   const contentArea = document.getElementById('page-content');
 
-  function loadPage(page) {
-    fetch(`/aep/json-files/${page}.json`)
-      .then((response) => {
-        if (!response.ok) throw new Error('Page not found');
-        return response.json();
-      })
-      .then((data) => {
-        renderContent(data.pageContent);
-        updateActiveLink(page);
-      })
-      .catch((error) => {
-        contentArea.innerHTML = `<p>Error loading page: ${error.message}</p>`;
-      });
+  if (!menuLinks.length || !contentArea) {
+    console.error('Menu links or content area not found.');
+    return;
+  }
+
+  // ==============================
+  // State
+  // ==============================
+  let currentFetch = null;
+
+  // ==============================
+  // Core Functions
+  // ==============================
+  async function loadPage(page) {
+    if (!page) page = DEFAULT_PAGE;
+
+    // Cancel any ongoing request (if browser supports AbortController)
+    if (currentFetch) currentFetch.abort?.();
+    currentFetch = new AbortController();
+
+    // Show loading indicator
+    contentArea.innerHTML = '<p class="loading">Loading…</p>';
+
+    try {
+      const response = await fetch(`${BASE_PATH}/${page}.json`, { signal: currentFetch.signal });
+      if (!response.ok) throw new Error(`${response.status} ${response.statusText}`);
+      const data = await response.json();
+
+      renderContent(data.pageContent);
+      updateActiveLink(page);
+    } catch (error) {
+      if (error.name !== 'AbortError') {
+        contentArea.innerHTML = `<p class="error">Error loading page: ${error.message}</p>`;
+      }
+    }
   }
 
   function renderContent(contentArray) {
+    if (!Array.isArray(contentArray)) {
+      contentArea.innerHTML = '<p>Invalid page data.</p>';
+      return;
+    }
+
     contentArea.innerHTML = '';
+
     contentArray.forEach((item) => {
-      if (item.type === 'heading') {
-        const h2 = document.createElement('h2');
-        h2.textContent = item.text;
-        contentArea.appendChild(h2);
-      } else if (item.type === 'paragraph') {
-        const p = document.createElement('p');
-        p.textContent = item.text;
-        contentArea.appendChild(p);
-      } else if (item.title) {
-        const div = document.createElement('div');
-        div.innerHTML = `<strong>${item.title}</strong><p>${item.description}</p>`;
-        contentArea.appendChild(div);
+      let el;
+
+      switch (item.type) {
+        case 'heading':
+          el = document.createElement('h2');
+          el.textContent = item.text || '';
+          break;
+
+        case 'paragraph':
+          el = document.createElement('p');
+          el.textContent = item.text || '';
+          break;
+
+        default:
+          // Fallback for custom blocks with title + description
+          if (item.title || item.description) {
+            el = document.createElement('div');
+
+            const strong = document.createElement('strong');
+            strong.textContent = item.title || '';
+
+            const desc = document.createElement('p');
+            desc.textContent = item.description || '';
+
+            el.appendChild(strong);
+            el.appendChild(desc);
+          } else {
+            console.warn('Unknown content item:', item);
+          }
       }
+
+      if (el) contentArea.appendChild(el);
     });
   }
 
@@ -42,19 +98,39 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
+  // ==============================
+  // Event Handlers
+  // ==============================
   menuLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
+
       const page = link.dataset.page;
-      loadPage(page);
+      if (!page) return;
+
+      // Update URL and load content
       history.pushState({ page }, '', link.getAttribute('href'));
+      loadPage(page);
     });
   });
 
   window.addEventListener('popstate', (event) => {
-    const page = event.state?.page || 'home';
+    const page = event.state?.page || getPageFromURL() || DEFAULT_PAGE;
     loadPage(page);
   });
 
-  loadPage('home');
+  // ==============================
+  // Utilities
+  // ==============================
+  function getPageFromURL() {
+    const path = location.pathname.split('/').pop();
+    const name = path.replace('.html', '').replace(/\/$/, '');
+    return name || DEFAULT_PAGE;
+  }
+
+  // ==============================
+  // Initialize
+  // ==============================
+  const initialPage = getPageFromURL();
+  loadPage(initialPage);
 });
