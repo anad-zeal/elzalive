@@ -8,6 +8,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const ARTWORK_IMAGES_BASE_URL = 'assets/images/artwork-files/';
   // Base path for decorative painting images
   const DECORATIVE_IMAGES_BASE_URL = 'assets/images/decorative-painting/';
+  // Base path for restoration project images
+  const RESTORATION_IMAGES_BASE_URL = 'assets/images/restoration-projects/';
 
   // ==============================
   // Cached Elements
@@ -17,11 +19,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (!menuLinks.length || !contentArea) {
     console.error('Menu links or content area not found.');
-    // Don't return here if you want JS to still work for some dynamic content later
-    // Just ensure contentArea gets an error message
     contentArea.innerHTML =
       '<p class="error">Critical elements (menu or content area) not found. Dynamic content will not load.</p>';
-    return; // Prevents further JS errors if these crucial elements are missing
+    return;
   }
 
   // ==============================
@@ -39,8 +39,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * @returns {Promise<Object|null>} - The parsed JSON data or null on error.
    */
   async function loadJson(filePath) {
-    // Cancel any ongoing request before starting a new one
-    if (currentFetch) currentFetch.abort?.();
+    if (currentFetch) currentFetch.abort?.(); // Abort previous fetch if ongoing
     currentFetch = new AbortController();
 
     try {
@@ -51,7 +50,6 @@ document.addEventListener('DOMContentLoaded', () => {
       return await response.json();
     } catch (error) {
       if (error.name === 'AbortError') {
-        // Request was intentionally aborted, no need to show an error
         console.log('Fetch aborted for:', filePath);
       } else {
         console.error('Error loading JSON:', error);
@@ -59,7 +57,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
       return null;
     } finally {
-      currentFetch = null; // Clear controller after fetch completes or aborts
+      currentFetch = null;
     }
   }
 
@@ -70,90 +68,53 @@ document.addEventListener('DOMContentLoaded', () => {
   async function loadPage(pageId) {
     if (!pageId) pageId = DEFAULT_PAGE;
 
-    // Show loading indicator
     contentArea.innerHTML = '<p class="loading">Loading…</p>';
 
-    // --- Special handling for 'home' page (which now has the grid menu) ---
-    if (pageId === DEFAULT_PAGE) {
-      const homeData = await loadJson(`${JSON_BASE_PATH}/${DEFAULT_PAGE}.json`);
-      if (
-        homeData &&
-        homeData.pageContent &&
-        homeData.pageContent[0] &&
-        homeData.pageContent[0].type === 'landingMenu'
-      ) {
-        renderLandingMenu(homeData.pageContent[0].items);
-        updateActiveLink(pageId);
-      } else {
-        contentArea.innerHTML = `<p class="error">Failed to load home page content or invalid structure.</p>`;
-      }
+    // Load data common to all pages (if needed) or handle specific page types
+    const pageJsonPath = `${JSON_BASE_PATH}/${pageId.replace(
+      /^(drip-series|encaustic|black-and-white|project-series)$/,
+      '$1-paintings'
+    )}.json`; // Handle specific artwork category filenames
+
+    const pageData = await loadJson(pageJsonPath);
+
+    if (!pageData) {
+      contentArea.innerHTML = `<p class="error">Content for "${pageId}" not found or failed to load.</p>`;
       return;
     }
 
-    // Special handling for the 'artworks' page as it loads an index of categories
-    if (pageId === 'artworks') {
-      const artworkIndexData = await loadJson(`${JSON_BASE_PATH}/artworks.json`);
-      if (artworkIndexData && artworkIndexData.artworkCategories) {
-        renderArtworkCategories(artworkIndexData.artworkCategories);
-        updateActiveLink(pageId);
-      } else {
-        contentArea.innerHTML = `<p class="error">Failed to load artwork categories.</p>`;
-      }
-      return; // Stop here, artwork categories are rendered
-    }
-
-    // Special handling for the 'decorative-painting' page
-    if (pageId === 'decorative') {
-      // Corrected to 'decorative' to match your menu link data-page
-      const decorativeData = await loadJson(`${JSON_BASE_PATH}/decorative-painting.json`); // Filename
-      if (
-        decorativeData &&
-        decorativeData.pageContent &&
-        decorativeData.pageContent[0] &&
-        decorativeData.pageContent[0].type === 'slideshow'
-      ) {
-        renderDecorativeSlideshow(decorativeData.pageContent[0]);
-        updateActiveLink(pageId);
-      } else {
-        contentArea.innerHTML = `<p class="error">Failed to load decorative painting content or invalid structure.</p>`;
-      }
-      return;
-    }
-
-    // Special handling for the 'restoration' page
-    if (pageId === 'restoration') {
-      // Corrected to 'restoration'
-      const restorationData = await loadJson(`${JSON_BASE_PATH}/restoration-projects.json`);
-      if (
-        restorationData &&
-        restorationData.pageContent &&
-        restorationData.pageContent[0] &&
-        restorationData.pageContent[0].type === 'restorationProjects'
-      ) {
-        renderRestorationProjects(restorationData.pageContent[0]); // Assuming a dedicated renderer for this
-        updateActiveLink(pageId);
-      } else {
-        contentArea.innerHTML = `<p class="error">Failed to load restoration projects content or invalid structure.</p>`;
-      }
-      return;
-    }
-
-    // Standard page loading for biography, contact, etc.
-    const pageData = await loadJson(`${JSON_BASE_PATH}/${pageId}.json`);
-
-    if (pageData && pageData.pageContent) {
+    // --- Special handling based on JSON structure/pageId ---
+    if (pageId === DEFAULT_PAGE && pageData.pageContent?.[0]?.type === 'landingMenu') {
+      renderLandingMenu(pageData.pageContent[0].items);
+    } else if (pageId === 'artworks' && pageData.artworkCategories) {
+      renderArtworkCategories(pageData.artworkCategories);
+    } else if (
+      (pageId === 'decorative' || pageJsonPath.includes('decorative-painting.json')) &&
+      pageData.pageContent?.[0]?.type === 'slideshow'
+    ) {
+      renderDecorativeSlideshow(pageData.pageContent[0]);
+    } else if (
+      (pageId === 'restoration' || pageJsonPath.includes('restoration-projects.json')) &&
+      pageData.pageContent?.[0]?.type === 'restorationProjects'
+    ) {
+      renderRestorationProjects(pageData.pageContent[0]);
+    } else if (pageData.artworks && !pageData.artworkCategories) {
+      // This means we've loaded a specific artwork category JSON directly
+      renderArtworksInGallery(pageId, pageData);
+    } else if (pageData.pageContent) {
+      // Standard pages like biography, contact, etc.
       renderStandardContent(pageData.pageContent);
-      updateActiveLink(pageId);
-    } else if (pageData && Array.isArray(pageData)) {
-      // Fallback if some JSONs are still direct arrays
+    } else if (Array.isArray(pageData)) {
       console.warn(
         `JSON for ${pageId} is a direct array, consider wrapping in { "pageContent": [...] }`
       );
       renderStandardContent(pageData);
-      updateActiveLink(pageId);
     } else {
       contentArea.innerHTML = '<p class="error">Invalid page data or content not found.</p>';
+      return;
     }
+
+    updateActiveLink(pageId);
   }
 
   /**
@@ -200,7 +161,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         default:
           console.warn('Unknown content item type:', item.type, item);
-          return; // Skip appending unknown types
+          return;
       }
 
       if (el) contentArea.appendChild(el);
@@ -212,44 +173,29 @@ document.addEventListener('DOMContentLoaded', () => {
    * @param {Array<Object>} menuItems - Array of menu item objects for the landing grid.
    */
   function renderLandingMenu(menuItems) {
-    contentArea.innerHTML = ''; // Clear previous content
+    contentArea.innerHTML = '';
 
     const landingMenuDiv = document.createElement('div');
     landingMenuDiv.className = 'landing-menu';
 
     menuItems.forEach((item) => {
       const itemDiv = document.createElement('div');
-      itemDiv.className = `landing-menu-item ${item.id}`; // Add ID as class for grid-area styling
+      itemDiv.className = `landing-menu-item ${item.id}`;
 
       const link = document.createElement('a');
       link.href = item.href || '#';
       link.className = 'category';
-      // Use history.pushState for internal links, direct assignment for external
-      // if (item.href && item.href.startsWith('/')) { // Assuming internal links start with /
-      //     link.addEventListener('click', (e) => {
-      //         e.preventDefault();
-      //         history.pushState({ page: item.id }, '', item.href);
-      //         loadPage(item.id);
-      //     });
-      // } else {
-      //     link.target = '_blank'; // Open external links in new tab
-      // }
 
-      // For simplicity, let's assume all / links are handled by loadPage.
-      // The main menuLinks already have data-page, so this is for internal links in landingMenu
-      // We'll rely on the main menuLinks for navigation, or make these internal as well.
-      // For now, let's make these behave like external if they link to actual main pages
-      if (
-        item.href &&
-        item.href.startsWith('/') &&
-        menuLinks.some((ml) => ml.dataset.page === item.id)
-      ) {
-        link.dataset.page = item.id; // Mark as internal for click handler
+      // Crucial: Attach data-page to allow handling by handleInternalLandingLinkClick
+      if (item.data_page) {
+        link.dataset.page = item.data_page;
         link.addEventListener('click', handleInternalLandingLinkClick);
       } else {
-        // If it's a content link like /decorative, let it go to the page handler
-        link.dataset.page = item.id;
-        link.addEventListener('click', handleInternalLandingLinkClick);
+        // Fallback for items that aren't meant to trigger a loadPage but might have href
+        // For the landing image, if it's not a link, remove the href or handle differently
+        if (item.id === 'landing-image' && !item.data_page) {
+          link.removeAttribute('href'); // Make it not a clickable link if no page is defined
+        }
       }
 
       if (item.data_gallery) link.setAttribute('data-gallery', item.data_gallery);
@@ -281,23 +227,22 @@ document.addEventListener('DOMContentLoaded', () => {
    * @param {Array<Object>} categories - Array of artwork category objects.
    */
   function renderArtworkCategories(categories) {
-    contentArea.innerHTML = ''; // Clear previous content
+    contentArea.innerHTML = '';
 
     const artworksSection = document.createElement('div');
-    artworksSection.className = 'gallery-menu'; // You might want a different class for this vs. landing-menu
+    artworksSection.className = 'gallery-menu';
 
     const heading = document.createElement('h2');
-    heading.textContent = 'Browse Our Artworks'; // Add a title for the categories page
+    heading.textContent = 'Browse Our Artworks';
     artworksSection.appendChild(heading);
 
     categories.forEach((category) => {
       const categoryDiv = document.createElement('div');
-      // Using id as class for specific styling, ensure it doesn't conflict with main landing menu
       categoryDiv.className = `${category.id} artwork-category-item`;
 
       const link = document.createElement('a');
-      link.href = '#'; // Handled by JS
-      link.className = 'category-link'; // Specific class for these links
+      link.href = '#';
+      link.className = 'category-link';
       link.setAttribute('data-category-id', category.id);
       link.setAttribute('data-content-file', category.contentFile);
       link.setAttribute('aria-label', category.ariaLabel || `Go to ${category.title} gallery`);
@@ -313,7 +258,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     contentArea.appendChild(artworksSection);
 
-    // Attach event listeners to the new category links
     artworksSection.querySelectorAll('.category-link').forEach((link) => {
       link.addEventListener('click', handleArtworkCategoryClick);
     });
@@ -325,12 +269,12 @@ document.addEventListener('DOMContentLoaded', () => {
    * @param {Event} event - The click event.
    */
   async function handleArtworkCategoryClick(event) {
-    event.preventDefault(); // Prevent page reload
+    event.preventDefault();
 
     const link = event.currentTarget;
     const categoryId = link.getAttribute('data-category-id');
     const contentFile = link.getAttribute('data-content-file');
-    const filePath = `${JSON_BASE_PATH}/${contentFile}`; // Path to the category-specific JSON
+    const filePath = `${JSON_BASE_PATH}/${contentFile}`;
 
     contentArea.innerHTML = '<p class="loading">Loading artworks in this category…</p>';
 
@@ -338,7 +282,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (categoryData && categoryData.artworks) {
       renderArtworksInGallery(categoryId, categoryData);
-      // We don't update main menu active link, as we're still conceptually on 'artworks'
+      // Update URL for specific category without changing main menu active state
+      history.pushState({ page: categoryId }, '', `/${categoryId}`);
+      updateActiveLink(categoryId); // Mark the main 'artworks' menu item as active
     } else {
       contentArea.innerHTML = `<p class="error">Failed to load artworks for ${categoryId}.</p>`;
     }
@@ -350,11 +296,10 @@ document.addEventListener('DOMContentLoaded', () => {
    * @param {Object} categoryData - The parsed JSON data for the category (e.g., black-and-white-paintings.json).
    */
   function renderArtworksInGallery(categoryId, categoryData) {
-    // Determine the base path for images from the category JSON's metadata
     const imageBasePath =
       categoryData.metadata && categoryData.metadata.basePath
         ? categoryData.metadata.basePath
-        : `${ARTWORK_IMAGES_BASE_URL}${categoryId}/`; // Fallback for safety
+        : `${ARTWORK_IMAGES_BASE_URL}${categoryId}/`;
 
     let html = `
       <div class="category-detail">
@@ -389,20 +334,19 @@ document.addEventListener('DOMContentLoaded', () => {
       html += `<p>No artworks found for this category yet.</p>`;
     }
 
-    html += `</div></div>`; // Close artwork-grid and category-detail
+    html += `</div></div>`;
     contentArea.innerHTML = html;
 
-    // Attach event listeners for the new "Back to Categories" button
     contentArea.querySelector('.back-to-categories').addEventListener('click', () => {
-      loadPage('artworks'); // Reload the main artwork categories list
+      history.pushState({ page: 'artworks' }, '', '/artworks'); // Update URL
+      loadPage('artworks');
     });
 
-    // Attach event listeners for "View Details" buttons
     contentArea.querySelectorAll('.view-artwork-detail').forEach((button) => {
       button.addEventListener('click', (e) => {
         const fullImage = e.target.getAttribute('data-full-image');
         alert(`Showing full image: ${fullImage}`);
-        // In a real application, you'd open a modal/lightbox here
+        // Implement a modal/lightbox here
       });
     });
   }
@@ -412,7 +356,7 @@ document.addEventListener('DOMContentLoaded', () => {
    * @param {Object} decorativeContentBlock - The content block object for decorative painting (from pageContent).
    */
   function renderDecorativeSlideshow(decorativeContentBlock) {
-    const imageBasePath = DECORATIVE_IMAGES_BASE_URL; // Fixed base URL for decorative images
+    const imageBasePath = DECORATIVE_IMAGES_BASE_URL;
 
     let slideshowHtml = `
         <div class="slideshow-section">
@@ -472,7 +416,7 @@ document.addEventListener('DOMContentLoaded', () => {
           showImage(currentIndex);
         });
 
-        showImage(currentIndex); // Initialize first image
+        showImage(currentIndex);
       } else {
         prevButton.style.display = 'none';
         nextButton.style.display = 'none';
@@ -480,16 +424,56 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Placeholder for restoration projects rendering (if different from standard content)
+  /**
+   * Renders restoration projects from restoration-projects.json.
+   * Assumes a similar structure to artwork galleries for now, but can be customized.
+   * @param {Object} restorationContentBlock - The content block object for restoration projects.
+   */
   function renderRestorationProjects(restorationContentBlock) {
-    // This function would be similar to renderDecorativeSlideshow or renderArtworksInGallery
-    // depending on how you want to display restoration projects (e.g., gallery, list, slideshow)
-    contentArea.innerHTML = `
-          <h2>${restorationContentBlock.title || 'Restoration Projects'}</h2>
-          <p>${restorationContentBlock.description || 'Details coming soon for this section.'}</p>
-          <!-- Render specific restoration project content here -->
-      `;
-    // You'll need to define the structure of restoration-projects.json and implement rendering
+    const imageBasePath = RESTORATION_IMAGES_BASE_URL; // Use a dedicated base URL
+
+    let html = `
+      <div class="restoration-section">
+        <h2>${restorationContentBlock.title || 'Restoration Projects'}</h2>
+        <p>${restorationContentBlock.description || ''}</p>
+        <div class="restoration-grid">
+    `;
+
+    if (restorationContentBlock.projects && restorationContentBlock.projects.length > 0) {
+      restorationContentBlock.projects.forEach((project) => {
+        const fullImagePath = imageBasePath + project.filename;
+        const thumbnailPath = project.thumbFilename
+          ? imageBasePath + project.thumbFilename
+          : fullImagePath;
+
+        html += `
+          <div class="restoration-item" id="project-${project.id}">
+            <img src="${thumbnailPath}" alt="${project.title}" loading="lazy">
+            <h3>${project.title}</h3>
+            <p>${project.description || ''}</p>
+            ${project.year ? `<p><strong>Year:</strong> ${project.year}</p>` : ''}
+            ${project.medium ? `<p><strong>Medium:</strong> ${project.medium}</p>` : ''}
+            <button class="view-project-detail" data-project-id="${
+              project.id
+            }" data-full-image="${fullImagePath}">View Details</button>
+          </div>
+        `;
+      });
+    } else {
+      html += `<p>No restoration projects found yet.</p>`;
+    }
+
+    html += `</div></div>`;
+    contentArea.innerHTML = html;
+
+    // Attach event listeners for "View Details" buttons
+    contentArea.querySelectorAll('.view-project-detail').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        const fullImage = e.target.getAttribute('data-full-image');
+        alert(`Showing full image: ${fullImage}`);
+        // In a real application, you'd open a modal/lightbox here
+      });
+    });
   }
 
   /**
@@ -498,23 +482,20 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function updateActiveLink(activePage) {
     menuLinks.forEach((link) => {
-      // Check if the current active page is a sub-page of 'artworks' or 'decorative'
+      const linkPage = link.dataset.page;
+
+      // Check if the current active page is a main navigation item or a sub-page
       const isArtworkSubpage = [
-        'black-and-white',
-        'drip-series',
-        'encaustic',
-        'project-series',
+        'drip-series-paintings',
+        'encaustic-paintings',
+        'black-and-white-paintings',
+        'project-series-paintings',
       ].includes(activePage);
 
-      // If the link's data-page matches the activePage (e.g., 'home', 'biography')
-      // OR if the link is 'artworks' AND we are on an artwork subpage
-      // OR if the link is 'decorative' AND we are on the decorative page
       if (
-        activePage === link.dataset.page ||
-        (link.dataset.page === 'artworks' && isArtworkSubpage) ||
-        (link.dataset.page === 'decorative' && activePage === 'decorative')
+        activePage === linkPage || // Direct match (home, biography, contact, decorative, restoration)
+        (linkPage === 'artworks' && isArtworkSubpage) // 'artworks' menu item should be active for any artwork subpage
       ) {
-        // Fixed 'decorative' handling
         link.classList.add('is-active');
       } else {
         link.classList.remove('is-active');
@@ -529,12 +510,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle clicks on main menu links
   menuLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
-      event.preventDefault(); // Stop default browser navigation
+      event.preventDefault();
 
       const page = link.dataset.page;
       if (!page) return;
 
-      // Update URL without reloading page
       history.pushState({ page }, '', link.getAttribute('href'));
       loadPage(page);
     });
@@ -544,9 +524,8 @@ document.addEventListener('DOMContentLoaded', () => {
   function handleInternalLandingLinkClick(event) {
     event.preventDefault();
     const link = event.currentTarget;
-    const page = link.dataset.page; // Use data-page from the landing menu link
+    const page = link.dataset.page;
     if (page) {
-      // Update URL and load content as if it was a main menu link
       history.pushState({ page }, '', link.getAttribute('href'));
       loadPage(page);
     }
@@ -554,7 +533,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Handle browser back/forward buttons
   window.addEventListener('popstate', (event) => {
-    // Use event.state.page if available, otherwise try to get from URL
     const page = event.state?.page || getPageFromURL();
     loadPage(page);
   });
@@ -569,9 +547,17 @@ document.addEventListener('DOMContentLoaded', () => {
    */
   function getPageFromURL() {
     const path = window.location.pathname;
-    // Remove leading/trailing slashes and potential .html, then get the last segment
     const segments = path.split('/').filter((s) => s !== '' && !s.endsWith('.php'));
+    // Map specific category URLs back to their JSON filenames if needed
     const pageName = segments.length > 0 ? segments[segments.length - 1] : DEFAULT_PAGE;
+
+    // Special handling for artwork category URLs (e.g., /drip-series should load drip-series-paintings.json)
+    if (
+      ['drip-series', 'encaustic', 'black-and-white', 'project-series'].includes(pageName) &&
+      !pageName.endsWith('-paintings')
+    ) {
+      return `${pageName}-paintings`;
+    }
     return pageName || DEFAULT_PAGE;
   }
 
