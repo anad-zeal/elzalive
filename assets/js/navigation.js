@@ -1,430 +1,171 @@
-(function () {
-  'use strict';
+document.addEventListener('DOMContentLoaded', () => {
+  const mainContentArea = document.querySelector('.main-content-area'); // Assuming an element to load content into
+  const navLinksContainer = document.querySelector('.main-navigation-menu'); // Or wherever your main nav links are
 
-  // --- Utility Functions ---
-  function parseDurationValue(value) {
-    const trimmedValue = (value || '').trim();
-    if (!trimmedValue) return 0;
-
-    if (trimmedValue.endsWith('ms')) {
-      return parseFloat(trimmedValue);
-    }
-    if (trimmedValue.endsWith('s')) {
-      return parseFloat(trimmedValue) * 1000;
-    }
-    return parseFloat(trimmedValue) || 0;
-  }
-
-  function getTransitionDuration(element) {
-    if (!element) return 0;
-
-    const style = window.getComputedStyle(element);
-    const duration = style.transitionDuration || style.webkitTransitionDuration || '';
-
-    const parts = duration
-      .split(',')
-      .map((part) => part.trim())
-      .filter(Boolean);
-
-    if (parts.length === 0) return 0;
-
-    const msValues = parts.map(parseDurationValue);
-    return Math.max(...msValues);
-  }
-
-  function normalizePath(href) {
+  // --- Core function to load JSON data ---
+  async function loadJson(filePath) {
     try {
-      const url = new URL(href, window.location.origin);
-      let pathname = url.pathname || '/';
-
-      // Remove trailing slash except for root
-      if (pathname.length > 1 && pathname.endsWith('/')) {
-        pathname = pathname.slice(0, -1);
+      const response = await fetch(filePath);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status} for ${filePath}`);
       }
-
-      return pathname;
+      return await response.json();
     } catch (error) {
-      console.warn('Invalid URL provided to normalizePath:', href);
-      let path = String(href || '');
-
-      if (!path.startsWith('/')) {
-        path = '/' + path;
-      }
-      if (path.length > 1 && path.endsWith('/')) {
-        path = path.slice(0, -1);
-      }
-
-      return path;
+      console.error('Error loading JSON:', error);
+      mainContentArea.innerHTML = `<p class="error-message">Failed to load content. Please try again later. (Error: ${error.message})</p>`;
+      return null;
     }
   }
 
-  // Page title mappings - scoped to this IIFE
-  const PAGE_TITLES = {
-    '/': 'Home',
-    '/home': 'Home',
-    '/artworks': 'Artworks',
-    '/biography': 'Biography',
-    '/contact': 'Contact Me',
-    '/drips': 'Drip Series Paintings',
-    '/encaustic': 'Encaustic Paintings',
-    '/project-series': 'Project Series Paintings',
-    '/restoration': 'Historical Restoration Projects',
-    '/decorative': 'Decorative Painting',
-    '/black-and-white': 'Black and White Paintings',
-  };
+  // --- Function to render artwork category menu (from artworks.json) ---
+  async function renderArtworkCategories() {
+    const artworkIndex = await loadJson('/path/to/artworks.json'); // *** IMPORTANT: Update this path ***
 
-  // --- Navigation Class ---
-  class NavigationManager {
-    constructor() {
-      this.isTransitioning = false;
-      this.navLinks = [];
-      this.mainContentArea = null;
-      this.dynamicPageWrapper = null;
-      this.subTitleElement = null;
-
-      this.init();
+    if (!artworkIndex || !artworkIndex.artworkCategories) {
+      console.error('Artwork categories index not found or invalid.');
+      return;
     }
 
-    init() {
-      this.cacheElements();
-      this.setupEventListeners();
-      this.handleInitialLoad();
-      this.setupDefaultTransitions();
-    }
-
-    cacheElements() {
-      this.subTitleElement = document.querySelector('p.page-title');
-      this.navLinks = Array.from(document.querySelectorAll('nav a'));
-      this.mainContentArea = document.getElementById('main-content-area');
-      this.dynamicPageWrapper = document.getElementById('dynamic-page-wrapper');
-
-      console.log('Elements cached:', {
-        subTitleElement: this.subTitleElement,
-        navLinksCount: this.navLinks.length,
-        mainContentArea: this.mainContentArea,
-        dynamicPageWrapper: this.dynamicPageWrapper,
-      });
-    }
-
-    setupEventListeners() {
-      const navElement = document.querySelector('nav');
-      if (navElement) {
-        navElement.addEventListener('click', this.handleNavClick.bind(this));
-      }
-
-      document.addEventListener('click', this.handleJsonLinkClick.bind(this));
-      window.addEventListener('popstate', this.handlePopState.bind(this));
-      this.setupFontSizeHandlers();
-    }
-
-    handleJsonLinkClick(event) {
-      const link = event.target.closest('.json-link');
-
-      if (!link) return;
-
-      event.preventDefault();
-
-      const category = link.getAttribute('data-category');
-      const href = `/${category}`;
-
-      const tempLink = document.createElement('a');
-      tempLink.href = href;
-      tempLink.setAttribute('href', href);
-      tempLink.textContent = link.textContent;
-
-      this.updatePageContent(tempLink, true);
-    }
-
-    setupFontSizeHandlers() {
-      document.querySelectorAll('a.category').forEach((categoryLink) => {
-        categoryLink.addEventListener('click', this.handleCategoryClick.bind(this));
-      });
-
-      document.querySelectorAll('a.landing-mnu').forEach((landingMenuLink) => {
-        landingMenuLink.addEventListener('click', this.handleLandingMenuClick.bind(this));
-      });
-    }
-
-    handleCategoryClick(event) {
-      event.preventDefault();
-
-      const categoryLink = event.currentTarget;
-      const gallery = categoryLink.getAttribute('data-gallery');
-
-      if (this.subTitleElement) {
-        this.subTitleElement.style.fontSize = '5vw';
-      } else {
-        console.warn('Category link clicked, but p.page-title element not found.');
-      }
-
-      console.log('Category clicked:', gallery);
-    }
-
-    handleLandingMenuClick(event) {
-      event.preventDefault();
-
-      if (this.subTitleElement) {
-        const currentFontSize = this.subTitleElement.style.fontSize;
-
-        if (currentFontSize === '5vw') {
-          this.subTitleElement.style.fontSize = '10vw';
-        }
-      } else {
-        console.warn('Landing menu link clicked, but p.page-title element not found.');
-      }
-    }
-
-    setupDefaultTransitions() {
-      const defaultTransition = 'opacity 280ms ease-in-out';
-
-      if (this.mainContentArea && !getTransitionDuration(this.mainContentArea)) {
-        this.mainContentArea.style.transition = defaultTransition;
-      }
-
-      if (this.subTitleElement && !getTransitionDuration(this.subTitleElement)) {
-        this.subTitleElement.style.transition = defaultTransition;
-      }
-    }
-
-    findNavLinkByPath(pathname) {
-      const normalizedPath = normalizePath(pathname);
-      return this.navLinks.find((link) => {
-        const linkHref = link.getAttribute('href') || link.href;
-        return normalizePath(linkHref) === normalizedPath;
-      });
-    }
-
-    executeScriptsFromNode(container) {
-      if (!container) return;
-
-      const scripts = Array.from(container.querySelectorAll('script'));
-
-      scripts.forEach((oldScript) => {
-        if (oldScript.type === 'module' || oldScript.dataset.processed === 'true') {
-          return;
-        }
-
-        const newScript = document.createElement('script');
-
-        if (oldScript.src) {
-          newScript.src = oldScript.src;
-          newScript.async = false;
-          newScript.dataset.processed = 'true';
-        } else {
-          newScript.textContent = oldScript.textContent;
-        }
-
-        Array.from(oldScript.attributes).forEach((attr) => {
-          if (attr.name !== 'src') {
-            newScript.setAttribute(attr.name, attr.value);
-          }
-        });
-
-        oldScript.parentNode.replaceChild(newScript, oldScript);
-      });
-    }
-
-    async loadPageContent(path, targetElement) {
-      if (!targetElement) {
-        console.error('Target element for content loading not found!');
-        return false;
-      }
-
-      try {
-        const response = await fetch(path, {
-          credentials: 'same-origin',
-          headers: {
-            'X-Fetched-With': 'SPA-Fetch',
-            Accept: 'text/html',
-          },
-        });
-
-        if (!response.ok) {
-          throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-        }
-
-        const html = await response.text();
-        targetElement.innerHTML = html;
-        this.executeScriptsFromNode(targetElement);
-
-        window.dispatchEvent(
-          new CustomEvent('app:navigate', {
-            detail: { targetElement, path },
-          })
-        );
-
-        return true;
-      } catch (error) {
-        console.error('Error loading page content:', error);
-
-        if (targetElement) {
-          targetElement.innerHTML = `
-            <div role="alert" aria-live="assertive">
-              <p style="color: red; text-align: center; padding: 2rem;">
-                Failed to load content. ${error.message}
-              </p>
-            </div>
-          `;
-        }
-
-        return false;
-      }
-    }
-
-    async updatePageContent(activeLink, pushState = true) {
-      if (this.isTransitioning || !activeLink) return;
-
-      this.isTransitioning = true;
-
-      try {
-        const rawHref = activeLink.getAttribute('href') || activeLink.href;
-        const cleanHref = normalizePath(rawHref);
-
-        await this.fadeOutContent();
-        this.updateNavigationState(activeLink);
-
-        if (pushState) {
-          history.pushState({ path: cleanHref }, '', cleanHref);
-        }
-
-        this.updatePageMetadata(cleanHref, activeLink);
-        await this.loadPageContent(cleanHref, this.mainContentArea);
-        await this.fadeInContent();
-        this.manageFocus();
-      } catch (error) {
-        console.error('Error updating page content:', error);
-      } finally {
-        this.isTransitioning = false;
-      }
-    }
-
-    async fadeOutContent() {
-      if (!this.mainContentArea) return;
-
-      const fadeDuration = getTransitionDuration(this.mainContentArea);
-
-      this.mainContentArea.style.opacity = '0';
-      if (this.subTitleElement) {
-        this.subTitleElement.style.opacity = '0';
-      }
-
-      await new Promise((resolve) => setTimeout(resolve, fadeDuration + 50));
-    }
-
-    async fadeInContent() {
-      if (!this.mainContentArea) return;
-
-      requestAnimationFrame(() => {
-        this.mainContentArea.style.opacity = '1';
-        if (this.subTitleElement) {
-          this.subTitleElement.style.opacity = '1';
-        }
-      });
-    }
-
-    updateNavigationState(activeLink) {
-      this.navLinks.forEach((link) => {
-        link.classList.remove('is-active');
-        link.removeAttribute('aria-current');
-      });
-
-      activeLink.classList.add('is-active');
-      activeLink.setAttribute('aria-current', 'page');
-    }
-
-    updatePageMetadata(path, activeLink) {
-      const pageTitle = PAGE_TITLES[path] || activeLink.textContent.trim();
-
-      if (this.subTitleElement) {
-        this.subTitleElement.textContent = pageTitle;
-      }
-
-      document.title = `${pageTitle} | AEPaints`;
-
-      if (this.dynamicPageWrapper) {
-        const dataPageValue = path.replace('/', '') || 'home';
-        this.dynamicPageWrapper.setAttribute('data-page', dataPageValue);
-      }
-    }
-
-    manageFocus() {
-      if (!this.mainContentArea) return;
-
-      requestAnimationFrame(() => {
-        const heading = this.mainContentArea.querySelector(
-          'h1, h2, .page-title, .page-content-wrapper h2'
-        );
-
-        if (heading) {
-          heading.setAttribute('tabindex', '-1');
-          heading.focus({ preventScroll: true });
-        } else {
-          this.mainContentArea.focus({ preventScroll: true });
-        }
-      });
-    }
-
-    handleNavClick(event) {
-      const link = event.target.closest('a');
-
-      if (!link || !link.closest('nav') || !link.href) return;
-
-      try {
-        const linkUrl = new URL(link.href, window.location.origin);
-        if (linkUrl.origin !== window.location.origin) return;
-      } catch (error) {
-        return;
-      }
-
-      const targetPath = normalizePath(link.href);
-      const currentPath = normalizePath(window.location.pathname);
-
-      if (link.hash && targetPath === currentPath) return;
-
-      event.preventDefault();
-      this.updatePageContent(link, true);
-    }
-
-    handlePopState(event) {
-      const path = normalizePath(window.location.pathname);
-      const activeLink = this.findNavLinkByPath(path);
-
-      if (activeLink) {
-        this.updatePageContent(activeLink, false);
-      } else {
-        this.loadPageContent(path, this.mainContentArea);
-        this.fadeInContent();
-      }
-    }
-
-    handleInitialLoad() {
-      const initialPath = normalizePath(window.location.pathname);
-      const initialLink = this.findNavLinkByPath(initialPath) || this.findNavLinkByPath('/home');
-
-      if (initialLink) {
-        this.updateNavigationState(initialLink);
-        this.updatePageMetadata(initialPath, initialLink);
-      }
-
-      if (this.mainContentArea) {
-        this.mainContentArea.style.opacity = '1';
-        this.executeScriptsFromNode(this.mainContentArea);
-
-        window.dispatchEvent(
-          new CustomEvent('app:navigate', {
-            detail: { targetElement: this.mainContentArea, path: initialPath },
-          })
-        );
-      }
-
-      if (this.subTitleElement) {
-        this.subTitleElement.style.opacity = '1';
-      }
+    const artworksSection = document.createElement('div');
+    artworksSection.className = 'gallery-menu'; // Matches your original HTML structure
+    artworksSection.setAttribute('aria-labelledby', 'artworks-page-heading'); // Add ARIA if needed
+
+    artworkIndex.artworkCategories.forEach((category) => {
+      const categoryDiv = document.createElement('div');
+      categoryDiv.className = `${category.id} gallery`; // e.g., "black-and-white gallery"
+
+      const link = document.createElement('a');
+      link.href = '#'; // Use a hash or prevent default to handle client-side navigation
+      link.className = 'gallery-link';
+      link.setAttribute('data-category-id', category.id); // Custom attribute to identify category
+      link.setAttribute('data-content-file', category.contentFile); // Store the JSON file to load
+      link.setAttribute('aria-label', category.ariaLabel);
+      link.textContent = category.title;
+
+      const descriptionP = document.createElement('p');
+      descriptionP.textContent = category.description;
+
+      categoryDiv.appendChild(link);
+      categoryDiv.appendChild(descriptionP);
+      artworksSection.appendChild(categoryDiv);
+    });
+
+    // Clear existing content and append new categories
+    mainContentArea.innerHTML = '';
+    mainContentArea.appendChild(artworksSection);
+
+    // Add event listeners to the newly created links
+    artworksSection.querySelectorAll('.gallery-link').forEach((link) => {
+      link.addEventListener('click', handleArtworkCategoryClick);
+    });
+  }
+
+  // --- Function to handle clicks on artwork category links ---
+  async function handleArtworkCategoryClick(event) {
+    event.preventDefault(); // Prevent default link behavior (page reload)
+
+    const link = event.currentTarget;
+    const categoryId = link.getAttribute('data-category-id');
+    const contentFile = link.getAttribute('data-content-file');
+    const filePath = `/path/to/your/artwork-content-files/${contentFile}`; // *** IMPORTANT: Update this base path ***
+
+    // Show a loading indicator
+    mainContentArea.innerHTML = '<p class="loading-message">Loading artworks...</p>';
+    console.log(`Loading content for category: ${categoryId} from ${filePath}`);
+
+    const categoryData = await loadJson(filePath);
+
+    if (categoryData) {
+      renderArtworksForCategory(categoryId, categoryData);
+    } else {
+      // Error message already handled by loadJson
     }
   }
 
-  // Initialize navigation when DOM is ready
-  document.addEventListener('DOMContentLoaded', () => {
-    new NavigationManager();
+  // --- Function to render the actual artworks for a selected category ---
+  function renderArtworksForCategory(categoryId, categoryData) {
+    let html = `
+            <h2 id="current-category-title">${categoryData.categoryTitle}</h2>
+            <p>${categoryData.categoryDescription}</p>
+            <div class="artwork-grid">
+        `;
+
+    if (categoryData.artworks && categoryData.artworks.length > 0) {
+      categoryData.artworks.forEach((artwork) => {
+        // *** IMPORTANT: Update your image path here as well ***
+        const imagePath = `/assets/images/artwork-files/${categoryId}/${artwork.filename}`;
+        const thumbPath = artwork.thumbFilename
+          ? `/assets/images/artwork-files/${categoryId}/${artwork.thumbFilename}`
+          : imagePath;
+
+        html += `
+                    <div class="artwork-item" id="artwork-${artwork.id}">
+                        <img src="${thumbPath}" alt="${artwork.title}" loading="lazy">
+                        <h3>${artwork.title}</h3>
+                        <p>${artwork.description}</p>
+                        ${artwork.year ? `<p>Year: ${artwork.year}</p>` : ''}
+                        ${artwork.medium ? `<p>Medium: ${artwork.medium}</p>` : ''}
+                        ${artwork.dimensions ? `<p>Dimensions: ${artwork.dimensions}</p>` : ''}
+                        <button class="view-artwork-detail" data-artwork-id="${
+                          artwork.id
+                        }" data-full-image="${imagePath}">View Details</button>
+                    </div>
+                `;
+      });
+    } else {
+      html += `<p>No artworks found for this category yet.</p>`;
+    }
+
+    html += `</div>`; // Close artwork-grid
+    mainContentArea.innerHTML = html;
+
+    // Example: Add event listeners for "View Details" buttons
+    mainContentArea.querySelectorAll('.view-artwork-detail').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        const artworkId = e.target.getAttribute('data-artwork-id');
+        const fullImage = e.target.getAttribute('data-full-image');
+        alert(`Showing details for artwork ${artworkId}. Full image: ${fullImage}`);
+        // In a real app, you'd open a modal or navigate to a detail page
+      });
+    });
+
+    // Add a back button to return to the category list
+    const backButton = document.createElement('button');
+    backButton.textContent = 'Back to Categories';
+    backButton.className = 'back-to-categories';
+    backButton.addEventListener('click', renderArtworkCategories); // Go back to the main categories
+    mainContentArea.prepend(backButton); // Add at the top
+  }
+
+  // --- Main navigation handler (similar to your homepage logic) ---
+  async function handleMainNavigationClick(event) {
+    const targetCategory = event.currentTarget.getAttribute('data-category');
+
+    // Reset the content area if navigating away from an artwork category detail
+    mainContentArea.innerHTML = '';
+
+    if (targetCategory === 'artworks') {
+      // Load and display the list of artwork categories
+      renderArtworkCategories();
+    } else {
+      // Handle other main menu items (decorative, preservation)
+      // This would likely fetch specific content for those main categories
+      // For now, a placeholder:
+      mainContentArea.innerHTML = `<p>Loading content for ${targetCategory}...</p>`;
+      // Here you'd implement loading specific JSON for 'decorative' or 'preservation'
+      // Example: const content = await loadJson(`/path/to/${targetCategory}-content.json`);
+      // renderContent(content);
+    }
+  }
+
+  // --- Attach event listeners to your *main* navigation menu items ---
+  // Assuming your main navigation has links with 'data-category' attributes
+  // e.g., <a href="#" data-category="artworks">Artwork Pages</a>
+  navLinksContainer.querySelectorAll('a[data-category]').forEach((link) => {
+    link.addEventListener('click', handleMainNavigationClick);
   });
-})();
+
+  // Initial load: If you want to show the artwork categories immediately when
+  // navigation.js loads and the mainContentArea is for artworks, uncomment this:
+  // renderArtworkCategories();
+});
