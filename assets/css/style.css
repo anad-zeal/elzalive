@@ -42,12 +42,10 @@ body {
 }
 
 /* Header / Main Navigation */
-.landing-menu {
-  /* This class name is used for two different menus: */
-  /* 1. The top navigation bar (in index.php) */
-  /* 2. The grid of cards on the home page (rendered by script.js) */
-  /* We'll differentiate them using their parent context or more specific selectors */
-}
+/* This class name is used for two different menus:
+   1. The top navigation bar (in index.php)
+   2. The grid of cards on the home page (rendered by script.js)
+   We'll differentiate them using their parent context or more specific selectors */
 
 .landing-menu:first-child {
   /* This targets the main navigation menu in index.php */
