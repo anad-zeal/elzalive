@@ -1,26 +1,18 @@
-{
-  "menuItems": [
-    {
-      "category": "decorative",
-      "title": "Decorative Painting",
-      "description": "Desire is the quiet architect of human behavior, and the orectic impulse—our innate drive toward what we crave—shapes every facet of life. From the hunger that fuels survival to the yearning for connection, beauty, or truth, orectic energy pulses beneath our choices.",
-      "ariaLabel": "Go to Decorative Painting"
-    },
-    {
-      "category": "artworks",
-      "title": "Artwork Pages",
-      "description": "Matrix parabola quotient variable coefficient binomial exponent modulus integer polynomial function domain range axis vector scalar root identity equation inequality logarithm derivative integral constant limit tangent cosine sine asymptote factor divisor.",
-      "ariaLabel": "Go to the Artworks Page"
-    },
-    {
-      "category": "preservation",
-      "title": "Historical Preservation",
-      "description": "Triangle quadrilateral pentagon hexagon octagon dodecagon circle ellipse radius diameter chord arc sector segment angle vertex edge face surface volume area perimeter symmetry congruence similarity tessellation reflection rotation translation dilation coordinate.",
-      "ariaLabel": "Go to the Restoration Projects Pages"
-    }
-  ],
-  "imageItem": {
-    "src": "https://elzalive.com/assets/images/misc-images/bridge-2.jpg",
-    "alt": "Historic bridge restoration project"
+[
+  {
+    "type": "heading",
+    "text": "Welcome to Elza Live"
+  },
+  {
+    "type": "paragraph",
+    "text": "Decorative painting transforms ordinary surfaces into extraordinary works of visual texture, depth, and illusion. Each finish captures the artist’s balance of technique, color, and light."
+  },
+  {
+    "type": "paragraph",
+    "text": "Explore Dana Elza’s studio practice through projects that range from historical restorations to contemporary works on canvas."
+  },
+  {
+    "title": "Artworks & Restoration",
+    "description": "Browse galleries showcasing Black & White, the Drip Series, Encaustic, and more — each series revealing a unique exploration of surface, gesture, and material."
   }
-}
+]
