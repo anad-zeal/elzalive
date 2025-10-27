@@ -9,11 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
   console.log('DOM fully loaded and parsed.');
 
   // Example event listener
-  links.forEach((a) => {
-    a.addEventListener('click', (event) => {
-      alert(`Button clicked: ${event.target.textContent}`);
-    });
-  });
+
   // Example utility function
   function initializePage() {
     alert('Initializing page logic…');
@@ -22,4 +18,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Initialize your page logic
   initializePage();
+});
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.querySelectorAll('a').forEach((link) => {
+    link.addEventListener('click', (event) => {
+      alert('Link Clicked');
+    });
+  });
 });
