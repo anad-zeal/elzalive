@@ -1,51 +1,186 @@
 {
-  "pageContent": [
+  "head": {
+    "meta": [{ "charset": "UTF-8" }],
+    "title": "Easy Flexbox Grid",
+    "link": [{ "rel": "stylesheet", "href": "./style.css" }]
+  },
+  "body": [
     {
-      "type": "landingMenu",
-      "items": [
+      "type": "div",
+      "class": "top-menu-wrapper",
+      "children": [
         {
-          "id": "decorative",
-          "title": "Decorative Painting",
-          "href": "/decorative",
-          "data_gallery": "decorative_painting",
-          "aria_label": "Go to Decorative Painting",
-          "description": "Limit continuity differentiability derivative integral antiderivative chain rule product rule quotient rule mean value theorem fundamental theorem of calculus Riemann sum definite integral indefinite integral partial derivative gradient divergence curl Laplacian vector field scalar field multivariable function Jacobian Hessian critical point saddle point maximum minimum inflection concavity monotonicity asymptote approximation Taylor series convergence divergence epsilon delta neighborhood open set closed set compactness."
-        },
-        {
-          "id": "restoration",
-          "title": "Restoration Projects",
-          "href": "/restoration",
-          "data_gallery": "encaustic_paintings",
-          "aria_label": "Go to Restoration Projects",
-          "description": "Matrix parabola quotient variable coefficient binomial exponent modulus integer polynomial function domain range axis vector scalar root identity equation inequality logarithm derivative integral constant limit tangent cosine sine asymptote factor divisor product sum difference ratio proportion theorem proof corollary lemma axiom expression term sequence series set element subset union intersection cardinality bijection injection surjection mapping transformation."
-        },
-        {
-          "id": "artworks",
-          "title": "Artworks Catefory Page",
-          "href": "/artworks",
-          "data_gallery": "project_series_paintings",
-          "aria_label": "Go to Artworks Catefory Page",
-          "description": "Triangle quadrilateral pentagon hexagon octagon dodecagon circle ellipse radius diameter chord arc sector segment angle vertex edge face surface volume area perimeter symmetry congruence similarity tessellation reflection rotation translation dilation coordinate plane grid axis origin slope distance midpoint parallel perpendicular altitude base height prism pyramid cone cylinder sphere torus polyhedron topology manifold curvature geodesic."
-        },
-        {
-          "id": "landing-image",
-          "type": "imageLink",
-          "title": null,
-          "href": "/landing-image",
-          "data_item": "landing-image",
-          "aria_label": "Landing Image",
-          "image_src": "https://elzalive.com/assets/images/misc-images/bama-sunset.jpg",
-          "image_height": "100",
-          "description": "Caviar quenelle, pistachio brittle, braised lamb. Tarragon reduction, Poached truffle risotto, caramelized shallots, fig compote. Zest roux paprika, seared scallops with crème fraîche. Baste tempura, fennel purée, cocoa nibs. Sourdough béchamel, roasted chestnuts, lemon verbena glaze. Infused gazpacho."
+          "type": "div",
+          "class": "flex-grid-top",
+          "children": [
+            {
+              "type": "div",
+              "class": "col",
+              "children": [
+                {
+                  "type": "a",
+                  "href": "/",
+                  "class": "landing-mnu",
+                  "data-page": "home",
+                  "content": "HOME"
+                }
+              ]
+            },
+            {
+              "type": "div",
+              "class": "col",
+              "children": [
+                {
+                  "type": "a",
+                  "href": "/artworks",
+                  "class": "landing-mnu",
+                  "data-page": "artworks",
+                  "content": "ARTWORKS"
+                }
+              ]
+            },
+            {
+              "type": "div",
+              "class": "col",
+              "children": [
+                {
+                  "type": "a",
+                  "href": "/biography",
+                  "class": "landing-mnu",
+                  "data-page": "biography",
+                  "content": "BIOGRAPHY"
+                }
+              ]
+            },
+            {
+              "type": "div",
+              "class": "col",
+              "children": [
+                {
+                  "type": "a",
+                  "href": "/contact",
+                  "class": "landing-mnu",
+                  "data-page": "contact",
+                  "content": "CONTACT"
+                }
+              ]
+            }
+          ]
         }
       ]
     },
     {
-      "type": "additionalImage",
-      "id": "bottom-right-image",
-      "image_src": "https://elzalive.com/assets/images/misc-images/bridge-2.jpg",
-      "image_height": "100",
-      "description": null
+      "type": "div",
+      "class": "page-menu-wrapper",
+      "children": [
+        {
+          "type": "div",
+          "class": "home-page-menu",
+          "children": [
+            {
+              "type": "div",
+              "class": "top-row flex-grid-page",
+              "children": [
+                {
+                  "type": "div",
+                  "class": "col top-left",
+                  "children": [
+                    {
+                      "type": "div",
+                      "class": "landing-menu-item",
+                      "children": [
+                        {
+                          "type": "a",
+                          "href": "/decorative",
+                          "class": "category",
+                          "data-gallery": "decorative_painting",
+                          "aria-label": "Go to Decorative Painting",
+                          "content": "Decorative Painting"
+                        },
+                        {
+                          "type": "p",
+                          "content": "Limit continuity differentiability derivative integral antiderivative chain rule product rule..."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "div",
+                  "class": "col top-right",
+                  "children": [
+                    {
+                      "type": "div",
+                      "class": "landing-menu-item",
+                      "children": [
+                        {
+                          "type": "a",
+                          "href": "/restoration",
+                          "class": "category",
+                          "data-gallery": "encaustic_paintings",
+                          "aria-label": "Go to Restoration Projects",
+                          "content": "Restoration Projects"
+                        },
+                        {
+                          "type": "p",
+                          "content": "Matrix parabola quotient variable coefficient binomial exponent modulus integer polynomial..."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "div",
+              "class": "bottom-row flex-grid-page",
+              "children": [
+                {
+                  "type": "div",
+                  "class": "col bottom-left",
+                  "children": [
+                    {
+                      "type": "div",
+                      "class": "landing-menu-item",
+                      "children": [
+                        {
+                          "type": "a",
+                          "href": "/artworks",
+                          "class": "category",
+                          "data-gallery": "project_series_paintings",
+                          "aria-label": "Go to Artworks Category Page",
+                          "content": "Artworks Category Page"
+                        },
+                        {
+                          "type": "p",
+                          "content": "Triangle quadrilateral pentagon hexagon octagon dodecagon circle ellipse radius diameter..."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "div",
+                  "class": "col bottom-right",
+                  "children": [
+                    {
+                      "type": "div",
+                      "class": "landing-menu-item",
+                      "children": [
+                        {
+                          "type": "img",
+                          "src": "https://elzalive.com/assets/images/misc-images/bridge-2.jpg",
+                          "height": "100"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
     }
   ]
 }
