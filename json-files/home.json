@@ -1,113 +1,115 @@
 {
-  "type": "div",
-  "class": "page-menu-wrapper",
-  "children": [
-    {
-      "type": "div",
-      "class": "home-page-menu",
-      "children": [
-        {
-          "type": "div",
-          "class": "top-row flex-grid-page",
-          "children": [
-            {
-              "type": "div",
-              "class": "col top-left",
-              "children": [
-                {
-                  "type": "div",
-                  "class": "landing-menu-item",
-                  "children": [
-                    {
-                      "type": "a",
-                      "href": "/decorative",
-                      "class": "category",
-                      "data-gallery": "decorative_painting",
-                      "aria-label": "Go to Decorative Painting",
-                      "content": "Decorative Painting"
-                    },
-                    {
-                      "type": "p",
-                      "content": "Limit continuity differentiability derivative integral antiderivative chain rule product rule..."
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "div",
-              "class": "col top-right",
-              "children": [
-                {
-                  "type": "div",
-                  "class": "landing-menu-item",
-                  "children": [
-                    {
-                      "type": "a",
-                      "href": "/restoration",
-                      "class": "category",
-                      "data-gallery": "encaustic_paintings",
-                      "aria-label": "Go to Restoration Projects",
-                      "content": "Restoration Projects"
-                    },
-                    {
-                      "type": "p",
-                      "content": "Matrix parabola quotient variable coefficient binomial exponent modulus integer polynomial..."
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        },
-        {
-          "type": "div",
-          "class": "bottom-row flex-grid-page",
-          "children": [
-            {
-              "type": "div",
-              "class": "col bottom-left",
-              "children": [
-                {
-                  "type": "div",
-                  "class": "landing-menu-item",
-                  "children": [
-                    {
-                      "type": "a",
-                      "href": "/artworks",
-                      "class": "category",
-                      "data-gallery": "project_series_paintings",
-                      "aria-label": "Go to Artworks Category Page",
-                      "content": "Artworks Category Page"
-                    },
-                    {
-                      "type": "p",
-                      "content": "Triangle quadrilateral pentagon hexagon octagon dodecagon circle ellipse radius diameter..."
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "div",
-              "class": "col bottom-right",
-              "children": [
-                {
-                  "type": "div",
-                  "class": "landing-menu-item",
-                  "children": [
-                    {
-                      "type": "img",
-                      "src": "https://elzalive.com/assets/images/misc-images/bridge-2.jpg",
-                      "height": "100"
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    }
-  ]
+  "pageContent": {
+    "type": "div",
+    "class": "page-menu-wrapper",
+    "children": [
+      {
+        "type": "div",
+        "class": "home-page-menu",
+        "children": [
+          {
+            "type": "div",
+            "class": "top-row flex-grid-page",
+            "children": [
+              {
+                "type": "div",
+                "class": "col top-left",
+                "children": [
+                  {
+                    "type": "div",
+                    "class": "landing-menu-item",
+                    "children": [
+                      {
+                        "type": "a",
+                        "href": "/decorative",
+                        "class": "category",
+                        "data-gallery": "decorative_painting",
+                        "aria-label": "Go to Decorative Painting",
+                        "content": "Decorative Painting"
+                      },
+                      {
+                        "type": "p",
+                        "content": "Limit continuity differentiability derivative integral antiderivative chain rule product rule..."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "div",
+                "class": "col top-right",
+                "children": [
+                  {
+                    "type": "div",
+                    "class": "landing-menu-item",
+                    "children": [
+                      {
+                        "type": "a",
+                        "href": "/restoration",
+                        "class": "category",
+                        "data-gallery": "encaustic_paintings",
+                        "aria-label": "Go to Restoration Projects",
+                        "content": "Restoration Projects"
+                      },
+                      {
+                        "type": "p",
+                        "content": "Matrix parabola quotient variable coefficient binomial exponent modulus integer polynomial..."
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "type": "div",
+            "class": "bottom-row flex-grid-page",
+            "children": [
+              {
+                "type": "div",
+                "class": "col bottom-left",
+                "children": [
+                  {
+                    "type": "div",
+                    "class": "landing-menu-item",
+                    "children": [
+                      {
+                        "type": "a",
+                        "href": "/artworks",
+                        "class": "category",
+                        "data-gallery": "project_series_paintings",
+                        "aria-label": "Go to Artworks Category Page",
+                        "content": "Artworks Category Page"
+                      },
+                      {
+                        "type": "p",
+                        "content": "Triangle quadrilateral pentagon hexagon octagon dodecagon circle ellipse radius diameter..."
+                      }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "div",
+                "class": "col bottom-right",
+                "children": [
+                  {
+                    "type": "div",
+                    "class": "landing-menu-item",
+                    "children": [
+                      {
+                        "type": "img",
+                        "src": "https://elzalive.com/assets/images/misc-images/bridge-2.jpg",
+                        "height": "100"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
 }
