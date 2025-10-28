@@ -34,8 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
   navLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
       event.preventDefault(); // Prevent the default link behavior (page reload)
-      const pageName = event.target.dataset.page;
-      alert(pageName); // Get the page name from data-page attribute
+      const pageName = event.target.dataset.page; // Get the page name from data-page attribute
       if (pageName) {
         loadJsonContent(pageName);
       }
