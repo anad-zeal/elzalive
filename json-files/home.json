@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
   navLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
-      const pageName = event.target.dataset.page;
+      const pageName = event.currentTarget.dataset.page;
       if (pageName) loadJsonContent(pageName);
     });
   });
