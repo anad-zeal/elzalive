@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   const navLinks = document.querySelectorAll('.main-nav-menu .landing-mnu'); // Target the <a> tags within the menu
-  const dynamicContentArea = document.getElementById('dynamic-content-area');
+  const dynamicContentArea = document.getElementById('dynamic-page-wrapper');
 
   // Function to load and display JSON content
   async function loadJsonContent(pageName) {
