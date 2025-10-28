@@ -11,8 +11,8 @@
         <p class="page-title"><?= htmlspecialchars($page_title) ?></p>
     </div>
 </div>
-<div id="main-content-area">
+<main id="dynamic-page-wrapper" data-page="<?= htmlspecialchars($active_page) ?>" tabindex="-1">
 
-</div>
-<!-- Initial page content will be inserted here by index.php -->
-<!-- Dynamic content will be loaded here by navigation.js -->
+    </div>
+    <!-- Initial page content will be inserted here by index.php -->
+    <!-- Dynamic content will be loaded here by navigation.js -->

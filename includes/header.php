@@ -71,5 +71,3 @@ $life_title = "<h2 class='sub-title fade-title'>The Life of an Artist</h2>";
             </div>
         </nav>
     </header>
-
-    <main id="dynamic-page-wrapper" data-page="<?= htmlspecialchars($active_page) ?>" tabindex="-1">
