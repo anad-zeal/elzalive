@@ -1,57 +1,63 @@
 {
-  "main": {
-    "id": "main",
-    "class": "page-content-wrapper",
-    "tabindex": "-1",
-    "section": {
-      "class": "body-paragraphs",
-      "aria-labelledby": "home-page-heading",
-      "headings": [
-        {
-          "type": "h1",
-          "id": "home-page-heading",
-          "class": "page-title",
-          "text": "Home"
+  "cardGrid": [
+    {
+      "type": "card",
+      "content": {
+        "type": "landingMenuItem",
+        "class": "page",
+        "link": {
+          "href": "/decorative",
+          "class": "page-link",
+          "dataGallery": "decorative_painting",
+          "ariaLabel": "Go to Decorative Painting",
+          "text": "Decorative Painting"
         },
-        {
-          "type": "h2",
-          "id": "portfolio-heading",
-          "class": "visually-hidden",
-          "text": "Portfolio"
+        "paragraph": "Limit continuity differentiability derivative integral antiderivative chain rule product rule quotient rule mean value theorem fundamental theorem of calculus. Equation inequality logarithm derivative integral constant limit tangent cosine sine asymptote factor divisor"
+      }
+    },
+    {
+      "type": "card",
+      "content": {
+        "type": "landingMenuItem",
+        "class": "page",
+        "link": {
+          "href": "/restoration",
+          "class": "page-link",
+          "dataGallery": "encaustic_paintings",
+          "ariaLabel": "Go to Restoration Projects",
+          "text": "Restoration Projects"
+        },
+        "paragraph": "Matrix parabola quotient variable coefficient binomial exponent modulus integer polynomial function domain range axis vector scalar root identity equation inequality logarithm derivative integral constant limit tangent cosine sine asymptote factor divisor."
+      }
+    },
+    {
+      "type": "card",
+      "content": {
+        "type": "landingMenuItem",
+        "class": "page",
+        "link": {
+          "href": "/artworks",
+          "class": "page-link",
+          "dataGallery": "project_series_paintings",
+          "ariaLabel": "Go to the Artworks Page",
+          "text": "Artwork Pages"
+        },
+        "paragraph": "Triangle quadrilateral pentagon hexagon octagon dodecagon circle ellipse radius diameter chord arc sector segment angle vertex edge face surface volume area perimeter symmetry congruence similarity tessellation reflection rotation translation dilation coordinate."
+      }
+    },
+    {
+      "type": "card",
+      "content": {
+        "type": "landingMenuItem",
+        "class": "last-item",
+        "paragraph": {
+          "type": "image",
+          "src": "https://elzalive.com/assets/images/encaustic-paintings/Encaustic VIII.jpg",
+          "class": "img-home"
         }
-      ],
-      "paragraphs": [
-        {
-          "link": {
-            "href": "/restoration?showSlideshow=true",
-            "class": "dropcap",
-            "data-gallery": "restoration",
-            "aria-label": "Go to Restoration Projects",
-            "text": "R"
-          },
-          "text": "estoration Projects — Astral DOGs travel to any point in the universe is now possible via the implementation of hyperbolic sub-resonant variations, combined with isomorphic silicon overlays manifesting dolor sit amet consectetur adipiscing elit."
-        },
-        {
-          "link": {
-            "href": "/decorative?showSlideshow=true",
-            "class": "dropcap",
-            "data-gallery": "decorative",
-            "aria-label": "Go to Decorative Painting",
-            "text": "D"
-          },
-          "text": "ecorative Painting — The woodsman saved the day by capturing the robber. Next time the orphan went for a stroll in the forest they would call the small child first!"
-        },
-        {
-          "link": {
-            "href": "/artworks?showSlideshow=true",
-            "class": "dropcap",
-            "data-gallery": "artworks",
-            "aria-label": "Go to Artworks",
-            "text": "A"
-          },
-          "text": "rtworks — Chicharrones irony kogi enamel pin paleo la croix kinfolk banjo meggings voluptate. Viral etsy occaecat DSA dreamcatcher prism commodo coloring book tilde."
-        }
-      ]
+      }
     }
-  }
+  ]
 }
+5.6s
+Use Arrow Up and Arrow Down to select a turn, Enter to jump to it, and Escape to return to the chat.
