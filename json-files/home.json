@@ -1,117 +1,87 @@
-{
-  "pageContent": [
-    {
-      "type": "div",
-      "class": "page-menu-wrapper",
-      "children": [
-        {
-          "type": "div",
-          "class": "home-page-menu",
-          "children": [
-            {
-              "type": "div",
-              "class": "top-row flex-grid-page",
-              "children": [
-                {
-                  "type": "div",
-                  "class": "col top-left",
-                  "children": [
-                    {
-                      "type": "div",
-                      "class": "landing-menu-item",
-                      "children": [
-                        {
-                          "type": "a",
-                          "href": "/decorative",
-                          "class": "category",
-                          "data-gallery": "decorative_painting",
-                          "aria-label": "Go to Decorative Painting",
-                          "content": "Decorative Painting"
-                        },
-                        {
-                          "type": "p",
-                          "content": "Limit continuity differentiability derivative integral antiderivative chain rule product rule..."
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "div",
-                  "class": "col top-right",
-                  "children": [
-                    {
-                      "type": "div",
-                      "class": "landing-menu-item",
-                      "children": [
-                        {
-                          "type": "a",
-                          "href": "/restoration",
-                          "class": "category",
-                          "data-gallery": "encaustic_paintings",
-                          "aria-label": "Go to Restoration Projects",
-                          "content": "Restoration Projects"
-                        },
-                        {
-                          "type": "p",
-                          "content": "Matrix parabola quotient variable coefficient binomial exponent modulus integer polynomial..."
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            },
-            {
-              "type": "div",
-              "class": "bottom-row flex-grid-page",
-              "children": [
-                {
-                  "type": "div",
-                  "class": "col bottom-left",
-                  "children": [
-                    {
-                      "type": "div",
-                      "class": "landing-menu-item",
-                      "children": [
-                        {
-                          "type": "a",
-                          "href": "/artworks",
-                          "class": "category",
-                          "data-gallery": "project_series_paintings",
-                          "aria-label": "Go to Artworks Category Page",
-                          "content": "Artworks Category Page"
-                        },
-                        {
-                          "type": "p",
-                          "content": "Triangle quadrilateral pentagon hexagon octagon dodecagon circle ellipse radius diameter..."
-                        }
-                      ]
-                    }
-                  ]
-                },
-                {
-                  "type": "div",
-                  "class": "col bottom-right",
-                  "children": [
-                    {
-                      "type": "div",
-                      "class": "landing-menu-item",
-                      "children": [
-                        {
-                          "type": "img",
-                          "src": "https://elzalive.com/assets/images/misc-images/bridge-2.jpg",
-                          "height": "100"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              ]
-            }
-          ]
-        }
-      ]
+document.addEventListener('DOMContentLoaded', () => {
+  const navLinks = document.querySelectorAll('.main-nav-menu .landing-mnu');
+  const dynamicContentArea = document.getElementById('dynamic-content-area');
+
+  /**
+   * Recursively creates DOM elements from JSON definitions
+   * @param {Object} node - A JSON object representing an HTML element
+   * @returns {HTMLElement | Text}
+   */
+  function createElementFromJson(node) {
+    // Text node
+    if (typeof node === 'string') {
+      return document.createTextNode(node);
     }
-  ]
-}
+
+    // Create element
+    const el = document.createElement(node.type);
+
+    // Apply attributes (class, id, src, etc.)
+    for (const key in node) {
+      if (['type', 'children', 'content'].includes(key)) continue;
+      el.setAttribute(key, node[key]);
+    }
+
+    // Add text content if present
+    if (node.content) {
+      el.textContent = node.content;
+    }
+
+    // Recursively add children
+    if (node.children && Array.isArray(node.children)) {
+      node.children.forEach((child) => {
+        el.appendChild(createElementFromJson(child));
+      });
+    }
+
+    return el;
+  }
+
+  /**
+   * Render page JSON into the dynamic content area
+   */
+  async function loadJsonContent(pageName) {
+    const jsonFileName = `${pageName}.json`;
+
+    try {
+      const response = await fetch(`/json-files/${jsonFileName}`);
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+
+      const data = await response.json();
+
+      // Clear current content
+      dynamicContentArea.innerHTML = '';
+
+      // Expecting data.pageContent (array)
+      if (data.pageContent && Array.isArray(data.pageContent)) {
+        data.pageContent.forEach((block) => {
+          dynamicContentArea.appendChild(createElementFromJson(block));
+        });
+      } else {
+        dynamicContentArea.innerHTML = '<p>Invalid JSON format: missing pageContent array.</p>';
+      }
+
+      // Update active nav link
+      navLinks.forEach((link) => link.classList.remove('is-active'));
+      const activeLink = document.querySelector(`.main-nav-menu a[data-page="${pageName}"]`);
+      if (activeLink) activeLink.classList.add('is-active');
+
+    } catch (error) {
+      console.error(`Error loading JSON for ${pageName}:`, error);
+      dynamicContentArea.innerHTML = `<p>Error loading content for "${pageName}".</p>`;
+    }
+  }
+
+  // Navigation link clicks
+  navLinks.forEach((link) => {
+    link.addEventListener('click', (event) => {
+      event.preventDefault();
+      const pageName = event.target.dataset.page;
+      if (pageName) loadJsonContent(pageName);
+    });
+  });
+
+  // Initial page load
+  const initialPage = window.location.pathname.substring(1) || 'home';
+  loadJsonContent(initialPage);
+});
