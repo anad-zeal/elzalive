@@ -1,149 +1,117 @@
-document.addEventListener('DOMContentLoaded', () => {
-  const navLinks = document.querySelectorAll('.main-nav-menu .landing-mnu');
-  const dynamicContentArea = document.getElementById('dynamic-content-area');
-
-  // Defensive checks
-  if (!dynamicContentArea) {
-    console.error('dynamicContentArea not found. Make sure an element with id="dynamic-content-area" exists.');
-    return;
-  }
-  if (!navLinks || navLinks.length === 0) {
-    console.warn('No navigation links found with selector ".main-nav-menu .landing-mnu". Check selector or markup.');
-    // We continue because pages might still load via initialPage
-  }
-
-  /**
-   * Recursively creates DOM elements from JSON definitions
-   * Accepts nodes like { type: "div", class: "foo", children: [...] }
-   */
-  function createElementFromJson(node) {
-    // allow strings as simple text nodes
-    if (typeof node === 'string') return document.createTextNode(node);
-
-    // guard against malformed nodes
-    if (!node || !node.type) {
-      console.warn('Skipping malformed node:', node);
-      return document.createTextNode('');
-    }
-
-    const el = document.createElement(node.type);
-
-    // set attributes — handle `class` specially for convenience
-    for (const key of Object.keys(node)) {
-      if (key === 'type' || key === 'children' || key === 'content') continue;
-
-      // prefer setting dataset for data-* attributes
-      if (key.startsWith('data-')) {
-        el.setAttribute(key, node[key]);
-        continue;
-      }
-
-      // allow numeric attributes like height, width to be set directly
-      try {
-        el.setAttribute(key, node[key]);
-      } catch (e) {
-        // fallback: set property if attribute fails
-        try { el[key] = node[key]; } catch (err) {}
-      }
-    }
-
-    // text content (if provided)
-    if (node.content !== undefined && node.content !== null) {
-      // if the element should contain HTML markup, use innerHTML intentionally
-      // but default to textContent to avoid XSS/unintended markup.
-      // If you'd like to allow HTML in `content`, change to el.innerHTML = node.content
-      el.textContent = node.content;
-    }
-
-    // children — recurse
-    if (Array.isArray(node.children)) {
-      node.children.forEach(child => {
-        const childEl = createElementFromJson(child);
-        if (childEl) el.appendChild(childEl);
-      });
-    }
-
-    return el;
-  }
-
-  // Render page JSON into the dynamic content area
-  async function loadJsonContent(pageName) {
-    const jsonFileName = `${pageName}.json`;
-    try {
-      const response = await fetch(`/json-files/${jsonFileName}`);
-      if (!response.ok) throw new Error(`HTTP ${response.status} - ${response.statusText}`);
-
-      const data = await response.json();
-
-      // clear
-      dynamicContentArea.innerHTML = '';
-
-      // expect { pageContent: [...] } — handle gracefully if format differs
-      const blocks = (data && Array.isArray(data.pageContent)) ? data.pageContent : null;
-      if (!blocks) {
-        // If the JSON is not in pageContent format, attempt reasonable fallbacks:
-        if (Array.isArray(data)) {
-          // treat top-level array as pageContent
-          data.forEach(block => dynamicContentArea.appendChild(createElementFromJson(block)));
-        } else {
-          // otherwise pretty-print JSON as fallback
-          dynamicContentArea.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+{
+  "pageContent": [
+    {
+      "type": "div",
+      "class": "page-menu-wrapper",
+      "children": [
+        {
+          "type": "div",
+          "class": "home-page-menu",
+          "children": [
+            {
+              "type": "div",
+              "class": "top-row flex-grid-page",
+              "children": [
+                {
+                  "type": "div",
+                  "class": "col top-left",
+                  "children": [
+                    {
+                      "type": "div",
+                      "class": "landing-menu-item",
+                      "children": [
+                        {
+                          "type": "a",
+                          "href": "/decorative",
+                          "class": "category",
+                          "data-gallery": "decorative_painting",
+                          "aria-label": "Go to Decorative Painting",
+                          "content": "Decorative Painting"
+                        },
+                        {
+                          "type": "p",
+                          "content": "Limit continuity differentiability derivative integral antiderivative chain rule product rule..."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "div",
+                  "class": "col top-right",
+                  "children": [
+                    {
+                      "type": "div",
+                      "class": "landing-menu-item",
+                      "children": [
+                        {
+                          "type": "a",
+                          "href": "/restoration",
+                          "class": "category",
+                          "data-gallery": "encaustic_paintings",
+                          "aria-label": "Go to Restoration Projects",
+                          "content": "Restoration Projects"
+                        },
+                        {
+                          "type": "p",
+                          "content": "Matrix parabola quotient variable coefficient binomial exponent modulus integer polynomial..."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "div",
+              "class": "bottom-row flex-grid-page",
+              "children": [
+                {
+                  "type": "div",
+                  "class": "col bottom-left",
+                  "children": [
+                    {
+                      "type": "div",
+                      "class": "landing-menu-item",
+                      "children": [
+                        {
+                          "type": "a",
+                          "href": "/artworks",
+                          "class": "category",
+                          "data-gallery": "project_series_paintings",
+                          "aria-label": "Go to Artworks Category Page",
+                          "content": "Artworks Category Page"
+                        },
+                        {
+                          "type": "p",
+                          "content": "Triangle quadrilateral pentagon hexagon octagon dodecagon circle ellipse radius diameter..."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "type": "div",
+                  "class": "col bottom-right",
+                  "children": [
+                    {
+                      "type": "div",
+                      "class": "landing-menu-item",
+                      "children": [
+                        {
+                          "type": "img",
+                          "src": "https://elzalive.com/assets/images/misc-images/bridge-2.jpg",
+                          "height": "100"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
         }
-        // Update nav active state even on fallback
-        updateActiveNav(pageName);
-        return;
-      }
-
-      // append rendered elements
-      blocks.forEach((block) => {
-        const el = createElementFromJson(block);
-        if (el) dynamicContentArea.appendChild(el);
-      });
-
-      updateActiveNav(pageName);
-    } catch (err) {
-      console.error(`Error loading ${jsonFileName}:`, err);
-      dynamicContentArea.innerHTML = `<p>Error loading content for "${pageName}". Check console for details.</p>`;
+      ]
     }
-  }
-
-  // Update active nav link styling (defensive)
-  function updateActiveNav(pageName) {
-    navLinks.forEach(link => link.classList.remove('is-active'));
-    const activeLink = document.querySelector(`.main-nav-menu a[data-page="${pageName}"]`);
-    if (activeLink) activeLink.classList.add('is-active');
-  }
-
-  // Attach click listeners to each nav link element itself (not event.target)
-  navLinks.forEach((linkEl) => {
-    // if navLinks selection returns anchors or container elements, find the anchor
-    const anchor = (linkEl.tagName && linkEl.tagName.toLowerCase() === 'a')
-      ? linkEl
-      : linkEl.querySelector && linkEl.querySelector('a[data-page]') ? linkEl.querySelector('a[data-page]') : null;
-
-    if (!anchor) {
-      // fallback: try to read data-page from the element itself
-      linkEl.addEventListener('click', (ev) => {
-        ev.preventDefault();
-        const pageName = linkEl.dataset ? linkEl.dataset.page : linkEl.getAttribute('data-page');
-        if (pageName) loadJsonContent(pageName);
-      });
-      return;
-    }
-
-    anchor.addEventListener('click', (ev) => {
-      ev.preventDefault();
-      // Use the anchor element's dataset — avoids using event.target which can be inner child
-      const pageName = anchor.dataset.page || anchor.getAttribute('data-page');
-      if (!pageName) {
-        console.warn('Clicked nav link has no data-page attribute:', anchor);
-        return;
-      }
-      loadJsonContent(pageName);
-    });
-  });
-
-  // INITIAL LOAD — get path (strip leading slash and optional trailing slash)
-  const path = window.location.pathname.replace(/^\/+|\/+$/g, '') || 'home';
-  loadJsonContent(path);
-});
+  ]
+}
