@@ -71,12 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
       pageTitleElement.textContent = title;
     }
 
-    // *** ADD THIS 'ELSE IF' BLOCK ***
+    // *** ADD THIS 'ELSE IF' BLOCK FOR THE FORM ***
     if (data.cardGrid) {
       renderCardGrid(data.cardGrid);
     } else if (data.contentSection) {
+      renderContentSection(data.contentSection);
+    } else if (data.contactForm) {
       // CHECK FOR THE NEW STRUCTURE
-      renderContentSection(data.contentSection); // CALL THE NEW FUNCTION
+      renderContactForm(data.contactForm); // CALL THE NEW FUNCTION
     } else if (data.contentHtml) {
       dynamicContentArea.innerHTML = data.contentHtml;
     } else {
@@ -156,6 +158,77 @@ document.addEventListener('DOMContentLoaded', () => {
         pageTitleElement.textContent = `Error Loading Page`;
       }
     }
+  }
+
+  /**
+   * Renders a contact form from a JSON object.
+   * @param {object} formData - The contactForm object from the JSON file.
+   */
+  function renderContactForm(formData) {
+    // 1. Create the main <section> wrapper
+    const sectionWrapper = document.createElement(formData.wrapper.tag);
+    for (const key in formData.wrapper.attributes) {
+      sectionWrapper.setAttribute(key, formData.wrapper.attributes[key]);
+    }
+
+    // 2. Create the form container and the <form> element
+    const formWrapper = document.createElement('div');
+    formWrapper.className = 'contact-form-wrapper';
+
+    const formElement = document.createElement('form');
+    for (const key in formData.form.attributes) {
+      formElement.setAttribute(key, formData.form.attributes[key]);
+    }
+
+    // 3. Loop through the fields array to build each input
+    formData.fields.forEach((field) => {
+      const fieldContainer = document.createElement('div');
+      fieldContainer.className = 'ccfield-prepend';
+
+      // Handle the submit button differently since it has no icon/span
+      if (field.type === 'submit') {
+        const submitInput = document.createElement('input');
+        submitInput.className = 'ccbtn';
+        submitInput.type = 'submit';
+        submitInput.value = field.value;
+        fieldContainer.appendChild(submitInput);
+      } else {
+        // Build the standard field with icon and input/textarea
+        const addon = document.createElement('span');
+        addon.className = 'ccform-addon';
+        const icon = document.createElement('i');
+        icon.className = `fa ${field.icon} fa-2x`;
+        addon.appendChild(icon);
+
+        let inputElement;
+        if (field.type === 'textarea') {
+          inputElement = document.createElement('textarea');
+          inputElement.name = field.name;
+          inputElement.rows = field.rows;
+        } else {
+          inputElement = document.createElement('input');
+          inputElement.type = field.type;
+        }
+
+        inputElement.className = 'ccformfield';
+        inputElement.placeholder = field.placeholder;
+        if (field.required) {
+          inputElement.required = true;
+        }
+
+        fieldContainer.appendChild(addon);
+        fieldContainer.appendChild(inputElement);
+      }
+      formElement.appendChild(fieldContainer);
+    });
+
+    // 4. Assemble the final structure
+    formWrapper.appendChild(formElement);
+    sectionWrapper.appendChild(formWrapper);
+
+    // 5. Clear old content and render the new form
+    dynamicContentArea.innerHTML = '';
+    dynamicContentArea.appendChild(sectionWrapper);
   }
 
   navLinks.forEach((link) => {

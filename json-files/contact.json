@@ -1,39 +1,51 @@
 {
-  "heading": "Get In Touch",
-  "description": "Whether you're interested in commissioning a piece, discussing a restoration project, or simply want to learn more about the work, I'd love to hear from you.",
-  "form": {
+  "title": "Contact",
+  "contactForm": {
+    "wrapper": {
+      "tag": "section",
+      "attributes": {
+        "class": "body-paragraphs",
+        "aria-labelledby": "contact-page-heading"
+      }
+    },
+    "form": {
+      "attributes": {
+        "method": "post",
+        "action": "",
+        "class": "ccform"
+      }
+    },
     "fields": [
       {
         "type": "text",
-        "name": "name",
-        "label": "Name",
-        "placeholder": "Your full name"
+        "icon": "fa-user",
+        "placeholder": "Your Name",
+        "required": true
       },
       {
         "type": "email",
-        "name": "email",
-        "label": "Email",
-        "placeholder": "your.email@example.com"
+        "icon": "fa-envelope",
+        "placeholder": "Email",
+        "required": true
       },
       {
         "type": "text",
-        "name": "subject",
-        "label": "Subject",
-        "placeholder": "Project inquiry, commission, etc."
+        "icon": "fa-info",
+        "placeholder": "Subject",
+        "required": true
       },
       {
         "type": "textarea",
-        "name": "message",
-        "label": "Message",
-        "placeholder": "Please describe your project or inquiry in detail..."
+        "icon": "fa-comment",
+        "placeholder": "Message",
+        "name": "comments",
+        "rows": 8,
+        "required": true
+      },
+      {
+        "type": "submit",
+        "value": "Submit"
       }
-    ],
-    "submitText": "Send Message"
-  },
-  "contactInfo": {
-    "studio": "Artist Studio",
-    "location": "New England",
-    "email": "hello@elzalive.com",
-    "phone": "+1 (555) 123-4567"
+    ]
   }
 }
