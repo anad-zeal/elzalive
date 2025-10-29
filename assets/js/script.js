@@ -71,8 +71,12 @@ document.addEventListener('DOMContentLoaded', () => {
       pageTitleElement.textContent = title;
     }
 
+    // *** ADD THIS 'ELSE IF' BLOCK ***
     if (data.cardGrid) {
       renderCardGrid(data.cardGrid);
+    } else if (data.contentSection) {
+      // CHECK FOR THE NEW STRUCTURE
+      renderContentSection(data.contentSection); // CALL THE NEW FUNCTION
     } else if (data.contentHtml) {
       dynamicContentArea.innerHTML = data.contentHtml;
     } else {
