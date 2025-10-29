@@ -23,14 +23,14 @@ document.addEventListener('DOMContentLoaded', () => {
   let timer;
   let isPausedByHoverOrTouch = false;
 
-  / fetch(fetchUrl)
+  fetch(fetchUrl)
     .then((res) => res.json())
     .then((data) => {
       slides = data;
       createSlides();
       fadeInFirstSlide();
     })
-    .catch(error => console.error(`Error loading ${fetchUrl}:`, error));
+    .catch((error) => console.error(`Error loading ${fetchUrl}:`, error));
 
   function createSlides() {
     slides.forEach(({ src }) => {
