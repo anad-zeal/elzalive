@@ -6,13 +6,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /**
    * Renders a grid of cards from a JSON object into the dynamic content area.
-   * This is the new function that replaces the direct HTML injection.
+   * This version now correctly creates the <section class="card-grid"> wrapper.
    * @param {Array} cardGrid - An array of card objects from the JSON file.
    */
   function renderCardGrid(cardGrid) {
-    // Use a DocumentFragment for better performance. It's a "lightweight" document
-    // to hold all the new elements before appending them to the real DOM once.
-    const fragment = document.createDocumentFragment();
+    // *** NEW: Create the main section wrapper element ***
+    const sectionWrapper = document.createElement('section');
+    sectionWrapper.className = 'card-grid';
 
     cardGrid.forEach((item) => {
       // Create the main container for the card
@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const cardContent = document.createElement('div');
       cardContent.className = content.type; // e.g., "landingMenuItem"
       if (content.class) {
-        cardContent.classList.add(...content.class.split(' ')); // Add classes like "page" or "last-item"
+        cardContent.classList.add(...content.class.split(' '));
       }
 
       // If there's a link object, create the link element
@@ -31,58 +31,51 @@ document.addEventListener('DOMContentLoaded', () => {
         const link = content.link;
         const linkElement = document.createElement('a');
         linkElement.href = link.href;
-        linkElement.textContent = link.text; // Use textContent for security (prevents XSS)
+        linkElement.textContent = link.text;
         linkElement.className = link.class;
         linkElement.setAttribute('data-gallery', link.dataGallery);
         linkElement.setAttribute('aria-label', link.ariaLabel);
         cardContent.appendChild(linkElement);
       }
 
-      // If there's a paragraph, handle it. It can be a string or an image object.
+      // If there's a paragraph, handle it
       if (content.paragraph) {
         if (typeof content.paragraph === 'object' && content.paragraph.type === 'image') {
-          // Handle the special case for the image
           const img = document.createElement('img');
           img.src = content.paragraph.src;
           img.className = content.paragraph.class;
-          img.alt = ''; // Decorative images should have empty alt text
+          img.alt = '';
           cardContent.appendChild(img);
         } else {
-          // Handle a standard text paragraph
           const p = document.createElement('p');
-          p.textContent = content.paragraph; // Use textContent for security
+          p.textContent = content.paragraph;
           cardContent.appendChild(p);
         }
       }
 
       card.appendChild(cardContent);
-      fragment.appendChild(card);
+      // *** MODIFIED: Append the card to the section wrapper, not a fragment ***
+      sectionWrapper.appendChild(card);
     });
 
-    // Clear any previous content and append the new, safely-built fragment
+    // Clear any previous content
     dynamicContentArea.innerHTML = '';
-    dynamicContentArea.appendChild(fragment);
+    // *** MODIFIED: Append the single, complete section wrapper to the DOM ***
+    dynamicContentArea.appendChild(sectionWrapper);
   }
 
   function renderPageContent(data, pageName) {
-    // Set document and page titles
     const title = data.title || pageName.charAt(0).toUpperCase() + pageName.slice(1);
     document.title = `${title} | AEPaints`;
     if (pageTitleElement) {
       pageTitleElement.textContent = title;
     }
 
-    // *** MODIFIED PART ***
-    // Check for the new 'cardGrid' property in the JSON data
     if (data.cardGrid) {
       renderCardGrid(data.cardGrid);
-    }
-    // Fallback for the old method, if you still use it for other pages
-    else if (data.contentHtml) {
+    } else if (data.contentHtml) {
       dynamicContentArea.innerHTML = data.contentHtml;
-    }
-    // Fallback for when no content is found
-    else {
+    } else {
       dynamicContentArea.innerHTML = `<p>No content available for "${title}".</p>`;
     }
 
@@ -108,7 +101,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
       renderPageContent(data, pageName);
 
-      // Update navigation state
       navLinks.forEach((link) => {
         link.classList.remove('is-active');
         link.removeAttribute('aria-current');
@@ -123,7 +115,6 @@ document.addEventListener('DOMContentLoaded', () => {
         dynamicPageWrapper.dataset.page = pageName;
       }
 
-      // Update browser history
       if (addToHistory) {
         const title = data.title || pageName;
         history.pushState({ page: pageName, title: title }, title, `/${pageName}`);
@@ -138,7 +129,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Event listener for navigation clicks
   navLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
@@ -149,7 +139,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Handle browser back/forward buttons
   window.addEventListener('popstate', (event) => {
     const statePage = event.state
       ? event.state.page
@@ -159,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Initial page load logic
   const initialPath = window.location.pathname.substring(1);
   const initialPage = initialPath || 'home';
 
