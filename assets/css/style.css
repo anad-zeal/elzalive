@@ -841,13 +841,12 @@ a.page-link {
   padding: 2rem;
   width: 54vw;
   margin: 0 auto;
-  border: solid 1px red;
 }
 
 .card {
   width: 22vw;
   height: 22vw;
-  background: red
+
   border-radius: 0.5rem;
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
   padding: 2rem;
