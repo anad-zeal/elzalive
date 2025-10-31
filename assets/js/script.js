@@ -153,169 +153,75 @@ document.addEventListener('DOMContentLoaded', () => {
    * After rendering, it dynamically loads the script needed to activate the slideshow.
    * @param {object} template - The slideshowTemplate object from JSON.
    */
-  function renderSlideshow(template) {
-    const wrapper = document.createElement(template.wrapper.tag);
-    wrapper.className = template.wrapper.class;
+  ffunction renderSlideshow(template) {
+  // 1. Create the main <section> wrapper
+  const wrapper = document.createElement(template.wrapper.tag);
+  wrapper.className = template.wrapper.class;
 
-    const slideContainer = document.createElement('div');
-    slideContainer.className = template.slideContainerClass;
+  // 2. Create the empty div where slide images will be loaded
+  const slideContainer = document.createElement('div');
+  slideContainer.className = template.slideContainerClass;
+  // Pass the gallery data source to the element for slideshow.js to read
+  slideContainer.setAttribute('data-gallery-source', template.gallerySource);
 
-    /* --- ADD THIS LINE --- */
-    // Pass the name of the gallery JSON file to the HTML element
-    slideContainer.setAttribute('data-gallery-source', template.gallerySource);
+  // --- Helper function to create the Prev/Next buttons ---
+  const createNavButton = (btnData) => {
+    const div = document.createElement('div');
+    div.className = btnData.wrapperClass;
+    const button = document.createElement('button');
+    button.id = btnData.buttonId;
+    button.className = 'prev-next circle';
+    const img = document.createElement('img');
+    img.src = btnData.imgSrc;
+    img.alt = btnData.imgAlt;
+    img.className = 'prev-nexts';
+    img.width = 50;
+    button.appendChild(img);
+    div.appendChild(button);
+    return div;
+  };
 
-    // ... (the rest of the function remains exactly the same) ...
+  const prevButton = createNavButton(template.previousButton);
+  const nextButton = createNavButton(template.nextButton);
 
-    // (Code to create buttons, caption, footer, etc.)
+  // 3. Create the caption area
+  const captionWrapper = document.createElement('div');
+  captionWrapper.className = template.caption.wrapperClass;
+  const captionText = document.createElement('p');
+  captionText.id = template.caption.paragraphId;
+  captionWrapper.appendChild(captionText);
 
-    wrapper.appendChild(slideContainer);
-    // ... (rest of assembly)
+  // 4. Create the description area
+  const descriptionWrapper = document.createElement('div');
+  descriptionWrapper.className = template.description.wrapperClass;
+  const descriptionText = document.createElement('p');
+  descriptionText.id = template.description.paragraphId;
+  descriptionWrapper.appendChild(descriptionText);
 
-    dynamicContentArea.innerHTML = '';
-    dynamicContentArea.appendChild(wrapper);
+  // 5. Create the footer
+  const footerWrapper = document.createElement('div');
+  footerWrapper.className = template.footer.wrapperClass;
+  const siteFooter = document.createElement('footer');
+  siteFooter.className = 'site-footer';
+  const footerText = document.createElement('p');
+  footerText.textContent = template.footer.copyrightText;
+  siteFooter.appendChild(footerText);
+  footerWrapper.appendChild(siteFooter);
 
-    if (template.scriptToLoad) {
-      loadScript(template.scriptToLoad);
-    }
+  // 6. Assemble all parts into the main wrapper
+  wrapper.appendChild(slideContainer);
+  wrapper.appendChild(prevButton);
+  wrapper.appendChild(nextButton);
+  wrapper.appendChild(captionWrapper);
+  wrapper.appendChild(descriptionWrapper);
+  wrapper.appendChild(footerWrapper);
+
+  // 7. Clear old content and render the new structure
+  dynamicContentArea.innerHTML = '';
+  dynamicContentArea.appendChild(wrapper);
+
+  // 8. Load the specific JavaScript for the slideshow component
+  if (template.scriptToLoad) {
+    loadScript(template.scriptToLoad);
   }
-
-  // --- 4. Main Page Content Controller ---
-
-  /**
-   * Renders the structural HTML for a slideshow.
-   * After rendering, it dynamically loads the script needed to activate the slideshow.
-   * @param {object} template - The slideshowTemplate object from JSON.
-   */
-  function renderSlideshow(template) {
-    // 1. Create the main <section> wrapper
-    const wrapper = document.createElement(template.wrapper.tag);
-    wrapper.className = template.wrapper.class;
-
-    // 2. Create the empty div where slide images will be loaded
-    const slideContainer = document.createElement('div');
-    slideContainer.className = template.slideContainerClass;
-    // Pass the gallery data source to the element for slideshow.js to read
-    slideContainer.setAttribute('data-gallery-source', template.gallerySource);
-
-    // --- Helper function to create the Prev/Next buttons ---
-    const createNavButton = (btnData) => {
-      const div = document.createElement('div');
-      div.className = btnData.wrapperClass;
-      const button = document.createElement('button');
-      button.id = btnData.buttonId;
-      button.className = 'prev-next circle';
-      const img = document.createElement('img');
-      img.src = btnData.imgSrc;
-      img.alt = btnData.imgAlt;
-      img.className = 'prev-nexts';
-      img.width = 50;
-      button.appendChild(img);
-      div.appendChild(button);
-      return div;
-    };
-
-    const prevButton = createNavButton(template.previousButton);
-    const nextButton = createNavButton(template.nextButton);
-
-    // 3. Create the caption area
-    const captionWrapper = document.createElement('div');
-    captionWrapper.className = template.caption.wrapperClass;
-    const captionText = document.createElement('p');
-    captionText.id = template.caption.paragraphId;
-    captionWrapper.appendChild(captionText);
-
-    // 4. Create the description area
-    const descriptionWrapper = document.createElement('div');
-    descriptionWrapper.className = template.description.wrapperClass;
-    const descriptionText = document.createElement('p');
-    descriptionText.id = template.description.paragraphId;
-    descriptionWrapper.appendChild(descriptionText);
-
-    // 5. Create the footer
-    const footerWrapper = document.createElement('div');
-    footerWrapper.className = template.footer.wrapperClass;
-    const siteFooter = document.createElement('footer');
-    siteFooter.className = 'site-footer';
-    const footerText = document.createElement('p');
-    footerText.textContent = template.footer.copyrightText;
-    siteFooter.appendChild(footerText);
-    footerWrapper.appendChild(siteFooter);
-
-    // 6. Assemble all parts into the main wrapper
-    wrapper.appendChild(slideContainer);
-    wrapper.appendChild(prevButton);
-    wrapper.appendChild(nextButton);
-    wrapper.appendChild(captionWrapper);
-    wrapper.appendChild(descriptionWrapper);
-    wrapper.appendChild(footerWrapper);
-
-    // 7. Clear old content and render the new structure
-    dynamicContentArea.innerHTML = '';
-    dynamicContentArea.appendChild(wrapper);
-
-    // 8. Load the specific JavaScript for the slideshow component
-    if (template.scriptToLoad) {
-      loadScript(template.scriptToLoad);
-    }
-  }
-  // --- 5. Core Navigation and Data Loading Logic ---
-
-  /**
-   * Fetches and loads content for a given page.
-   * @param {string} pageName - The name of the page to load (e.g., "home").
-   * @param {boolean} addToHistory - Whether to push a new state to the browser history.
-   */
-  async function loadJsonContent(pageName, addToHistory = true) {
-    const url = `/json-files/${pageName}.json`;
-    dynamicContentArea.innerHTML = '<p>Loading content...</p>';
-    if (pageTitleElement) pageTitleElement.textContent = '';
-
-    try {
-      const response = await fetch(url);
-      if (!response.ok) throw new Error(`HTTP error! status: ${response.status} for ${url}`);
-      const data = await response.json();
-      renderPageContent(data, pageName);
-
-      navLinks.forEach((link) => {
-        link.classList.remove('is-active');
-        link.removeAttribute('aria-current');
-      });
-      const activeLink = document.querySelector(`.main-nav-menu a[data-page="${pageName}"]`);
-      if (activeLink) {
-        activeLink.classList.add('is-active');
-        activeLink.setAttribute('aria-current', 'page');
-      }
-
-      if (dynamicPageWrapper) dynamicPageWrapper.dataset.page = pageName;
-      if (addToHistory) {
-        history.pushState({ page: pageName }, data.title || pageName, `/${pageName}`);
-      }
-    } catch (error) {
-      console.error(`Error loading JSON file for ${pageName}:`, error);
-      dynamicContentArea.innerHTML = `<p>Error loading content for "${pageName}". Please try again.</p>`;
-      document.title = `Error | AEPaints`;
-      if (pageTitleElement) pageTitleElement.textContent = `Error Loading Page`;
-    }
-  }
-
-  // --- 6. Event Listeners and Initial Load ---
-  navLinks.forEach((link) => {
-    link.addEventListener('click', (event) => {
-      event.preventDefault();
-      const pageName = event.target.dataset.page;
-      if (pageName) loadJsonContent(pageName);
-    });
-  });
-
-  window.addEventListener('popstate', (event) => {
-    const statePage = event.state
-      ? event.state.page
-      : window.location.pathname.substring(1) || 'home';
-    loadJsonContent(statePage, false);
-  });
-
-  const initialPage = window.location.pathname.substring(1) || 'home';
-  loadJsonContent(initialPage, false).then(() => {
-    history.replaceState({ page: initialPage }, document.title, `/${initialPage}`);
-  });
-});
+}
