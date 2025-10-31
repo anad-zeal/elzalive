@@ -4,13 +4,6 @@ const description = document.getElementById('description-text');
 const prevBtn = document.getElementById('prev-slide');
 const nextBtn = document.getElementById('next-slide');
 
-// --- DYNAMIC LOGIC ---
-const gallerySource = slideshow.dataset.gallerySource;
-if (!gallerySource) {
-  console.error("Slideshow is missing a 'data-gallery-source' attribute!");
-  return;
-}
-
 const fetchUrl = `/json-files/${gallerySource}`;
 
 // --- State variables ---
