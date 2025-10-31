@@ -333,28 +333,30 @@ main {
   width: 100vw;
   height: 100vh;
   z-index: 100;
-  background-color: transparent; /* Remove background color */
+  background-color: transparent;
+  /* Use Grid to perfectly center the image container */
   display: grid;
-  place-items: center; /* Center the image container */
+  place-items: center;
+  padding: 1rem; /* Add some space from the edges */
 }
 
 .slideshow {
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: transparent; /* Remove background color */
+  background-color: transparent;
+  /* This will also be a grid container to stack the images */
   display: grid;
   place-items: center;
 }
 
 .slideshow img.slide {
-  position: absolute;
-  /* Let the image size itself, but not exceed the container */
-  max-width: 100%;
-  max-height: 100%;
-  width: auto;
-  height: auto;
-  object-fit: contain; /* Show the whole image without cropping */
+  /* The images are now grid items, not absolutely positioned */
+  /* They will all stack in the same grid cell */
+  grid-area: 1 / 1; /* Explicitly stack them */
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* Show the whole image, scaled to fit */
 }
 
 .previous,
@@ -401,8 +403,7 @@ main {
   padding: 0.75rem;
   box-sizing: border-box;
   z-index: 101;
-  background-color: transparent; /* Remove background color */
-  /* Add a shadow to make text readable on any image */
+  background-color: transparent;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
 }
 

@@ -27,10 +27,6 @@
     "description": {
       "wrapperClass": "description",
       "paragraphId": "description-text"
-    },
-    "footer": {
-      "wrapperClass": "footer",
-      "copyrightText": "© 2025 elzalive • All rights reserved."
     }
   }
 }
