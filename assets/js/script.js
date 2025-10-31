@@ -199,13 +199,18 @@ document.addEventListener('DOMContentLoaded', () => {
       renderContentSection(data.contentSection);
     } else if (data.contactForm) {
       renderContactForm(data.contactForm);
-    } else if (data.slideshowTemplate) { // This key MUST match the JSON exactly
+    } else if (data.slideshowTemplate) {
       renderSlideshow(data.slideshowTemplate);
     } else if (data.contentHtml) {
+      // Fallback for old method
       dynamicContentArea.innerHTML = data.contentHtml;
     } else {
       dynamicContentArea.innerHTML = `<p>No content available for "${title}".</p>`;
     }
+
+    dynamicContentArea.focus();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
 
   // --- 5. Core Navigation and Data Loading Logic ---
 
