@@ -42,6 +42,8 @@ $life_title = "<h2 class='sub-title fade-title'>The Life of an Artist</h2>";
 <html lang="en">
 
 <head>
+    <!DOCTYPE html>
+    <html lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($full_page_title) ?></title>
