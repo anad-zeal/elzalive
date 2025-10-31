@@ -1,20 +1,23 @@
 /* ==========================================================================
    Slideshow View Activation
-   - When body.slideshow-active is present, hide ALL standard page elements
-     to create an immersive, full-screen "app mode".
+   - When body.slideshow-active is present, this file takes over.
+   - It hides ALL standard page elements for a full-screen "app mode".
    ========================================================================== */
 
 body.slideshow-active .site-header,
 body.slideshow-active .hero,
 body.slideshow-active .site-footer {
-  display: none;
+  display: none !important; /* Use !important to guarantee override */
 }
 
-/* Make the main content area become a simple, full-page container */
-body.slideshow-active main {
+/* Force the main content area to be a simple pass-through container */
+body.slideshow-active main,
+body.slideshow-active #dynamic-content-area,
+body.slideshow-active #dynamic-page-wrapper {
   padding: 0;
   margin: 0;
   width: 100%;
+  height: 100%;
   max-width: 100%;
 }
 
@@ -23,15 +26,15 @@ body.slideshow-active main {
    ========================================================================== */
 
 .slideshow-wrapper {
-  /* This component now fills its parent (main) completely */
-  width: 100vw;
-  height: 100vh;
+  /* Take over the entire screen */
+  position: fixed;
+  inset: 0;
   background-color: var(--soft);
 
-  /* Use Grid for the new three-column layout */
+  /* Use Grid for the three-column layout */
   display: grid;
-  grid-template-columns: 200px 1fr 200px; /* Left-Gutter | Main-Image | Right-Gutter */
-  grid-template-rows: auto 1fr auto; /* Top-Header | Main-Image | Bottom-Footer */
+  grid-template-columns: 200px 1fr 200px; /* Left | Center | Right */
+  grid-template-rows: auto 1fr auto; /* Top | Middle | Bottom */
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -47,17 +50,16 @@ body.slideshow-active main {
 }
 
 .slideshow img.slide {
-  grid-area: 1 / 1;
+  grid-area: 1 / 1; /* Stack all images in the same cell */
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Scales the image to fit without cropping */
+  object-fit: contain; /* Scale image to fit without cropping */
 }
 
 /* ==========================================================================
    UI Overlays & Peripheral Elements
    ========================================================================== */
 
-/* --- Top Left: Artist Title --- */
 .slideshow-artist-title {
   grid-column: 1 / 2;
   grid-row: 1 / 2;
@@ -69,7 +71,6 @@ body.slideshow-active main {
   padding: 1rem;
 }
 
-/* --- Top Right: Page Title --- */
 .slideshow-page-title {
   grid-column: 3 / 4;
   grid-row: 1 / 2;
@@ -82,7 +83,6 @@ body.slideshow-active main {
   padding: 1rem;
 }
 
-/* --- Center Left/Right: Prev/Next Arrows --- */
 .previous,
 .next {
   grid-row: 2 / 3;
@@ -113,7 +113,6 @@ body.slideshow-active main {
   opacity: 0.8;
 }
 
-/* --- Bottom Left: Return Arrow --- */
 .slideshow-return-link {
   grid-column: 1 / 2;
   grid-row: 3 / 4;
@@ -133,7 +132,6 @@ body.slideshow-active main {
   transform: translateX(-5px);
 }
 
-/* --- Bottom Right: Caption & Description Box --- */
 .slideshow-infobox {
   grid-column: 3 / 4;
   grid-row: 3 / 4;
@@ -142,7 +140,7 @@ body.slideshow-active main {
   border: 1px solid var(--ink-muted);
   padding: 1.5rem;
   margin: 1rem;
-  max-width: 100%; /* Use full width of the grid column */
+  max-width: 100%;
   box-sizing: border-box;
   z-index: 101;
 }
