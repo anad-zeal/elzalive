@@ -1,22 +1,12 @@
-<IfModule mod_rewrite.c>
-  Options -Indexes
-  RewriteEngine On
-  RewriteBase /
+# Enable the rewrite engine
+RewriteEngine On
 
-  # Force HTTPS (optional)
-  #RewriteCond %{HTTPS} !=on
-  #RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+# Set the base path for rewriting
+RewriteBase /
 
-  # Don't rewrite existing files/dirs
-  RewriteCond %{REQUEST_FILENAME} -f [OR]
-  RewriteCond %{REQUEST_FILENAME} -d
-  RewriteRule ^ - [L]
+# If the requested file/folder does not exist...
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
 
-  # Pass assets through untouched
-  RewriteRule ^(assets|images|js|favicons)(/.*)?$ - [L]
-
-  # Clean slugs -> router
-  RewriteRule ^([a-zA-Z0-9\-_/]+)/?$ index.php?page=$1 [L,QSA]
-
-  DirectoryIndex index.php
-</IfModule>
+# ...then rewrite the request to index.php
+RewriteRule . /index.php [L]
