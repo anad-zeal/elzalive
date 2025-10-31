@@ -13,7 +13,7 @@ if (!slideshow || !caption || !description || !prevBtn || !nextBtn) {
     description: !!description,
     prevBtn: !!prevBtn,
     nextBtn: !!nextBtn,
-  };
+  });
 }
 
 const gallerySource = slideshow.dataset.gallerySource;
