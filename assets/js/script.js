@@ -4,12 +4,6 @@ const description = document.getElementById('description-text');
 const prevBtn = document.getElementById('prev-slide');
 const nextBtn = document.getElementById('next-slide');
 
-// Exit if the necessary slideshow elements don't exist on the page.
-if (!slideshow || !caption || !description || !prevBtn || !nextBtn) {
-  console.warn('[Slideshow] Required DOM elements missing. Halting script.');
-  return; // Stop execution if the HTML isn't ready
-}
-
 // --- DYNAMIC LOGIC ---
 const gallerySource = slideshow.dataset.gallerySource;
 if (!gallerySource) {
