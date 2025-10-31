@@ -1,0 +1,156 @@
+/* ==========================================================================
+   Slideshow View Activation
+   - This class is added to the <body> by script.js when a slideshow is active.
+   - It hides the standard site header and hero section for an immersive view.
+   ========================================================================== */
+
+body.slideshow-active .site-header,
+body.slideshow-active .hero {
+  display: none;
+}
+
+/* ==========================================================================
+   Main Slideshow Layout
+   - The wrapper is a fixed overlay that covers the entire viewport.
+   ========================================================================== */
+
+.slideshow-wrapper {
+  position: fixed;
+  inset: 0; /* A modern shorthand for top: 0; right: 0; bottom: 0; left: 0; */
+  background-color: var(--soft); /* The page background color */
+  z-index: 100;
+
+  /* Use Grid to create the main layout structure */
+  display: grid;
+  grid-template-columns: 1fr 5fr 1fr; /* Left-Gutter | Main-Image | Right-Gutter */
+  grid-template-rows: auto 1fr auto; /* Top-Gutter | Main-Image | Bottom-Gutter */
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.slideshow {
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: grid;
+  place-items: center; /* This centers the image within the available space */
+}
+
+.slideshow img.slide {
+  grid-area: 1 / 1; /* Stack all images in the same grid cell */
+  width: 100%;
+  height: 100%;
+  object-fit: contain; /* This is key: scales the image to fit without cropping */
+}
+
+/* ==========================================================================
+   UI Overlays & Peripheral Elements
+   ========================================================================== */
+
+/* --- Top Left: Artist Title --- */
+.slideshow-artist-title {
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+  justify-self: start;
+  align-self: start;
+  font-family: var(--font-script);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 200;
+  color: var(--ink);
+  margin: 1rem;
+}
+
+/* --- Top Right: Page Title --- */
+.slideshow-page-title {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+  justify-self: end;
+  align-self: start;
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 300;
+  color: var(--ink);
+  margin: 1rem;
+}
+
+/* --- Center Left/Right: Prev/Next Arrows --- */
+.previous,
+.next {
+  grid-row: 2 / 3;
+  align-self: center; /* Vertically center in the main image row */
+  z-index: 101;
+}
+.previous {
+  grid-column: 1 / 2;
+  justify-self: center;
+}
+.next {
+  grid-column: 3 / 4;
+  justify-self: center;
+}
+
+.prev-next.circle {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+}
+.prev-next.circle img {
+  opacity: 0.3;
+  transition: opacity var(--speed) var(--easing);
+}
+.prev-next.circle:hover img {
+  opacity: 0.8;
+}
+
+/* --- Bottom Left: Return Arrow --- */
+.slideshow-return-link {
+  grid-column: 1 / 2;
+  grid-row: 3 / 4;
+  justify-self: start;
+  align-self: end;
+  margin: 1rem;
+  z-index: 101;
+}
+.slideshow-return-link img {
+  width: 50px;
+  height: auto;
+  opacity: 0.5;
+  transition: opacity var(--speed) var(--easing), transform var(--speed) var(--easing);
+}
+.slideshow-return-link:hover img {
+  opacity: 1;
+  transform: translateX(-5px);
+}
+
+/* --- Bottom Right: Caption & Description Box --- */
+.slideshow-infobox {
+  grid-column: 3 / 4;
+  grid-row: 3 / 4;
+  justify-self: end;
+  align-self: end;
+
+  border: 1px solid var(--ink-muted);
+  padding: 1.5rem;
+  margin: 1rem;
+  max-width: 40ch; /* Limit the width of the text box */
+  z-index: 101;
+}
+
+.slideshow-infobox .caption {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.25rem;
+  margin-bottom: 1rem;
+  color: var(--ink);
+}
+
+.slideshow-infobox .description {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--ink-muted);
+}

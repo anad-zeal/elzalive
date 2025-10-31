@@ -368,7 +368,6 @@ main {
   z-index: 101;
   background-color: transparent;
   text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
-  display: none;
 }
 
 .caption {
