@@ -22,6 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.appendChild(script);
   }
 
+  /**
+   * Removes any previously loaded dynamic scripts to prevent conflicts when changing pages.
+   */
+  function cleanupDynamicScripts() {
+    const dynamicScripts = document.querySelectorAll('[data-dynamic-script="true"]');
+    dynamicScripts.forEach((script) => script.remove());
+  }
+
   // --- 3. HTML Rendering Functions ---
 
   function renderCardGrid(cardGrid) {
@@ -129,16 +137,12 @@ document.addEventListener('DOMContentLoaded', () => {
     dynamicContentArea.appendChild(sectionWrapper);
   }
 
-  // In /assets/js/script.js
-
   function renderSlideshow(template) {
     const wrapper = document.createElement(template.wrapper.tag);
     wrapper.className = template.wrapper.class;
-
     const slideContainer = document.createElement('div');
     slideContainer.className = template.slideContainerClass;
     slideContainer.setAttribute('data-gallery-source', template.gallerySource);
-
     const createNavButton = (btnData) => {
       const div = document.createElement('div');
       div.className = btnData.wrapperClass;
@@ -154,24 +158,18 @@ document.addEventListener('DOMContentLoaded', () => {
       div.appendChild(button);
       return div;
     };
-
     const prevButton = createNavButton(template.previousButton);
     const nextButton = createNavButton(template.nextButton);
-
     const captionWrapper = document.createElement('div');
     captionWrapper.className = template.caption.wrapperClass;
     const captionText = document.createElement('p');
     captionText.id = template.caption.paragraphId;
     captionWrapper.appendChild(captionText);
-
-    // --- THIS PART IS CRITICAL ---
     const descriptionWrapper = document.createElement('div');
     descriptionWrapper.className = template.description.wrapperClass;
     const descriptionText = document.createElement('p');
-    descriptionText.id = template.description.paragraphId; // This must be "description-text"
+    descriptionText.id = template.description.paragraphId;
     descriptionWrapper.appendChild(descriptionText);
-    // --- END CRITICAL PART ---
-
     const footerWrapper = document.createElement('div');
     footerWrapper.className = template.footer.wrapperClass;
     const siteFooter = document.createElement('footer');
@@ -180,17 +178,14 @@ document.addEventListener('DOMContentLoaded', () => {
     footerText.textContent = template.footer.copyrightText;
     siteFooter.appendChild(footerText);
     footerWrapper.appendChild(siteFooter);
-
     wrapper.appendChild(slideContainer);
     wrapper.appendChild(prevButton);
     wrapper.appendChild(nextButton);
     wrapper.appendChild(captionWrapper);
-    wrapper.appendChild(descriptionWrapper); // Make sure it's added
+    wrapper.appendChild(descriptionWrapper);
     wrapper.appendChild(footerWrapper);
-
     dynamicContentArea.innerHTML = '';
     dynamicContentArea.appendChild(wrapper);
-
     if (template.scriptToLoad) {
       loadScript(template.scriptToLoad);
     }
@@ -224,6 +219,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- 5. Core Navigation and Data Loading Logic ---
 
   async function loadJsonContent(pageName, addToHistory = true) {
+    cleanupDynamicScripts(); // Clean up old component scripts
+
     const url = `/json-files/${pageName}.json`;
     dynamicContentArea.innerHTML = '<p>Loading content...</p>';
     if (pageTitleElement) pageTitleElement.textContent = '';
