@@ -1,6 +1,7 @@
-/* =========================================
-   Design Tokens
-========================================= */
+/* ==========================================================================
+   1. Design Tokens (Variables)
+   ========================================================================== */
+
 :root {
   /* Colors */
   --ink: hsl(0 0% 10%);
@@ -9,10 +10,6 @@
   --soft: hsl(0 0% 96%);
   --brand: rgb(122, 1, 1);
   --focus-ring: hsl(0, 2%, 55%);
-  --navajo-white-light: hsl(45, 22%, 96%);
-  --navajo-white-dark: hsl(38, 45%, 75%);
-  /* --ivory-inspired: hsl(45, 30%, 94%); */
-  --slideshow-background: hsl(57, 10%, 99%);
 
   /* Typography */
   --font-body: 'Montserrat', sans-serif;
@@ -22,9 +19,7 @@
   --font-script: 'Bonheur Royale', cursive;
 
   /* Layout */
-  --gutter: 0.5rem;
   --gap: clamp(0.75rem, 2vw, 1.25rem);
-  --wide: 100vw;
   --narrow-max: 90ch;
 
   /* Motion */
@@ -32,13 +27,14 @@
   --easing: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
-/* =========================================
-   Base / Reset
-========================================= */
-html,
-body {
+/* ==========================================================================
+   2. Base & Reset Styles
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
   box-sizing: border-box;
-  background-color: var(--ivory-inspired);
 }
 
 html {
@@ -48,36 +44,120 @@ html {
 
 body {
   min-height: 100%;
-  background-color: var(--ivory-inspired);
+  background-color: var(--soft);
   color: var(--ink);
   font-family: var(--font-body);
   line-height: 1.6;
   text-rendering: optimizeLegibility;
-}
-
-body p {
-  font-family: var(--font-body);
-  font-size: 1.25rem;
+  margin: 0;
 }
 
 img,
 svg,
 video {
+  display: block;
   height: auto;
   max-width: 100%;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  * {
+  *,
+  *::before,
+  *::after {
     animation: none !important;
     transition: none !important;
     scroll-behavior: auto !important;
   }
 }
 
-/* =========================================
-   Utilities
-========================================= */
+/* ==========================================================================
+   3. Typography
+   ========================================================================== */
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  line-height: 1.2;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: 1.25rem;
+}
+
+p.page-title {
+  font-size: clamp(1rem, 2rem, 3rem);
+  font-weight: 300;
+  text-align: center;
+  color: var(--ink);
+}
+
+h1.title {
+  font-size: clamp(2.5rem, 6vw, 4rem);
+  font-weight: 100;
+  text-align: center;
+  color: var(--brand);
+}
+
+h2.sub-title {
+  font-family: var(--font-script);
+  font-size: clamp(1.75rem, 4.5vw, 3rem);
+  font-weight: 200;
+  letter-spacing: -0.02em;
+  text-align: center;
+}
+
+.body-paragraphs {
+  width: min(100% - 2rem, var(--narrow-max));
+  margin-inline: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.body-paragraphs p {
+  font-weight: 400;
+  text-align: start;
+  max-width: 80%;
+}
+
+/* ==========================================================================
+   4. Layout & Page Shell
+   ========================================================================== */
+
+.site-header,
+.hero {
+  width: 100%;
+  text-align: center;
+  padding: var(--gap);
+}
+
+main {
+  position: relative;
+  z-index: 1;
+}
+
+.site-footer {
+  padding: 3rem 1rem 2rem;
+  color: var(--ink-muted);
+  text-align: center;
+  font-size: 0.95rem;
+  border-top: 1px solid #eaeaea;
+  margin-top: 4rem;
+}
+
+.site-footer p {
+  margin: 0;
+}
+
+/* ==========================================================================
+   5. Accessibility & Utilities
+   ========================================================================== */
+
 .visually-hidden {
   position: absolute !important;
   width: 1px;
@@ -91,18 +171,11 @@ video {
   white-space: nowrap;
 }
 
-.full-bleed {
-  margin-inline: calc(50% - 50vw);
-  width: 100vw;
-}
-
-/* Accessible focus outline */
 :where(a, button, [tabindex], input, textarea, select):focus-visible {
-  outline: 1px solid var(--focus-ring);
+  outline: 2px solid var(--focus-ring);
   outline-offset: 2px;
 }
 
-/* Skip link */
 .skip-link {
   position: absolute;
   left: 0.5rem;
@@ -119,815 +192,252 @@ video {
   transform: none;
 }
 
-/* =========================================
-   Page Shell
-========================================= */
-
-.site-header {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 1vh;
-}
-
-/* =========================================
-   Navigation
-========================================= */
+/* ==========================================================================
+   6. Navigation
+   ========================================================================== */
 
 .main-nav-menu {
   display: flex;
-  justify-content: space-between;
-  width: 80vw;
-  height: 2rem;
-  margin: 0 auto;
-  align-items: center;
-  font-family: var(--font-ui);
-  gap: 0.5rem;
   flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: var(--gap);
+  width: 90vw;
+  margin-inline: auto;
   min-height: 2.5rem;
+  font-family: var(--font-ui);
 }
 
 .main-nav-menu a {
-  margin: 0 35px;
-  padding: 10px 0; /* Adjust padding as needed */
-  text-decoration: none; /* Removes underline from links */
+  margin: 0 1.5rem;
+  padding: 0.5rem 0;
+  text-decoration: none;
   color: var(--ink);
-  white-space: nowrap; /* Prevents text from wrapping within a link */
+  white-space: nowrap;
 }
 
 .main-nav-menu a.is-active,
 .main-nav-menu a:hover {
   color: var(--brand);
-  transform: scale(1.25);
+  transform: scale(1.1);
   transition: color 250ms ease, transform 250ms ease;
 }
 
-.category a.is-active,
-.category a:hover {
-  color: var(--brand);
-  transform: scale(1.25);
-  transition: color 250ms ease, transform 250ms ease;
-}
+/* ==========================================================================
+   7. Components
+   ========================================================================== */
 
-/* Optional: Add media queries for even better responsiveness on very small screens */
-@media (max-width: 600px) {
-  .main-nav-menu {
-    flex-direction: column; /* Stack items vertically on small screens */
-    align-items: center; /* Center items when stacked vertically */
-  }
-}
-
-/* =========================================
-   Typography
-========================================= */
-h1,
-h2,
-h3 {
-  font-family: var(--font-display);
-}
-
-main {
-  position: relative;
-  z-index: 1;
-}
-
-p.page-title {
-  font-family: var(--font-title);
-  font-size: clamp(1rem, 2rem, 3rem);
-  font-weight: 300;
-  line-height: 1;
-  text-align: center;
-  margin: 0;
-  color: var(--ink);
-}
-
-p.page-title.small-title {
-  display: none;
-}
-
-h1.title {
-  font-family: var(--font-title);
-  font-size: clamp(2.5rem, 6vw, 4rem);
-  font-weight: 100;
-  text-align: center;
-  color: var(--brand);
-  margin: 0;
-  line-height: 1;
-}
-
-h3.title {
-  font-family: var(--font-title);
-  font-size: clamp(1.25rem, 3vw, 2rem);
-  font-weight: 500;
-  text-align: center;
-  color: var(--brand);
-  margin: 0;
-  line-height: 1;
-}
-
-h2.sub-title {
-  /* position: relative;
-  top: 1vh; */
-  font-family: var(--font-script);
-  font-size: clamp(1.75rem, 4.5vw, 3rem);
-  font-weight: 200;
-  letter-spacing: -0.02em;
-  text-align: center;
-  margin: 0px;
-  line-height: 1;
-}
-
-.body-paragraphs {
-  position: relative;
-  top: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: min(100% - 2rem, var(--narrow-max));
+/* --- Component: Card Grid (Homepage) --- */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  padding: 2rem;
+  width: min(100% - 2rem, 1200px);
   margin-inline: auto;
-  font-family: var(--font-body);
 }
 
-.section-format p,
-.body-paragraphs p {
-  font-weight: 400;
-  text-align: start;
-  max-width: 80%;
-  font-size: 1.25rem;
-}
-
-.dropcap {
-  float: left;
-  font-family: var(--font-script);
-  font-weight: 700;
-  font-size: clamp(3.2rem, 8vw, 5rem);
-  line-height: 0.9;
-  margin-right: 0.25em;
-  padding-top: 0.08em;
-  color: var(--brand);
-  min-width: 1ch;
-  text-decoration: none;
-  font-variant-ligatures: none;
-}
-.dropcap:hover {
-  color: var(--focus-ring);
-}
-.dropcap:focus-visible {
-  outline: 3px solid var(--focus-ring);
-  outline-offset: 3px;
-  border-radius: 0.2rem;
-}
-
-/* =========================================
-   Main Layout & Components (Container, Slideshow, Footer)
-/* ========================================= */
-
-.page-menu {
-  width: 60vw;
-  height: 60vh;
-  margin: 2vh auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    'restoration decorative'
-    'artworks landing-image';
-  justify-items: center;
-  align-items: start;
-}
-
-.page-menu div {
-  width: 25vw;
-  height: 24vh;
-}
-
-.page-menu p {
-  text-align: left;
-  font-family: var(--font-body);
-  font-size: 1.25rem;
-  color: var(--ink-muted);
-  margin-top: 0.5rem;
-}
-
-.page-menu a {
-  text-decoration: none;
-  font-family: var(--font-ui);
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1;
-  color: var(--ink);
-  white-space: nowrap; /* Prevents text from wrapping within a link */
-}
-
-.page-menu a:is-active,
-.page-menu a:hover {
-  color: var(--brand);
-  transform: scale(1.25);
-  transition: color 250ms ease, transform 250ms ease;
-}
-
-.last-item p {
-  width: 25vw;
-  text-align: center;
-}
-
-.restoration {
-  grid-area: restoration;
-}
-
-.decorative {
-  grid-area: decorative;
-}
-
-.artworks {
-  grid-area: artworks;
-}
-
-.landing-image {
-  grid-area: landing-image;
-}
-
-.gallery-menu {
-  width: 60vw;
-  height: 49vh;
-  margin: 2vh auto;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    'black-and-white encaustic'
-    'project-series drips-series';
-  justify-items: center;
-  align-items: center;
-}
-
-.gallery-menu p {
-  text-align: left;
-  font-family: var(--font-body);
-  font-size: 1.25rem;
-  color: var(--ink-muted);
-  margin-top: 0.5rem;
-}
-
-.gallery-menu a {
-  text-decoration: none;
-  font-family: var(--font-ui);
-  font-size: 1.25rem;
-  font-weight: 400;
-  line-height: 1;
-  color: var(--ink);
-  white-space: nowrap; /* Prevents text from wrapping within a link */
-}
-
-.gallery-menu a.is-active,
-.gallery-menu a:hover {
-  color: var(--brand);
-  transform: scale(1.25);
-  transition: color 250ms ease, transform 250ms ease;
-}
-
-.black-and-white {
-  grid-area: black-and-white;
-}
-
-.encaustic {
-  grid-area: encaustic;
-}
-
-.project-series {
-  grid-area: project-series;
-}
-
-.drips-series {
-  grid-area: drips-series;
-}
-
-.landing-menu-item {
+.card {
   background: rgba(255, 255, 255, 0.6);
   border: 1px solid rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 1.5rem 1.5rem 2rem 1.5rem;
   transition: all var(--speed) var(--easing);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-  opacity: 1;
-  animation: fadeInUp 0.6s ease forwards;
-  width: 100%;
 }
 
-.landing-menu-item:hover {
+.card:hover {
   background: rgba(255, 255, 255, 0.8);
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
   transform: translateY(-2px);
 }
 
-.landing-menu-item:nth-child(1) {
-  animation-delay: 0.1s;
-}
-.landing-menu-item:nth-child(2) {
-  animation-delay: 0.2s;
-}
-.landing-menu-item:nth-child(3) {
-  animation-delay: 0.3s;
-}
-.landing-menu-item:nth-child(4) {
-  animation-delay: 0.4s;
+.card p {
+  font-size: clamp(1rem, 1.2vw, 1.125rem);
+  color: var(--ink-muted);
 }
 
-/* Style the links as headings */
-.landing-menu-item .page-link {
+.card a.page-link {
   display: block;
   font-family: var(--font-title);
-  font-size: clamp(1.5rem, 2.5vw, 2.25rem);
+  font-size: clamp(1.5rem, 2.5vw, 2rem);
   font-weight: 300;
   color: var(--brand);
   margin-bottom: 0.75rem;
-  line-height: 1.2;
   text-decoration: none;
-  transition: all var(--speed) var(--easing);
 }
 
-.landing-menu-item .page-link:hover {
-  color: var(--ink);
-  transform: translateX(4px);
-}
-
-/* Style the paragraphs */
-.landing-menu-item p {
-  font-family: var(--font-body);
-  font-size: clamp(1rem, 1.2vw, 1.125rem);
-  color: var(--ink-muted);
-  line-height: 1.5;
-  margin: 0;
-  max-width: 35ch;
-}
-
-/* Special styling for the last item with image */
-.landing-menu-item.last-item {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  min-height: 200px;
-}
-
-.landing-menu-item.last-item p {
-  margin: 0;
-  text-align: center;
-}
-
-.img-home {
-  border-radius: 8px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-  transition: transform var(--speed) var(--easing);
-  min-width: 400px;
-  max-height: 250px;
-}
-
-.img-home:hover {
-  transform: scale(1.05);
-}
-
-.last-item p {
-  margin-bottom: 0;
-}
-
-/* =========================================
-   Slideshow — Hardened Overrides (put last)
-   Ensures stage has height and images never collapse to 0×0.
-========================================= */
-
-.slideshow {
-  align-items: center;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
-  font-size: 2em;
-  height: auto;
-  justify-content: center;
-  position: relative;
-  width: var(--wide);
-  max-height: 90vh;
-  overflow: hidden;
-}
-
-/* Prev/Next buttons (base) */
-.prev-next.circle {
-  background-color: var(--brand);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 1.5em;
-  padding: 0;
-  transition: background-color var(--speed) var(--easing);
-  z-index: 10;
-}
-
-.prev-next.circle:hover {
-  background-color: var(--focus-ring);
-}
-
-.prev-next-icon {
-  width: 30px;
-  height: auto;
-  filter: invert(100%);
-}
-
-.caption {
-  text-align: center;
-  padding: 1rem 0;
-  font-style: italic;
-  color: var(--ink-muted);
-}
-
-.slideshow-section {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
-}
-
-.slideshow-container .slideshow {
+.card .img-home {
   width: 100%;
   height: 100%;
-  max-width: unset; /* Remove max-width constraint */
-  margin: 0; /* Remove auto margins */
+  object-fit: cover;
+  border-radius: 8px;
 }
 
-.slideshow-container {
-  position: relative;
-  top: -4vh;
-
-  .slideshow [data-role='stage'] {
-    aspect-ratio: unset;
-    min-height: unset;
-    width: 100%; /* Fill available width */
-    height: 100%; /* Fill available height */
-    overflow: hidden;
-    display: grid;
-    place-items: center;
-  }
-}
-
-.slideshow [data-role='stage'] img {
-  position: absolute !important;
-  /* inset: 0 !important; REMOVED to allow intrinsic sizing */
-  margin: auto !important; /* Center the image */
-  display: block !important;
-  max-width: 100% !important; /* Ensure image scales down if too wide */
-  max-height: 100% !important; /* Ensure image scales down if too tall */
-  width: 100% !important; /* Allow intrinsic width */
-  height: auto !important; /* Allow intrinsic height */
-  min-width: 1px !important;
-  min-height: 1px !important;
-  object-fit: contain !important; /* Changed to 'contain' to show full image, fit to bounds */
-  opacity: 1;
-  transition: opacity 1.5s ease-in-out;
-  z-index: 99;
-}
-
-.slideshow [data-role='caption-wrap'] {
-  position: absolute; /* Position caption over the image */
-  bottom: 0;
-  left: 0;
-  right: 0;
-  text-align: center;
-  padding: 0.75rem;
-  color: #fff; /* Make caption text white for better contrast on images */
-  background: rgba(0, 0, 0, 0.5); /* Semi-transparent background for readability */
-  font-style: italic;
-  z-index: 10;
-}
-
-/* Adjust button positioning for full-viewport slideshow */
-.slideshow [data-role='previous'],
-.slideshow [data-role='next'] {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 11; /* Above caption */
-  background-color: #8b0000;
-  color: #fff;
-  border: 0;
-  border-radius: 50%;
-  width: 56px;
-  height: 56px;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
-  padding: 0; /* Remove default padding from buttons */
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* Add a subtle shadow */
-}
-.slideshow [data-role='previous'] {
-  left: 1rem;
-}
-.slideshow [data-role='next'] {
-  right: 1rem;
-}
-
-.slideshow-site-header {
-  visibility: hidden;
-}
-
-/* =========================================
-   Media Queries for Responsiveness
-========================================= */
-@media (max-width: 768px) {
-  .main-menu ul {
-    flex-direction: column;
-    gap: 0.5rem;
-  }
-
-  .prev-next.circle {
-    width: 50px;
-    height: 50px;
-  }
-
-  .prev-next-icon {
-    width: 25px;
-  }
-}
-
-.site-footer {
-  padding-block: 3rem 2rem;
-  color: var(--ink-muted);
-  text-align: center;
-  font-size: 0.95rem;
-  border-top: 1px solid #eaeaea;
-  margin-top: 4rem;
-}
-
-.site-footer p {
-  margin: 0;
-}
-
+/* --- Component: Contact Form --- */
 .contact-form-wrapper {
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  margin: 2rem auto;
+  width: min(100% - 2rem, 800px);
 }
 
-/* Form CSS*/
-.ccform {
-  margin: 0 auto;
-  width: 800px;
-}
 .ccfield-prepend {
   margin-bottom: 10px;
   width: 100%;
+  display: flex;
 }
 
 .ccform-addon {
-  color: #f8ae45;
-  float: left;
+  color: var(--brand);
   padding: 8px;
-  width: 8%;
   background: #ffffff;
   text-align: center;
+  border-right: 1px solid #eee;
 }
 
 .ccformfield {
-  color: var(--brand);
-  background: hsl(60, 100%, 100%);
+  color: var(--ink);
+  background: #ffffff;
   border: none;
   padding: 15.5px;
-  width: 91.9%;
-  display: block;
+  width: 100%;
   font-family: var(--font-ui);
   font-size: 1.125rem;
-  font-weight: 200;
 }
 
-.ccformfield {
-  font-family: var(--font-ui);
-}
 .ccbtn {
   display: block;
-  background: hsl(60, 100%, 100%);
-  color: var(--brand);
+  width: 100%;
+  border: none;
+  background: var(--brand);
+  color: white;
   padding: 12px 25px;
   cursor: pointer;
-  text-decoration: none;
   font-family: var(--font-ui);
-  font-weight: 200;
   font-size: 1.125rem;
-  border-radius: 10px;
-  border: none;
+  border-radius: 4px;
+  transition: background-color 250ms ease, transform 250ms ease;
 }
+
 .ccbtn:hover {
-  background: hsl(60, 100%, 91%);
-  transform: scale(1.125);
-  transition: color 250ms ease, transform 250ms ease;
+  background: var(--ink);
+  transform: scale(1.02);
 }
 
-.slideshow-container {
-  background: none;
-}
+/* --- Component: Slideshow --- */
 
-.slideshow {
-  background: none;
-}
-
-/* === Navigation Styles === */
-.main-nav {
-  /* background-color: #f6f5ef; */
-  text-align: center;
-  padding: 0.5rem 0;
-}
-
-.main-nav-menu {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 3rem;
-}
-
-.main-nav-menu a {
-  text-decoration: none;
-  color: #000;
-  font-family: var(--font-display);
-  font-weight: 400;
-  transition: color 0.3s ease;
-}
-
-.main-nav-menu a.active {
-  color: #601c17; /* Active page color */
-}
-
-.nav-title {
-  position: relative;
-  min-width: 250px;
-  text-align: center;
-  overflow: hidden;
-}
-
-.nav-title .sub-title {
-  font-family: 'Dancing Script', cursive;
-  font-size: 1.8rem;
-  font-weight: 400;
-  color: #000;
-  margin: 0;
-  line-height: 1.2;
-  opacity: 1;
-  transition: opacity 0.6s ease;
-}
-
-/* Crossfade effect */
-.nav-title.fade-out .sub-title {
-  opacity: 0;
-}
-
-.top-grid {
-  display: flex;
-  justify-content: space-between;
-  width: 96vw;
-  height: 3rem;
-  margin: 0 auto;
-  align-items: center;
-}
-
-.top-grid .left {
-  width: 39%;
-  border: solid 1px blue;
-  text-align: left;
-  display: flex;
-  align-items: center;
-}
-
-.top-grid .right {
-  display: flex;
-  width: 39%;
-  border: solid 1px blue;
-  justify-content: flex-end;
-  align-items: center;
-}
-
-.card-grid p,
-.card-grid a {
-  font-family: Verdana, Geneva, Tahoma, sans-serif system-ui;
-  color: rgba(0, 0, 0, 1);
-}
-
-p {
-  margin-top: 0;
-  line-height: 1.5;
-  font-size: 1.25rem;
-  font-weight: 200;
-}
-
-a.page-link {
-  font-size: 1.5rem;
-  font-weight: 500;
-  text-decoration: none;
-  line-height: 1.5;
-  color: rgba(0, 0, 0, 1);
-}
-
-.card-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-template-rows: repeat(2, auto);
-  gap: 2rem;
-  padding: 2rem;
-  width: 54vw;
-  margin: 0 auto;
-}
-
-.card {
-  width: 22vw;
-  height: 22vw;
-
-  border-radius: 0.5rem;
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
-  padding: 2rem;
-  font-size: 1rem;
-}
-
-.card:last-of-type {
-  width: 22vw;
-  height: 22vw;
-  padding: 1.5rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.img-home {
-  max-width: 10vw;
-  height: auto;
-  padding: 2px;
-  border: solid 1px rgba(0, 0, 0, 0.5);
-}
-
-/* --- Slideshow Container Styles --- */
-
-/* 1. The main wrapper for the whole component */
 .slideshow-wrapper {
-  position: relative; /* This is crucial for positioning the buttons */
-  width: 100%;
-  max-width: 900px; /* Optional: set a max width for large screens */
-  margin: 2rem auto; /* Center the slideshow on the page */
-  border: 1px solid #eee; /* Optional: a light border to see the frame */
+  /* Make the slideshow take up the full screen */
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  background-color: transparent; /* Remove background color */
+  display: grid;
+  place-items: center; /* Center the image container */
 }
 
-/* 2. The direct container for the images */
 .slideshow {
   position: relative;
   width: 100%;
-  /* Use the "aspect-ratio" trick to maintain a 16:9 ratio.
-     padding-bottom = 9 / 16 * 100% = 56.25% */
-  padding-bottom: 56.25%;
-  height: 0; /* Height is controlled by padding-bottom */
-  background-color: #f0f0f0; /* A light background color while images load */
-  overflow: hidden; /* Ensures images don't spill out */
+  height: 100%;
+  background-color: transparent; /* Remove background color */
+  display: grid;
+  place-items: center;
 }
 
-/* 3. Styles for the Previous and Next buttons */
+.slideshow img.slide {
+  position: absolute;
+  /* Let the image size itself, but not exceed the container */
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain; /* Show the whole image without cropping */
+}
+
 .previous,
 .next {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 10;
+  z-index: 101;
 }
 
 .previous {
-  left: 10px;
+  left: 2rem;
 }
-
 .next {
-  right: 10px;
+  right: 2rem;
 }
 
-/* 4. Ensure the caption and description are positioned correctly */
+.prev-next.circle {
+  background-color: rgba(122, 1, 1, 0.7);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: background-color var(--speed) var(--easing), transform var(--speed) var(--easing);
+}
+
+.prev-next.circle:hover {
+  background-color: var(--brand);
+  transform: scale(1.1);
+}
+
 .caption,
 .description {
   position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(100% - 4rem, 80ch);
   text-align: center;
-  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
   color: white;
-  padding: 10px;
+  padding: 0.75rem;
   box-sizing: border-box;
-  z-index: 10;
+  z-index: 101;
+  background-color: transparent; /* Remove background color */
+  /* Add a shadow to make text readable on any image */
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+.caption {
+  bottom: 4rem;
+  font-size: 1.2rem;
+  font-weight: bold;
 }
 
 .description {
-  /* Position the description above the caption if needed, or style differently */
-  bottom: 40px; /* Adjust as needed */
-  background-color: rgba(0, 0, 0, 0.3);
-  padding: 5px;
-  font-size: 0.9em;
+  bottom: 1rem;
+  font-size: 1rem;
+}
+
+/* ==========================================================================
+   8. Media Queries (Responsive Design)
+   ========================================================================== */
+
+@media (max-width: 768px) {
+  .previous,
+  .next {
+    /* Move buttons closer to the edge on smaller screens */
+    transform: translateY(-50%) scale(0.8);
+  }
+  .previous {
+    left: 0.5rem;
+  }
+  .next {
+    right: 0.5rem;
+  }
+
+  .caption {
+    bottom: 3rem;
+  }
+  .description {
+    bottom: 0.5rem;
+  }
 }

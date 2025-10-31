@@ -19,7 +19,6 @@ if (!slideshow || !caption || !description || !prevBtn || !nextBtn) {
 const gallerySource = slideshow.dataset.gallerySource;
 if (!gallerySource) {
   console.error("Slideshow is missing a 'data-gallery-source' attribute!");
-  return;
 }
 
 const fetchUrl = `/json-files/${gallerySource}`;
