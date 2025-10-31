@@ -1,31 +1,39 @@
 /* ==========================================================================
    Slideshow View Activation
-   - This class is added to the <body> by script.js when a slideshow is active.
-   - It hides the standard site header and hero section for an immersive view.
+   - When body.slideshow-active is present, hide ALL standard page elements
+     to create an immersive, full-screen "app mode".
    ========================================================================== */
 
 body.slideshow-active .site-header,
-body.slideshow-active .hero {
+body.slideshow-active .hero,
+body.slideshow-active .site-footer {
   display: none;
+}
+
+/* Make the main content area become a simple, full-page container */
+body.slideshow-active main {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  max-width: 100%;
 }
 
 /* ==========================================================================
    Main Slideshow Layout
-   - The wrapper is a fixed overlay that covers the entire viewport.
    ========================================================================== */
 
 .slideshow-wrapper {
-  position: fixed;
-  inset: 0; /* A modern shorthand for top: 0; right: 0; bottom: 0; left: 0; */
-  background-color: var(--soft); /* The page background color */
-  z-index: 100;
+  /* This component now fills its parent (main) completely */
+  width: 100vw;
+  height: 100vh;
+  background-color: var(--soft);
 
-  /* Use Grid to create the main layout structure */
+  /* Use Grid for the new three-column layout */
   display: grid;
-  grid-template-columns: 1fr 5fr 1fr; /* Left-Gutter | Main-Image | Right-Gutter */
-  grid-template-rows: auto 1fr auto; /* Top-Gutter | Main-Image | Bottom-Gutter */
-  gap: 1rem;
+  grid-template-columns: 200px 1fr 200px; /* Left-Gutter | Main-Image | Right-Gutter */
+  grid-template-rows: auto 1fr auto; /* Top-Header | Main-Image | Bottom-Footer */
   padding: 1rem;
+  box-sizing: border-box;
 }
 
 .slideshow {
@@ -35,14 +43,14 @@ body.slideshow-active .hero {
   width: 100%;
   height: 100%;
   display: grid;
-  place-items: center; /* This centers the image within the available space */
+  place-items: center;
 }
 
 .slideshow img.slide {
-  grid-area: 1 / 1; /* Stack all images in the same grid cell */
+  grid-area: 1 / 1;
   width: 100%;
   height: 100%;
-  object-fit: contain; /* This is key: scales the image to fit without cropping */
+  object-fit: contain; /* Scales the image to fit without cropping */
 }
 
 /* ==========================================================================
@@ -57,9 +65,8 @@ body.slideshow-active .hero {
   align-self: start;
   font-family: var(--font-script);
   font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-weight: 200;
   color: var(--ink);
-  margin: 1rem;
+  padding: 1rem;
 }
 
 /* --- Top Right: Page Title --- */
@@ -72,14 +79,14 @@ body.slideshow-active .hero {
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 300;
   color: var(--ink);
-  margin: 1rem;
+  padding: 1rem;
 }
 
 /* --- Center Left/Right: Prev/Next Arrows --- */
 .previous,
 .next {
   grid-row: 2 / 3;
-  align-self: center; /* Vertically center in the main image row */
+  align-self: center;
   z-index: 101;
 }
 .previous {
@@ -112,7 +119,7 @@ body.slideshow-active .hero {
   grid-row: 3 / 4;
   justify-self: start;
   align-self: end;
-  margin: 1rem;
+  padding: 1rem;
   z-index: 101;
 }
 .slideshow-return-link img {
@@ -132,15 +139,15 @@ body.slideshow-active .hero {
   grid-row: 3 / 4;
   justify-self: end;
   align-self: end;
-
   border: 1px solid var(--ink-muted);
   padding: 1.5rem;
   margin: 1rem;
-  max-width: 40ch; /* Limit the width of the text box */
+  max-width: 100%; /* Use full width of the grid column */
+  box-sizing: border-box;
   z-index: 101;
 }
 
-.slideshow-infobox .caption {
+.slideshow-infobox .caption p {
   font-family: var(--font-display);
   font-weight: 500;
   font-size: 1.25rem;
@@ -148,7 +155,7 @@ body.slideshow-active .hero {
   color: var(--ink);
 }
 
-.slideshow-infobox .description {
+.slideshow-infobox .description p {
   font-family: var(--font-body);
   font-size: 1rem;
   line-height: 1.5;
