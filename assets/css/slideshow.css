@@ -1,16 +1,13 @@
 /* ==========================================================================
-   Slideshow View Activation
-   - When body.slideshow-active is present, this file takes over.
-   - It hides ALL standard page elements for a full-screen "app mode".
+   1. Slideshow Activation Mode
    ========================================================================== */
 
 body.slideshow-active .site-header,
 body.slideshow-active .hero,
 body.slideshow-active .site-footer {
-  display: none !important; /* Guarantees override */
+  display: none !important;
 }
 
-/* Force the main content area to be a simple pass-through container */
 body.slideshow-active main,
 body.slideshow-active #dynamic-content-area,
 body.slideshow-active #dynamic-page-wrapper {
@@ -22,25 +19,24 @@ body.slideshow-active #dynamic-page-wrapper {
 }
 
 /* ==========================================================================
-   Main Slideshow Layout
-   - This grid creates the three-column, three-row structure of your design.
+   2. Slideshow Container & Image Layout
    ========================================================================== */
 
 .slideshow-wrapper {
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
   background-color: var(--soft);
-
   display: grid;
-  /* Define the columns: Let side columns size to content, center takes the rest. */
   grid-template-columns: auto 1fr auto;
-  /* Define the rows: Let top/bottom size to content, middle takes the rest. */
   grid-template-rows: auto 1fr auto;
+  place-items: center;
   padding: 1rem;
   box-sizing: border-box;
 }
 
-/* The container for the main image, placed in the center grid cell */
 .slideshow {
   grid-column: 2;
   grid-row: 2;
@@ -49,60 +45,63 @@ body.slideshow-active #dynamic-page-wrapper {
   height: 100%;
   display: grid;
   place-items: center;
+  background-color: transparent;
 }
 
-/* All slide images stack in the same grid cell inside the .slideshow container */
 .slideshow img.slide {
   grid-area: 1 / 1;
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Scales the image to fit without cropping */
+  width: 95%;
+  height: 95%;
+  object-fit: contain;
 }
 
 /* ==========================================================================
-   UI Overlays & Peripheral Elements
-   - Each element is explicitly placed onto the main grid.
+   3. Overlay Elements: Titles, Arrows, Return, Info
    ========================================================================== */
 
-/* --- Top Left: Artist Title --- */
+/.slideshow-artist-title,
+.slideshow-page-title {
+  grid-row: 1;
+  padding: 1rem;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--ink);
+}
+
 .slideshow-artist-title {
   grid-column: 1;
-  grid-row: 1;
   justify-self: start;
   align-self: start;
   font-family: var(--font-script);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  color: var(--ink);
-  padding: 1rem;
 }
 
-/* --- Top Right: Page Title --- */
 .slideshow-page-title {
   grid-column: 3;
-  grid-row: 1;
   justify-self: end;
   align-self: start;
   font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 300;
-  color: var(--ink);
-  padding: 1rem;
 }
 
-/* --- Middle Left & Right: Prev/Next Arrows --- */
 .previous,
 .next {
-  grid-row: 2; /* Vertically centered in the middle row */
+  grid-row: 2;
   align-self: center;
   z-index: 101;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
 }
+
 .previous {
   grid-column: 1;
   justify-self: center;
+  left: 2rem;
 }
+
 .next {
   grid-column: 3;
   justify-self: center;
+  right: 2rem;
 }
 
 .prev-next.circle {
@@ -112,15 +111,16 @@ body.slideshow-active #dynamic-page-wrapper {
   width: 50px;
   height: 50px;
 }
+
 .prev-next.circle img {
   opacity: 0.3;
   transition: opacity var(--speed) var(--easing);
 }
+
 .prev-next.circle:hover img {
   opacity: 0.8;
 }
 
-/* --- Bottom Left: Return Arrow --- */
 .slideshow-return-link {
   grid-column: 1;
   grid-row: 3;
@@ -129,28 +129,28 @@ body.slideshow-active #dynamic-page-wrapper {
   padding: 1rem;
   z-index: 101;
 }
+
 .slideshow-return-link img {
-  width: 50px; /* Give the return arrow a defined size */
+  width: 50px;
   height: auto;
   opacity: 0.8;
   transition: opacity var(--speed) var(--easing), transform var(--speed) var(--easing);
 }
+
 .slideshow-return-link:hover img {
   opacity: 1;
   transform: translateX(-5px);
 }
 
-/* --- Bottom Right: Caption & Description Box --- */
 .slideshow-infobox {
   grid-column: 3;
   grid-row: 3;
   justify-self: end;
   align-self: end;
-
   border: 1px solid var(--ink-muted);
   padding: 1.5rem;
-  margin: 1rem; /* Use margin to create space from the edges */
-  width: 250px; /* Give the box a specific width */
+  margin: 1rem;
+  width: 250px;
   box-sizing: border-box;
   z-index: 101;
 }
@@ -171,74 +171,10 @@ body.slideshow-active #dynamic-page-wrapper {
   line-height: 1.6;
   color: var(--ink-muted);
 }
-/* --- Component: Slideshow --- */
 
-.slideshow-wrapper {
-  /* Make the slideshow take up the full screen */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  z-index: 100;
-  background-color: transparent;
-  /* Use Grid to perfectly center the image container */
-  display: grid;
-  place-items: center;
-  padding: 1rem; /* Add some space from the edges */
-}
-
-.slideshow {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  background-color: transparent;
-  /* This will also be a grid container to stack the images */
-  display: grid;
-  place-items: center;
-}
-
-.slideshow img.slide {
-  /* The images are now grid items, not absolutely positioned */
-  /* They will all stack in the same grid cell */
-  grid-area: 1 / 1; /* Explicitly stack them */
-  width: 95%;
-  height: 95%;
-  object-fit: contain; /* Show the whole image, scaled to fit */
-}
-
-.previous,
-.next {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 101;
-}
-
-.previous {
-  left: 2rem;
-}
-.next {
-  right: 2rem;
-}
-
-/* .prev-next.circle {
-  background-color: rgba(122, 1, 1, 0.7);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  display: grid;
-  place-items: center;
-  cursor: pointer;
-  transition: background-color var(--speed) var(--easing), transform var(--speed) var(--easing);
-}
-
-.prev-next.circle:hover {
-  background-color: var(--brand);
-  transform: scale(1.1);
-} */
+/* ==========================================================================
+   4. Centered Caption & Description (Absolute Overlay)
+   ========================================================================== */
 
 .caption,
 .description {
@@ -267,18 +203,19 @@ body.slideshow-active #dynamic-page-wrapper {
 }
 
 /* ==========================================================================
-   8. Media Queries (Responsive Design)
+   5. Responsive Adjustments
    ========================================================================== */
 
 @media (max-width: 768px) {
   .previous,
   .next {
-    /* Move buttons closer to the edge on smaller screens */
     transform: translateY(-50%) scale(0.8);
   }
+
   .previous {
     left: 0.5rem;
   }
+
   .next {
     right: 0.5rem;
   }
@@ -286,6 +223,7 @@ body.slideshow-active #dynamic-page-wrapper {
   .caption {
     bottom: 3rem;
   }
+
   .description {
     bottom: 0.5rem;
   }
