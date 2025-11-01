@@ -1,5 +1,5 @@
 /* ==========================================================================
-   1. Design Tokens (Variables)
+   1. Design Tokens
    ========================================================================== */
 
 :root {
@@ -28,7 +28,7 @@
 }
 
 /* ==========================================================================
-   2. Base & Reset Styles
+   2. Reset & Base Styles
    ========================================================================== */
 
 *,
@@ -44,12 +44,12 @@ html {
 
 body {
   min-height: 100%;
+  margin: 0;
   background-color: var(--soft);
   color: var(--ink);
   font-family: var(--font-body);
   line-height: 1.6;
   text-rendering: optimizeLegibility;
-  margin: 0;
 }
 
 img,
@@ -71,19 +71,24 @@ video {
 }
 
 /* ==========================================================================
-   3. Typography
+   3. Typography & Text Elements
    ========================================================================== */
+
+h1,
+h2,
+h3,
+p {
+  margin: 0;
+}
 
 h1,
 h2,
 h3 {
   font-family: var(--font-display);
   line-height: 1.2;
-  margin: 0;
 }
 
 p {
-  margin: 0;
   font-family: var(--font-body);
   font-size: 1.25rem;
 }
@@ -126,7 +131,7 @@ h2.sub-title {
 }
 
 /* ==========================================================================
-   4. Layout & Page Shell
+   4. Layout Containers
    ========================================================================== */
 
 .site-header,
@@ -143,11 +148,11 @@ main {
 
 .site-footer {
   padding: 3rem 1rem 2rem;
+  margin-top: 4rem;
   color: var(--ink-muted);
   text-align: center;
   font-size: 0.95rem;
   border-top: 1px solid #eaeaea;
-  margin-top: 4rem;
 }
 
 .site-footer p {
@@ -155,7 +160,7 @@ main {
 }
 
 /* ==========================================================================
-   5. Accessibility & Utilities
+   5. Accessibility & Focus Styles
    ========================================================================== */
 
 .visually-hidden {
@@ -188,12 +193,13 @@ main {
   border-radius: 0.25rem;
   text-decoration: none;
 }
+
 .skip-link:focus-visible {
   transform: none;
 }
 
 /* ==========================================================================
-   6. Navigation
+   6. Navigation Menu
    ========================================================================== */
 
 .main-nav-menu {
@@ -214,31 +220,26 @@ main {
   text-decoration: none;
   color: var(--ink);
   white-space: nowrap;
+  transition: color 250ms ease, transform 250ms ease;
 }
 
 .main-nav-menu a.is-active,
 .main-nav-menu a:hover {
   color: var(--brand);
   transform: scale(1.1);
-  transition: color 250ms ease, transform 250ms ease;
 }
 
 /* ==========================================================================
-   7. Components
+   7. Component: Card Grid
    ========================================================================== */
 
-/* --- Component: Card Grid (Homepage) --- */
-
 .card-grid {
-  /* Use Grid to create the 2x2 layout */
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* Two equal-width columns */
-  grid-template-rows: repeat(2, auto); /* Two rows that size to their content */
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
   gap: 2rem;
-
-  /* Sizing and centering the grid container */
-  width: clamp(320px, 80vw, 1100px); /* Responsive width */
-  margin-inline: auto; /* Center the grid on the page */
+  width: clamp(320px, 80vw, 1100px);
+  margin-inline: auto;
   padding: 2rem 0;
 }
 
@@ -272,7 +273,6 @@ main {
   text-decoration: none;
 }
 
-/* The card that only contains the image */
 .card:last-of-type {
   padding: 1rem;
   display: grid;
@@ -282,6 +282,6 @@ main {
 .card .img-home {
   width: 100%;
   height: 100%;
-  object-fit: contain; /* Ensure the whole image is visible */
+  object-fit: contain;
   border-radius: 8px;
 }
