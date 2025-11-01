@@ -322,14 +322,15 @@ main {
   object-fit: contain; /* Show the whole image, scaled to fit */
 }
 
-.prev .next {
+.previous,
+.next {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
   z-index: 101;
 }
 
-.prev {
+.previous {
   left: 2rem;
 }
 .next {
