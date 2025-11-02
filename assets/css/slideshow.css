@@ -59,7 +59,7 @@ body.slideshow-active #dynamic-page-wrapper {
    3. Overlay Elements: Titles, Arrows, Return, Info
    ========================================================================== */
 
-/.slideshow-artist-title,
+.slideshow-artist-title,
 .slideshow-page-title {
   grid-row: 1;
   padding: 1rem;
