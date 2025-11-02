@@ -306,9 +306,4 @@ document.addEventListener('DOMContentLoaded', () => {
       : window.location.pathname.substring(1) || 'home';
     loadJsonContent(statePage, false);
   });
-
-  const initialPage = window.location.pathname.substring(1) || 'home';
-  loadJsonContent(initialPage, false).then(() => {
-    history.replaceState({ page: initialPage }, document.title, `/${initialPage}`);
-  });
 });
