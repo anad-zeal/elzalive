@@ -1,16 +1,13 @@
 /* ==========================================================================
    Slideshow View Activation
-   - When body.slideshow-active is present, this file takes over.
-   - It hides ALL standard page elements for a full-screen "app mode".
    ========================================================================== */
 
 body.slideshow-active .site-header,
 body.slideshow-active .hero,
 body.slideshow-active .site-footer {
-  display: none !important; /* Guarantees override */
+  display: none !important;
 }
 
-/* Force the main content area to be a simple pass-through container */
 body.slideshow-active main,
 body.slideshow-active #dynamic-content-area,
 body.slideshow-active #dynamic-page-wrapper {
@@ -22,88 +19,102 @@ body.slideshow-active #dynamic-page-wrapper {
 }
 
 /* ==========================================================================
-   Main Slideshow Layout
-   - This grid creates the three-column, three-row structure of your design.
+   Main Slideshow Layout using Grid Template Areas
    ========================================================================== */
 
 .slideshow-wrapper {
   position: fixed;
   inset: 0;
   background-color: var(--soft);
-
-  display: grid;
-  /* Columns: Let side columns size based on content, center takes the rest. */
-  grid-template-columns: auto 1fr auto;
-  /* Rows: Let top/bottom size based on content, middle takes the rest. */
-  grid-template-rows: auto 1fr auto;
-  padding: 1rem;
   box-sizing: border-box;
-  overflow-y: scroll;
-}
 
-/* The container for the main image, placed in the center grid cell */
-.slideshow {
-  grid-column: 2;
-  grid-row: 2;
-  position: relative;
-  width: 100%;
-  height: 100%;
   display: grid;
-  place-items: center; /* This centers the image within the available space */
-}
 
-/* All slide images stack in the same grid cell inside the .slideshow container */
-.slideshow img.slide {
-  grid-area: 1 / 1; /* This trick stacks all images on top of each other */
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* This is key: scales the image to fit without cropping */
+  /* Define the layout with named areas */
+  grid-template-areas:
+    'artist-title .    page-title'
+    'prev-arrow   image  next-arrow'
+    'return-arrow .    info-box';
+
+  /* Define the size of the tracks for our named areas */
+  grid-template-columns: 200px 1fr 200px;
+  grid-template-rows: auto 1fr auto;
 }
 
 /* ==========================================================================
-   UI Overlays & Peripheral Elements
-   - Each element is explicitly placed onto the main grid.
+   Assigning Each Element to its Grid Area
    ========================================================================== */
 
-/* --- Top Left: Artist Title --- */
 .slideshow-artist-title {
-  grid-column: 1;
-  grid-row: 1;
-  justify-self: start;
+  grid-area: artist-title;
   align-self: start;
+  justify-self: start;
+  padding: 1rem;
   font-family: var(--font-script);
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   color: var(--ink);
-  padding: 1rem;
 }
 
-/* --- Top Right: Page Title --- */
 .slideshow-page-title {
-  grid-column: 3;
-  grid-row: 1;
-  justify-self: end;
+  grid-area: page-title;
   align-self: start;
+  justify-self: end;
+  padding: 1rem;
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 3vw, 2.5rem);
   font-weight: 300;
   color: var(--ink);
+}
+
+.slideshow {
+  grid-area: image;
+  position: relative; /* Keep for internal positioning of slides */
+  display: grid;
+  place-items: center;
+  /* Add min-height to prevent collapsing before image loads */
+  min-height: 0;
+}
+
+.previous {
+  grid-area: prev-arrow;
+  align-self: center;
+  justify-self: center;
+}
+
+.next {
+  grid-area: next-arrow;
+  align-self: center;
+  justify-self: center;
+}
+
+.slideshow-return-link {
+  grid-area: return-arrow;
+  align-self: end;
+  justify-self: start;
   padding: 1rem;
 }
 
-/* --- Middle Left & Right: Prev/Next Arrows --- */
-.previous,
-.next {
-  grid-row: 2; /* Vertically centered in the middle row */
-  align-self: center;
-  z-index: 101;
+.slideshow-infobox {
+  grid-area: info-box;
+  align-self: end;
+  justify-self: end;
+
+  border: 1px solid var(--ink-muted);
+  padding: 1.5rem;
+  margin: 1rem;
+  width: 250px;
+  box-sizing: border-box;
 }
-.previous {
-  grid-column: 1;
-  justify-self: center;
-}
-.next {
-  grid-column: 3;
-  justify-self: center;
+
+/* ==========================================================================
+   Styling for Individual Elements (No Layout Changes Here)
+   ========================================================================== */
+
+.slideshow img.slide {
+  grid-area: 1 / 1; /* Stack all images in the same cell */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .prev-next.circle {
@@ -121,15 +132,6 @@ body.slideshow-active #dynamic-page-wrapper {
   opacity: 0.8;
 }
 
-/* --- Bottom Left: Return Arrow --- */
-.slideshow-return-link {
-  grid-column: 1;
-  grid-row: 3;
-  justify-self: start;
-  align-self: end;
-  padding: 1rem;
-  z-index: 101;
-}
 .slideshow-return-link img {
   width: 50px;
   height: auto;
@@ -139,21 +141,6 @@ body.slideshow-active #dynamic-page-wrapper {
 .slideshow-return-link:hover img {
   opacity: 1;
   transform: translateX(-5px);
-}
-
-/* --- Bottom Right: Caption & Description Box --- */
-.slideshow-infobox {
-  grid-column: 3;
-  grid-row: 3;
-  justify-self: end;
-  align-self: end;
-
-  border: 1px solid var(--ink-muted);
-  padding: 1.5rem;
-  margin: 1rem; /* Use margin to create space from the edges */
-  width: 250px; /* Give the box a specific width */
-  box-sizing: border-box;
-  z-index: 101;
 }
 
 .slideshow-infobox .caption p {
