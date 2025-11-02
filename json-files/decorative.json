@@ -28,10 +28,11 @@
       "wrapperClass": "description",
       "paragraphId": "description-text"
     },
- "rtnArrow"; {
+    "rtnArrow": {
       "wrapperClass": "return-arrow",
       "arrowId": "return-home",
       "imgSrc": "https:*//elzalive.com/assets/images/misc-images/arrow-return.png",
       "imgAlt": "Return"
     }
   }
+}
