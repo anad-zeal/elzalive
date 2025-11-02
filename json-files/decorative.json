@@ -27,6 +27,10 @@
     "description": {
       "wrapperClass": "description",
       "paragraphId": "description-text"
+    },
+    "returnArrow": {
+      "wrapperClass": "return",
+      "paragraphId": "return-text"
     }
   }
 }
