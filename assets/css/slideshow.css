@@ -28,9 +28,9 @@ body.slideshow-active #dynamic-page-wrapper {
    ========================================================================== */
 
 .slideshow-wrapper {
-  position: fixed;
+  /* position: fixed;
   inset: 0;
-  background-color: var(--soft);
+  background-color: var(--soft); */
 
   display: grid;
   /* Columns: Let side columns size based on content, center takes the rest. */
