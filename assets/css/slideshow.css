@@ -20,6 +20,8 @@ body.slideshow-active #dynamic-page-wrapper {
   height: 100%;
   max-width: 100%;
   background: rebeccapurple;
+  position: absolute;
+  top: 0;
 }
 
 /* ==========================================================================
