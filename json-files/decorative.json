@@ -28,9 +28,10 @@
       "wrapperClass": "description",
       "paragraphId": "description-text"
     },
-    "returnArrow": {
-      "wrapperClass": "return",
-      "paragraphId": "return-text"
+ "rtnArrow"; {
+      "wrapperClass": "return-arrow",
+      "arrowId": "return-home",
+      "imgSrc": "https:*//elzalive.com/assets/images/misc-images/arrow-return.png",
+      "imgAlt": "Return"
     }
   }
-}
