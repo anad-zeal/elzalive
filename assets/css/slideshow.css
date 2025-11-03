@@ -1,5 +1,6 @@
 /* ==========================================================================
    Slideshow View Activation
+   - Hides standard page elements for the immersive "app mode".
    ========================================================================== */
 
 body.slideshow-active .site-header,
@@ -19,77 +20,88 @@ body.slideshow-active #dynamic-page-wrapper {
 }
 
 /* ==========================================================================
-   New Slideshow Grid Layout
+   Your New Slideshow Grid Layout
+   - This uses the grid structure from your local version.
    ========================================================================== */
 
 .container {
   position: fixed;
   inset: 0;
   display: grid;
-  grid-template-columns: 7vw 1fr 7vw;
-  grid-template-rows: 10vh 1fr 15vh;
+  /* Use your specific column and row definitions */
+  grid-template-columns: 7vw 86vw 7vw;
+  grid-template-rows: 5vh 70vh 15vh;
   gap: 0px 0px;
   grid-auto-flow: row;
   grid-template-areas:
     'logo . category'
     'prev-arrow slideshow next-arrow'
-    'return-arrow . description';
+    'return-arrow . description'; /* Note: period for empty cell */
   background-color: var(--soft);
   padding: 1rem;
   box-sizing: border-box;
 }
 
+/* --- Assigning elements to their grid areas --- */
 .logo {
   grid-area: logo;
-  align-self: start;
-  justify-self: center;
+  position: relative;
 }
 .category {
   grid-area: category;
-  align-self: start;
-  justify-self: center;
+  position: relative;
 }
 .prev-arrow {
   grid-area: prev-arrow;
-  align-self: center;
-  justify-self: center;
 }
 .slideshow {
   grid-area: slideshow;
-  position: relative;
-  display: grid;
-  place-items: center;
 }
 .next-arrow {
   grid-area: next-arrow;
-  align-self: center;
-  justify-self: center;
 }
 .return-arrow {
   grid-area: return-arrow;
-  align-self: end;
-  justify-self: start;
 }
 .description {
   grid-area: description;
-  align-self: end;
-  justify-self: center;
+  position: relative;
 }
 
-/* Styling for the content within grid areas */
+/* ==========================================================================
+   Styling for Individual Elements
+   - This also uses the positioning from your local version.
+   ========================================================================== */
 
-.logo p,
-.category p {
+.logo p {
+  position: absolute;
+  top: 0;
+  right: -150px;
+  width: 300px;
+  padding-left: 2vw;
+  text-align: right;
   font-size: 1.5rem;
   line-height: 1;
   margin: 0;
-  white-space: nowrap;
-}
-.logo p {
   font-family: var(--font-script);
 }
+
 .category p {
+  position: absolute;
+  top: 0;
+  left: -50px;
+  width: 300px; /* Increased width to prevent wrapping */
+  text-align: left;
+  font-size: 1.5rem;
+  line-height: 1;
+  margin: 0;
   font-family: var(--font-display);
+}
+
+.prev-arrow,
+.next-arrow {
+  align-self: center;
+  justify-self: center;
 }
 
 .prev-arrow button,
@@ -98,6 +110,7 @@ body.slideshow-active #dynamic-page-wrapper {
   border: none;
   cursor: pointer;
 }
+
 .prev-arrow img,
 .next-arrow img {
   width: 50px;
@@ -110,9 +123,12 @@ body.slideshow-active #dynamic-page-wrapper {
   opacity: 0.8;
 }
 
-.return-arrow a {
-  display: block;
+.return-arrow {
+  align-self: end;
+  justify-self: start;
+  padding: 1rem;
 }
+
 .return-arrow img {
   width: 50px;
   height: auto;
@@ -124,6 +140,12 @@ body.slideshow-active #dynamic-page-wrapper {
   opacity: 1;
 }
 
+.slideshow {
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
 .slideshow img.slide {
   grid-area: 1 / 1;
   width: 100%;
@@ -132,6 +154,9 @@ body.slideshow-active #dynamic-page-wrapper {
 }
 
 .description {
+  left: -3vw; /* Keep your offset */
+  align-self: start; /* Align to the top of its grid area */
+  justify-self: start; /* Align to the left of its grid area */
   border: 1px solid var(--ink-muted);
   padding: 1rem;
   width: 250px;
@@ -141,7 +166,7 @@ body.slideshow-active #dynamic-page-wrapper {
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
-.description .description p {
+.description .description-text-wrapper p {
   font-size: 0.9rem;
   color: var(--ink-muted);
   line-height: 1.5;
