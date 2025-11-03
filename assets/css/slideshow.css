@@ -1,6 +1,5 @@
 /* ==========================================================================
    Slideshow View Activation
-   - Hides standard page elements for the immersive "app mode".
    ========================================================================== */
 
 body.slideshow-active .site-header,
@@ -20,15 +19,13 @@ body.slideshow-active #dynamic-page-wrapper {
 }
 
 /* ==========================================================================
-   Your New Slideshow Grid Layout
-   - This uses the grid structure from your local version.
+   Your Slideshow Grid Layout
    ========================================================================== */
 
 .container {
   position: fixed;
   inset: 0;
   display: grid;
-  /* Use your specific column and row definitions */
   grid-template-columns: 7vw 86vw 7vw;
   grid-template-rows: 5vh 70vh 15vh;
   gap: 0px 0px;
@@ -36,10 +33,8 @@ body.slideshow-active #dynamic-page-wrapper {
   grid-template-areas:
     'logo . category'
     'prev-arrow slideshow next-arrow'
-    'return-arrow . description'; /* Note: period for empty cell */
+    'return-arrow . description'; /* Use a period for the empty cell */
   background-color: var(--soft);
-  padding: 1rem;
-  box-sizing: border-box;
 }
 
 /* --- Assigning elements to their grid areas --- */
@@ -70,7 +65,6 @@ body.slideshow-active #dynamic-page-wrapper {
 
 /* ==========================================================================
    Styling for Individual Elements
-   - This also uses the positioning from your local version.
    ========================================================================== */
 
 .logo p {
@@ -90,7 +84,7 @@ body.slideshow-active #dynamic-page-wrapper {
   position: absolute;
   top: 0;
   left: -50px;
-  width: 300px; /* Increased width to prevent wrapping */
+  width: 300px;
   text-align: left;
   font-size: 1.5rem;
   line-height: 1;
@@ -109,6 +103,7 @@ body.slideshow-active #dynamic-page-wrapper {
   background: transparent;
   border: none;
   cursor: pointer;
+  padding: 0;
 }
 
 .prev-arrow img,
@@ -154,19 +149,19 @@ body.slideshow-active #dynamic-page-wrapper {
 }
 
 .description {
-  left: -3vw; /* Keep your offset */
-  align-self: start; /* Align to the top of its grid area */
-  justify-self: start; /* Align to the left of its grid area */
+  left: -3vw;
+  align-self: start;
+  justify-self: start;
   border: 1px solid var(--ink-muted);
   padding: 1rem;
   width: 250px;
 }
-.description .caption p {
+.description #caption-text {
   font-weight: bold;
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 }
-.description .description-text-wrapper p {
+.description #description-text {
   font-size: 0.9rem;
   color: var(--ink-muted);
   line-height: 1.5;
