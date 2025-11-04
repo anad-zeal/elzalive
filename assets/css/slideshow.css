@@ -19,155 +19,189 @@ body.slideshow-active #dynamic-page-wrapper {
 }
 
 /* ==========================================================================
-   Your Slideshow Grid Layout
+   Main Slideshow Layout using Grid Template Areas
    ========================================================================== */
 
-.container {
+.slideshow-wrapper {
   position: fixed;
   inset: 0;
-  display: grid;
-  grid-template-columns: 7vw 86vw 7vw;
-  grid-template-rows: 5vh 70vh 15vh;
-  gap: 0px 0px;
-  grid-auto-flow: row;
-  grid-template-areas:
-    'logo . category'
-    'prev-arrow slideshow next-arrow'
-    'return-arrow . description'; /* Use a period for the empty cell */
   background-color: var(--soft);
+  box-sizing: border-box;
+
+  display: grid;
+
+  /* Define the layout with named areas */
+  grid-template-areas:
+    'artist-title .    page-title'
+    'prev-arrow   image  next-arrow'
+    'return-arrow .    info-box';
+
+  /* Define the size of the tracks for our named areas */
+  grid-template-columns: 200px 1fr 200px;
+  grid-template-rows: auto 1fr auto;
 }
 
-/* --- Assigning elements to their grid areas --- */
-.logo {
-  grid-area: logo;
-  position: relative;
-}
-.category {
-  grid-area: category;
-  position: relative;
-}
-.prev-arrow {
-  grid-area: prev-arrow;
-}
-.slideshow {
-  grid-area: slideshow;
-}
-.next-arrow {
-  grid-area: next-arrow;
-}
-.return-arrow {
-  grid-area: return-arrow;
-}
-.description {
-  grid-area: description;
-  position: relative;
+.slideshow-wrapper div {
+  border: solid 4px red;
 }
 
 /* ==========================================================================
-   Styling for Individual Elements
+   Assigning Each Element to its Grid Area
    ========================================================================== */
 
-.logo p {
-  position: absolute;
-  top: 0;
-  right: -150px;
-  width: 300px;
-  padding-left: 2vw;
-  text-align: right;
-  font-size: 1.5rem;
-  line-height: 1;
-  margin: 0;
+.slideshow-artist-title {
+  grid-area: artist-title;
+  align-self: start;
+  justify-self: start;
+  padding: 1rem;
   font-family: var(--font-script);
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  color: var(--ink);
 }
 
-.category {
-  position: absolute;
-  top: 0;
-  left: -50px;
-  width: 300px;
-  text-align: left;
-  font-size: 1.5rem;
-  line-height: 1;
-  margin: 0;
+.slideshow-page-title {
+  grid-area: page-title;
+  align-self: start;
+  justify-self: end;
+  padding: 1rem;
   font-family: var(--font-display);
-  display: none;
+  font-size: clamp(1.5rem, 3vw, 2.5rem);
+  font-weight: 300;
+  color: var(--ink);
 }
 
-.prev-arrow,
-.next-arrow {
+.slideshow {
+  grid-area: image;
+  position: relative; /* Keep for internal positioning of slides */
+  display: grid;
+  place-items: center;
+  /* Add min-height to prevent collapsing before image loads */
+  min-height: 0;
+}
+
+.previous {
+  grid-area: prev-arrow;
   align-self: center;
   justify-self: center;
 }
 
-.prev-arrow button,
-.next-arrow button {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  padding: 0;
+.next {
+  grid-area: next-arrow;
+  align-self: center;
+  justify-self: center;
 }
 
-.prev-arrow img,
-.next-arrow img {
-  width: 50px;
-  height: auto;
-  opacity: 0.3;
-  transition: opacity 0.3s ease;
-}
-.prev-arrow:hover img,
-.next-arrow:hover img {
-  opacity: 0.8;
-}
-
-.return-arrow {
+.slideshow-return-link {
+  grid-area: return-arrow;
   align-self: end;
   justify-self: start;
   padding: 1rem;
 }
 
-.return-arrow img {
-  width: 50px;
-  height: auto;
-  opacity: 0.8;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-.return-arrow:hover img {
-  transform: translateX(-5px);
-  opacity: 1;
+.slideshow-infobox {
+  grid-area: info-box;
+  align-self: end;
+  justify-self: end;
+
+  border: 1px solid var(--ink-muted);
+  padding: 1.5rem;
+  margin: 1rem;
+  width: 250px;
+  box-sizing: border-box;
 }
 
-.slideshow {
-  position: relative;
-  display: grid;
-  place-items: center;
-}
+/* ==========================================================================
+   Styling for Individual Elements (No Layout Changes Here)
+   ========================================================================== */
 
 .slideshow img.slide {
-  grid-area: 1 / 1;
+  grid-area: 1 / 1; /* Stack all images in the same cell */
   width: 100%;
   height: 100%;
   object-fit: contain;
 }
 
-.description {
-  left: -3vw;
-  align-self: start;
-  justify-self: start;
-  border: 1px solid var(--ink-muted);
-  padding: 1rem;
-  width: 250px;
+.prev-next.circle {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
 }
-.description #caption-text {
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
+.prev-next.circle img {
+  opacity: 0.3;
+  transition: opacity var(--speed) var(--easing);
 }
-.description #description-text {
-  font-size: 0.9rem;
-  color: var(--ink-muted);
-  line-height: 1.5;
+.prev-next.circle:hover img {
+  opacity: 0.8;
 }
 
-h2.slideshow-artist-title {
-  display: none;
+.slideshow-return-link img {
+  width: 50px;
+  height: auto;
+  opacity: 0.8;
+  transition: opacity var(--speed) var(--easing), transform var(--speed) var(--easing);
+}
+.slideshow-return-link:hover img {
+  opacity: 1;
+  transform: translateX(-5px);
+}
+
+.slideshow-infobox .caption p {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  color: var(--ink);
+}
+
+.slideshow-infobox .description p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ink-muted);
+}
+
+/* --- Bottom Right: Caption & Description Box --- */
+.slideshow-infobox {
+  grid-area: info-box;
+  align-self: end;
+  justify-self: end;
+
+  border: 1px solid var(--ink-muted);
+  padding: 1.5rem;
+  margin: 1rem;
+  width: 250px;
+  box-sizing: border-box;
+  z-index: 101;
+
+  /* Add this to prevent children from overflowing */
+  overflow: hidden;
+}
+
+.slideshow-infobox .caption p {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-size: 1.1rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 1rem;
+  color: var(--ink);
+
+  /* Add these properties to control long text */
+  word-wrap: break-word; /* Allows long words to break */
+  white-space: normal; /* Allows text to wrap naturally */
+}
+
+.slideshow-infobox .description p {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: var(--ink-muted);
+
+  /* Add these properties to control long text */
+  word-wrap: break-word; /* Allows long words to break */
+  white-space: normal; /* Allows text to wrap naturally */
 }
