@@ -497,3 +497,11 @@ h2.sub-title {
 .last-item p {
   margin-bottom: 0;
 }
+
+.lideshow-artist-title {
+  font-family: var(--font-title);
+  font-size: clamp(1.5rem, 4vw, 3rem);
+  font-weight: 200;
+  text-align: center;
+  white-space: nowrap;
+}
