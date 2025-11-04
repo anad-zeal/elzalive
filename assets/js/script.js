@@ -1,12 +1,17 @@
+/**
+ * Main Application Router for the SPA.
+ * Handles page navigation, content fetching, and calls the appropriate renderer.
+ */
 document.addEventListener('DOMContentLoaded', () => {
   // --- 1. DOM Element References ---
-  const body = document.body; // Make sure we have a reference to the body tag
+  const body = document.body;
   const navLinks = document.querySelectorAll('.main-nav-menu .landing-mnu');
   const dynamicContentArea = document.getElementById('dynamic-content-area');
   const dynamicPageWrapper = document.getElementById('dynamic-page-wrapper');
 
   // --- 2. Helper Functions ---
   function loadScript(path) {
+    // Prevent loading the same script multiple times
     if (document.querySelector(`script[src="${path}"]`)) return;
     const script = document.createElement('script');
     script.src = path;
@@ -20,72 +25,7 @@ document.addEventListener('DOMContentLoaded', () => {
     dynamicScripts.forEach((script) => script.remove());
   }
 
-  // --- 3. HTML Rendering Functions ---
-  function renderCardGrid(cardGrid) {
-    /* ... This function is correct ... */
-  }
-  function renderContentSection(sectionData) {
-    /* ... This function is correct ... */
-  }
-  function renderContactForm(formData) {
-    /* ... This function is correct ... */
-  }
-  function renderSlideshow(template, pageName, pageTitle) {
-    /* ... This function is correct ... */
-  }
-
-  // (The full code for the render functions is below for completeness)
-
-  // --- 4. Main Page Content Controller ---
-  function renderPageContent(data, pageName) {
-    const title = data.title || pageName.charAt(0).toUpperCase() + pageName.slice(1);
-    document.title = `${title} | AEPaints`;
-
-    // --- THIS IS THE CRITICAL LOGIC THAT IS LIKELY MISSING ---
-    if (data.slideshowTemplate) {
-      body.classList.add('slideshow-active');
-    } else {
-      body.classList.remove('slideshow-active');
-    }
-    // --- END CRITICAL LOGIC ---
-
-    const heroTitleElement = document.querySelector('.hero .page-title');
-    if (heroTitleElement && !data.slideshowTemplate) {
-      heroTitleElement.textContent = title;
-    }
-
-    if (data.cardGrid) {
-      renderCardGrid(data.cardGrid);
-    } else if (data.contentSection) {
-      renderContentSection(data.contentSection);
-    } else if (data.contactForm) {
-      renderContactForm(data.contactForm);
-    } else if (data.slideshowTemplate) {
-      renderSlideshow(data.slideshowTemplate, pageName, title);
-    } else {
-      dynamicContentArea.innerHTML = `<p>No content available for "${title}".</p>`;
-    }
-
-    dynamicContentArea.focus();
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
-
-  // --- 5. Core Navigation and Data Loading Logic ---
-  async function loadJsonContent(pageName, addToHistory = true) {
-    /* ... This function is correct ... */
-  }
-
-  // --- 6. Event Listeners and Initial Load ---
-
-  window.addEventListener('popstate', (event) => {
-    /* ... This is correct ... */
-  });
-  const initialPage = window.location.pathname.substring(1) || 'home';
-  loadJsonContent(initialPage, false).then(() => {
-    /* ... This is correct ... */
-  });
-
-  // --- Full Function Definitions for Pasting ---
+  // --- 3. Generic HTML Rendering Functions ---
 
   function renderCardGrid(cardGrid) {
     const sectionWrapper = document.createElement('section');
@@ -96,9 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const content = item.content;
       const cardContent = document.createElement('div');
       cardContent.className = content.type;
-      if (content.class) {
-        cardContent.classList.add(...content.class.split(' '));
-      }
+      if (content.class) cardContent.classList.add(...content.class.split(' '));
       if (content.link) {
         const linkElement = document.createElement('a');
         linkElement.href = content.link.href;
@@ -144,8 +82,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function renderContactForm(formData) {
     const sectionWrapper = document.createElement(formData.wrapper.tag);
-    for (const key in formData.wrapper.attributes) {
-      sectionWrapper.setAttribute(key, formData.wrapper.attributes[key]);
+    for (const key in formData.attributes) {
+      sectionWrapper.setAttribute(key, formData.attributes[key]);
     }
     const formWrapper = document.createElement('div');
     formWrapper.className = 'contact-form-wrapper';
@@ -192,80 +130,45 @@ document.addEventListener('DOMContentLoaded', () => {
     dynamicContentArea.appendChild(sectionWrapper);
   }
 
-  function renderSlideshow(template, pageName, pageTitle) {
-    const wrapper = document.createElement(template.wrapper.tag);
-    wrapper.className = template.wrapper.class;
+  // --- 4. Main Page Content Controller ---
+  function renderPageContent(data, pageName) {
+    const title = data.title || pageName.charAt(0).toUpperCase() + pageName.slice(1);
+    document.title = `${title} | AEPaints`;
 
-    const artistTitle = document.createElement('h2');
-    artistTitle.className = 'slideshow-artist-title';
-    artistTitle.textContent = 'The Life of an Artist';
-
-    const slideshowPageTitle = document.createElement('p');
-    slideshowPageTitle.className = 'slideshow-page-title';
-    slideshowPageTitle.textContent = pageTitle;
-
-    const returnLink = document.createElement('a');
-    returnLink.href = '/artworks';
-    returnLink.className = 'slideshow-return-link';
-    const returnImg = document.createElement('img');
-    returnImg.src = '/assets/images/misc-images/arrow-return.png';
-    returnImg.alt = 'Return to previous page';
-    returnLink.appendChild(returnImg);
-
-    const infoBox = document.createElement('div');
-    infoBox.className = 'slideshow-infobox';
-
-    const captionWrapper = document.createElement('div');
-    captionWrapper.className = 'caption';
-    const captionText = document.createElement('p');
-    captionText.id = template.caption.paragraphId;
-    captionWrapper.appendChild(captionText);
-
-    const descriptionWrapper = document.createElement('div');
-    descriptionWrapper.className = 'description';
-    const descriptionText = document.createElement('p');
-    descriptionText.id = template.description.paragraphId;
-    descriptionWrapper.appendChild(descriptionText);
-
-    infoBox.appendChild(captionWrapper);
-    infoBox.appendChild(descriptionWrapper);
-
-    const slideContainer = document.createElement('div');
-    slideContainer.className = template.slideContainerClass;
-    slideContainer.setAttribute('data-gallery-source', template.gallerySource);
-
-    const createNavButton = (btnData) => {
-      const div = document.createElement('div');
-      div.className = btnData.wrapperClass;
-      const button = document.createElement('button');
-      button.id = btnData.buttonId;
-      button.className = 'prev-next circle';
-      const img = document.createElement('img');
-      img.src = btnData.imgSrc;
-      img.alt = btnData.imgAlt;
-      button.appendChild(img);
-      div.appendChild(button);
-      return div;
-    };
-    const prevButton = createNavButton(template.previousButton);
-    const nextButton = createNavButton(template.nextButton);
-
-    wrapper.appendChild(artistTitle);
-    wrapper.appendChild(slideshowPageTitle);
-    wrapper.appendChild(slideContainer);
-    wrapper.appendChild(prevButton);
-    wrapper.appendChild(nextButton);
-    wrapper.appendChild(returnLink);
-    wrapper.appendChild(infoBox);
-
-    dynamicContentArea.innerHTML = '';
-    dynamicContentArea.appendChild(wrapper);
-
-    if (template.scriptToLoad) {
-      loadScript(template.scriptToLoad);
+    // Add or remove the body class to activate the special slideshow view
+    if (data.slideshowTemplate) {
+      body.classList.add('slideshow-active');
+    } else {
+      body.classList.remove('slideshow-active');
     }
+
+    // Update the hero title for non-slideshow pages
+    const heroTitleElement = document.querySelector('.hero .page-title');
+    if (heroTitleElement && !data.slideshowTemplate) {
+      heroTitleElement.textContent = title;
+    }
+
+    // Call the correct renderer based on the JSON structure
+    if (data.cardGrid) {
+      renderCardGrid(data.cardGrid);
+    } else if (data.contentSection) {
+      renderContentSection(data.contentSection);
+    } else if (data.contactForm) {
+      renderContactForm(data.contactForm);
+    } else if (data.slideshowTemplate) {
+      // For a slideshow, just clear the content and load the component script.
+      // The component will build itself.
+      dynamicContentArea.innerHTML = '';
+      loadScript(data.slideshowTemplate.scriptToLoad);
+    } else {
+      dynamicContentArea.innerHTML = `<p>No content available for "${title}".</p>`;
+    }
+
+    dynamicContentArea.focus();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // --- 5. Core Navigation Logic ---
   async function loadJsonContent(pageName, addToHistory = true) {
     cleanupDynamicScripts();
     const url = `/json-files/${pageName}.json`;
@@ -290,6 +193,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // --- 6. Event Listeners and Initial Load ---
   navLinks.forEach((link) => {
     link.addEventListener('click', (event) => {
       event.preventDefault();
@@ -303,5 +207,10 @@ document.addEventListener('DOMContentLoaded', () => {
       ? event.state.page
       : window.location.pathname.substring(1) || 'home';
     loadJsonContent(statePage, false);
+  });
+
+  const initialPage = window.location.pathname.substring(1) || 'home';
+  loadJsonContent(initialPage, false).then(() => {
+    history.replaceState({ page: initialPage }, document.title, `/${initialPage}`);
   });
 });
