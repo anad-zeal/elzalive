@@ -80,7 +80,7 @@ body.slideshow-active #dynamic-page-wrapper {
   font-family: var(--font-script);
 }
 
-.category p {
+.category {
   position: absolute;
   top: 0;
   left: -50px;
