@@ -1,4 +1,5 @@
 <?php
+// Page metadata setup
 $page_title = $page_title ?? "Home";
 $active_page = $active_page ?? "home";
 $site_name = "AEPaints";
@@ -6,9 +7,8 @@ $full_page_title = $page_title . " | " . $site_name;
 
 // Canonical URL builder
 $host = $_SERVER["HTTP_HOST"] ?? "example.com";
-$https =    (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") ||
-    (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") ||
-    (isset($_SERVER["SERVER_PORT"]) && $_SERVER["SERVER_PORT"] == 443);
+$https = (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") ||
+         (isset($_SERVER["SERVER_PORT"]) && $_SERVER["SERVER_PORT"] == 443);
 $scheme = $https ? "https" : "http";
 $canonicalPath = "/" . ltrim($active_page, "/");
 $canonicalUrl = sprintf("%s://%s%s", $scheme, $host, $canonicalPath);
@@ -20,8 +20,6 @@ function nav_item(string $slug, string $label, string $href): string
     $isActive = $active_page === $slug;
     $classes = "landing-mnu" . ($isActive ? " is-active" : "");
     $aria = $isActive ? ' aria-current="page"' : "";
-
-    // Add data-page attribute using the slug
     $data_page = ' data-page="' . htmlspecialchars($slug, ENT_QUOTES, "UTF-8") . '"';
 
     return sprintf(
@@ -30,19 +28,16 @@ function nav_item(string $slug, string $label, string $href): string
         trim($classes),
         $aria,
         $data_page,
-        htmlspecialchars($label, ENT_QUOTES, "UTF-8"),
+        htmlspecialchars($label, ENT_QUOTES, "UTF-8")
     );
 }
 
-// Dynamic center title
+// Optional dynamic center title
 $life_title = "<h2 class='sub-title fade-title'>The Life of an Artist</h2>";
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <!DOCTYPE html>
-    <html lang="en">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?= htmlspecialchars($full_page_title) ?></title>
@@ -51,18 +46,15 @@ $life_title = "<h2 class='sub-title fade-title'>The Life of an Artist</h2>";
     <link rel="apple-touch-icon" href="/favicons/apple-touch-icon.png">
     <link rel="canonical" href="<?= htmlspecialchars($canonicalUrl) ?>">
 
+    <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900
-&family=Montserrat:ital,wght@0,100..900;1,100..900
-&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900
-&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Bonheur+Royale&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Noto+Serif+Display:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="/assets/css/style.css?v=3" />
-    <link rel="stylesheet" href="/assets/css/slideshow.css?v=3" />
-
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="/assets/css/style.css"/>
+    <link rel="stylesheet" href="/assets/css/slideshow.css"/>
 </head>
-
 <body>
     <header class="site-header">
         <nav class="main-nav" aria-label="Primary">
