@@ -358,7 +358,9 @@ h3.title {
   transform: scale(1.05);
 }
 
-/* --- CORRECTED CARD STYLES END HERE --- */
+.site-footer p {
+  text-align: center;
+}
 
 /* ==========================================================================
    7. Media Queries for Responsiveness
