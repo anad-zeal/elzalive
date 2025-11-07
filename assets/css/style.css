@@ -142,6 +142,7 @@ p {
   line-height: 1;
   text-align: center;
   color: var(--ink);
+  display: none;
 }
 
 .title {
