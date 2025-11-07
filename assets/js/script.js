@@ -132,7 +132,7 @@ document.addEventListener('DOMContentLoaded', () => {
   async function loadJsonContent(pageName, addToHistory = true) {
     cleanupDynamicScripts();
 
-    const url = `json-files/`+ pageName + `.json`;
+    // const url = `json-files/`+ pageName + `.json`;
 
     alert('PAGE NAMEs: ' + url );
 
