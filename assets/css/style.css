@@ -68,11 +68,11 @@ body.slideshow-active #dynamic-page-wrapper {
    ========================================================================== */
 
 /* --- Top Left & Right Titles --- */
-.logo,
+/* .logo,
 .category {
   align-self: start;
   padding: 1rem;
-}
+} */
 .logo {
   justify-self: start;
 }
