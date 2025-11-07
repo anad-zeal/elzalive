@@ -160,7 +160,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const returnArrowDiv = document.createElement('div');
     returnArrowDiv.className = template.rtnArrow.wrapperClass;
-    returnArrowDiv.innerHTML = `<a href="/artworks"><img src="${template.rtnArrow.imgSrc}" alt="${template.rtnArrow.imgAlt}"></a>`;
+    returnArrowDiv.innerHTML = `<a href="/"><img src="${template.rtnArrow.imgSrc}" alt="${template.rtnArrow.imgAlt}"></a>`;
 
     const descriptionBox = document.createElement('div');
     descriptionBox.className = 'description';
