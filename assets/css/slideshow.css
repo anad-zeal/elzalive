@@ -88,11 +88,10 @@ body.slideshow-active #dynamic-page-wrapper {
 }
 .logo p {
   font-family: var(--font-script);
-  font-size: 3.5rem;
+  font-size: 3rem;
 }
 .category p {
   font-family: var(--font-display);
-  font-size: 2.25rem;
 }
 
 /* --- Middle Left & Right Arrows --- */
@@ -119,7 +118,7 @@ body.slideshow-active #dynamic-page-wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 15px;
+  width: 15px; /* Size of the chevron */
   height: 15px;
   border-style: solid;
   border-color: var(--ink-muted);
