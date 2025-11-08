@@ -119,7 +119,7 @@ body.slideshow-active #dynamic-page-wrapper {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 15px; /* Size of the chevron */
+  width: 15px;
   height: 15px;
   border-style: solid;
   border-color: var(--ink-muted);
