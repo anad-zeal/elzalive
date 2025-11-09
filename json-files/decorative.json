@@ -5,31 +5,9 @@
     "scriptToLoad": "/assets/js/slideshow.js",
     "wrapper": {
       "tag": "div",
-      "class": "container"
-    },
-    "slideContainerClass": "slideshow",
-    "previousButton": {
-      "wrapperClass": "prev-arrow",
-      "buttonId": "prev-slide",
-      "imgSrc": "/assets/images/misc-images/prev.png",
-      "imgAlt": "Previous Slide"
-    },
-    "nextButton": {
-      "wrapperClass": "next-arrow",
-      "buttonId": "next-slide",
-      "imgSrc": "/assets/images/misc-images/next.png",
-      "imgAlt": "Next Slide"
-    },
-    "caption": {
-      "paragraphId": "caption-text"
-    },
-    "description": {
-      "paragraphId": "description-text"
-    },
-    "rtnArrow": {
-      "wrapperClass": "return-arrow",
-      "imgSrc": "/assets/images/misc-images/arrow-return.png",
-      "imgAlt": "Return to Artworks"
+      "class": "container",
+      "role": "region",
+      "aria-label": "Decorative Painting Slideshow"
     }
   }
 }

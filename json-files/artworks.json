@@ -27,20 +27,6 @@
       "description": "Diverse works developed over various long-term projects.",
       "ariaLabel": "Go to Project Series Paintings gallery",
       "contentFile": "project-series-paintings.json"
-    },
-    {
-      "id": "decorative-painting",
-      "title": "Decorative Painting",
-      "description": "Transforming spaces with bespoke artistic finishes.",
-      "ariaLabel": "Go to Decorative Painting gallery",
-      "contentFile": "decorative-painting.json"
-    },
-    {
-      "id": "restoration-projects",
-      "title": "Restoration Projects",
-      "description": "Bringing historical pieces back to life with meticulous care.",
-      "ariaLabel": "Go to Restoration Projects gallery",
-      "contentFile": "restoration-projects.json"
     }
   ]
 }
