@@ -1,13 +1,13 @@
 {
-  "title": "Drip Series",
+  "title": "Encaustic Paintings
   "slideshowTemplate": {
-    "gallerySource": "drip-series.json",
+    "gallerySource": "encaustic-slideshow.json",
     "scriptToLoad": "/assets/js/slideshow.js",
     "wrapper": {
       "tag": "div",
       "class": "container",
       "role": "region",
-      "aria-label": "Drip Series Paintings Slideshow"
+      "aria-label": "Encaustic Paintings Slideshow"
     }
   }
 }

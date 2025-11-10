@@ -1,7 +1,7 @@
 {
   "title": "Black and White",
   "slideshowTemplate": {
-    "gallerySource": "black-and-white-paintings.json",
+    "gallerySource": "black-and-white-slideshow.json",
     "scriptToLoad": "./assets/js/slideshow.js",
     "wrapper": {
       "tag": "div",
