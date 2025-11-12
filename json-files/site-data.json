@@ -41,7 +41,7 @@
     "drip-series-paintings": {
       "type": "slideshow",
       "title": "Drip Series",
-      "gallerySource": "drip-series-slideshow..json",
+      "gallerySource": "drip-series-slideshow.json",
       "ariaLabel": "Drip Series Paintings Slideshow"
     },
     "black-and-white-paintings": {
