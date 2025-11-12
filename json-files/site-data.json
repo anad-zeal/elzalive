@@ -47,13 +47,13 @@
     "black-and-white-paintings": {
       "type": "slideshow",
       "title": "Black and White",
-      "gallerySource": "drip-series-slideshow.json",
+      "gallerySource": "dblack-and-white-slideshow.json",
       "ariaLabel": "Black and White Paintings Slideshow"
     },
     "project-series-paintings": {
       "type": "slideshow",
       "title": "Project Series",
-      "gallerySource": "drip-series-slideshow.json",
+      "gallerySource": "projects-slideshow.json",
       "ariaLabel": "Project Series Paintings Slideshow"
     },
     "home": {
