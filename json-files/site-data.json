@@ -183,13 +183,13 @@
     "decorative": {
       "type": "slideshow",
       "title": "Decorative Painting",
-      "gallerySource": "decorative-painting-slides.json",
+      "gallerySource": "decorative-slideshow.json",
       "ariaLabel": "Decorative Painting Slideshow"
     },
     "historic-preservation": {
       "type": "slideshow",
       "title": "Historic Preservation",
-      "gallerySource": "historic-preservation-slides.json",
+      "gallerySource": "preservation-slideshow.json",
       "ariaLabel": "Historic Preservation Slideshow"
     },
     "biography": {
