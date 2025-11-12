@@ -47,7 +47,7 @@
     "black-and-white-paintings": {
       "type": "slideshow",
       "title": "Black and White",
-      "gallerySource": "dblack-and-white-slideshow.json",
+      "gallerySource": "black-and-white-slideshow.json",
       "ariaLabel": "Black and White Paintings Slideshow"
     },
     "project-series-paintings": {
