@@ -12,8 +12,19 @@
     <h1>My Awesome Slideshow</h1>
 
     <div id="slideshow-container">
-        <!-- The slideshow is loaded here by JavaScript -->
+        <!-- The initial loading message -->
         <p>Loading images...</p>
+
+        <!--
+      THIS IS THE MISSING PART.
+      Ensure these two buttons exist with the correct IDs.
+    -->
+        <button id="prev-button" class="slide-nav">
+            <img src="assets/images/misc-images/prev.png" alt="Previous">
+        </button>
+        <button id="next-button" class="slide-nav">
+            <img src="assets/images/misc-images/next.png" alt="Next">
+        </button>
     </div>
 
     <footer>
