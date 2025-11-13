@@ -3,8 +3,9 @@
      <p class="page-title"></p>
  </section>
 
- <main id="dynamic-page-wrapper" data-page="home" tabindex="-1">
-     <div id="dynamic-content-area">
-         <!-- Dynamic content will be loaded here by script.js -->
-     </div>
- </main>
+ <h1>My Awesome Slideshow</h1>
+
+ <div id="slideshow-container">
+     <!-- The slideshow is loaded here by JavaScript -->
+     <p>Loading images...</p>
+ </div>
