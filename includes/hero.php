@@ -1,1 +1,1 @@
-<h1>My Awesome Slideshow</h1>
+<h1>AE Paints Slideshow</h1>
