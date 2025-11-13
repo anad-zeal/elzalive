@@ -1,4 +1,3 @@
-<h2 class="ss-t">Image Slideshow</h2>
 <div id="slideshow-container">
     <p>Loading images...</p>
 
