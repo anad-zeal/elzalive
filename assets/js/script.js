@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+  alert('Script loaded successfully!');
   const slideshowContainer = document.getElementById('slideshow-container'); // Make sure you have this ID in your HTML
 
   // Function to fetch image data and build the slideshow
