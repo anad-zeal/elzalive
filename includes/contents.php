@@ -1,5 +1,5 @@
 <div id="slideshow-container">
-    <p>Loading images.sssss..</p>
+    <p>Loading images...</p>
 
     <button id="prev-button" class="slide-nav">
         <img src="assets/images/misc-images/prev.png" alt="Previous" />
