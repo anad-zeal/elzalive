@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -7,20 +7,20 @@
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
-<body>
+<body> -->
 
-    <?php
+<?php
 
 require __DIR__ . "/includes/header.php";
-    require __DIR__ . "/includes/footer.php";
-
-    ?>
-
-
+require __DIR__ . "/includes/footer.php";
+require __DIR__ . "/includes/hero.php";
+?>
 
 
-    // <?php
 
-    // require __DIR__ . "/includes/header.php";
-    // require __DIR__ . "/includes/hero.php";
-    // require __DIR__ . "/includes/footer.php";
+
+// <?php
+
+// require __DIR__ . "/includes/header.php";
+//
+// require __DIR__ . "/includes/footer.php";
