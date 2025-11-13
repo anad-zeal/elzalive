@@ -16,7 +16,11 @@
         <p>Loading images...</p>
     </div>
 
-    <script src="assets/js/slideshow.js"></script>
+    <footer>
+
+        <script src="assets/js/slideshow.js"></script>
+
+    </footer>
 
 </body>
 
