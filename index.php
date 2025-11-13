@@ -9,23 +9,10 @@
 
 <body>
 
-    <h1>My Awesome Slideshow</h1>
+    <?php
 
-    <div id="slideshow-container">
-        <!-- The initial loading message -->
-        <p>Loading images...</p>
-
-        <!--
-      THIS IS THE MISSING PART.
-      Ensure these two buttons exist with the correct IDs.
-    -->
-        <button id="prev-button" class="slide-nav">
-            <img src="assets/images/misc-images/prev.png" alt="Previous">
-        </button>
-        <button id="next-button" class="slide-nav">
-            <img src="assets/images/misc-images/next.png" alt="Next">
-        </button>
-    </div>
+require __DIR__ . "/includes/header.php";
+    ?>
 
     <footer>
 
@@ -36,3 +23,9 @@
 </body>
 
 </html>
+
+// <?php
+
+    // require __DIR__ . "/includes/header.php";
+    // require __DIR__ . "/includes/hero.php";
+    // require __DIR__ . "/includes/footer.php";

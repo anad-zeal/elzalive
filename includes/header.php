@@ -1,10 +1,13 @@
-<!DOCTYPE html>
-<html lang="en">
+ <h1>My Awesome Slideshow</h1>
 
-<head>
-    <meta charset="UTF-8">
-    <title>My Dynamic Slideshow</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-</head>
+ <div id="slideshow-container">
 
-<body>
+     <p>Loading images...</p>
+
+     <button id="prev-button" class="slide-nav">
+         <img src="assets/images/misc-images/prev.png" alt="Previous">
+     </button>
+     <button id="next-button" class="slide-nav">
+         <img src="assets/images/misc-images/next.png" alt="Next">
+     </button>
+ </div>
