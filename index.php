@@ -12,19 +12,14 @@
     <?php
 
 require __DIR__ . "/includes/header.php";
+    require __DIR__ . "/includes/footer.php";
+
     ?>
 
-    <footer>
 
-        <script src="assets/js/script.js"></script>
 
-    </footer>
 
-</body>
-
-</html>
-
-// <?php
+    // <?php
 
     // require __DIR__ . "/includes/header.php";
     // require __DIR__ . "/includes/hero.php";
