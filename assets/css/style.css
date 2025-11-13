@@ -4,7 +4,7 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden; /* Prevents accidental scrollbars */
-  background-color: #000; /* Sets the background color for letterboxing */
+  background-color: #e92525; /* Sets the background color for letterboxing */
 }
 
 h1 {
