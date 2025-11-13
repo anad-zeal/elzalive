@@ -1,5 +1,3 @@
-</mian>
-
 <footer class="site-footer">
     <p>&copy; 2025 elzalive • All rights reserved.</p>
 </footer>
