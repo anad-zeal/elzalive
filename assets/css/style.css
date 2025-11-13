@@ -40,7 +40,7 @@ h1 {
 /* --- Slide Image --- */
 .slide img {
   /* The key change: show the whole image, preserving its shape */
-  object-fit: contain;
+  /* object-fit: contain; */
   margin: 0 0 5rem 0;
 
   /* Ensure the image is constrained correctly */
