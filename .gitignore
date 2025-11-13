@@ -5,4 +5,4 @@
 *.afdesign
 
 # Ignore system files
-.DS_Store
+.DS_Storegit add .gitignore
