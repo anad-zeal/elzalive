@@ -64,7 +64,7 @@ $life_title = "<h2 class='sub-title fade-title'>The Life of an Artist</h2>";
  <body>
 
 
-     <!-- <h1>AE Paints</h1>
+     <h1>AE Paints</h1>
 
      <div id="slideshow-container">
 
@@ -76,4 +76,4 @@ $life_title = "<h2 class='sub-title fade-title'>The Life of an Artist</h2>";
          <button id="next-button" class="slide-nav">
              <img src="assets/images/misc-images/next.png" alt="Next">
          </button>
-     </div> -->
+     </div>
