@@ -62,13 +62,3 @@ $life_title = "<h2 class='sub-title fade-title'>The Life sof an Artist</h2>";
 </head>
 
 <body>
-    <header class="site-header">
-        <nav class="main-nav" aria-label="Primary">
-            <div class="main-nav-menu">
-                <?= nav_item("home", "HOME", "/") ?>
-                <?= nav_item("artworks", "ARTWORKS", "/artworks") ?>
-                <?= nav_item("biography", "BIOGRAPHY", "/biography") ?>
-                <?= nav_item("contact", "CONTACT", "/contact") ?>
-            </div>
-        </nav>
-    </header>
