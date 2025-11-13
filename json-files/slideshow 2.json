@@ -1,0 +1,47 @@
+{
+  "title": "Slideshow Container",
+  "container": {
+    "tag": "div",
+    "attributes": {
+      "id": "slideshow-container"
+    },
+    "children": [
+      {
+        "tag": "p",
+        "textContent": "Loading images..."
+      },
+      {
+        "tag": "button",
+        "attributes": {
+          "id": "prev-button",
+          "class": "slide-nav"
+        },
+        "children": [
+          {
+            "tag": "img",
+            "attributes": {
+              "src": "assets/images/misc-images/prev.png",
+              "alt": "Previous"
+            }
+          }
+        ]
+      },
+      {
+        "tag": "button",
+        "attributes": {
+          "id": "next-button",
+          "class": "slide-nav"
+        },
+        "children": [
+          {
+            "tag": "img",
+            "attributes": {
+              "src": "assets/images/misc-images/next.png",
+              "alt": "Next"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}
