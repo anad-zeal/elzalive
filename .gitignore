@@ -1,1 +1,8 @@
+# Ignore all zip files
+*.zip
+
+# Ignore binary design files
+*.afdesign
+
+# Ignore system files
 .DS_Store
