@@ -31,7 +31,6 @@ h1 {
   height: 100%;
   opacity: 0;
   transition: opacity 0.8s ease-in-out;
-  margin: 0 0 5rem 0;
 }
 
 .slide.active {
@@ -42,6 +41,7 @@ h1 {
 .slide img {
   /* The key change: show the whole image, preserving its shape */
   object-fit: contain;
+  margin: 0 0 5rem 0;
 
   /* Ensure the image is constrained correctly */
   width: 100%;
