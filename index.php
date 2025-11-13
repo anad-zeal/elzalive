@@ -18,7 +18,7 @@
 
     <footer>
 
-        <script src="assets/js/slideshow.js"></script>
+        <script src="assets/js/script.js"></script>
 
     </footer>
 
