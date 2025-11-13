@@ -58,6 +58,7 @@ $life_title = "<h2 class='sub-title fade-title'>The Life of an Artist</h2>";
 
      <!-- Stylesheets -->
      <link rel="stylesheet" href="/assets/css/style.css" />
+     <link rel="stylesheet" href="/assets/css/slideshow.css" />
 
  </head>
 
