@@ -1,3 +1,4 @@
+<h2>Image Slideshow</h2>
 <div id="slideshow-container">
     <p>Loading images...</p>
 
