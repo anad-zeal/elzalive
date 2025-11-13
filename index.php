@@ -16,17 +16,8 @@
         <p>Loading images...</p>
     </div>
 
-    <?php<footer class="site-footer">
-    <p>&copy; 2025 elzalive • All rights reserved.</p>
-</footer>
-
-<script src="assets/js/script.js" defer></script>
+    <script src="assets/js/slideshow.js"></script>
 
 </body>
 
 </html>
-
-
-// require __DIR__ . "/includes/header.php";
-// require __DIR__ . "/includes/hero.php";
-// require __DIR__ . "/includes/footer.php";
