@@ -72,6 +72,7 @@ h1 {
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
   background-color: #000; /* Black background for when images are loading */
+  padding: 3rem;
 }
 
 /* --- Individual Slides --- */
