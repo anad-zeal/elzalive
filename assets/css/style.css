@@ -3,162 +3,136 @@
    ========================================================================== */
 
 :root {
-    /* Colors */
-    --ink: hsl(0 0% 10%);
-    --ink-muted: hsl(0 0% 45%);
-    --paper: hsl(36, 21%, 65%);
-    --soft: hsl(0 0% 96%);
-    --brand: rgb(122, 1, 1);
-    --focus-ring: hsl(0, 2%, 55%);
+  /* Colors */
+  --ink: hsl(0 0% 10%);
+  --ink-muted: hsl(0 0% 45%);
+  --paper: hsl(36, 21%, 65%);
+  --soft: hsl(0 0% 96%);
+  --brand: rgb(122, 1, 1);
+  --focus-ring: hsl(0, 2%, 55%);
 
-    /* Typography */
-    --font-body: "Montserrat", sans-serif;
-    --font-ui: "Inter", sans-serif;
-    --font-display: "Montserrat", sans-serif;
-    --font-title: "Montserrat", sans-serif;
-    --font-script: "Bonheur Royale", cursive;
+  /* Typography */
+  --font-body: 'Montserrat', sans-serif;
+  --font-ui: 'Inter', sans-serif;
+  --font-display: 'Montserrat', sans-serif;
+  --font-title: 'Montserrat', sans-serif;
+  --font-script: 'Bonheur Royale', cursive;
 
-    /* Layout */
-    --gap: clamp(0.75rem, 2vw, 1.25rem);
-    --narrow-max: 90ch;
+  /* Layout */
+  --gap: clamp(0.75rem, 2vw, 1.25rem);
+  --narrow-max: 90ch;
 
-    /* Motion */
-    --speed: 280ms;
-    --easing: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* Motion */
+  --speed: 280ms;
+  --easing: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
-/* ============================================= */
-/* 2. Core Layout Structure (CORRECTED)          */
-/* ============================================= */
-
+/* General body styling for a clean look */
 body {
-    display: grid;
-    grid-template-rows: auto auto 1fr auto;
-    height: 100vh;
-    font-family: var(--font-body);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f0f2f5;
+  margin: 0;
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-main#dynamic-page-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 2rem;
+h1 {
+  color: #333;
 }
 
-/* ============================================= */
-/* 3. Header, Hero, and Footer Styles            */
-/* ============================================= */
+/* --- Slideshow Container --- */
+/* This is the main frame for the slideshow. */
+#slideshow-container {
+  /* Set a max-width and use aspect-ratio for a responsive container */
+  max-width: 900px;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Common widescreen ratio */
 
-.site-header,
-.site-footer {
-    padding: 1rem 0 0 0;
-    text-align: center;
+  /* Crucial for positioning the slides inside it */
+  position: relative;
+
+  /* Hides the slides that are outside the container's bounds */
+  overflow: hidden;
+
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background-color: #000; /* Black background for when images are loading */
 }
 
-.main-nav-menu {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    padding: 0;
-    margin-top: 1vh;
+/* --- Individual Slides --- */
+/* This styles each slide (the div containing an image and its text). */
+.slide {
+  /* Position slides on top of each other inside the container */
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+
+  /* --- The Fade Transition --- */
+  /* By default, all slides are invisible */
+  opacity: 0;
+  /* This makes the change in opacity smooth over 0.8 seconds */
+  transition: opacity 0.8s ease-in-out;
 }
 
-.main-nav-menu a {
-    text-decoration: none;
-    font-family: var(--font-body);
-    font-weight: 500;
-    color: var(--ink);
-    padding-bottom: 5px;
-    border-bottom: 2px solid transparent;
-    transition:
-        color 0.3s,
-        border-color 0.3s;
+/* --- The Active Slide --- */
+/* This class will be added by JavaScript to the slide that should be visible. */
+.slide.active {
+  /* Makes the active slide visible */
+  opacity: 1;
 }
 
-.main-nav-menu a:hover,
-.main-nav-menu a.is-active {
-    color: var(--brand);
+/* --- Slide Image --- */
+.slide img {
+  /* Make the image cover the entire slide area without distortion */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* This is key for good-looking images */
 }
 
-.hero {
-    text-align: center;
-    padding: 0;
+/* --- Text Content Styling --- */
+/* This creates a container for the title and description at the bottom of the slide. */
+.slide .slide-text {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  /* A semi-transparent background makes text readable on any image */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
+  color: #fff;
+  padding: 3rem 1.5rem 1.5rem 1.5rem; /* More padding at the top for the gradient */
 }
 
-.hero .sub-title {
-    margin-top: 2rem;
-    font-family: var(--font-script);
-    font-size: 3.5em;
-    font-weight: 500;
+.slide h3 {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.5rem;
 }
 
-.hero .page-title {
-    font-family: var(--font-title);
-    font-size: 1.25em;
-    margin-top: 0.5rem;
-    color: #666;
-    display: none;
+.slide p {
+  margin: 0;
+  font-size: 1rem;
 }
 
-/* ============================================= */
-/* 4. Card Grid Styles (MODIFIED)                */
-/* ============================================= */
-
-.card-grid {
-    width: 780px; /* Set fixed width */
-    height: 789px; /* Set fixed height */
-    gap: 5px; /* Set specific gap */
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* The grid will automatically handle the rows */
-}
-
-.card-grid .card {
-    aspect-ratio: 1 / 1; /* This is the key change to force a square shape */
-    flex-direction: column; /* Stacks the link and paragraph vertically */
-    justify-content: flex-start; /* Vertically centers the content inside the card */
-    display: flex;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-    padding: 0 1.5rem;
-}
-
-.card-grid .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-}
-
-.card-grid .page-link {
-    font-family: var(--font-title);
-    font-size: 1.5em;
-    font-weight: 500;
-    color: var(--brand);
-    text-decoration: none;
-    margin-bottom: 0.5rem;
-    display: block;
-    padding-top: 6rem;
-}
-
-.card-grid .landingMenuItem p {
-    font-family: var(--font-body);
-    font-size: 1em;
-    color: var(--ink-muted);
-    line-height: 1.6;
+.slide small {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
+  opacity: 0.8;
 }
