@@ -11,6 +11,13 @@ h1 {
   display: none;
 }
 
+h2.ss-t {
+  text-align: center;
+  color: #333;
+  margin: 2rem 0 1rem 0;
+  min-height: 2rem;
+}
+
 /* --- Slideshow Container (Viewport-Filling) --- */
 #slideshow-container {
   position: fixed;
