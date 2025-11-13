@@ -19,7 +19,6 @@ h1 {
   width: 100vw;
   height: 100vh;
   overflow: hidden;
-  margin: 0 0 1rem 0;
   /* The container's background is less important now, but can stay */
 }
 
@@ -32,6 +31,7 @@ h1 {
   height: 100%;
   opacity: 0;
   transition: opacity 0.8s ease-in-out;
+  margin: 0 0 1rem 0;
 }
 
 .slide.active {
