@@ -1,170 +1,138 @@
-/* --- Basic Page Setup --- */
+/* ==========================================================================
+   1. Basic Page Setup
+   ========================================================================== */
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f0f2f5;
-  margin: 0;
-  padding: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background-color: #f0f2f5;
+    margin: 0;
+    padding: 0;
+    /* Prevent scrollbars on the body itself */
+    overflow: hidden;
 }
 
+/* --- THIS IS THE KEY CHANGE for the layout --- */
+/* The 'main' element now acts as a padded frame that fills the viewport */
 main#main-content {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
-  box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    /* Set the size to be the full viewport height minus some padding */
+    height: 100vh;
+    padding: 2rem;
+    box-sizing: border-box;
 }
 
-/* --- Basic Page Setup --- */
-body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-  background-color: #f0f2f5;
-  margin: 0;
-  padding: 0;
-}
+/* ==========================================================================
+   2. Slideshow Controls (Dropdown Menu)
+   ========================================================================== */
 
-main#main-content {
-  display: flex;
-  flex-direction: column; /* Stack controls on top of slideshow */
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 2rem;
-  box-sizing: border-box;
-}
-
-/* --- NEW: Slideshow Controls Styling --- */
 .slideshow-controls {
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background-color: #fff;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-  text-align: center;
+    /* Make the controls a non-flexible part of the layout */
+    flex-shrink: 0;
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
 }
 
 .slideshow-controls label {
-  margin-right: 1rem;
-  font-weight: 500;
-  color: #333;
+    margin-right: 1rem;
+    font-weight: 500;
+    color: #333;
 }
 
 .slideshow-controls select {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  cursor: pointer;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    cursor: pointer;
 }
 
-/* --- Slideshow Component (No changes needed here) --- */
-#slideshow-container {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  aspect-ratio: 16 / 9;
-  background-color: #000;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
+/* ==========================================================================
+   3. Slideshow Component (REFACTORED for Viewport)
+   ========================================================================== */
 
-/* --- Slideshow Component --- */
 #slideshow-container {
-  position: relative;
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  aspect-ratio: 16 / 9;
-  background-color: lightgray;
-  overflow: hidden;
-  border-radius: 8px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    position: relative;
+    /* Allow the container to grow and fill the available vertical space */
+    flex-grow: 1;
+    width: 100%; /* Fill the horizontal space of the main container */
+    max-width: 1600px; /* Optional: A generous max-width for huge screens */
+
+    /* We REMOVE the aspect-ratio property */
+
+    background-color: #000;
+    overflow: hidden;
+    border-radius: 8px;
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #slideshow-container p {
-  color: #fff;
-  font-size: 1.2rem;
+    color: #fff;
+    font-size: 1.2rem;
 }
 
 .slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  transition: opacity 0.8s ease-in-out;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
 }
 
 .slide.active {
-  opacity: 1;
+    opacity: 1;
 }
 
 .slide img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain; /* Shows the full artwork */
+    width: 100%;
+    height: 100%;
+    /* This is crucial: it ensures the entire image is visible without distortion */
+    object-fit: contain;
 }
 
 .slide-text {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
-  color: #fff;
-  padding: 4rem 2rem 2rem 2rem;
-  box-sizing: border-box;
-  text-align: left;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+    color: #fff;
+    padding: 4rem 2rem 2rem 2rem;
+    box-sizing: border-box;
+    text-align: left;
+    transition: opacity 0.3s ease;
 }
+
+/* Hide text by default and show on hover for a cleaner look */
+#slideshow-container:not(:hover) .slide-text {
+    opacity: 0;
+}
+
 
 .slide h3 {
-  font-size: 1.5rem;
-  margin: 0 0 0.5rem 0;
+    font-size: 1.5rem;
+    margin: 0 0 0.5rem 0;
 }
 
-.slide p,
-.slide small {
-  opacity: 0.9;
+.slide p, .slide small {
+    opacity: 0.9;
 }
 
+/* The navigation button styles already overlay the image, so they are perfect as-is */
 .slide-nav {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
-  background-color: rgba(0, 0, 0, 0.3);
-  border: none;
-  padding: 0.5rem;
-  border-radius: 50%;
-  cursor: pointer;
-  opacity: 0.7;
-  transition: opacity 0.3s ease, background-color 0.3s ease;
-  display: none; /* Hidden by default, shown by JS */
-}
-
-.slide-nav:hover {
-  background-color: rgba(0, 0, 0, 0.6);
-  opacity: 1;
-}
-
-#prev-button {
-  left: 1.5rem;
-}
-#next-button {
-  right: 1.5rem;
-}
-
-.slide-nav img {
-  display: block;
-  width: 32px;
-  height: 32px;
-}
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+    b
