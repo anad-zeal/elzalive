@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+  alert('script.js loaded successfully');
   // -------------------------------------------------
   // ELEMENT SELECTORS
   // -------------------------------------------------
