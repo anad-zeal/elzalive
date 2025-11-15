@@ -10,7 +10,7 @@ nav {
   background: #eea200;
 }
 
-.link-3 {
+.folder-selector {
   transition: 0.4s;
   color: #ffffff;
   font-size: 20px;
@@ -18,7 +18,7 @@ nav {
   padding: 0 10px;
   margin: 0 10px;
 }
-.link-3:hover {
+.folder-selector:hover {
   background-color: #ffffff;
   color: #eea200;
   padding: 24px 10px;
