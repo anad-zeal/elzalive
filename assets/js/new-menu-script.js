@@ -30,8 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
     //     `;
 
     try {
-      // *** FIX: Changed double quotes "" to backticks `` for the template literal ***
-      // This allows ${folderName} to be correctly replaced with its data-page.
       const response = await fetch(`get_images.php?folder=${folderName}`);
 
       if (!response.ok) {
