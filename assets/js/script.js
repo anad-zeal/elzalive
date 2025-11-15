@@ -143,18 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // -------------------------------------------------
   // INITIALIZATION
   // -------------------------------------------------
-  // if (folderSelector) {
-  //   folderSelector.addEventListener('change', () => {
-  //     populateSlideshow(folderSelector.value);
-  //   });
-
-  //   // Load the initial gallery based on the dropdown's default selected value
-  //   populateSlideshow(folderSelector.value);
-  // } else {
-  //   console.error('Folder selector dropdown not found.');
-  // }
-
-  const folderSelector = document.getElementById('folder-selector');
 
   if (folderSelector) {
     // Get all the links within the nav element
