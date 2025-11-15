@@ -12,11 +12,11 @@
 
  <div class="slideshow-controls">
      <nav id="folder-selector">
-         <a class="link-3" value="decorative-painting" href="#">Decorative</a>
-         <a class="link-3" value="drip-series-paintings" href="#">Drip Series</a>
-         <a class="link-3" value="black-and-white-paintings" href="#">Black and White</a>
-         <a class="link-3" value="decorative-painting" href="#">Decorative Painting</a>
-         <a class="link-3" value="project-series-paintings" href="#">Project Series</a>
-         <a class="link-3" value="historic-preservation" href="#">Historic Preservation</a>
+         <a class="gallery" value="decorative-painting" href="#">Decorative</a>
+         <a class="gallery" value="drip-series-paintings" href="#">Drip Series</a>
+         <a class="gallery" value="black-and-white-paintings" href="#">Black and White</a>
+         <a class="gallery" value="decorative-painting" href="#">Decorative Painting</a>
+         <a class="gallery" value="project-series-paintings" href="#">Project Series</a>
+         <a class="gallery" value="historic-preservation" href="#">Historic Preservation</a>
      </nav>
  </div>

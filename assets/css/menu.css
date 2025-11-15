@@ -2,15 +2,15 @@ nav {
   margin-top: 40px;
   padding: 24px;
   text-align: center;
-  font-family: Raleway;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+  font-family: var(--paper);
+  box-shadow: 2px 2px 8px rgba(128, 16, 16, 0.5);
 }
 
 #folder-selector {
   background: #eea200;
 }
 
-.folder-selector {
+.gallery {
   transition: 0.4s;
   color: #ffffff;
   font-size: 20px;
@@ -18,7 +18,8 @@ nav {
   padding: 0 10px;
   margin: 0 10px;
 }
-.folder-selector:hover {
+
+.gallery:hover {
   background-color: #ffffff;
   color: #eea200;
   padding: 24px 10px;
