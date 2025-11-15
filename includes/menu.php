@@ -1,4 +1,4 @@
- <div class="slideshow-controls">
+ <!-- <div class="slideshow-controls">
      <label for="folder-selector">Select a Gallery:</label>
      <select id="folder-selector">
          <option value="drip-series-paintings">Drip Series</option>
@@ -8,4 +8,15 @@
          <option value="project-series-paintings">Project Series</option>
          <option value="historic-preservation">Historic Preservation</option>
      </select>
+ </div> -->
+
+ <div class="slideshow-controls">
+     <nav id="folder-selector">
+         <a class="link-3" data_page="decorative-painting" href="#">Decorative</a>
+         <a class="link-3" data_page="drip-series-paintings" href="#">Drip Series</a>
+         <a class="link-3" data_page="black-and-white-paintings" href="#">Black and White</a>
+         <a class="link-3" data_page="decorative-painting" href="#">Decorative Painting</a>
+         <a class="link-3" data_page="project-series-paintings" href="#">Project Series</a>
+         <a class="link-3" data_page="historic-preservation" href="#">Historic Preservation</a>
+     </nav>
  </div>
