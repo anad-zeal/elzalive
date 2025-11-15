@@ -154,17 +154,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Prevent the default link behavior
         event.preventDefault();
 
-        // Get the value from the data-page attribute of the clicked link
-        const page = event.target.getAttribute('data-page');
+        // Get the value from the value attribute of the clicked link
+        const page = event.target.getAttribute('value');
 
         // Call the populateSlideshow function with the retrieved value
         populateSlideshow(page);
       });
     }
 
-    // Optional: Load the initial gallery based on the first link's data-page value
+    // Optional: Load the initial gallery based on the first link's value value
     if (links.length > 0) {
-      populateSlideshow(links[0].getAttribute('data-page'));
+      populateSlideshow(links[0].getAttribute('value'));
     }
   } else {
     console.error('Folder selector navigation not found.');
