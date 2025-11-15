@@ -20,7 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial loader UI
     slideshowContainer.innerHTML = `
-          <p>Loading ${folderName.replace(/-/g, ' ')}...</p>
+          // <p>Loading ${folderName.replace(/-/g, ' ')}...</p>
           <button id="prev-button" class="slide-nav">
             <img src="images/misc-images/prev.png" alt="Previous" />
           </button>
