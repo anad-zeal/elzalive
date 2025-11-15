@@ -1,18 +1,18 @@
-nav {
+#older-selector{
   margin-top: 40px;
   padding: 24px;
   text-align: center;
-  font-family: var(--paper);
+  font-family: var(--font-body)
   box-shadow: 2px 2px 8px rgba(128, 16, 16, 0.5);
 }
 
 #folder-selector {
-  background: #eea200;
+  background: var(--brand);
 }
 
 .gallery {
-  transition: 0.4s;
-  color: #ffffff;
+  transition: 0.4s;2
+  color: var(--paper);
   font-size: 20px;
   text-decoration: none;
   padding: 0 10px;
@@ -20,7 +20,7 @@ nav {
 }
 
 .gallery:hover {
-  background-color: #ffffff;
-  color: #eea200;
+  background-color: var(--paper);
+  color: var(--brand);
   padding: 24px 10px;
 }
