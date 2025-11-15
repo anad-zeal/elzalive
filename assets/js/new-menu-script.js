@@ -31,7 +31,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     try {
       // *** FIX: Changed double quotes "" to backticks `` for the template literal ***
-      // This allows ${folderName} to be correctly replaced with its value.
+      // This allows ${folderName} to be correctly replaced with its data-page.
       const response = await fetch(`get_images.php?folder=${folderName}`);
 
       if (!response.ok) {
@@ -145,11 +145,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // -------------------------------------------------
   if (folderSelector) {
     folderSelector.addEventListener('change', () => {
-      populateSlideshow(folderSelector.value);
+      populateSlideshow(folderSelector.data - page);
     });
 
-    // Load the initial gallery based on the dropdown's default selected value
-    populateSlideshow(folderSelector.value);
+    // Load the initial gallery based on the dropdown's default selected data-page
+    populateSlideshow(folderSelector.data - page);
   } else {
     console.error('Folder selector dropdown not found.');
   }
