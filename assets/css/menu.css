@@ -2,7 +2,7 @@
   margin-top: 40px;
   padding: 24px;
   text-align: center;
-  font-family: var(--font-body)
+  font-family: var(--font-body);
   box-shadow: 2px 2px 8px rgba(128, 16, 16, 0.5);
 }
 
@@ -13,7 +13,7 @@
 .gallery {
   transition: 0.4s;2
   color: var(--paper);
-  font-size: 20px;
+  font-size: 3rem;
   text-decoration: none;
   padding: 0 10px;
   margin: 0 10px;
