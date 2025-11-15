@@ -143,11 +143,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // -------------------------------------------------
   if (folderSelector) {
     folderSelector.addEventListener('change', () => {
-      populateSlideshow(folderSelector.data - page);
+      populateSlideshow(folderSelector.data_page);
     });
 
     // Load the initial gallery based on the dropdown's default selected data-page
-    populateSlideshow(folderSelector.data - page);
+    populateSlideshow(folderSelector.data_page);
   } else {
     console.error('Folder selector dropdown not found.');
   }
