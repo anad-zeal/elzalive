@@ -1,4 +1,4 @@
-#folder-selector{
+#folder-selector {
   margin-top: 40px;
   padding: 24px;
   text-align: center;
@@ -11,9 +11,9 @@
 }
 
 .gallery {
-  transition: 0.4s;2
+  transition: 0.4s;
   color: var(--paper);
-  font-size: 3rem;
+  font-size: 1rem;
   text-decoration: none;
   padding: 0 10px;
   margin: 0 10px;
