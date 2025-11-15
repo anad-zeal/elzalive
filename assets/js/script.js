@@ -143,14 +143,42 @@ document.addEventListener('DOMContentLoaded', () => {
   // -------------------------------------------------
   // INITIALIZATION
   // -------------------------------------------------
-  if (folderSelector) {
-    folderSelector.addEventListener('change', () => {
-      populateSlideshow(folderSelector.value);
-    });
+  // if (folderSelector) {
+  //   folderSelector.addEventListener('change', () => {
+  //     populateSlideshow(folderSelector.value);
+  //   });
 
-    // Load the initial gallery based on the dropdown's default selected value
-    populateSlideshow(folderSelector.value);
+  //   // Load the initial gallery based on the dropdown's default selected value
+  //   populateSlideshow(folderSelector.value);
+  // } else {
+  //   console.error('Folder selector dropdown not found.');
+  // }
+
+  const folderSelector = document.getElementById('folder-selector');
+
+  if (folderSelector) {
+    // Get all the links within the nav element
+    const links = folder - selector.getElementsByTagName('a');
+
+    // Loop through each link and add a click event listener
+    for (let i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', (event) => {
+        // Prevent the default link behavior
+        event.preventDefault();
+
+        // Get the value from the data-page attribute of the clicked link
+        const page = event.target.getAttribute('data-page');
+
+        // Call the populateSlideshow function with the retrieved value
+        populateSlideshow(page);
+      });
+    }
+
+    // Optional: Load the initial gallery based on the first link's data-page value
+    if (links.length > 0) {
+      populateSlideshow(links[0].getAttribute('data-page'));
+    }
   } else {
-    console.error('Folder selector dropdown not found.');
+    console.error('Folder selector navigation not found.');
   }
 });
