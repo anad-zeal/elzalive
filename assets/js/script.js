@@ -146,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   if (folderSelector) {
     // Get all the links within the nav element
-    const links = folder - selector.getElementsByTagName('a');
+    const links = folderSelecto.getElementsByTagName('a');
 
     // Loop through each link and add a click event listener
     for (let i = 0; i < links.length; i++) {
