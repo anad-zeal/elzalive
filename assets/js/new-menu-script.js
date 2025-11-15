@@ -19,15 +19,15 @@ document.addEventListener('DOMContentLoaded', () => {
     clearInterval(slideshowInterval);
 
     // Initial loader UI
-    slideshowContainer.innerHTML = `
-          <p>Loading ${folderName.replace(/-/g, ' ')}...</p>
-          <button id="prev-button" class="slide-nav">
-            <img src="images/misc-images/prev.png" alt="Previous" />
-          </button>
-          <button id="next-button" class="slide-nav">
-            <img src="images/misc-images/next.png" alt="Next" />
-          </button>
-        `;
+    // slideshowContainer.innerHTML = `
+    //       <p>Loading ${folderName.replace(/-/g, ' ')}...</p>
+    //       <button id="prev-button" class="slide-nav">
+    //         <img src="images/misc-images/prev.png" alt="Previous" />
+    //       </button>
+    //       <button id="next-button" class="slide-nav">
+    //         <img src="images/misc-images/next.png" alt="Next" />
+    //       </button>
+    //     `;
 
     try {
       // *** FIX: Changed double quotes "" to backticks `` for the template literal ***
