@@ -1,12 +1,4 @@
-<!-- <nav id="nav-3">
-    <a class="link-3" <a class="link-3" data-page="drip-series-paintings" href="#">Decorative</a>
-    <a class="link-3" href="#">About</a>
-    <a class="link-3" href="#">Contact</a>
-    <a class="link-3" href="#">Shop</a>
-</nav> -->
-
-
-<nav id="nav-3">
+<nav id="folder-selector">
     <a class="link-3" data-page="decorative-painting" href="#">Decorative</a>
     <a class="link-3" data-page="drip-series-paintings" href="#">Drip Series</a>
     <a class="link-3" data-page="black-and-white-paintings" href="#">Black and White</a>
