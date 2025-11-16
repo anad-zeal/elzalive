@@ -3,15 +3,14 @@
   padding: 24px;
   text-align: center;
   box-shadow: 2px 2px 8px rgba(128, 16, 16, 0.5);
-  background: var(--paper;
+  background: var(--paper);
 }
-
 
 .gallery {
   transition: 0.4s;
   font-family: var(--font-body);
   color: var(--paper);
-   background-color: var(--ink-muted);
+  background-color: var(--ink-muted);
   font-size: 1.5rem;
   text-decoration: none;
   padding: 0 20px;
