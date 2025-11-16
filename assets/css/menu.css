@@ -9,7 +9,7 @@
 .gallery {
   transition: 0.4s;
   font-family: var(--font-body);
-  color: orange;
+  color: black;
   font-size: 1.5rem;
   text-decoration: none;
   padding: 0 20px;
