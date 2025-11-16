@@ -98,7 +98,7 @@ main#main-content {
   flex-grow: 1;
   width: 100%;
   max-width: 1600px;
-  background-color: #000;
+  /* background-color: #000; */
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
