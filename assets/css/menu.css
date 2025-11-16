@@ -3,11 +3,9 @@
   padding: 24px;
   text-align: center;
   box-shadow: 2px 2px 8px rgba(128, 16, 16, 0.5);
+  background: var(--paper;
 }
 
-#folder-selector {
-  background: var(--brand);
-}
 
 .gallery {
   transition: 0.4s;
@@ -21,6 +19,6 @@
 
 .gallery:hover {
   background-color: var(--paper);
-  color: var(--brand);
+  color: var(--Paper);
   padding: 24px 10px;
 }
