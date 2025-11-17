@@ -1,8 +1,10 @@
-#folder-selector {
+/* #folder-selector {
+  position: relative;
   margin-top: 40px;
   padding: 24px;
   text-align: center;
   box-shadow: 2px 2px 8px rgba(128, 16, 16, 0.5);
+  z-index: 999;
 }
 
 #folder-selector {
@@ -17,10 +19,12 @@
   text-decoration: none;
   padding: 0 20px;
   margin: 0 10px;
+  min-height: 10vh;
 }
 
 .gallery:hover {
-  background-color: var(--paper);
   color: var(--brand);
   padding: 24px 10px;
-}
+  color: #fff;
+  padding: 24px 10px;
+} */
