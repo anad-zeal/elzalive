@@ -1,6 +1,6 @@
 #folder-selector {
-  margin-top: 40px;
-  padding: 24px;
+  margin-top: 2px;
+  /* padding: 24px; */
   text-align: center;
   box-shadow: 2px 2px 8px rgba(128, 16, 16, 0.5);
   background: var(--paper);
