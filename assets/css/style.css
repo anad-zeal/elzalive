@@ -114,6 +114,7 @@ main#main-content {
 
 .slide {
   position: absolute;
+  margin: 1rem;
   top: 0;
   left: 0;
   width: 100%;
