@@ -114,7 +114,7 @@ main#main-content {
 
 .slide {
   position: absolute;
-  padding: 10rem 5rem 0 5rem 0;
+  margin: 10rem 5rem 0 5rem 0;
   top: 0;
   left: 0;
   width: 100%;
