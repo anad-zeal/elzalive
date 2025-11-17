@@ -10,13 +10,15 @@
      </select>
  </div> -->
 
+ <!-- 11 -->
+
+
  <div class="slideshow-controls">
-     <nav id="folder-selector">
-         <a class="gallery" value="decorative-painting" href="#">Decorative</a>
-         <a class="gallery" value="drip-series-paintings" href="#">Drip Series</a>
-         <a class="gallery" value="black-and-white-paintings" href="#">Black and White</a>
-         <a class="gallery" value="decorative-painting" href="#">Decorative Painting</a>
-         <a class="gallery" value="project-series-paintings" href="#">Project Series</a>
-         <a class="gallery" value="historic-preservation" href="#">Historic Preservation</a>
+     <nav id="folder-selector" class="gallery-menu">>
+         <!-- <button class="col logo"><img src="https://aepaints.com/wp-content/uploads/logo-aepaints.svg" width="300" class="logo-class"/></button> -->
+         <button class="col btn idx-1" data-folder="black-and-white">Black and White</button>
+         <button class="col btn" data-folder="drips">Drips</button>
+         <button class="col btn" data-folder="encaustic">Encaustic</button>
+         <button class="col btn" data-folder="projects">Projects</button>
      </nav>
  </div>
