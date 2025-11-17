@@ -98,7 +98,7 @@ main#main-content {
   flex-grow: 1;
   width: 100%;
   max-width: 1600px;
-  /* background-color: #000; */
+  background-color: #000;
   overflow: hidden;
   border-radius: 8px;
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
@@ -114,7 +114,6 @@ main#main-content {
 
 .slide {
   position: absolute;
-  margin: 10rem 5rem 0 5rem 0;
   top: 0;
   left: 0;
   width: 100%;
@@ -138,7 +137,7 @@ main#main-content {
   bottom: 0;
   left: 0;
   right: 0;
-  /* background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)); */
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
   color: #fff;
   padding: 4rem 2rem 2rem 2rem;
   box-sizing: border-box;
