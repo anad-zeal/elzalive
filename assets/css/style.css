@@ -137,7 +137,7 @@ main#main-content {
   bottom: 0;
   left: 0;
   right: 0;
-  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0));
+  /* background: linear-gradient(to top, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0)); */
   color: #fff;
   padding: 4rem 2rem 2rem 2rem;
   box-sizing: border-box;
