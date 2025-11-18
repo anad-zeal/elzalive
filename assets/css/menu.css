@@ -28,3 +28,7 @@
   color: #fff;
   padding: 24px 10px;
 }
+
+.gallery:active {
+  transform: scale(0.95);
+}

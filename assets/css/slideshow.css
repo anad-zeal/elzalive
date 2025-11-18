@@ -9,6 +9,13 @@
   /* The container's background is less important now, but can stay */
 }
 
+.link-3 {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 1rem;
+  font-weight: bold;
+}
+
 /* --- Individual Slides --- */
 .slide {
   position: absolute;

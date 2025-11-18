@@ -1,6 +1,7 @@
 <main id="main-content">
+    <h1>Slideshow images will be dynamically loaded here</h1>
     <div id="slideshow-image-area">
-        <h1>Slideshow images will be dynamically loaded here</h1>
+
         <div id="slideshow-container">
             <p>Loading Slideshow...</p>
             <button id="prev-button" class="slide-nav">
