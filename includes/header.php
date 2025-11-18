@@ -7,7 +7,7 @@
     <title>Slideshow Gallery</title>
     <link rel="stylesheet" href="assets/css/style.css" />
     <link rel="stylesheet" href="assets/css/menu.css" />
-    <link rel="stylesheet" href="assets/css/slideshowcss" />
+    <link rel="stylesheet" href="assets/css/slideshow.css" />
 
 </head>
 
