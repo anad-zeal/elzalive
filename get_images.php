@@ -2,7 +2,7 @@
 
 // The folder where your images are located.
 // Make sure this path is correct relative to the location of this PHP script.
-$imageFolder = 'images/';
+$imageFolder = 'assetsimages/';
 
 // An array to hold the image data.
 $imageData = [];
