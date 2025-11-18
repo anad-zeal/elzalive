@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // -------------------------------------------------
-  // ELEMENT SELECTORS
+  // ELEMENT SELECTORS-S-S-
   // -------------------------------------------------
   const slideshowContainer = document.getElementById('slideshow-container');
   const folderSelector = document.getElementById('folder-selector');
