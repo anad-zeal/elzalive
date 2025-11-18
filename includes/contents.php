@@ -1,5 +1,4 @@
 <main id="main-content">
-    <h1>Slideshow images will be dynamically loaded here</h1>
     <div id="slideshow-image-area">
 
         <div id="slideshow-container">
