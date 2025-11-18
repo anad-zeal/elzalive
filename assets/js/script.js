@@ -1,58 +1,193 @@
-document.addEventListener('DOMContentLoaded', function () {
-  // --- ELEMENT SELECTORS ---
-  const slideshowContainer = document.getElementById('slideshow-container');
-  const prevButton = document.getElementById('prev-button');
-  const nextButton = document.getElementById('next-button');
+<?php
+// --- PRODUCTION-READY SCRIPT ---
 
-  // --- STATE VARIABLES ---
+// Turn OFF error reporting to the browser to ensure valid JSON output.
+ini_set('display_errors', 0);
+error_reporting(0);
+
+// Set the header at the very beginning.
+header('Content-Type: application/json');
+
+// Use the __DIR__ constant for a reliable absolute path.
+$baseImageDir = __DIR__ . '/images/';
+
+// --- SECURITY & SETUP ---
+$validFolders = array_map('basename', glob($baseImageDir . '*', GLOB_ONLYDIR));
+
+$selectedFolder = null;
+if (isset($_GET['folder']) && in_array($_GET['folder'], $validFolders)) {
+    $selectedFolder = $_GET['folder'];
+}
+
+// --- DATA GATHERING ---
+$imageData = [];
+
+if ($selectedFolder) {
+    $imageFolderPath = $baseImageDir . $selectedFolder . '/';
+
+    // Check for both lowercase and uppercase file extensions.
+    $files = glob($imageFolderPath . '*.{jpg,jpeg,png,gif,JPG,JPEG,PNG,GIF}', GLOB_BRACE);
+
+    foreach ($files as $file) {
+        $imageInfo = @getimagesize($file);
+        if (!$imageInfo) continue;
+        list($width, $height) = $imageInfo;
+
+        $title = '';
+        $description = '';
+        $exif = @exif_read_data($file);
+
+        if (!empty($exif['ImageDescription'])) $description = $exif['ImageDescription'];
+
+        if (!empty($exif['DocumentName'])) {
+            $title = $exif['DocumentName'];
+        } else {
+            $title = basename($file);
+        }
+
+        // Create a browser-friendly relative path.
+        $relativePath = 'images/' . $selectedFolder . '/' . basename($file);
+
+        $imageData[] = [
+            'path' => $relativePath,
+            'title' => $title,
+            'description' => $description,
+            'width' => $width,
+            'height' => $height
+        ];
+    }
+}
+
+// --- FINAL OUTPUT ---
+echo json_encode($imageData);
+?>```
+
+---
+
+### File 3: `assets/js/script.js` (The Slideshow Engine)
+
+This script handles the dropdown menu, fetches the data, and controls all slideshow behavior.
+
+*   **Location:** `slideshow_project/assets/js/script.js`
+
+```javascript
+document.addEventListener("DOMContentLoaded", () => {
+  // -------------------------------------------------
+  // ELEMENT SELECTORS
+  // -------------------------------------------------
+  const slideshowContainer = document.getElementById("slideshow-container");
+  const folderSelector = document.getElementById("folder-selector");
+
+  // -------------------------------------------------
+  // STATE
+  // -------------------------------------------------
   let slides = [];
   let currentSlideIndex = 0;
-  let slideshowInterval;
+  let slideshowInterval = null;
 
-  // --- MAIN FUNCTION to build the slideshow ---
-  async function populateSlideshow() {
+  // -------------------------------------------------
+  // Build slideshow for a specific folder
+  // -------------------------------------------------
+  async function populateSlideshow(folderName) {
+    clearInterval(slideshowInterval);
+
+    // Initial loader UI
+    slideshowContainer.innerHTML = `
+      <p>Loading ${folderName.replace(/-/g, " ")}...</p>
+      <button id="prev-button" class="slide-nav">
+        <img src="assets/images/misc-images/prev.png" alt="Previous" />
+      </button>
+      <button id="next-button" class="slide-nav">
+        <img src="assets/images/misc-images/next.png" alt="Next" />
+      </button>
+    `;
+
     try {
-      const response = await fetch('get_images.php');
-      if (!response.ok) throw new Error(`Network response error: ${response.statusText}`);
+      const response = await fetch(`get_images.php?folder=${folderName}`);
+      if (!response.ok) {
+        throw new Error(`Network response error: ${response.statusText}`);
+      }
 
       const images = await response.json();
+
+      // Remove loader
+      const loader = slideshowContainer.querySelector("p");
+      if (loader) loader.remove();
+
       if (images.length === 0) {
-        slideshowContainer.innerHTML = '<p>No images found.</p>';
+        slideshowContainer.innerHTML = "<p>No images found in this gallery.</p>";
         return;
       }
 
-      slideshowContainer.innerHTML = ''; // Clear loading message
+      // Build slides
+      images.forEach((img) => {
+        const slide = document.createElement("div");
+        slide.className = "slide";
 
-      images.forEach((image) => {
-        // (The slide creation code is the same as before)
-        const slideElement = document.createElement('div');
-        slideElement.className = 'slide';
-        const imageElement = document.createElement('img');
-        imageElement.src = image.path;
-        imageElement.alt = image.title;
-        const textContainer = document.createElement('div');
-        textContainer.className = 'slide-text';
-        textContainer.innerHTML = `<h3>${image.title}</h3><p>${image.description}</p><small>Dimensions: ${image.width}px x ${image.height}px</small>`;
-        slideElement.appendChild(imageElement);
-        slideElement.appendChild(textContainer);
-        slideshowContainer.appendChild(slideElement);
+        slide.innerHTML = `
+          <img src="${img.path}" alt="${img.title}">
+          <div class="slide-text">
+            <h3>${img.title}</h3>
+            <p>${img.description || ""}</p>
+            <small>Dimensions: ${img.width}px &times; ${img.height}px</small>
+          </div>
+        `;
+
+        slideshowContainer.prepend(slide);
       });
 
-      // Re-add the navigation buttons into the now-cleared container
-      slideshowContainer.appendChild(prevButton);
-      slideshowContainer.appendChild(nextButton);
-
-      startSlideshow();
-    } catch (error) {
-      console.error('Slideshow population error:', error);
-      slideshowContainer.innerHTML = '<p>Error loading images.</p>';
+      startSlideshowRunner();
+    } catch (err) {
+      console.error("Error building slideshow:", err);
+      slideshowContainer.innerHTML = "<p>Error loading images. Check console.</p>";
     }
   }
 
-  // --- NAVIGATION FUNCTIONS ---
+  // -------------------------------------------------
+  // Initialize slideshow logic
+  // -------------------------------------------------
+  function startSlideshowRunner() {
+    slides = [...document.querySelectorAll("#slideshow-container .slide")];
+    currentSlideIndex = 0;
+
+    const prevButton = document.getElementById("prev-button");
+    const nextButton = document.getElementById("next-button");
+
+    if (slides.length <= 1) {
+      if (slides.length === 1) showSlide(0);
+      prevButton.style.display = "none";
+      nextButton.style.display = "none";
+      return;
+    }
+
+    prevButton.style.display = "block";
+    nextButton.style.display = "block";
+
+    prevButton.addEventListener("click", () => {
+      prevSlide();
+      resetInterval();
+    });
+
+    nextButton.addEventListener("click", () => {
+      nextSlide();
+      resetInterval();
+    });
+
+    showSlide(0);
+    slideshowInterval = setInterval(nextSlide, 4000);
+  }
+
+  // -------------------------------------------------
+  // SLIDESHOW HELPERS
+  // -------------------------------------------------
   function showSlide(index) {
-    slides.forEach((slide) => slide.classList.remove('active'));
-    slides[index].classList.add('active');
+    slides.forEach((s, i) => {
+      if (i === index) {
+        s.classList.add("active");
+      } else {
+        s.classList.remove("active");
+      }
+    });
   }
 
   function nextSlide() {
@@ -65,41 +200,21 @@ document.addEventListener('DOMContentLoaded', function () {
     showSlide(currentSlideIndex);
   }
 
-  // Resets the automatic timer. Called whenever the user clicks a button.
   function resetInterval() {
     clearInterval(slideshowInterval);
     slideshowInterval = setInterval(nextSlide, 4000);
   }
 
-  // --- INITIALIZATION FUNCTION ---
-  function startSlideshow() {
-    slides = document.querySelectorAll('#slideshow-container .slide');
-    if (slides.length <= 1) {
-      // If only one slide, hide the buttons
-      prevButton.style.display = 'none';
-      nextButton.style.display = 'none';
-      if (slides.length === 1) showSlide(0); // Show the single slide
-      return;
-    }
-
-    currentSlideIndex = 0;
-    showSlide(currentSlideIndex);
-
-    // Start the timer
-    slideshowInterval = setInterval(nextSlide, 4000);
-
-    // --- ADD EVENT LISTENERS FOR BUTTONS ---
-    prevButton.addEventListener('click', () => {
-      prevSlide();
-      resetInterval(); // Reset timer on click
+  // -------------------------------------------------
+  // INITIALIZATION
+  // -------------------------------------------------
+  if (folderSelector) {
+    folderSelector.addEventListener("change", () => {
+      populateSlideshow(folderSelector.value);
     });
 
-    nextButton.addEventListener('click', () => {
-      nextSlide();
-      resetInterval(); // Reset timer on click
-    });
+    populateSlideshow(folderSelector.value);
+  } else {
+    console.error("Folder selector dropdown not found.");
   }
-
-  // --- START THE PROCESS ---
-  populateSlideshow();
 });
