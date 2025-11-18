@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+  alert('Slideshow script loaded successfully.');
   // --- ELEMENT SELECTORS ---
   // Get references to the HTML elements we need to work with.
   const slideshowContainer = document.getElementById('slideshow-container');
