@@ -141,7 +141,3 @@ h1 {
   width: 32px;
   height: 32px;
 }
-/* --- Responsive Adjustments --- */
-@media (max-width: 600px) {
-  .slide-text {
-    padding: 2rem 1rem 1rem 1rem;
