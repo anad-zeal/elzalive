@@ -1,94 +1,142 @@
-/* --- Global & Body --- */
+/* ==========================================================================
+   1. Design Tokens
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --ink: hsl(0 0% 10%);
+  --ink-muted: hsl(0 0% 45%);
+  --paper: hsl(36, 21%, 65%);
+  --soft: hsl(0 0% 96%);
+  --brand: rgb(122, 1, 1);
+  --focus-ring: hsl(0, 2%, 55%);
+
+  /* Typography */
+  --font-body: 'Montserrat', sans-serif;
+  --font-ui: 'Inter', sans-serif;
+  --font-display: 'Montserrat', sans-serif;
+  --font-title: 'Montserrat', sans-serif;
+  --font-script: 'Bonheur Royale', cursive;
+
+  /* Layout */
+  --gap: clamp(0.75rem, 2vw, 1.25rem);
+  --narrow-max: 90ch;
+
+  /* Motion */
+  --speed: 280ms;
+  --easing: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* General body styling for a clean look */
 body {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  background-color: #f0f2f5;
   margin: 0;
-  padding: 0;
-  overflow: hidden; /* Prevents accidental scrollbars */
-  background-color: #000; /* Sets the background color for letterboxing */
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 h1 {
-  display: none;
+  color: #333;
 }
 
-/* --- Slideshow Container (Viewport-Filling) --- */
+/* --- Slideshow Container --- */
+/* This is the main frame for the slideshow. */
 #slideshow-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
+  /* Set a max-width and use aspect-ratio for a responsive container */
+  max-width: 900px;
+  width: 100%;
+  aspect-ratio: 16 / 9; /* Common widescreen ratio */
+
+  /* Crucial for positioning the slides inside it */
+  position: relative;
+
+  /* Hides the slides that are outside the container's bounds */
   overflow: hidden;
-  /* The container's background is less important now, but can stay */
+
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  background-color: #000; /* Black background for when images are loading */
 }
 
 /* --- Individual Slides --- */
+/* This styles each slide (the div containing an image and its text). */
 .slide {
+  /* Position slides on top of each other inside the container */
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+
+  /* --- The Fade Transition --- */
+  /* By default, all slides are invisible */
   opacity: 0;
+  /* This makes the change in opacity smooth over 0.8 seconds */
   transition: opacity 0.8s ease-in-out;
 }
 
+/* --- The Active Slide --- */
+/* This class will be added by JavaScript to the slide that should be visible. */
 .slide.active {
+  /* Makes the active slide visible */
   opacity: 1;
 }
 
 /* --- Slide Image --- */
 .slide img {
-  /* The key change: show the whole image, preserving its shape */
-  object-fit: contain;
-
-  /* Ensure the image is constrained correctly */
+  /* Make the image cover the entire slide area without distortion */
   width: 100%;
   height: 100%;
-  max-width: 100%;
-  max-height: 100%;
+  object-fit: cover; /* This is key for good-looking images */
 }
 
 /* --- Text Content Styling --- */
-/* This will now appear over the image or the letterboxed area at the bottom */
-.slide-text {
+/* This creates a container for the title and description at the bottom of the slide. */
+.slide .slide-text {
   position: absolute;
   bottom: 0;
   left: 0;
   right: 0;
+
+  /* A semi-transparent background makes text readable on any image */
   background: linear-gradient(to top, rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0));
   color: #fff;
-  padding: 4rem 2rem 2rem 2rem;
-  box-sizing: border-box; /* Ensures padding doesn't add to the width */
+  padding: 3rem 1.5rem 1.5rem 1.5rem; /* More padding at the top for the gradient */
 }
 
 .slide h3 {
   margin: 0 0 0.5rem 0;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 .slide p {
   margin: 0;
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .slide small {
   display: block;
-  margin-top: 0.5rem;
-  font-size: 0.9rem;
+  margin-top: 0.25rem;
+  font-size: 0.8rem;
   opacity: 0.8;
 }
 
 /* --- Slideshow Navigation Buttons --- */
 .slide-nav {
+  /* Position the buttons over the slideshow */
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 10;
+  top: 50%; /* Center vertically */
+  transform: translateY(-50%); /* Fine-tune vertical centering */
+  z-index: 10; /* Ensure buttons are on top of the slides */
+
+  /* Styling */
   background-color: rgba(0, 0, 0, 0.3);
   border: none;
   padding: 0.5rem;
-  border-radius: 50%;
+  border-radius: 50%; /* Makes the button a circle */
   cursor: pointer;
   opacity: 0.7;
   transition: opacity 0.3s ease, background-color 0.3s ease;
@@ -99,16 +147,23 @@ h1 {
   opacity: 1;
 }
 
+/* Position the 'previous' button on the left */
 #prev-button {
-  left: 1.5rem;
+  left: 1rem;
 }
 
+/* Position the 'next' button on the right */
 #next-button {
-  right: 1.5rem;
+  right: 1rem;
 }
 
+/* Style the images inside the buttons */
 .slide-nav img {
-  display: block;
-  width: 32px;
-  height: 32px;
+  display: block; /* Removes any extra space below the image */
+  width: 24px; /* Adjust size as needed */
+  height: 24px;
+}
+
+h1 {
+  display: none; /* Hide the title, as the slideshow will cover it */
 }
