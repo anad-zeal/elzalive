@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', function () {
         slideshowContainer.innerHTML = '<p>No images found in the folder.</p>';
         // Also hide the buttons if there are no images
         prevButton.style.display = 'none';
-        s;
+
         nextButton.style.display = 'none';
         return;
       }
