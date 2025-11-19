@@ -1,50 +1,60 @@
 <?php
 
-// The folder where your images are located.
-// Make sure this path is correct relative to the location of this PHP script.
-$imageFolder = 'assets/images/';
+// get_images.php
 
-// An array to hold the image data.
-$imageData = [];
-
-// Get all files from the image folder.
-$files = glob($imageFolder . '*.{jpg,jpeg,png,gif}', GLOB_BRACE);
-
-foreach ($files as $file) {
-    // Get image dimensions.
-    list($width, $height) = getimagesize($file);
-
-    // Initialize title and description.
-    $title = '';
-    $description = '';
-
-    // Attempt to read EXIF/IPTC metadata.
-    // Note: This requires the exif extension to be enabled in your PHP configuration.
-    $exif = @exif_read_data($file);
-
-    if (!empty($exif['ImageDescription'])) {
-        $description = $exif['ImageDescription'];
-    }
-
-    if (!empty($exif['DocumentName'])) {
-        $title = $exif['DocumentName'];
-    } else {
-        // Fallback to using the filename as the title if no metadata is found.
-        $title = basename($file);
-    }
-
-    // Add the image data to our array.
-    $imageData[] = [
-        'path' => $file,
-        'title' => $title,
-        'description' => $description,
-        'width' => $width,
-        'height' => $height
-    ];
-}
-
-// Set the content type header to application/json.
 header('Content-Type: application/json');
 
-// Output the image data as a JSON object.
+// 1. Get the folder name from the AJAX request, default to empty
+$requestedFolder = isset($_GET['folder']) ? $_GET['folder'] : '';
+
+// 2. SECURITY: Prevent directory traversal (trying to go up directories with ../)
+if (strpos($requestedFolder, '..') !== false || strpos($requestedFolder, '/') !== false || strpos($requestedFolder, '\\') !== false) {
+    echo json_encode(['error' => 'Invalid folder name']);
+    exit;
+}
+
+// 3. Define base path (Based on your tree, images are in root/images/)
+$basePath = 'images/';
+$targetFolder = $basePath . $requestedFolder;
+
+// 4. Check if directory exists
+if (!is_dir($targetFolder) || empty($requestedFolder)) {
+    echo json_encode(['error' => 'Folder not found: ' . $targetFolder]);
+    exit;
+}
+
+$imageData = [];
+
+// 5. Get files
+$files = glob($targetFolder . '/*.{jpg,jpeg,png,gif}', GLOB_BRACE);
+
+if ($files) {
+    foreach ($files as $file) {
+        list($width, $height) = getimagesize($file);
+
+        // EXIF logic (kept from your original code)
+        $title = basename($file);
+        $description = '';
+        $exif = @exif_read_data($file);
+
+        if ($exif) {
+            if (!empty($exif['ImageDescription'])) {
+                $description = $exif['ImageDescription'];
+            }
+            if (!empty($exif['DocumentName'])) {
+                $title = $exif['DocumentName'];
+            }
+        }
+
+        $imageData[] = [
+            // Send back the path relative to the website root
+            'path' => $file,
+            'title' => $title,
+            'description' => $description,
+            'width' => $width,
+            'height' => $height
+        ];
+    }
+}
+
 echo json_encode($imageData);
