@@ -77,3 +77,126 @@ nav {
 .nav-btn:hover {
   background-color: #333;
 }
+
+/* =========================================
+   Main Gallery Container
+   ========================================= */
+#main-content {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 0 20px;
+  font-family: 'Raleway', sans-serif; /* Matches your menu font */
+  min-height: 600px; /* Prevents footer jumping while loading */
+}
+
+#gallery-title {
+  text-align: center;
+  color: #333;
+  font-weight: 300;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+/* =========================================
+   Slideshow Flexbox Layout
+   ========================================= */
+#slideshow-wrapper {
+  display: flex; /* This aligns buttons and image in a row */
+  align-items: center; /* Vertically centers items */
+  justify-content: center; /* Horizontally centers items */
+  gap: 20px; /* Space between buttons and image */
+  position: relative;
+}
+
+/* The middle section holding the image and text */
+#slide-display {
+  flex: 1; /* Takes up remaining space */
+  text-align: center; /* Centers the image inside the div */
+  max-width: 900px; /* Limits image width so buttons stay visible */
+}
+
+/* =========================================
+   The Image Styling
+   ========================================= */
+#current-image {
+  max-width: 100%;
+  max-height: 70vh; /* Keeps image visible without scrolling */
+  height: auto;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Nice drop shadow */
+  border-radius: 4px;
+  transition: opacity 0.3s ease; /* Smooth fade effect */
+  display: block;
+  margin: 0 auto;
+}
+
+/* =========================================
+   Caption Styling
+   ========================================= */
+#caption-box {
+  margin-top: 20px;
+  color: #555;
+}
+
+#slide-title {
+  font-size: 1.2rem;
+  color: #eea200; /* Matches your menu color */
+  margin-bottom: 8px;
+  font-weight: 600;
+}
+
+#slide-desc {
+  font-size: 0.95rem;
+  font-style: italic;
+  line-height: 1.5;
+}
+
+/* =========================================
+   Navigation Buttons (< and >)
+   ========================================= */
+.nav-btn {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #eea200; /* Matches your menu color */
+  font-size: 4rem; /* Makes the arrows large */
+  padding: 10px;
+  transition: transform 0.2s, color 0.2s;
+  line-height: 1;
+  user-select: none;
+  outline: none;
+}
+
+.nav-btn:hover {
+  color: #333; /* Darken on hover */
+  transform: scale(1.2); /* Grow slightly on hover */
+}
+
+.nav-btn:active {
+  transform: scale(0.95);
+}
+
+/* =========================================
+   Mobile Responsiveness
+   ========================================= */
+@media (max-width: 768px) {
+  #slideshow-wrapper {
+    flex-direction: column; /* Stack vertically on phones */
+  }
+
+  .nav-btn {
+    font-size: 3rem;
+    padding: 5px;
+    order: 2; /* Moves buttons below image on mobile if you prefer */
+  }
+
+  #slide-display {
+    order: 1;
+    width: 100%;
+  }
+
+  /* Optional: Put buttons side-by-side below image on mobile */
+  #slideshow-wrapper {
+    flex-wrap: wrap;
+  }
+}
