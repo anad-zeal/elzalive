@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const folderName = link.getAttribute('data_page');
       const friendlyName = link.textContent;
-
+      alert('folderName: ' + folderName) + alert('friendlyName: ' + friendlyName);
       loadImages(folderName, friendlyName);
     });
   });
