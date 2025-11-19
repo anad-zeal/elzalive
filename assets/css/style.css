@@ -323,3 +323,88 @@ nav {
     flex-wrap: wrap;
   }
 }
+
+/* --- Main Container --- */
+#main-content {
+  max-width: 1200px;
+  margin: 40px auto;
+  text-align: center;
+  font-family: 'Raleway', sans-serif;
+}
+
+#gallery-title {
+  margin-bottom: 20px;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* --- Flexbox Layout (Fixes the stacking issue) --- */
+#slideshow-wrapper {
+  display: flex; /* Aligns items in a row */
+  align-items: center; /* Vertically centers items */
+  justify-content: center; /* Centers the group */
+  gap: 20px; /* Space between arrows and image */
+  min-height: 500px; /* Keeps layout stable */
+}
+
+/* --- The Image Section --- */
+#slide-display {
+  flex: 1; /* Allows image area to grow */
+  max-width: 800px; /* Prevents it from getting too wide */
+  position: relative;
+}
+
+#current-image {
+  width: 100%; /* Responsive width */
+  height: auto;
+  max-height: 70vh; /* Limits height so no scrolling is needed */
+  object-fit: contain;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  border-radius: 4px;
+  display: block; /* Removes bottom whitespace */
+}
+
+/* --- Caption Styling --- */
+#caption-box {
+  margin-top: 15px;
+  padding: 10px;
+}
+#slide-title {
+  color: #eea200;
+  margin-bottom: 5px;
+}
+
+/* --- Button Styling (Fixes the huge blue arrows) --- */
+.nav-btn {
+  background: none; /* Removes default button background */
+  border: none; /* Removes border */
+  font-size: 4rem; /* Size of the arrow symbol */
+  color: #eea200; /* Your theme color */
+  cursor: pointer;
+  padding: 0 15px;
+  transition: all 0.2s ease;
+  user-select: none;
+  line-height: 1; /* Fixes vertical alignment */
+}
+
+.nav-btn:hover {
+  color: #333; /* Dark color on hover */
+  transform: scale(1.1); /* Slight grow effect */
+}
+
+/* --- Mobile Adjustments --- */
+@media (max-width: 768px) {
+  #slideshow-wrapper {
+    flex-direction: column; /* Stack on mobile */
+  }
+  .nav-btn {
+    font-size: 3rem;
+    padding: 10px;
+    transform: rotate(90deg); /* Optional: rotate arrows for vertical scrolling */
+  }
+  /* Reset rotation if you prefer standard arrows on mobile */
+  .nav-btn {
+    transform: none;
+  }
+}
