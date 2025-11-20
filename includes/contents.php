@@ -1,5 +1,9 @@
 <main id="main-content">
+    <!-- The Title changes based on the menu click -->
+    <h2 id="gallery-title">Select a gallery from the menu</h2>
 
+    <!-- Wrapper for the slideshow -->
+    <!-- The style="display:none" hides it until an image loads -->
     <div id="slideshow-wrapper" style="display:none;">
 
         <!-- PREVIOUS BUTTON -->
