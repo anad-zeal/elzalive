@@ -2,7 +2,7 @@
 header("Content-Type: application/json");
 
 // 1. Get the folder name from the AJAX request
-// $requestedFolder = isset($_GET["folder"]) ? "drip-series-paintings" : "";
+$requestedFolder = isset($_GET["folder"]) ? $_GET["folder"] : "";
 
 // 2. SECURITY: Prevent directory traversal
 if (
@@ -15,7 +15,7 @@ if (
 }
 
 // 3. Define base path to images
-$basePath = "images/";
+$basePath = "assets/images/";
 $targetFolder = $basePath . $requestedFolder;
 
 // 4. Check if directory exists

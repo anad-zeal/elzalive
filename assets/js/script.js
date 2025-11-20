@@ -1,4 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
+  alert("Hello World!");
   // DOM Elements
   const links = document.querySelectorAll(".link-3");
   const wrapper = document.getElementById("slideshow-wrapper");

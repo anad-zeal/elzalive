@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,6 +9,7 @@
     <!-- Google Font for styling -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600&display=swap" rel="stylesheet">
 </head>
+
 <body>
 
     <?php include "includes/header.php"; ?>
@@ -20,4 +22,5 @@
 
     <script src="assets/js/script.js"></script>
 </body>
+
 </html>
