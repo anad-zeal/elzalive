@@ -1,20 +1,25 @@
 <main id="main-content">
-    <div id="gallery-container">
-        <h2 id="gallery-title">Select a category to view gallery</h2>
+    <!-- The Title changes based on the menu click -->
+    <h2 id="gallery-title">Select a gallery from the menu</h2>
 
-        <div id="slideshow-wrapper" style="display:none;">
-            <button id="prev-btn" class="nav-btn">&#10094;</button>
+    <!-- Wrapper for the slideshow -->
+    <!-- The style="display:none" hides it until an image loads -->
+    <div id="slideshow-wrapper" style="display:none;">
 
-            <div id="slide-display">
-                <!-- Image will be injected here -->
-                <img id="current-image" src="" alt="">
-                <div id="caption-box">
-                    <h3 id="slide-title"></h3>
-                    <p id="slide-desc"></p>
-                </div>
+        <!-- PREVIOUS BUTTON -->
+        <button id="prev-btn" class="nav-btn">&#10094;</button>
+
+        <!-- IMAGE AREA -->
+        <div id="slide-display">
+            <img id="current-image" src="" alt="Gallery Image">
+            <div id="caption-box">
+                <h3 id="slide-title"></h3>
+                <p id="slide-desc"></p>
             </div>
-
-            <button id="next-btn" class="nav-btn">&#10095;</button>
         </div>
+
+        <!-- NEXT BUTTON -->
+        <button id="next-btn" class="nav-btn">&#10095;</button>
+
     </div>
 </main>

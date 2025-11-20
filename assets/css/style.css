@@ -1,410 +1,146 @@
-/* --- Your Menu Styles --- */
+/* --- General Reset & Fonts --- */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Raleway", sans-serif;
+    background-color: #fff;
+}
+
+/* --- Header --- */
+#site-header {
+    text-align: center;
+    padding: 30px 0;
+}
+.site-title {
+    margin: 0;
+    color: #333;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+.site-tagline {
+    margin: 5px 0 0;
+    color: #777;
+}
+
+/* --- Menu --- */
 nav {
-  margin-top: 40px;
-  padding: 24px;
-  text-align: center;
-  font-family: Raleway, sans-serif;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    background: #eea200;
 }
-#folder-selector {
-  background: #eea200;
-}
+
 .link-3 {
-  transition: 0.4s;
-  color: #ffffff;
-  font-size: 20px;
-  text-decoration: none;
-  padding: 0 10px;
-  margin: 0 10px;
-  cursor: pointer;
+    display: inline-block;
+    transition: 0.3s;
+    color: #ffffff;
+    font-size: 18px;
+    text-decoration: none;
+    padding: 15px 15px;
+    margin: 0 5px;
+    text-transform: uppercase;
+    font-weight: 600;
 }
+
 .link-3:hover,
 .link-3.active {
-  background-color: #ffffff;
-  color: #eea200;
-  padding: 24px 10px;
+    background-color: #ffffff;
+    color: #eea200;
 }
 
-/* --- Slideshow Styles --- */
+/* --- Main Content Area --- */
 #main-content {
-  max-width: 1000px;
-  margin: 40px auto;
-  text-align: center;
-  font-family: sans-serif;
-}
-
-#slideshow-wrapper {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #f4f4f4;
-  padding: 20px;
-  min-height: 500px;
-  border-radius: 8px;
-}
-
-#slide-display {
-  max-width: 80%;
-  position: relative;
-}
-
-#current-image {
-  max-width: 100%;
-  max-height: 600px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: opacity 0.3s ease-in-out;
-}
-
-#caption-box {
-  margin-top: 15px;
-  color: #333;
-}
-
-.nav-btn {
-  background-color: #eea200;
-  color: white;
-  border: none;
-  padding: 15px;
-  font-size: 24px;
-  cursor: pointer;
-  transition: 0.3s;
-  user-select: none;
-  border-radius: 4px;
-  margin: 0 15px;
-}
-
-.nav-btn:hover {
-  background-color: #333;
-}
-
-/* =========================================
-   Main Gallery Container
-   ========================================= */
-#main-content {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 20px;
-  font-family: 'Raleway', sans-serif; /* Matches your menu font */
-  min-height: 600px; /* Prevents footer jumping while loading */
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+    text-align: center;
+    min-height: 500px;
 }
 
 #gallery-title {
-  text-align: center;
-  color: #333;
-  font-weight: 300;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
+    margin-bottom: 30px;
+    color: #444;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 300;
 }
 
-/* =========================================
-   Slideshow Flexbox Layout
-   ========================================= */
+/* --- Slideshow Wrapper (Flexbox) --- */
 #slideshow-wrapper {
-  display: flex; /* This aligns buttons and image in a row */
-  align-items: center; /* Vertically centers items */
-  justify-content: center; /* Horizontally centers items */
-  gap: 20px; /* Space between buttons and image */
-  position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px; /* Space between buttons and image */
 }
 
-/* The middle section holding the image and text */
+/* --- Image & Caption --- */
 #slide-display {
-  flex: 1; /* Takes up remaining space */
-  text-align: center; /* Centers the image inside the div */
-  max-width: 900px; /* Limits image width so buttons stay visible */
+    flex: 1;
+    max-width: 800px;
 }
 
-/* =========================================
-   The Image Styling
-   ========================================= */
 #current-image {
-  max-width: 100%;
-  max-height: 70vh; /* Keeps image visible without scrolling */
-  height: auto;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Nice drop shadow */
-  border-radius: 4px;
-  transition: opacity 0.3s ease; /* Smooth fade effect */
-  display: block;
-  margin: 0 auto;
-}
-
-/* =========================================
-   Caption Styling
-   ========================================= */
-#caption-box {
-  margin-top: 20px;
-  color: #555;
-}
-
-#slide-title {
-  font-size: 1.2rem;
-  color: #eea200; /* Matches your menu color */
-  margin-bottom: 8px;
-  font-weight: 600;
-}
-
-#slide-desc {
-  font-size: 0.95rem;
-  font-style: italic;
-  line-height: 1.5;
-}
-
-/* =========================================
-   Navigation Buttons (< and >)
-   ========================================= */
-.nav-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #eea200; /* Matches your menu color */
-  font-size: 4rem; /* Makes the arrows large */
-  padding: 10px;
-  transition: transform 0.2s, color 0.2s;
-  line-height: 1;
-  user-select: none;
-  outline: none;
-}
-
-.nav-btn:hover {
-  color: #333; /* Darken on hover */
-  transform: scale(1.2); /* Grow slightly on hover */
-}
-
-.nav-btn:active {
-  transform: scale(0.95);
-}
-
-/* =========================================
-   Mobile Responsiveness
-   ========================================= */
-@media (max-width: 768px) {
-  #slideshow-wrapper {
-    flex-direction: column; /* Stack vertically on phones */
-  }
-
-  .nav-btn {
-    font-size: 3rem;
-    padding: 5px;
-    order: 2; /* Moves buttons below image on mobile if you prefer */
-  }
-
-  #slide-display {
-    order: 1;
     width: 100%;
-  }
-
-  /* Optional: Put buttons side-by-side below image on mobile */
-  #slideshow-wrapper {
-    flex-wrap: wrap;
-  }
+    height: auto;
+    max-height: 65vh; /* Prevents scrolling on large screens */
+    object-fit: contain;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    display: block;
 }
 
-/* =========================================
-   Main Gallery Container
-   ========================================= */
-#main-content {
-  max-width: 1200px;
-  margin: 40px auto;
-  padding: 0 20px;
-  font-family: 'Raleway', sans-serif; /* Matches your menu font */
-  min-height: 600px; /* Prevents footer jumping while loading */
-}
-
-#gallery-title {
-  text-align: center;
-  color: #333;
-  font-weight: 300;
-  margin-bottom: 30px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-}
-
-/* =========================================
-   Slideshow Flexbox Layout
-   ========================================= */
-#slideshow-wrapper {
-  display: flex; /* This aligns buttons and image in a row */
-  align-items: center; /* Vertically centers items */
-  justify-content: center; /* Horizontally centers items */
-  gap: 20px; /* Space between buttons and image */
-  position: relative;
-}
-
-/* The middle section holding the image and text */
-#slide-display {
-  flex: 1; /* Takes up remaining space */
-  text-align: center; /* Centers the image inside the div */
-  max-width: 900px; /* Limits image width so buttons stay visible */
-}
-
-/* =========================================
-   The Image Styling
-   ========================================= */
-#current-image {
-  max-width: 100%;
-  max-height: 70vh; /* Keeps image visible without scrolling */
-  height: auto;
-  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15); /* Nice drop shadow */
-  border-radius: 4px;
-  transition: opacity 0.3s ease; /* Smooth fade effect */
-  display: block;
-  margin: 0 auto;
-}
-
-/* =========================================
-   Caption Styling
-   ========================================= */
 #caption-box {
-  margin-top: 20px;
-  color: #555;
+    margin-top: 20px;
 }
 
 #slide-title {
-  font-size: 1.2rem;
-  color: #eea200; /* Matches your menu color */
-  margin-bottom: 8px;
-  font-weight: 600;
+    color: #eea200;
+    margin-bottom: 5px;
+    font-size: 1.2rem;
 }
 
-#slide-desc {
-  font-size: 0.95rem;
-  font-style: italic;
-  line-height: 1.5;
-}
-
-/* =========================================
-   Navigation Buttons (< and >)
-   ========================================= */
+/* --- Navigation Buttons --- */
 .nav-btn {
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #eea200; /* Matches your menu color */
-  font-size: 4rem; /* Makes the arrows large */
-  padding: 10px;
-  transition: transform 0.2s, color 0.2s;
-  line-height: 1;
-  user-select: none;
-  outline: none;
+    background: transparent;
+    border: none;
+    color: #eea200;
+    font-size: 4rem;
+    cursor: pointer;
+    padding: 0 15px;
+    transition:
+        transform 0.2s ease,
+        color 0.2s;
+    line-height: 1;
+    outline: none;
 }
 
 .nav-btn:hover {
-  color: #333; /* Darken on hover */
-  transform: scale(1.2); /* Grow slightly on hover */
+    color: #333;
+    transform: scale(1.1);
 }
 
-.nav-btn:active {
-  transform: scale(0.95);
+/* --- Footer --- */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    margin-top: 50px;
+    font-size: 0.9rem;
+    color: #666;
 }
 
-/* =========================================
-   Mobile Responsiveness
-   ========================================= */
+/* --- Mobile Response --- */
 @media (max-width: 768px) {
-  #slideshow-wrapper {
-    flex-direction: column; /* Stack vertically on phones */
-  }
-
-  .nav-btn {
-    font-size: 3rem;
-    padding: 5px;
-    order: 2; /* Moves buttons below image on mobile if you prefer */
-  }
-
-  #slide-display {
-    order: 1;
-    width: 100%;
-  }
-
-  /* Optional: Put buttons side-by-side below image on mobile */
-  #slideshow-wrapper {
-    flex-wrap: wrap;
-  }
-}
-
-/* --- Main Container --- */
-#main-content {
-  max-width: 1200px;
-  margin: 40px auto;
-  text-align: center;
-  font-family: 'Raleway', sans-serif;
-}
-
-#gallery-title {
-  margin-bottom: 20px;
-  color: #333;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-}
-
-/* --- Flexbox Layout (Fixes the stacking issue) --- */
-#slideshow-wrapper {
-  display: flex; /* Aligns items in a row */
-  align-items: center; /* Vertically centers items */
-  justify-content: center; /* Centers the group */
-  gap: 20px; /* Space between arrows and image */
-  min-height: 500px; /* Keeps layout stable */
-}
-
-/* --- The Image Section --- */
-#slide-display {
-  flex: 1; /* Allows image area to grow */
-  max-width: 800px; /* Prevents it from getting too wide */
-  position: relative;
-}
-
-#current-image {
-  width: 100%; /* Responsive width */
-  height: auto;
-  max-height: 70vh; /* Limits height so no scrolling is needed */
-  object-fit: contain;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-  border-radius: 4px;
-  display: block; /* Removes bottom whitespace */
-}
-
-/* --- Caption Styling --- */
-#caption-box {
-  margin-top: 15px;
-  padding: 10px;
-}
-#slide-title {
-  color: #eea200;
-  margin-bottom: 5px;
-}
-
-/* --- Button Styling (Fixes the huge blue arrows) --- */
-.nav-btn {
-  background: none; /* Removes default button background */
-  border: none; /* Removes border */
-  font-size: 4rem; /* Size of the arrow symbol */
-  color: #eea200; /* Your theme color */
-  cursor: pointer;
-  padding: 0 15px;
-  transition: all 0.2s ease;
-  user-select: none;
-  line-height: 1; /* Fixes vertical alignment */
-}
-
-.nav-btn:hover {
-  color: #333; /* Dark color on hover */
-  transform: scale(1.1); /* Slight grow effect */
-}
-
-/* --- Mobile Adjustments --- */
-@media (max-width: 768px) {
-  #slideshow-wrapper {
-    flex-direction: column; /* Stack on mobile */
-  }
-  .nav-btn {
-    font-size: 3rem;
-    padding: 10px;
-    transform: rotate(90deg); /* Optional: rotate arrows for vertical scrolling */
-  }
-  /* Reset rotation if you prefer standard arrows on mobile */
-  .nav-btn {
-    transform: none;
-  }
+    #slideshow-wrapper {
+        flex-direction: column;
+    }
+    .link-3 {
+        display: block;
+        padding: 10px;
+        margin: 0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    }
+    .nav-btn {
+        font-size: 3rem;
+        padding: 10px;
+    }
 }
