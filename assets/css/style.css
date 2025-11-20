@@ -189,7 +189,7 @@ button {
   all: unset;
   border: none;
 }
-/*
+
 .menu-button {
   position: relative;
   padding: 0.5rem 1rem;
@@ -239,7 +239,7 @@ button {
   height: 0;
   width: 100%;
   background: var(--none);
-} */
+}
 
 .folder-selector {
   margin-right: 5em;
@@ -305,7 +305,7 @@ button {
   left: 50%;
   height: 100%;
   width: 0;
-  border: 1px solid var(--dark);
+  border: 1px solid var(--ink);
   border-left: 0;
   border-right: 0;
 }
