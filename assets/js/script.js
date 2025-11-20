@@ -1,120 +1,105 @@
-document.addEventListener("DOMContentLoaded", () => {
-<<<<<<< HEAD
-=======
-  alert("Hello World!");
->>>>>>> 0f360736c702805dc30449c895880fff44074f3d
-  // DOM Elements
-  const links = document.querySelectorAll(".link-3");
-  const wrapper = document.getElementById("slideshow-wrapper");
-  const galleryTitle = document.getElementById("gallery-title");
+document.addEventListener('DOMContentLoaded', () => {
+  // --- DOM Elements ---
+  const links = document.querySelectorAll('.link-3');
+  const wrapper = document.getElementById('slideshow-wrapper');
+  const galleryTitle = document.getElementById('gallery-title');
 
-  const imgElement = document.getElementById("current-image");
-  const titleElement = document.getElementById("slide-title");
-  const descElement = document.getElementById("slide-desc");
-  const nextBtn = document.getElementById("next-btn");
-  const prevBtn = document.getElementById("prev-btn");
+  const imgElement = document.getElementById('current-image');
+  const titleElement = document.getElementById('slide-title');
+  const descElement = document.getElementById('slide-desc');
+  const nextBtn = document.getElementById('next-btn');
+  const prevBtn = document.getElementById('prev-btn');
 
-  // Slideshow State
+  // --- Slideshow State ---
   let currentImages = [];
   let currentIndex = 0;
 
   // --- 1. Handle Menu Clicks ---
   links.forEach((link) => {
-    link.addEventListener("click", (e) => {
+    link.addEventListener('click', (e) => {
       e.preventDefault();
 
-      // Styling: Active State
-      links.forEach((l) => l.classList.remove("active"));
-      link.classList.add("active");
+      // Active styling
+      links.forEach((l) => l.classList.remove('active'));
+      link.classList.add('active');
 
-      // Get Data
-      const folderName = link.getAttribute("data_page");
-      const friendlyName = link.textContent;
+      // Get data attributes
+      const folderName = link.getAttribute('data_page');
+      const friendlyName = link.textContent.trim();
 
       loadImages(folderName, friendlyName);
     });
   });
 
-  // --- 2. Fetch Images from PHP ---
+  // --- 2. Fetch Images ---
   function loadImages(folder, name) {
-    // Reset UI
     galleryTitle.textContent = `Loading ${name}...`;
-    wrapper.style.display = "none"; // Hide until loaded
+    wrapper.style.display = 'none';
 
-    fetch(`get_images.php?folder=${folder}`)
+    fetch(`get_images.php?folder=${encodeURIComponent(folder)}`)
       .then((response) => response.json())
       .then((data) => {
         if (data.error) {
-          galleryTitle.textContent = "Error: " + data.error;
+          galleryTitle.textContent = 'Error: ' + data.error;
           return;
         }
 
-        if (data.length === 0) {
+        if (!Array.isArray(data) || data.length === 0) {
           galleryTitle.textContent = `No images found in ${name}.`;
           return;
         }
 
-        // Success: Initialize Slideshow
+        // Success: initialize slideshow
         currentImages = data;
         currentIndex = 0;
 
         galleryTitle.textContent = name;
-        wrapper.style.display = "flex"; // Show grid
+        wrapper.style.display = 'flex';
 
         displaySlide(currentIndex);
       })
       .catch((err) => {
-        console.error(err);
-        galleryTitle.textContent = "Error loading gallery.";
+        console.error('Gallery load error:', err);
+        galleryTitle.textContent = 'Error loading gallery.';
       });
   }
 
   // --- 3. Display Logic ---
   function displaySlide(index) {
     const slide = currentImages[index];
+    if (!slide) return;
 
-    // Simple fade out
+    // Fade out
     imgElement.style.opacity = 0.5;
 
     setTimeout(() => {
       imgElement.src = slide.path;
-      titleElement.textContent = slide.title;
-      descElement.textContent = slide.description;
+      titleElement.textContent = slide.title || '';
+      descElement.textContent = slide.description || '';
 
       // Fade in
       imgElement.style.opacity = 1;
     }, 150);
   }
 
-  // --- 4. Button Listeners ---
-  if (nextBtn && prevBtn) {
-    nextBtn.addEventListener("click", () => {
-      currentIndex++;
-      if (currentIndex >= currentImages.length) {
-        currentIndex = 0;
-      }
-      displaySlide(currentIndex);
-    });
-
-    prevBtn.addEventListener("click", () => {
-      currentIndex--;
-      if (currentIndex < 0) {
-        currentIndex = currentImages.length - 1;
-      }
+  // --- 4. Navigation Buttons ---
+  if (nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex + 1) % currentImages.length;
       displaySlide(currentIndex);
     });
   }
-<<<<<<< HEAD
 
-  // ... (existing code for buttons and click listeners) ...
+  if (prevBtn) {
+    prevBtn.addEventListener('click', () => {
+      currentIndex = (currentIndex - 1 + currentImages.length) % currentImages.length;
+      displaySlide(currentIndex);
+    });
+  }
 
-  // --- 5. Auto-load first gallery on page load ---
-  // This finds the first link with class "link-3" and simulates a click on it
-  const firstLink = document.querySelector(".link-3");
+  // --- 5. Auto-load First Gallery ---
+  const firstLink = document.querySelector('.link-3');
   if (firstLink) {
-    // Simulate a click to load the data and set the active class
     firstLink.click();
   }
-=======
->>>>>>> 0f360736c702805dc30449c895880fff44074f3d
 });
