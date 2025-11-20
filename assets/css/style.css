@@ -140,7 +140,7 @@ nav {
   background: var(--none);
   border: none;
   color: #eea200;
-  font-size: 40rem;
+  font-size: 4rem;
   cursor: pointer;
   padding: 0 15px;
   transition: transform 0.2s ease, color 0.2s;
@@ -178,7 +178,7 @@ footer {
     /* border-bottom: 1px solid rgba(255, 255, 255, 0.2); */
   }
   .nav-btn {
-    font-size: 3rem;
+    font-size: 30rem;
     padding: 10px;
   }
 }
