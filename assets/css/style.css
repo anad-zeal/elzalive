@@ -67,7 +67,7 @@ nav {
   /* box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); */
 }
 
-.link-3 {
+.menu-button {
   display: inline-block;
   transition: 0.3s;
   color: var(--ink-muted);
@@ -78,8 +78,8 @@ nav {
   text-transform: uppercase;
   font-weight: 600;
 }
-.link-3:hover,
-.link-3.active {
+.menu-button:hover,
+.menu-button.active {
   background-color: var(--soft);
   color: var(--ink);
 }
@@ -156,7 +156,7 @@ footer {
   #slideshow-wrapper {
     flex-direction: column;
   }
-  .link-3 {
+  .menu-button {
     display: block;
     padding: 10px;
     margin: 0;
