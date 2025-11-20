@@ -64,13 +64,13 @@ body {
 =================================== */
 nav {
   text-align: center;
-  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+  /* box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); */
 }
 
 .link-3 {
   display: inline-block;
   transition: 0.3s;
-  color: var(--ink);
+  color: var(--ink-muted);
   font-size: 18px;
   text-decoration: none;
   padding: 15px 15px;
@@ -80,8 +80,8 @@ nav {
 }
 .link-3:hover,
 .link-3.active {
-  background-color: var(--light);
-  color: #000;
+  background-color: var(--soft);
+  color: var(--ink);
 }
 
 /* ================================
@@ -136,21 +136,6 @@ nav {
 /* ================================
    Navigation Buttons
 =================================== */
-.nav-btn {
-  background: var(--none);
-  border: none;
-  color: #eea200;
-  font-size: 4rem;
-  cursor: pointer;
-  padding: 0 15px;
-  transition: transform 0.2s ease, color 0.2s;
-  line-height: 1;
-  outline: none;
-}
-.nav-btn:hover {
-  color: #333;
-  transform: scale(1.1);
-}
 
 /* ================================
    Footer
@@ -176,10 +161,6 @@ footer {
     padding: 10px;
     margin: 0;
     /* border-bottom: 1px solid rgba(255, 255, 255, 0.2); */
-  }
-  .nav-btn {
-    font-size: 30rem;
-    padding: 10px;
   }
 }
 
