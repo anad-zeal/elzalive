@@ -2,6 +2,8 @@ document.addEventListener('DOMContentLoaded', () => {
   // --- DOM Elements ---
   const links = document.querySelectorAll('.menu-button');
   const wrapper = document.getElementById('slideshow-wrapper');
+
+  // SAFE GUARD: We try to find the title, but we won't crash if it's missing
   const galleryTitle = document.getElementById('gallery-title');
 
   const imgElement = document.getElementById('current-image');
@@ -13,25 +15,23 @@ document.addEventListener('DOMContentLoaded', () => {
   // Ensure the parent of the image is relative so we can stack images for the cross-fade
   if (imgElement && imgElement.parentNode) {
     imgElement.parentNode.style.position = 'relative';
-    imgElement.parentNode.style.overflow = 'hidden'; // optional, keeps things tidy
+    imgElement.parentNode.style.overflow = 'hidden';
   }
 
   // --- Slideshow State ---
   let currentImages = [];
   let currentIndex = 0;
-  let isAnimating = false; // Prevents button spamming
+  let isAnimating = false;
 
   // --- 1. Handle Menu Clicks ---
   links.forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
 
-      // Prevent clicking if a transition is active
       if (isAnimating) return;
 
-      // Active styling
       links.forEach((l) => l.classList.remove('active'));
-      link.classList.add('active'); // Uncommented this for visual feedback
+      // link.classList.add('active');
 
       const folderName = link.getAttribute('data-page');
       const friendlyName = link.textContent.trim();
@@ -42,22 +42,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- 2. Fetch Images ---
   function loadImages(folder, name) {
-    galleryTitle.textContent = `Loading ${name}...`;
-    // Fade wrapper out slightly while loading new gallery, or keep it simpler:
-    wrapper.style.opacity = '0.5';
+    // SAFETY CHECK: Only update text if the element actually exists
+    if (galleryTitle) {
+      galleryTitle.textContent = `Loading ${name}...`;
+    }
+
+    if (wrapper) wrapper.style.opacity = '0.5';
 
     fetch(`get_images.php?folder=${encodeURIComponent(folder)}`)
       .then((response) => response.json())
       .then((data) => {
-        wrapper.style.opacity = '1';
+        if (wrapper) wrapper.style.opacity = '1';
 
         if (data.error) {
-          galleryTitle.textContent = 'Error: ' + data.error;
+          if (galleryTitle) galleryTitle.textContent = 'Error: ' + data.error;
           return;
         }
 
         if (!Array.isArray(data) || data.length === 0) {
-          galleryTitle.textContent = `No images found in ${name}.`;
+          if (galleryTitle) galleryTitle.textContent = `No images found in ${name}.`;
           return;
         }
 
@@ -65,28 +68,30 @@ document.addEventListener('DOMContentLoaded', () => {
         currentImages = data;
         currentIndex = 0;
 
-        galleryTitle.textContent = name;
-        wrapper.style.display = 'flex';
+        if (galleryTitle) galleryTitle.textContent = name;
+        if (wrapper) wrapper.style.display = 'flex';
 
-        // Force immediate display for first image (no cross-fade needed)
+        // Force immediate display for first image
         const firstSlide = currentImages[0];
-        imgElement.src = firstSlide.path;
-        titleElement.textContent = firstSlide.title || '';
-        descElement.textContent = firstSlide.description || '';
+        if (imgElement) {
+          imgElement.src = firstSlide.path;
+        }
+        if (titleElement) titleElement.textContent = firstSlide.title || '';
+        if (descElement) descElement.textContent = firstSlide.description || '';
       })
       .catch((err) => {
         console.error('Gallery load error:', err);
-        galleryTitle.textContent = 'Error loading gallery.';
-        wrapper.style.opacity = '1';
+        if (galleryTitle) galleryTitle.textContent = 'Error loading gallery.';
+        if (wrapper) wrapper.style.opacity = '1';
       });
   }
 
   // --- 3. Cross-Fade Display Logic ---
   function displaySlide(index) {
     const slide = currentImages[index];
-    if (!slide || isAnimating) return;
+    if (!slide || isAnimating || !imgElement) return;
 
-    isAnimating = true; // Lock animations
+    isAnimating = true;
 
     // 1. Create a temporary "Overlay" image
     const overlayImg = document.createElement('img');
@@ -98,39 +103,28 @@ document.addEventListener('DOMContentLoaded', () => {
     overlayImg.style.left = '0';
     overlayImg.style.width = '100%';
     overlayImg.style.height = '100%';
-    overlayImg.style.objectFit = 'contain'; // Ensure it matches your CSS
+    overlayImg.style.objectFit = 'contain';
     overlayImg.style.opacity = '0';
-    overlayImg.style.transition = 'opacity 0.5s ease-in-out'; // The dissolve speed
+    overlayImg.style.transition = 'opacity 0.5s ease-in-out';
     overlayImg.style.zIndex = '10';
 
-    // 2. Append to the container
     imgElement.parentNode.appendChild(overlayImg);
 
     // 3. Wait for the image to actually load before fading
     overlayImg.onload = () => {
-      // Trigger reflow to ensure transition happens
-      overlayImg.getBoundingClientRect();
-
-      // Start Fade In
+      overlayImg.getBoundingClientRect(); // Trigger reflow
       overlayImg.style.opacity = '1';
 
-      // 4. Update text immediately or halfway through (optional)
-      titleElement.textContent = slide.title || '';
-      descElement.textContent = slide.description || '';
+      if (titleElement) titleElement.textContent = slide.title || '';
+      if (descElement) descElement.textContent = slide.description || '';
 
-      // 5. Cleanup after transition
       setTimeout(() => {
-        // Swap the "real" image source
         imgElement.src = slide.path;
-
-        // Remove the overlay
         overlayImg.remove();
-
-        isAnimating = false; // Unlock
-      }, 550); // Slightly longer than the CSS transition (0.5s)
+        isAnimating = false;
+      }, 550);
     };
 
-    // Fallback: If image fails to load, unlock interface
     overlayImg.onerror = () => {
       console.error('Failed to load image for transition');
       overlayImg.remove();
