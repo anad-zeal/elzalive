@@ -1,5 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+<<<<<<< HEAD
+=======
   alert("Hello World!");
+>>>>>>> 0f360736c702805dc30449c895880fff44074f3d
   // DOM Elements
   const links = document.querySelectorAll(".link-3");
   const wrapper = document.getElementById("slideshow-wrapper");
@@ -101,4 +104,17 @@ document.addEventListener("DOMContentLoaded", () => {
       displaySlide(currentIndex);
     });
   }
+<<<<<<< HEAD
+
+  // ... (existing code for buttons and click listeners) ...
+
+  // --- 5. Auto-load first gallery on page load ---
+  // This finds the first link with class "link-3" and simulates a click on it
+  const firstLink = document.querySelector(".link-3");
+  if (firstLink) {
+    // Simulate a click to load the data and set the active class
+    firstLink.click();
+  }
+=======
+>>>>>>> 0f360736c702805dc30449c895880fff44074f3d
 });

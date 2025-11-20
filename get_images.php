@@ -1,4 +1,5 @@
 <?php
+
 header("Content-Type: application/json");
 
 // 1. Get the folder name from the AJAX request
@@ -58,4 +59,3 @@ if ($files) {
 }
 
 echo json_encode($imageData);
-?>
