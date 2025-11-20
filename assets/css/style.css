@@ -10,6 +10,7 @@
   --soft: hsl(0 0% 96%);
   --brand: rgb(122, 1, 1);
   --focus-ring: hsl(0, 2%, 55%);
+  --none: transparent;
 
   /* Typography */
   --font-body: 'Montserrat', sans-serif;
@@ -174,7 +175,7 @@ footer {
     display: block;
     padding: 10px;
     margin: 0;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /* border-bottom: 1px solid rgba(255, 255, 255, 0.2); */
   }
   .nav-btn {
     font-size: 3rem;
