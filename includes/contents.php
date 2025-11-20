@@ -7,7 +7,9 @@
     <div id="slideshow-wrapper" style="display:none;">
 
         <!-- PREVIOUS BUTTON -->
-        <button id="prev-btn" class="nav-btn">&#10094;</button>
+        <button id="prev-button" class="nav-button">
+            <img src="assets/images/misc-images/prev.png" alt="Previous" />
+        </button>
 
         <!-- IMAGE AREA -->
         <div id="slide-display">
@@ -19,7 +21,9 @@
         </div>
 
         <!-- NEXT BUTTON -->
-        <button id="next-btn" class="nav-btn">&#10095;</button>
+        <button id="next-button" class="nav-button"">
+          <img src=" assets/images/misc-images/next.png" alt="Next" />
+        </button>
 
     </div>
 </main>
