@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 :root {
     --dark: #950000;
     --shadow_red: rgba(100, 0, 0, 0.1);
@@ -6,6 +7,8 @@
     --none: transparent;
     --transition-speed: 0.5s;
 }
+=======
+>>>>>>> 0f360736c702805dc30449c895880fff44074f3d
 /* --- General Reset & Fonts --- */
 body {
     margin: 0;
@@ -33,8 +36,13 @@ body {
 /* --- Menu --- */
 nav {
     text-align: center;
+<<<<<<< HEAD
     /*box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);*/
     /*background: #eea200;*/
+=======
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
+    background: #eea200;
+>>>>>>> 0f360736c702805dc30449c895880fff44074f3d
 }
 
 .link-3 {
@@ -151,6 +159,7 @@ footer {
         font-size: 3rem;
         padding: 10px;
     }
+<<<<<<< HEAD
 }
 
 :root {
@@ -525,4 +534,6 @@ button {
 .menu-button:hover:after {
     top: 0;
     height: 100%;
+=======
+>>>>>>> 0f360736c702805dc30449c895880fff44074f3d
 }
