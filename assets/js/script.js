@@ -7,8 +7,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const imgElement = document.getElementById('current-image');
   const titleElement = document.getElementById('slide-title');
   const descElement = document.getElementById('slide-desc');
-  const nextBtn = document.getElementById('next-btn');
-  const prevBtn = document.getElementById('prev-btn');
+  const nextBtn = document.getElementById('next-button');
+  const prevBtn = document.getElementById('prev-button');
 
   // --- Slideshow State ---
   let currentImages = [];
