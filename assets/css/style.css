@@ -140,7 +140,7 @@ nav {
   background: var(--none);
   border: none;
   color: #eea200;
-  font-size: 4rem;
+  font-size: 40rem;
   cursor: pointer;
   padding: 0 15px;
   transition: transform 0.2s ease, color 0.2s;
