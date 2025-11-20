@@ -64,13 +64,12 @@ body {
 nav {
   text-align: center;
   box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2);
-  background: #eea200;
 }
 
 .link-3 {
   display: inline-block;
   transition: 0.3s;
-  color: var(--light);
+  color: var(--ink);
   font-size: 18px;
   text-decoration: none;
   padding: 15px 15px;
@@ -81,7 +80,7 @@ nav {
 .link-3:hover,
 .link-3.active {
   background-color: var(--light);
-  color: #eea200;
+  color: #000;
 }
 
 /* ================================
