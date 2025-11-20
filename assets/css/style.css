@@ -185,7 +185,7 @@ footer {
 /* ================================
    Gallery Menu & Buttons
 /* =================================== */
-/*button {
+button {
   all: unset;
   border: none;
 }
@@ -239,7 +239,7 @@ footer {
   height: 0;
   width: 100%;
   background: var(--none);
-} */
+}
 
 
 .folder-selector{
@@ -270,7 +270,7 @@ footer {
 	position: relative;
 	left: -7em;
 }
-
+/*
 button {
     all: unset;
     border:none;
@@ -340,7 +340,7 @@ button {
 .btn:hover:after {
 	top: 0;
 	height: 100%;
-}
+} */
 
 /* ================================
    Gallery Container & Slides
