@@ -13,7 +13,9 @@
 
         <!-- IMAGE AREA -->
         <div id="slide-display">
-            <img id="current-image" src="" alt="Gallery Image">
+            <div id="image-stage">
+                <img id="current-image" src="" alt="Gallery Image">
+            </div>
             <div id="caption-box">
                 <h3 id="slide-title"></h3>
                 <p id="slide-desc"></p>

@@ -3,20 +3,17 @@ document.addEventListener('DOMContentLoaded', () => {
   const links = document.querySelectorAll('.menu-button');
   const wrapper = document.getElementById('slideshow-wrapper');
 
-  // SAFE GUARD: We try to find the title, but we won't crash if it's missing
-  const galleryTitle = document.getElementById('gallery-title');
+  // The container for our stacking images
+  const imageStage = document.getElementById('image-stage');
 
-  const imgElement = document.getElementById('current-image');
+  // We treat the first image we find as the "current" one
+  let currentImgElement = document.getElementById('current-image');
+
+  const galleryTitle = document.getElementById('gallery-title');
   const titleElement = document.getElementById('slide-title');
   const descElement = document.getElementById('slide-desc');
   const nextBtn = document.getElementById('next-button');
   const prevBtn = document.getElementById('prev-button');
-
-  // Ensure the parent of the image is relative so we can stack images for the cross-fade
-  if (imgElement && imgElement.parentNode) {
-    imgElement.parentNode.style.position = 'relative';
-    imgElement.parentNode.style.overflow = 'hidden';
-  }
 
   // --- Slideshow State ---
   let currentImages = [];
@@ -27,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
   links.forEach((link) => {
     link.addEventListener('click', (e) => {
       e.preventDefault();
-
       if (isAnimating) return;
 
       links.forEach((l) => l.classList.remove('active'));
@@ -35,18 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const folderName = link.getAttribute('data-page');
       const friendlyName = link.textContent.trim();
-
       loadImages(folderName, friendlyName);
     });
   });
 
   // --- 2. Fetch Images ---
   function loadImages(folder, name) {
-    // SAFETY CHECK: Only update text if the element actually exists
-    if (galleryTitle) {
-      galleryTitle.textContent = `Loading ${name}...`;
-    }
-
+    if (galleryTitle) galleryTitle.textContent = `Loading ${name}...`;
     if (wrapper) wrapper.style.opacity = '0.5';
 
     fetch(`get_images.php?folder=${encodeURIComponent(folder)}`)
@@ -54,85 +45,84 @@ document.addEventListener('DOMContentLoaded', () => {
       .then((data) => {
         if (wrapper) wrapper.style.opacity = '1';
 
-        if (data.error) {
-          if (galleryTitle) galleryTitle.textContent = 'Error: ' + data.error;
+        if (data.error || !Array.isArray(data) || data.length === 0) {
+          if (galleryTitle) galleryTitle.textContent = data.error || `No images in ${name}.`;
           return;
         }
 
-        if (!Array.isArray(data) || data.length === 0) {
-          if (galleryTitle) galleryTitle.textContent = `No images found in ${name}.`;
-          return;
-        }
-
-        // Success: initialize slideshow
+        // Success
         currentImages = data;
         currentIndex = 0;
-
         if (galleryTitle) galleryTitle.textContent = name;
         if (wrapper) wrapper.style.display = 'flex';
 
-        // Force immediate display for first image
-        const firstSlide = currentImages[0];
-        if (imgElement) {
-          imgElement.src = firstSlide.path;
-        }
-        if (titleElement) titleElement.textContent = firstSlide.title || '';
-        if (descElement) descElement.textContent = firstSlide.description || '';
+        // Force immediate display for first image (no animation needed)
+        displaySlide(0, false);
       })
       .catch((err) => {
-        console.error('Gallery load error:', err);
+        console.error(err);
         if (galleryTitle) galleryTitle.textContent = 'Error loading gallery.';
         if (wrapper) wrapper.style.opacity = '1';
       });
   }
 
-  // --- 3. Cross-Fade Display Logic ---
-  function displaySlide(index) {
+  // --- 3. Smooth Cross-Fade Logic ---
+  function displaySlide(index, animate = true) {
     const slide = currentImages[index];
-    if (!slide || isAnimating || !imgElement) return;
+    if (!slide || !imageStage) return;
 
+    // Update Text Info Immediately
+    if (titleElement) titleElement.textContent = slide.title || '';
+    if (descElement) descElement.textContent = slide.description || '';
+
+    // If simply loading the first image, just set it and exit
+    if (!animate) {
+      if (currentImgElement) currentImgElement.src = slide.path;
+      return;
+    }
+
+    // LOCK animations to prevent button mashing
     isAnimating = true;
 
-    // 1. Create a temporary "Overlay" image
-    const overlayImg = document.createElement('img');
-    overlayImg.src = slide.path;
+    // 1. Create New Image
+    const nextImg = document.createElement('img');
+    nextImg.src = slide.path;
+    nextImg.style.opacity = '0'; // Start invisible
+    nextImg.classList.add('fading-in');
 
-    // Style it to sit exactly on top of the current image
-    overlayImg.style.position = 'absolute';
-    overlayImg.style.top = '0';
-    overlayImg.style.left = '0';
-    overlayImg.style.width = '100%';
-    overlayImg.style.height = '100%';
-    overlayImg.style.objectFit = 'contain';
-    overlayImg.style.opacity = '0';
-    overlayImg.style.transition = 'opacity 0.5s ease-in-out';
-    overlayImg.style.zIndex = '10';
+    // 2. Append to Grid Stage
+    imageStage.appendChild(nextImg);
 
-    imgElement.parentNode.appendChild(overlayImg);
+    // 3. Wait for browser to register the new element (Pre-fade logic)
+    requestAnimationFrame(() => {
+      // Force browser to calculate layout
+      nextImg.getBoundingClientRect();
 
-    // 3. Wait for the image to actually load before fading
-    overlayImg.onload = () => {
-      overlayImg.getBoundingClientRect(); // Trigger reflow
-      overlayImg.style.opacity = '1';
+      // Start Fade In
+      nextImg.style.opacity = '1';
 
-      if (titleElement) titleElement.textContent = slide.title || '';
-      if (descElement) descElement.textContent = slide.description || '';
+      // Fade Out Old Image (if it exists)
+      if (currentImgElement) {
+        currentImgElement.classList.add('fading-out');
+      }
+    });
 
-      setTimeout(() => {
-        imgElement.src = slide.path;
-        overlayImg.remove();
-        isAnimating = false;
-      }, 550);
-    };
+    // 4. Clean up after CSS transition (0.6s)
+    setTimeout(() => {
+      // Remove the old image from DOM entirely
+      if (currentImgElement && currentImgElement.parentNode) {
+        currentImgElement.remove();
+      }
 
-    overlayImg.onerror = () => {
-      console.error('Failed to load image for transition');
-      overlayImg.remove();
-      isAnimating = false;
-    };
+      // The "Next" image now becomes the "Current" image
+      currentImgElement = nextImg;
+      currentImgElement.classList.remove('fading-in'); // Reset class
+
+      isAnimating = false; // Unlock
+    }, 650); // Wait slightly longer than CSS transition (600ms)
   }
 
-  // --- 4. Navigation Buttons ---
+  // --- 4. Navigation ---
   if (nextBtn) {
     nextBtn.addEventListener('click', () => {
       if (isAnimating) return;
@@ -149,9 +139,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // --- 5. Auto-load First Gallery ---
+  // Auto-load first gallery
   const firstLink = document.querySelector('.menu-button');
-  if (firstLink) {
-    firstLink.click();
-  }
+  if (firstLink) firstLink.click();
 });
