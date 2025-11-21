@@ -329,3 +329,45 @@ button {
   bottom: 5em;
   font-family: system-ui, sans-serif;
 }
+
+/* The Stage: A fixed box that holds the images */
+#image-stage {
+  display: grid;
+  grid-template-areas: 'stack';
+  /* Centers the image inside the box */
+  align-items: center;
+  justify-items: center;
+
+  position: relative;
+  overflow: hidden;
+
+  /* FIX 1: Reserve a fixed height so the page never "jumps" or collapses */
+  height: 80vh;
+  /* FIX 2: Allow it to be wide, but keep it flexible */
+  width: 100%;
+}
+
+/* The Images: Constrained to fit INSIDE the stage */
+#image-stage img {
+  grid-area: stack;
+
+  /* FIX 3: The Magic Combination for perfect fitting */
+  max-width: 100%;
+  max-height: 100%;
+  width: auto; /* Lets the image determine its own width */
+  height: auto; /* Lets the image determine its own height */
+
+  object-fit: contain;
+  transition: opacity 0.6s ease-in-out;
+  backface-visibility: hidden;
+}
+
+/* Utility classes for the cross-fade */
+.fading-out {
+  opacity: 0 !important;
+  z-index: 1;
+}
+
+.fading-in {
+  z-index: 2;
+}
