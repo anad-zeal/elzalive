@@ -21,10 +21,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Active styling
       links.forEach((l) => l.classList.remove('active'));
-      link.classList.add('active');
+      // link.classList.add('active');
 
       // Get data attributes
-      const folderName = link.getAttribute('data_page');
+      const folderName = link.getAttribute('data-page');
       const friendlyName = link.textContent.trim();
 
       loadImages(folderName, friendlyName);
