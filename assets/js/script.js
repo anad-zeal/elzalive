@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
   // --- DOM Elements ---
-  const links = document.querySelectorAll('.link-3');
+  const links = document.querySelectorAll('.menu-button');
   const wrapper = document.getElementById('slideshow-wrapper');
   const galleryTitle = document.getElementById('gallery-title');
 
@@ -98,7 +98,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- 5. Auto-load First Gallery ---
-  const firstLink = document.querySelector('.link-3');
+  const firstLink = document.querySelector('.menu-button');
   if (firstLink) {
     firstLink.click();
   }
