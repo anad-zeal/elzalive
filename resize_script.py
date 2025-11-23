@@ -5,7 +5,7 @@ import os
 
 # 1. The specific folder you want to process right now
 #    (Relative to where this script is located)
-target_folder = 'assets/images/encaustic'
+target_folder = 'assets/images/encaustic-paintings'
 
 # 2. The new dimensions
 target_width = 800
