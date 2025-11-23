@@ -5,7 +5,6 @@
  */
 
 function initSlideshow() {
-  alert("Hello World");
   // --- 1. Find the necessary HTML elements on the page ---
   const slideshow = document.querySelector(".slideshow");
   const caption = document.getElementById("caption-text");
