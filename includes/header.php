@@ -1,3 +1,42 @@
+<?php
+// Page metadata setup
+$page_title = $page_title ?? "Home";
+$active_page = $active_page ?? "home";
+$site_name = "AEPaints";
+$full_page_title = $page_title . " | " . $site_name;
+
+// Canonical URL builder
+$host = $_SERVER["HTTP_HOST"] ?? "elzalive.com";
+$https =
+    (!empty($_SERVER["HTTPS"]) && $_SERVER["HTTPS"] !== "off") ||
+    (isset($_SERVER["SERVER_PORT"]) && $_SERVER["SERVER_PORT"] == 443);
+$scheme = $https ? "https" : "http";
+$canonicalPath = "/" . ltrim($active_page, "/");
+$canonicalUrl = sprintf("%s://%s%s", $scheme, $host, $canonicalPath);
+
+// Helper for nav items ???
+function nav_item(string $slug, string $label, string $href): string
+{
+    global $active_page;
+    $isActive = $active_page === $slug;
+    $classes = "landing-mnu" . ($isActive ? " is-active" : "");
+    $aria = $isActive ? ' aria-current="page"' : "";
+    $data_page =
+        ' data-page="' . htmlspecialchars($slug, ENT_QUOTES, "UTF-8") . '"';
+
+    return sprintf(
+        '<a href="%s" class="%s"%s%s>%s</a>',
+        htmlspecialchars($href, ENT_QUOTES, "UTF-8"),
+        trim($classes),
+        $aria,
+        $data_page,
+        htmlspecialchars($label, ENT_QUOTES, "UTF-8"),
+    );
+}
+
+// Optional dynamic center title
+$life_title = "<h2 class='sub-title fade-title'>The Life sof an Artist</h2>";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
