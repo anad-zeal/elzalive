@@ -103,6 +103,7 @@ main#dynamic-page-wrapper {
     font-family: var(--font-script);
     font-size: 3.5em;
     font-weight: 500;
+    color: var(--brand);
 }
 
 .hero .page-title {
