@@ -77,7 +77,7 @@ function initSlideshow() {
       caption.textContent = slides[0].caption || "";
       description.textContent = slides[0].description || "";
     }, 50);
-    setTimeout(startAutoPlay, 2000);
+    setTimeout(startAutoPlay, 4000);
   }
 
   function showSlide(index) {
