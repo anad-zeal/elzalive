@@ -78,11 +78,13 @@ body.slideshow-active #dynamic-page-wrapper {
 }
 .logo p {
     font-family: var(--font-script);
-    font-size: 3rem;
+    font-size: 3.25rem;
+    color:var(--brand);
 }
 .category p {
     font-family: var(--font-display);
-    font-size: 2rem;
+    font-size: 1.75rem;
+    color:var(--brand);
 }
 
 /* --- Middle Left & Right Arrows --- */
