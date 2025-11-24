@@ -2,7 +2,7 @@
   {
     "id": "proj-1",
     "title": "0800",
-    "src": "https://elzalive.com/assets/images/project-series-paintings/0800.jpg",
+    "src": "assets/images/project-series-paintings/0800.jpg",
     "caption": "0800",
     "description": "Description for 0800",
     "medium": "Medium TBD",
@@ -11,7 +11,7 @@
   {
     "id": "proj-2",
     "title": "Calliope",
-    "src": "https://elzalive.com/assets/images/project-series-paintings/calliope.jpg",
+    "src": "assets/images/project-series-paintings/calliope.jpg",
     "caption": "Calliope",
     "description": "Description for Calliope",
     "medium": "Medium TBD",
@@ -20,7 +20,7 @@
   {
     "id": "proj-3",
     "title": "Magic Flute",
-    "src": "https://elzalive.com/assets/images/project-series-paintings/magic-flute.jpg",
+    "src": "assets/images/project-series-paintings/magic-flute.jpg",
     "caption": "Magic Flute",
     "description": "Description for Magic Flute",
     "medium": "Medium TBD",
@@ -29,7 +29,7 @@
   {
     "id": "proj-4",
     "title": "Morphean",
-    "src": "https://elzalive.com/assets/images/project-series-paintings/morphean.jpg",
+    "src": "assets/images/project-series-paintings/morphean.jpg",
     "caption": "Morphean",
     "description": "Description for Morphean",
     "medium": "Medium TBD",
@@ -38,7 +38,7 @@
   {
     "id": "proj-5",
     "title": "Radish",
-    "src": "https://elzalive.com/assets/images/project-series-paintings/radish.jpg",
+    "src": "assets/images/project-series-paintings/radish.jpg",
     "caption": "Radish",
     "description": "Description for Radish",
     "medium": "Medium TBD",
@@ -47,7 +47,7 @@
   {
     "id": "proj-6",
     "title": "Tui",
-    "src": "https://elzalive.com/assets/images/project-series-paintings/tui.jpg",
+    "src": "assets/images/project-series-paintings/tui.jpg",
     "caption": "Tui",
     "description": "Description for Tui",
     "medium": "Medium TBD",
