@@ -3,41 +3,41 @@
    ========================================================================== */
 
 :root {
-    /* Colors */
-    --ink: hsl(0 0% 10%);
-    --ink-muted: hsl(0 0% 45%);
-    --paper: hsl(36, 21%, 65%);
-    --soft: hsl(0 0% 96%);
-    --brand: rgb(122, 1, 1);
-    --focus-ring: hsl(0, 2%, 55%);
+  /* Colors */
+  --ink: hsl(0 0% 10%);
+  --ink-muted: hsl(0 0% 45%);
+  --paper: hsl(36, 21%, 65%);
+  --soft: hsl(0 0% 96%);
+  --brand: rgb(122, 1, 1);
+  --focus-ring: hsl(0, 2%, 55%);
 
-    /* Typography */
-    --font-body: "Montserrat", sans-serif;
-    --font-ui: "Inter", sans-serif;
-    --font-display: "Montserrat", sans-serif;
-    --font-title: "Montserrat", sans-serif;
-    --font-script: "Bonheur Royale", cursive;
+  /* Typography */
+  --font-body: 'Montserrat', sans-serif;
+  --font-ui: 'Inter', sans-serif;
+  --font-display: 'Montserrat', sans-serif;
+  --font-title: 'Montserrat', sans-serif;
+  --font-script: 'Bonheur Royale', cursive;
 
-    /* Layout */
-    --gap: clamp(0.75rem, 2vw, 1.25rem);
-    --narrow-max: 90ch;
+  /* Layout */
+  --gap: clamp(0.75rem, 2vw, 1.25rem);
+  --narrow-max: 90ch;
 
-    /* Motion */
-    --speed: 280ms;
-    --easing: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* Motion */
+  --speed: 280ms;
+  --easing: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 html,
 body {
-    height: 100%;
+  height: 100%;
 }
 
 /* ============================================= */
@@ -45,17 +45,18 @@ body {
 /* ============================================= */
 
 body {
-    display: grid;
-    grid-template-rows: auto auto 1fr auto;
-    height: 100vh;
-    font-family: var(--font-body);
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  height: 100vh;
+  font-family: var(--font-body);
+  background-color: var(--paper);
 }
 
 main#dynamic-page-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    padding-top: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 2rem;
 }
 
 /* ============================================= */
@@ -64,54 +65,52 @@ main#dynamic-page-wrapper {
 
 .site-header,
 .site-footer {
-    padding: 1rem 0 0 0;
-    text-align: center;
+  padding: 1rem 0 0 0;
+  text-align: center;
 }
 
 .main-nav-menu {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    padding: 0;
-    margin-top: 1vh;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 0;
+  margin-top: 1vh;
 }
 
 .main-nav-menu a {
-    text-decoration: none;
-    font-family: var(--font-body);
-    font-weight: 500;
-    color: var(--ink);
-    padding-bottom: 5px;
-    border-bottom: 2px solid transparent;
-    transition:
-        color 0.3s,
-        border-color 0.3s;
+  text-decoration: none;
+  font-family: var(--font-body);
+  font-weight: 500;
+  color: var(--ink);
+  padding-bottom: 5px;
+  border-bottom: 2px solid transparent;
+  transition: color 0.3s, border-color 0.3s;
 }
 
 .main-nav-menu a:hover,
 .main-nav-menu a.is-active {
-    color: var(--brand);
+  color: var(--brand);
 }
 
 .hero {
-    text-align: center;
-    padding: 0;
+  text-align: center;
+  padding: 0;
 }
 
 .hero .sub-title {
-    margin-top: 2rem;
-    font-family: var(--font-script);
-    font-size: 3.5em;
-    font-weight: 500;
-    color: var(--brand);
+  margin-top: 2rem;
+  font-family: var(--font-script);
+  font-size: 3.5em;
+  font-weight: 500;
+  color: var(--brand);
 }
 
 .hero .page-title {
-    font-family: var(--font-title);
-    font-size: 1.25em;
-    margin-top: 0.5rem;
-    color: #666;
-    display: none;
+  font-family: var(--font-title);
+  font-size: 1.25em;
+  margin-top: 0.5rem;
+  color: #666;
+  display: none;
 }
 
 /* ============================================= */
@@ -119,47 +118,45 @@ main#dynamic-page-wrapper {
 /* ============================================= */
 
 .card-grid {
-    width: 780px; /* Set fixed width */
-    height: 789px; /* Set fixed height */
-    gap: 5px; /* Set specific gap */
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    /* The grid will automatically handle the rows */
+  width: 780px; /* Set fixed width */
+  height: 789px; /* Set fixed height */
+  gap: 5px; /* Set specific gap */
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* The grid will automatically handle the rows */
 }
 
 .card-grid .card {
-    aspect-ratio: 1 / 1; /* This is the key change to force a square shape */
-    flex-direction: column; /* Stacks the link and paragraph vertically */
-    justify-content: flex-start; /* Vertically centers the content inside the card */
-    display: flex;
-    background-color: #ffffff;
-    border-radius: 8px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-    transition:
-        transform 0.3s ease,
-        box-shadow 0.3s ease;
-    padding: 0 1.5rem;
+  aspect-ratio: 1 / 1; /* This is the key change to force a square shape */
+  flex-direction: column; /* Stacks the link and paragraph vertically */
+  justify-content: flex-start; /* Vertically centers the content inside the card */
+  display: flex;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  padding: 0 1.5rem;
 }
 
 .card-grid .card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 .card-grid .page-link {
-    font-family: var(--font-title);
-    font-size: 1.5em;
-    font-weight: 500;
-    color: var(--brand);
-    text-decoration: none;
-    margin-bottom: 0.5rem;
-    display: block;
-    padding-top: 6rem;
+  font-family: var(--font-title);
+  font-size: 1.5em;
+  font-weight: 500;
+  color: var(--brand);
+  text-decoration: none;
+  margin-bottom: 0.5rem;
+  display: block;
+  padding-top: 6rem;
 }
 
 .card-grid .landingMenuItem p {
-    font-family: var(--font-body);
-    font-size: 1em;
-    color: var(--ink-muted);
-    line-height: 1.6;
+  font-family: var(--font-body);
+  font-size: 1em;
+  color: var(--ink-muted);
+  line-height: 1.6;
 }
