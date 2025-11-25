@@ -1,8 +1,10 @@
 # InfinityFree-compatible .htaccess for SPA/static site DirectoryIndex index.html
 
 <IfModule mod_rewrite.c>
-  RewriteEngine On # 1. Force HTTPS RewriteCond %{HTTPS} off RewriteRule ^(.*)$
-  https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301] # 2. Redirect all requests to index.html (SPA logic)
-  # Only if the file or folder does NOT exist RewriteCond %{REQUEST_FILENAME} !-f RewriteCond
-  %{REQUEST_FILENAME} !-d RewriteRule ^ index.html [L]
+  RewriteEngine On RewriteBase / # 1. Force HTTPS RewriteCond %{HTTPS} off RewriteRule ^(.*)$
+  https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301] # 2. SPA Routing (Fixes the Refresh 404 Error) # If
+  the requested request is index.html, skip the rest RewriteRule ^index\.html$ - [L] # If the
+  requested filename is NOT a real file RewriteCond %{REQUEST_FILENAME} !-f # ...and NOT a real
+  directory RewriteCond %{REQUEST_FILENAME} !-d # ...then serve index.html silently RewriteRule .
+  /index.html [L]
 </IfModule>
