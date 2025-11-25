@@ -1,14 +1,8 @@
-############################################## # InfinityFree-compatible .htaccess for SPA/static
-site ##############################################
+# InfinityFree-compatible .htaccess for SPA/static site DirectoryIndex index.html
 
 <IfModule mod_rewrite.c>
-  RewriteEngine On # Redirect all requests to index.html unless file/folder exists RewriteCond
-  %{REQUEST_FILENAME} !-f RewriteCond %{REQUEST_FILENAME} !-d RewriteRule ^ index.html [L]
+  RewriteEngine On # 1. Force HTTPS RewriteCond %{HTTPS} off RewriteRule ^(.*)$
+  https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301] # 2. Redirect all requests to index.html (SPA logic)
+  # Only if the file or folder does NOT exist RewriteCond %{REQUEST_FILENAME} !-f RewriteCond
+  %{REQUEST_FILENAME} !-d RewriteRule ^ index.html [L]
 </IfModule>
-
-# Force HTTPS (InfinityFree supports SSL)
-<IfModule mod_rewrite.c>
-  RewriteCond %{HTTPS} off RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
-</IfModule>
-
-DirectoryIndex index.html
