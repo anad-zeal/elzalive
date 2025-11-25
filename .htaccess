@@ -1,11 +1,14 @@
-# Enable URL rewriting
+##############################################
+# InfinityFree-compatible .htaccess for SPA/static site
+##############################################
+
 <IfModule mod_rewrite.c>
   RewriteEngine On
 
-  # Redirect all requests to index.php (basic SPA setup)
+  # Redirect all requests to index.html unless file/folder exists
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^(.*)$ index.php [L]
+  RewriteRule ^(.*)$ index.html [L]
 </IfModule>
 
 # Force HTTPS
@@ -14,12 +17,4 @@
   RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 </IfModule>
 
-# Set default index file
-DirectoryIndex index.php index.html
-
-# Basic security headers
-<IfModule mod_headers.c>
-  Header set X-Content-Type-Options "nosniff"
-  Header set X-Frame-Options "SAMEORIGIN"
-  Header set X-XSS-Protection "1; mode=block"
-</IfModule>
+DirectoryIndex index.html
