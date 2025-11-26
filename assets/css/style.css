@@ -137,7 +137,7 @@ main#dynamic-page-wrapper {
 
 .card-grid {
   width: 50vw; /* Set fixed width */
-  height: 50svh; /* Set fixed height */
+  height: 50vh; /* Set fixed height */
   gap: 5px; /* Set specific gap */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -169,7 +169,7 @@ main#dynamic-page-wrapper {
   text-decoration: none;
   margin-bottom: 0.5rem;
   display: block;
-  padding-top: 6rem;
+  padding-top: 2vh;
 }
 
 .card-grid .landingMenuItem p {
