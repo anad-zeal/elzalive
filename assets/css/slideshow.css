@@ -129,19 +129,10 @@ body.slideshow-active #dynamic-page-wrapper {
   opacity: 0.8;
   transition: transform 0.3s ease, opacity 0.3s ease;
 }
+
 .return-arrow:hover img {
   transform: translateX(-5px);
   opacity: 1;
-}
-
-/* --- Central Slideshow Container --- */
-.slideshow {
-  position: relative;
-  display: grid;
-  place-items: center;
-  min-height: 0; /* Fix for grid sizing bug */
-
-  border: none; /* Explicitly remove any border */
 }
 
 /* --- Central Slideshow Image --- */
@@ -190,11 +181,14 @@ body.slideshow-active #dynamic-page-wrapper {
 
 /* Styling for the main slideshow area */
 .slideshow {
-  position: relative; /* Crucial for positioning the slides inside it */
+  display: grid;
+  place-items: center;
+  position: relative;
   width: 100%;
   height: 100%;
-  overflow: hidden; /* Hide parts of images that are too big */
-  /*background-color: #f0f0f0;  A light grey background to show the area is there */
+  min-height: 0;
+  border: none;
+  overflow: hidden;
 }
 
 /* Styling for each individual slide (image) */

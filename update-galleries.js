@@ -48,7 +48,7 @@ const galleries = [
   },
 ];
 
-const BASE_URL = 'https://elzalive.com/assets/images/';
+const BASE_URL = 'assets/images/';
 const IMG_ROOT = path.join(__dirname, 'assets', 'images');
 const JSON_ROOT = path.join(__dirname, 'json-files');
 
