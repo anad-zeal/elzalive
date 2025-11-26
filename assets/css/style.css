@@ -81,7 +81,7 @@ main#dynamic-page-wrapper {
 .main-nav-menu {
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  gap: 4rem;
   padding: 0;
   margin-top: 1vh;
 }
