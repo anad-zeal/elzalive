@@ -89,8 +89,8 @@ main#dynamic-page-wrapper {
 .main-nav-menu a {
   text-decoration: none;
   font-family: var(--font-body);
-  font-weight: 500;
-  color: var(--ink);
+  font-weight: 100;
+  color: var(--brand);
   padding-bottom: 5px;
   border-bottom: 2px solid transparent;
   transition: color 0.3s, border-color 0.3s;
@@ -101,12 +101,12 @@ main#dynamic-page-wrapper {
   color: var(--brand);
 }
 
-.landing-mnu a {
+/* .landing-mnu a {
   font-family: var(--font-title);
   font-weight: 100;
   font-size: 1rem;
   letter-spacing: 1px;
-}
+} */
 
 .hero {
   text-align: center;
