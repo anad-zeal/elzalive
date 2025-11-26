@@ -81,7 +81,7 @@ main#dynamic-page-wrapper {
 .main-nav-menu {
   display: flex;
   justify-content: center;
-  gap: 4rem;
+  gap: 12rem;
   padding: 0;
   margin-top: 1vh;
 }
@@ -89,11 +89,12 @@ main#dynamic-page-wrapper {
 .main-nav-menu a {
   text-decoration: none;
   font-family: var(--font-body);
-  font-weight: 200;
+  font-weight: 300;
   color: var(--ink);
   padding-bottom: 5px;
   border-bottom: 2px solid transparent;
   transition: color 0.3s, border-color 0.3s;
+  letter-spacing: 2px;
 }
 
 .main-nav-menu a:hover,
