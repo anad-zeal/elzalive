@@ -138,7 +138,7 @@ main#dynamic-page-wrapper {
 .card-grid {
   width: 40vw; /* Set fixed width */
   height: 50vh; /* Set fixed height */
-  gap: 5px; /* Set specific gap */
+  gap: 8px; /* Set specific gap */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   border: solid 2px var(--brand);
@@ -153,7 +153,7 @@ main#dynamic-page-wrapper {
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  padding: 0 1.5rem;
+  padding: 0 1rem;
 }
 
 .card-grid .card:hover {
@@ -169,7 +169,7 @@ main#dynamic-page-wrapper {
   text-decoration: none;
   margin-bottom: 0.5rem;
   display: block;
-  padding-top: 2vh;
+  padding-top: 3vh;
 }
 
 .card-grid .landingMenuItem p {
