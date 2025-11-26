@@ -23,7 +23,7 @@ body.slideshow-active #dynamic-page-wrapper {
   inset: 0;
   display: grid;
   grid-template-columns: 4vw 90vw 4vw;
-  grid-template-rows: 7vh 80vh 3vh;
+  grid-template-rows: 7vh 90vh 3vh;
   grid-template-areas:
     'logo . category'
     'prev-arrow slideshow next-arrow'
@@ -33,12 +33,21 @@ body.slideshow-active #dynamic-page-wrapper {
   box-sizing: border-box;
 }
 
+#dynamic-content-area {
+  background-color: aqua;
+}
+
+#dynamic-page-wrapper {
+  background-color: yellow;
+}
+back
 /* --- Assigning elements to their grid areas --- */
 .logo {
   grid-area: logo;
 }
 .category {
   grid-area: category;
+  background-color: tan;
 }
 .prev-arrow {
   grid-area: prev-arrow;
