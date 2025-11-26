@@ -136,12 +136,12 @@ main#dynamic-page-wrapper {
 /* ============================================= */
 
 .card-grid {
-  width: 780px; /* Set fixed width */
-  height: 789px; /* Set fixed height */
+  width: 50vw; /* Set fixed width */
+  height: 50svh; /* Set fixed height */
   gap: 5px; /* Set specific gap */
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  /* The grid will automatically handle the rows */
+  border: solid 2px var(--brand);
 }
 
 .card-grid .card {
