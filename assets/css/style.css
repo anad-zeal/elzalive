@@ -161,7 +161,7 @@ main#dynamic-page-wrapper {
 
 /* Unique transforms for specific cards */
 .card:nth-child(1):hover {
-  transform: translate(5px, -5px);
+  transform: translate(5px, 5px);
   background-color: orange;
 }
 
@@ -171,7 +171,7 @@ main#dynamic-page-wrapper {
 }
 
 .card:nth-child(3):hover {
-  transform: translate(-5px, 5px);
+  transform: translate(5px, -5px);
   background-color: lightblue;
 }
 
