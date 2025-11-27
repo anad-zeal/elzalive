@@ -159,26 +159,21 @@ main#dynamic-page-wrapper {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
-/* Unique transforms for specific cards
+/* Unique transforms for specific cards*/
 .card:nth-child(1):hover {
-  transform: translate(5px, 5px);
+  transform: translateY(-px);
 }
 
 .card:nth-child(2):hover {
-  transform: translate(-5px, 5px);
+  transform: translateY(5px);
 }
-
-.card:nth-child(3):hover {
-  transform: translate(5px, -5px);
-}
-
-.card:nth-child(4):hover {
-  transform: translate(-5px, -5px);
-} */
 
 .card:nth-child(3):hover {
   transform: translateY(-5px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+}
+
+.card:nth-child(4):hover {
+  transform: translateY(-5px);
 }
 
 .card-grid .page-link {
