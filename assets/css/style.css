@@ -155,25 +155,24 @@ main#dynamic-page-wrapper {
   padding: 0 1rem;
 }
 
-.card-grid .card:hover {
-  transform: translate(-5px, -5px);
+.card-grid .card {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
 /* Unique transforms for specific cards */
-.card:nth-child(1) {
+.card:nth-child(1):hover {
   transform: translate(-5px, -5px);
 }
 
-.card:nth-child(2) {
+.card:nth-child(2):hover {
   transform: translate(-5px, 5px);
 }
 
-.card:nth-child(3) {
+.card:nth-child(3):hover {
   transform: translate(5px, -5px);
 }
 
-.card:nth-child(4) {
+.card:nth-child(4):hover {
   transform: translate(5px, 5px);
 }
 
