@@ -1,179 +1,35 @@
 /* ==========================================================================
-   1. Design Tokens
+   Global Variables (Ensure these exist)
    ========================================================================== */
-
 :root {
   /* Colors */
-  --ink: hsl(0 0% 10%);
-  --ink-muted: hsl(0 0% 45%);
-  --paper: hsl(36 21% 65%);
-  --soft: hsl(0 0% 96%);
-  --brand: rgb(122 1 1);
-  --focus-ring: hsl(0 2% 55%);
+  --soft: #fcfcfc; /* Background color */
+  --brand: #e75116; /* Accent color for Logo/Text */
+  --ink: #1a1a1a; /* Dark text */
+  --ink-muted: #666666; /* Description text */
 
-  /* Typography */
-  --font-body: 'Montserrat', sans-serif;
-  --font-ui: 'Inter', sans-serif;
-  --font-display: 'Montserrat', sans-serif;
-  --font-title: 'Montserrat', sans-serif;
-  --font-script: 'Bonheur Royale', cursive;
-
-  /* Layout */
-  --gap: clamp(0.75rem, 2vw, 1.25rem);
-  --narrow-max: 90ch;
-
-  /* Motion */
-  --speed: 280ms;
-  --easing: cubic-bezier(0.22, 0.61, 0.36, 1);
+  /* Fonts */
+  --font-script: 'Courier New', cursive; /* Replace with your actual script font */
+  --font-display: 'Helvetica', sans-serif; /* Replace with your display font */
+  --font-body: 'Georgia', serif; /* Replace with your body font */
 }
 
-/* Define the custom font */
-@font-face {
-  font-family: 'mort-variable';
-  src: url('../fonts/mort-variable.ttf') format('truetype');
-  font-weight: normal; /* safer default */
-  font-style: normal;
-  font-display: swap;
+/* ==========================================================================
+   Slideshow State Resets
+   (Hides the standard website header/footer when slideshow is active)
+   ========================================================================== */
+body.slideshow-active .site-header,
+body.slideshow-active .content,
+body.slideshow-active .site-footer {
+  display: none !important;
 }
 
-/* Reset */
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
+body.slideshow-active main,
+body.slideshow-active #dynamic-content-area,
+body.slideshow-active #dynamic-page-wrapper {
+  padding: 0;
   margin: 0;
-  padding: 0;
-}
-
-html,
-body {
+  width: 100%;
   height: 100%;
-}
-
-/* ============================================= */
-/* 2. Core Layout Structure                      */
-/* ============================================= */
-
-body {
-  display: grid;
-  grid-template-rows: auto auto 1fr auto;
-  height: 100vh;
-  font-family: var(--font-body);
-  background-color: rgba(246, 243, 239, 0.5);
-}
-
-#dynamic-page-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 1rem;
-}
-
-/* ============================================= */
-/* 3. Header, Hero, and Footer Styles            */
-/* ============================================= */
-
-.site-header,
-.site-footer {
-  padding: 0.5rem 0 0 0;
-  text-align: center;
-}
-
-.main-nav-menu {
-  display: flex;
-  justify-content: center;
-  gap: 10vw; /* var(--gap); use token */
-  padding: 0;
-  margin-top: 1vh;
-}
-
-a.landing-mnu {
-  font-size: 1.5rem;
-  font-family: var(--font-title);
-  font-weight: 100;
-  letter-spacing: 2px;
-  text-decoration: none;
-  color: var(--ink);
-  padding-bottom: 5px;
-}
-
-a.landing-mnu:hover,
-a.landing-mnu.active {
-  color: var(--brand);
-  font-weight: 200;
-  font-size: 1.75rem;
-}
-
-.hero {
-  text-align: center;
-  padding: 0;
-}
-
-.hero .sub-title {
-  margin-top: 0.5rem;
-  font-family: var(--font-script);
-  font-size: 3.5em;
-  font-weight: 500;
-  color: var(--brand);
-}
-
-.hero .page-title {
-  font-family: var(--font-title);
-  font-size: 1.25em;
-  margin-top: 0.5rem;
-  color: #666;
-  display: none;
-}
-
-/* ============================================= */
-/* 4. Card Grid Styles                           */
-/* ============================================= */
-
-.card-grid {
-  width: 40vw;
-  height: 50vh;
-  gap: 8px;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-}
-
-.card-grid .card {
-  aspect-ratio: 1 / 1; /* corrected to square */
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  background-color: #ffffff;
-  border-radius: 8px;
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
-  transition: transform var(--speed) var(--easing), box-shadow var(--speed) var(--easing);
-  padding: 0 1rem;
-}
-
-/* Unique transforms for specific cards */
-.card:nth-child(1):hover,
-.card:nth-child(2):hover {
-  transform: translateY(5px);
-}
-
-.card:nth-child(3):hover,
-.card:nth-child(4):hover {
-  transform: translateY(-5px);
-}
-
-.card-grid .page-link {
-  font-family: var(--font-title);
-  font-size: 1.75em;
-  font-weight: 100;
-  color: var(--brand);
-  text-decoration: none;
-  margin-bottom: 0.5rem;
-  display: block;
-  padding-top: 5vh;
-}
-
-.card-grid .landing-menu-item p {
-  font-family: var(--font-body);
-  font-size: 1em;
-  color: var(--ink-muted);
-  line-height: 1.6;
+  max-width: 100%;
 }
