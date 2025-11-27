@@ -156,7 +156,7 @@ main#dynamic-page-wrapper {
 }
 
 .card-grid .card:hover {
-  transform: translate(5px, -5px);
+  transform: translate(-5px, -5px);
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
