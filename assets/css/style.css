@@ -86,7 +86,7 @@ main#dynamic-page-wrapper {
   margin-top: 1vh;
 }
 
-.landing-mnu a {
+.landing-mnu {
   font-size: 1rem;
   font-family: var(--font-title);
   font-weight: 100;
@@ -98,13 +98,13 @@ main#dynamic-page-wrapper {
   transition: color 0.3s, border-color 0.3s;
 }
 
-.landing-mnu a:hover,
+.landing-mnu:hover,
 .landing-mnu a.is-active {
   color: var(--brand);
-  font-weight: 2s00;
+  font-weight: 200;
 }
 
-.landing-mnu a {
+.landing-mnu {
   font-family: var(--font-title);
   font-weight: 100;
   font-size: 1rem;
