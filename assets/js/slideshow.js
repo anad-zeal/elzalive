@@ -51,7 +51,7 @@ function initSlideshow() {
     const img = document.createElement('img');
     img.src = slideData.src;
     img.alt = slideData.title;
-    img.className = 'slide-image fade-in';
+    img.className = 'slide fade-in';
 
     // Clear container and add new image
     slideContainer.innerHTML = '';
