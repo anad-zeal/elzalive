@@ -160,6 +160,23 @@ main#dynamic-page-wrapper {
   box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
 }
 
+/* Unique transforms for specific cards */
+.card:nth-child(1) {
+  transform: translate(-5px, -5px);
+}
+
+.card:nth-child(2) {
+  transform: translate(-5px, 5px);
+}
+
+.card:nth-child(3) {
+  transform: translate(5px, -5px);
+}
+
+.card:nth-child(4) {
+  transform: translate(5px, 5px);
+}
+
 .card-grid .page-link {
   font-family: var(--font-title);
   font-size: 1.75em;
