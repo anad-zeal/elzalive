@@ -176,7 +176,7 @@ main#dynamic-page-wrapper {
 }
 
 .card:nth-child(4):hover {
-  transform: translate(-5px, 5px);
+  transform: translate(-5px, -5px);
   background-color: rgb(27, 26, 30);
 }
 
