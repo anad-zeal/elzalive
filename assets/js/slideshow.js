@@ -1,4 +1,3 @@
-a;
 /**
  * assets/js/slideshow.js
  * Handles logic for the specific slideshow view
