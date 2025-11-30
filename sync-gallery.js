@@ -6,7 +6,7 @@
  * - Auto-generates JSON from images.
  * - Extracts Title, Medium, Dimensions, Description from IPTC Metadata.
  */
-
+#Comment
 const fs = require('fs');
 const path = require('path');
 const chokidar = require('chokidar');

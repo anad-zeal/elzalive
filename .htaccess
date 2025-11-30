@@ -9,3 +9,4 @@ RewriteRule ^ - [L]
 
 # Redirect everything else to index.html (SPA routing)
 RewriteRule ^ index.php [L]
+#Comment

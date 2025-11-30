@@ -3,7 +3,7 @@
  * Watches image directories, updates JSON metadata, and pushes changes to Git.
  * Usage: node update-galleries.js
  */
-
+#Comment
 const fs = require('fs');
 const path = require('path');
 const { exec } = require('child_process'); // Required for running Git commands
