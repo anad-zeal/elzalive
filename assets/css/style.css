@@ -22,7 +22,7 @@
   --gap: clamp(0.75rem, 2vw, 1.25rem);
   --narrow-max: 90ch;
 
-  /* Motion */
+  /* Motion >>>>>>>>>>>>>>>*/
   --speed: 280ms;
   --easing: cubic-bezier(0.22, 0.61, 0.36, 1);
 }
