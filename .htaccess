@@ -1,12 +1,27 @@
-# Turn on rewriting
+# ----------------------------------------------------------------------
+# Basic InfinityFree-Compatible .htaccess
+# ----------------------------------------------------------------------
+
+# Enable RewriteEngine
+<IfModule mod_rewrite.c>
 RewriteEngine On
 RewriteBase /
 
-# Allow existing files/folders to load normally
+# ----------------------------------------------------------------------
+# Allow direct access to actual files and folders
+# ----------------------------------------------------------------------
 RewriteCond %{REQUEST_FILENAME} -f [OR]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^ - [L]
 
-# Redirect everything else to index.html (SPA routing)
+# ----------------------------------------------------------------------
+# SPA fallback - send all non-file paths to index.ph
+# ----------------------------------------------------------------------
 RewriteRule ^ index.php [L]
-#Comment
+</IfModule>
+
+# ----------------------------------------------------------------------
+# Handle common InfinityFree + visitor host errors
+# ----------------------------------------------------------------------
+ErrorDocument 403 /index.html
+ErrorDocument 404 /index.html
