@@ -1,5 +1,5 @@
 <footer class="site-footer">
-    <p>&copy; 2025 elzalive • All rights reserved. MORE</p>
+    <p>&copy; 2025 elzalive • All rights reserved. LESS</p>
 </footer>
 
 <script src="assets/js/script.js" defer></script>
