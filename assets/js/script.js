@@ -4,13 +4,12 @@
  */
 document.addEventListener('DOMContentLoaded', () => {
   const body = document.body;
-  const navLinks = document.querySelectorAll('.main-nav-menu .landing-mnu');
+  const navLinks = document.querySelectorAll('.main-nav-menu a'); // Updated selector
   const dynamicContentArea = document.getElementById('dynamic-content-area');
   let siteData = null;
 
   // --- Script Loader ---
   function loadScript(path, callback) {
-    // Check if script exists, if so, just run callback
     const existingScript = document.querySelector(`script[src="${path}"]`);
     if (existingScript) {
       if (callback) callback();
@@ -41,11 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cardGrid.forEach((item) => {
       const card = document.createElement('div');
-      card.className = item.type;
+      card.className = item.type; // "card"
       const content = item.content;
 
       const cardContent = document.createElement('div');
-      cardContent.className = content.type;
+      cardContent.className = content.type; // "landingMenuItem"
       if (content.class) cardContent.classList.add(...content.class.split(' '));
 
       // Link handling
@@ -53,16 +52,24 @@ document.addEventListener('DOMContentLoaded', () => {
         const linkElement = document.createElement('a');
         linkElement.href = content.link.href;
         linkElement.textContent = content.link.text;
-        if (content.link.class) linkElement.className = content.link.class;
 
-        const pageName = content.link.href.replace('/', '').trim();
+        // Add classes
+        if (content.link.class) {
+          linkElement.className = content.link.class;
+        } else {
+          linkElement.className = 'page-link';
+        }
+
+        // Get page ID for router (remove slashes)
+        const pageName = content.link.href.replace(/^\//, '').trim(); // Remove leading slash
+
         if (pageName) linkElement.setAttribute('data-page', pageName);
         if (content.link.ariaLabel) linkElement.setAttribute('aria-label', content.link.ariaLabel);
 
         cardContent.appendChild(linkElement);
       }
 
-      // Paragraph/Image handling
+      // Paragraph handling
       if (content.paragraph) {
         if (typeof content.paragraph === 'object' && content.paragraph.type === 'image') {
           const img = document.createElement('img');
@@ -102,12 +109,30 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderContactForm(formData) {
-    // (Kept your original logic, abbreviated here for brevity, assume it is same as your provided code)
-    // ... Insert your renderContactForm logic here if it wasn't changed ...
     const sectionWrapper = document.createElement(formData.wrapper.tag);
-    sectionWrapper.className = 'contact-wrapper'; // specific class
-    sectionWrapper.innerHTML = `<div class="contact-form-wrapper"><form class="ccform"><h3>Contact Form Placeholder</h3></form></div>`;
-    // For production, paste your full renderContactForm function back here.
+    if (formData.wrapper.attributes && formData.wrapper.attributes.class) {
+      sectionWrapper.className = formData.wrapper.attributes.class;
+    }
+
+    // Placeholder for actual form logic
+    let formHtml = `<form class="${formData.form.attributes.class || 'ccform'}">`;
+    if (formData.fields) {
+      formData.fields.forEach((field) => {
+        if (field.type === 'submit') {
+          formHtml += `<button type="submit">${field.value}</button>`;
+        } else if (field.type === 'textarea') {
+          formHtml += `<textarea placeholder="${field.placeholder}" rows="${field.rows}"></textarea>`;
+        } else {
+          formHtml += `<input type="${field.type}" placeholder="${field.placeholder}" ${
+            field.required ? 'required' : ''
+          }>`;
+        }
+      });
+    }
+    formHtml += `</form>`;
+
+    sectionWrapper.innerHTML = `<h3>${formData.title || 'Contact'}</h3>` + formHtml;
+
     dynamicContentArea.innerHTML = '';
     dynamicContentArea.appendChild(sectionWrapper);
   }
@@ -138,7 +163,7 @@ document.addEventListener('DOMContentLoaded', () => {
         </div>
 
         <div class="${template.rtnArrow.wrapperClass}">
-          <a href="/artworks" data-page="artworks" aria-label="${template.rtnArrow.ariaLabel}">
+          <a href="/" data-page="home" aria-label="${template.rtnArrow.ariaLabel}">
             <img src="${template.rtnArrow.imgSrc}" alt="${template.rtnArrow.imgAlt}">
           </a>
         </div>
@@ -190,11 +215,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   async function loadPage(pageName, addToHistory = true) {
-    // Cleanup old listeners/scripts if necessary
-    // Note: We don't strictly remove the script tag to cache it,
-    // but we rely on initSlideshow re-binding events.
-
     if (!siteData) return;
+
+    // Normalize page name (e.g., if it's empty string, default to home)
+    if (!pageName || pageName === '/') pageName = 'home';
+
     const pageData = siteData.pages[pageName];
 
     if (!pageData) {
@@ -225,18 +250,23 @@ document.addEventListener('DOMContentLoaded', () => {
     if (activeLink) activeLink.classList.add('is-active');
 
     if (addToHistory) {
-      history.pushState({ page: pageName }, finalData.title, `/${pageName}`);
+      history.pushState(
+        { page: pageName },
+        finalData.title,
+        `/${pageName === 'home' ? '' : pageName}`
+      );
     }
   }
 
   // --- Init ---
   async function init() {
     try {
-      const response = await fetch('/json-files/site-data.json');
+      const response = await fetch('json-files/site-data.json');
       if (!response.ok) throw new Error('Failed to load site data.');
       siteData = await response.json();
 
-      const initialPage = window.location.pathname.replace('/', '').split('/')[0] || 'home';
+      const path = window.location.pathname.replace(/^\//, ''); // Remove leading slash
+      const initialPage = path || 'home';
       loadPage(initialPage, false);
     } catch (error) {
       console.error('Fatal Error:', error);
@@ -245,6 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // --- Global Event Delegation ---
   document.addEventListener('click', (event) => {
+    // Check if clicked element is a link with data-page
     const link = event.target.closest('a[data-page]');
     if (link) {
       event.preventDefault();
@@ -256,6 +287,47 @@ document.addEventListener('DOMContentLoaded', () => {
     const statePage = event.state ? event.state.page : 'home';
     loadPage(statePage, false);
   });
+  // --- Menu Toggle Logic ---
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const closeNavBtn = document.getElementById('close-nav-btn');
+  const navMenu = document.getElementById('main-nav');
+  const navBackdrop = document.getElementById('nav-backdrop');
 
+  function toggleMenu(show) {
+    if (show) {
+      navMenu.classList.add('is-open');
+      hamburgerBtn.classList.add('is-hidden');
+      hamburgerBtn.setAttribute('aria-expanded', 'true');
+    } else {
+      navMenu.classList.remove('is-open');
+      hamburgerBtn.classList.remove('is-hidden');
+      hamburgerBtn.setAttribute('aria-expanded', 'false');
+    }
+  }
+
+  if (hamburgerBtn) {
+    hamburgerBtn.addEventListener('click', () => toggleMenu(true));
+  }
+
+  if (closeNavBtn) {
+    closeNavBtn.addEventListener('click', () => toggleMenu(false));
+  }
+
+  if (navBackdrop) {
+    navBackdrop.addEventListener('click', () => toggleMenu(false));
+  }
+
+  // Update Global Event Delegation to close menu on link click
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[data-page]');
+    if (link) {
+      event.preventDefault();
+
+      // CLOSE MENU if it's open
+      toggleMenu(false);
+
+      loadPage(link.dataset.page);
+    }
+  });
   init();
 });
