@@ -361,60 +361,95 @@ main#dynamic-page-wrapper {
   padding: 20px;
 }
 
-/* Form Container */
-.contact-container {
+/* General Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+body {
+  background-color: #f4f7f6;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 20px;
+}
+
+/* JSON Wrapper: .body-paragraphs */
+.body-paragraphs {
   background-color: #ffffff;
-  padding: 30px;
+  padding: 40px;
   border-radius: 8px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 500px; /* Limits width on large screens */
+  max-width: 500px;
 }
 
-.contact-container h2 {
-  margin-bottom: 20px;
+.body-paragraphs h2 {
+  margin-bottom: 25px;
   color: #333;
   text-align: center;
+  font-size: 1.8rem;
 }
 
-/* Form Group Styling */
-.form-group {
-  margin-bottom: 15px;
+/* JSON Form Class: .ccform */
+.ccform {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.form-group label {
-  display: block;
-  margin-bottom: 5px;
+/* Input Group styling to hold Icon + Input */
+.input-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+/* Icon Styling */
+.input-group i {
+  position: absolute;
+  left: 15px;
   color: #666;
-  font-weight: 600;
-  font-size: 0.9rem;
+  font-size: 1rem;
+  pointer-events: none; /* Allows click-through to input */
 }
 
-.form-group input,
-.form-group textarea {
+/* Input/Textarea Styling */
+.ccform input[type='text'],
+.ccform input[type='email'],
+.ccform textarea {
   width: 100%;
-  padding: 12px;
+  padding: 12px 12px 12px 45px; /* Left padding makes room for the icon */
   border: 1px solid #ddd;
   border-radius: 5px;
   font-size: 1rem;
   transition: border-color 0.3s ease;
 }
 
-/* Focus State for Accessibility */
-.form-group input:focus,
-.form-group textarea:focus {
+.ccform textarea {
+  resize: vertical;
+}
+
+/* Focus States */
+.ccform input:focus,
+.ccform textarea:focus {
   outline: none;
   border-color: #007bff;
   box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
 }
 
-.form-group textarea {
-  resize: vertical; /* Allows user to resize vertically only */
-  min-height: 120px;
+/* Focus state for icon color change */
+.ccform input:focus + i,
+.ccform textarea:focus + i {
+  color: #007bff;
 }
 
 /* Submit Button */
-button[type='submit'] {
+.ccform input[type='submit'] {
   width: 100%;
   padding: 12px;
   background-color: #007bff;
@@ -425,19 +460,16 @@ button[type='submit'] {
   font-weight: bold;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
 
-button[type='submit']:hover {
+.ccform input[type='submit']:hover {
   background-color: #0056b3;
 }
 
-/* Mobile Responsiveness adjustments */
+/* Mobile Responsiveness */
 @media (max-width: 480px) {
-  .contact-container {
+  .body-paragraphs {
     padding: 20px;
-  }
-
-  .contact-container h2 {
-    font-size: 1.5rem;
   }
 }
