@@ -4,7 +4,6 @@
  */
 document.addEventListener('DOMContentLoaded', () => {
   const body = document.body;
-  // Selects links inside the new hamburger menu structure
   const navLinks = document.querySelectorAll('.main-nav-menu a');
   const dynamicContentArea = document.getElementById('dynamic-content-area');
 
@@ -48,27 +47,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
     cardGrid.forEach((item) => {
       const card = document.createElement('div');
-      card.className = item.type; // "card"
+      card.className = item.type;
       const content = item.content;
 
       const cardContent = document.createElement('div');
-      cardContent.className = content.type; // "landingMenuItem"
+      cardContent.className = content.type;
       if (content.class) cardContent.classList.add(...content.class.split(' '));
 
-      // Link handling
       if (content.link) {
         const linkElement = document.createElement('a');
         linkElement.href = content.link.href;
         linkElement.textContent = content.link.text;
 
-        // Add classes
         if (content.link.class) {
           linkElement.className = content.link.class;
         } else {
           linkElement.className = 'page-link';
         }
 
-        // Get page ID for router (remove slashes)
         const pageName = content.link.href.replace(/^\//, '').trim();
 
         if (pageName) linkElement.setAttribute('data-page', pageName);
@@ -77,7 +73,6 @@ document.addEventListener('DOMContentLoaded', () => {
         cardContent.appendChild(linkElement);
       }
 
-      // Paragraph handling
       if (content.paragraph) {
         if (typeof content.paragraph === 'object' && content.paragraph.type === 'image') {
           const img = document.createElement('img');
@@ -183,7 +178,6 @@ document.addEventListener('DOMContentLoaded', () => {
     dynamicContentArea.innerHTML = '';
     dynamicContentArea.appendChild(wrapper);
 
-    // Load and Initialize Logic
     if (template.scriptToLoad) {
       loadScript(template.scriptToLoad, () => {
         if (typeof initSlideshow === 'function') {
@@ -197,14 +191,12 @@ document.addEventListener('DOMContentLoaded', () => {
   function renderPageContent(data) {
     document.title = `${data.title} | AEPaints`;
 
-    // Manage Body Classes for CSS
     if (data.slideshowTemplate) {
       body.classList.add('slideshow-active');
     } else {
       body.classList.remove('slideshow-active');
     }
 
-    // Render Logic
     if (data.cardGrid) {
       renderCardGrid(data.cardGrid);
     } else if (data.contentSection) {
@@ -234,7 +226,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let finalData = { title: pageData.title };
 
-    // Prepare data object based on type
     if (pageData.type === 'slideshow') {
       const templateCopy = JSON.parse(JSON.stringify(siteData.slideshowTemplate));
       templateCopy.gallerySource = pageData.gallerySource;
@@ -249,10 +240,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderPageContent(finalData);
 
-    // Update Menu State
-    navLinks.forEach((link) => link.classList.remove('is-active'));
     const activeLink = document.querySelector(`.main-nav-menu a[data-page="${pageName}"]`);
-    if (activeLink) activeLink.classList.add('is-active');
+    if (activeLink) {
+      // Remove active class from all
+      document.querySelectorAll('.main-nav-menu a').forEach((a) => a.classList.remove('is-active'));
+      activeLink.classList.add('is-active');
+    }
 
     if (addToHistory) {
       history.pushState(
@@ -263,16 +256,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // --- Menu Toggle Logic ---
+  // --- Menu Toggle Logic (SAFELY PATCHED) ---
   function toggleMenu(show) {
+    // Safety check: ensure elements exist before using them
+    if (!navMenu) {
+      console.error('Menu element #main-nav not found. Check includes/menu.php');
+      return;
+    }
+
     if (show) {
       navMenu.classList.add('is-open');
-      hamburgerBtn.classList.add('is-hidden');
-      hamburgerBtn.setAttribute('aria-expanded', 'true');
+      if (hamburgerBtn) {
+        hamburgerBtn.classList.add('is-hidden');
+        hamburgerBtn.setAttribute('aria-expanded', 'true');
+      }
     } else {
       navMenu.classList.remove('is-open');
-      hamburgerBtn.classList.remove('is-hidden');
-      hamburgerBtn.setAttribute('aria-expanded', 'false');
+      if (hamburgerBtn) {
+        hamburgerBtn.classList.remove('is-hidden');
+        hamburgerBtn.setAttribute('aria-expanded', 'false');
+      }
     }
   }
 
@@ -295,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (!response.ok) throw new Error('Failed to load site data.');
       siteData = await response.json();
 
-      const path = window.location.pathname.replace(/^\//, ''); // Remove leading slash
+      const path = window.location.pathname.replace(/^\//, '');
       const initialPage = path || 'home';
       loadPage(initialPage, false);
     } catch (error) {
@@ -304,26 +307,19 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // --- Global Event Listeners ---
-
-  // 1. Handle Link Clicks (SPA Router + Menu Close)
   document.addEventListener('click', (event) => {
     const link = event.target.closest('a[data-page]');
     if (link) {
       event.preventDefault();
-
-      // CLOSE MENU if it's open (Logic from previous step integrated here)
-      toggleMenu(false);
-
+      toggleMenu(false); // Close menu on click
       loadPage(link.dataset.page);
     }
   });
 
-  // 2. Handle Browser Back/Forward Buttons
   window.addEventListener('popstate', (event) => {
     const statePage = event.state ? event.state.page : 'home';
     loadPage(statePage, false);
   });
 
-  // Start the app
   init();
 });
