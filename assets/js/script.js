@@ -4,8 +4,16 @@
  */
 document.addEventListener('DOMContentLoaded', () => {
   const body = document.body;
-  const navLinks = document.querySelectorAll('.main-nav-menu a'); // Updated selector
+  // Selects links inside the new hamburger menu structure
+  const navLinks = document.querySelectorAll('.main-nav-menu a');
   const dynamicContentArea = document.getElementById('dynamic-content-area');
+
+  // Menu DOM Elements
+  const hamburgerBtn = document.getElementById('hamburger-btn');
+  const closeNavBtn = document.getElementById('close-nav-btn');
+  const navMenu = document.getElementById('main-nav');
+  const navBackdrop = document.getElementById('nav-backdrop');
+
   let siteData = null;
 
   // --- Script Loader ---
@@ -61,7 +69,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         // Get page ID for router (remove slashes)
-        const pageName = content.link.href.replace(/^\//, '').trim(); // Remove leading slash
+        const pageName = content.link.href.replace(/^\//, '').trim();
 
         if (pageName) linkElement.setAttribute('data-page', pageName);
         if (content.link.ariaLabel) linkElement.setAttribute('aria-label', content.link.ariaLabel);
@@ -114,7 +122,6 @@ document.addEventListener('DOMContentLoaded', () => {
       sectionWrapper.className = formData.wrapper.attributes.class;
     }
 
-    // Placeholder for actual form logic
     let formHtml = `<form class="${formData.form.attributes.class || 'ccform'}">`;
     if (formData.fields) {
       formData.fields.forEach((field) => {
@@ -141,7 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const wrapper = document.createElement(template.wrapper.tag);
     wrapper.className = template.wrapper.class;
 
-    // Build HTML Structure
     wrapper.innerHTML = `
         <div class="logo"><p>The Life of an Artist</p></div>
         <div class="category"><p>${pageTitle}</p></div>
@@ -217,7 +223,6 @@ document.addEventListener('DOMContentLoaded', () => {
   async function loadPage(pageName, addToHistory = true) {
     if (!siteData) return;
 
-    // Normalize page name (e.g., if it's empty string, default to home)
     if (!pageName || pageName === '/') pageName = 'home';
 
     const pageData = siteData.pages[pageName];
@@ -258,41 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // --- Init ---
-  async function init() {
-    try {
-      const response = await fetch('json-files/site-data.json');
-      if (!response.ok) throw new Error('Failed to load site data.');
-      siteData = await response.json();
-
-      const path = window.location.pathname.replace(/^\//, ''); // Remove leading slash
-      const initialPage = path || 'home';
-      loadPage(initialPage, false);
-    } catch (error) {
-      console.error('Fatal Error:', error);
-    }
-  }
-
-  // --- Global Event Delegation ---
-  document.addEventListener('click', (event) => {
-    // Check if clicked element is a link with data-page
-    const link = event.target.closest('a[data-page]');
-    if (link) {
-      event.preventDefault();
-      loadPage(link.dataset.page);
-    }
-  });
-
-  window.addEventListener('popstate', (event) => {
-    const statePage = event.state ? event.state.page : 'home';
-    loadPage(statePage, false);
-  });
   // --- Menu Toggle Logic ---
-  const hamburgerBtn = document.getElementById('hamburger-btn');
-  const closeNavBtn = document.getElementById('close-nav-btn');
-  const navMenu = document.getElementById('main-nav');
-  const navBackdrop = document.getElementById('nav-backdrop');
-
   function toggleMenu(show) {
     if (show) {
       navMenu.classList.add('is-open');
@@ -317,17 +288,42 @@ document.addEventListener('DOMContentLoaded', () => {
     navBackdrop.addEventListener('click', () => toggleMenu(false));
   }
 
-  // Update Global Event Delegation to close menu on link click
+  // --- Init ---
+  async function init() {
+    try {
+      const response = await fetch('json-files/site-data.json');
+      if (!response.ok) throw new Error('Failed to load site data.');
+      siteData = await response.json();
+
+      const path = window.location.pathname.replace(/^\//, ''); // Remove leading slash
+      const initialPage = path || 'home';
+      loadPage(initialPage, false);
+    } catch (error) {
+      console.error('Fatal Error:', error);
+    }
+  }
+
+  // --- Global Event Listeners ---
+
+  // 1. Handle Link Clicks (SPA Router + Menu Close)
   document.addEventListener('click', (event) => {
     const link = event.target.closest('a[data-page]');
     if (link) {
       event.preventDefault();
 
-      // CLOSE MENU if it's open
+      // CLOSE MENU if it's open (Logic from previous step integrated here)
       toggleMenu(false);
 
       loadPage(link.dataset.page);
     }
   });
+
+  // 2. Handle Browser Back/Forward Buttons
+  window.addEventListener('popstate', (event) => {
+    const statePage = event.state ? event.state.page : 'home';
+    loadPage(statePage, false);
+  });
+
+  // Start the app
   init();
 });
