@@ -62,7 +62,7 @@ $life_title = "<h2 class='sub-title fade-title'>The Life sof an Artist</h2>";
 </head>
 
 <body>
-    <header class="site-header">
+    <header class="site-header" role="banner">
         <!-- Hamburger Button (Fixed Top Left) -->
         <button id="hamburger-btn" class="hamburger-btn" aria-label="Toggle Navigation" aria-expanded="false">
             <span class="bar"></span>
