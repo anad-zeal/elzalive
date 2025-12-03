@@ -371,6 +371,7 @@ main#dynamic-page-wrapper {
   margin: 0 auto;
   position: relative;
   border: rgb(26, 10, 2) 1px solid;
+  background-color: #09c;
 }
 
 #contact input[type='text'],
