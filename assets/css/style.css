@@ -360,6 +360,7 @@ main#dynamic-page-wrapper {
   width: 100vvw;
   min-height: 100vh;
   padding: 20px;
+  border: #f96 1px solid;
 }
 
 .container {
