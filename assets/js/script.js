@@ -112,29 +112,64 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   function renderContactForm(formData) {
+    // 1. Create the Outer Wrapper (div.container)
     const sectionWrapper = document.createElement(formData.wrapper.tag);
-    if (formData.wrapper.attributes && formData.wrapper.attributes.class) {
-      sectionWrapper.className = formData.wrapper.attributes.class;
+    if (formData.wrapper.attributes) {
+      for (const [key, val] of Object.entries(formData.wrapper.attributes)) {
+        sectionWrapper.setAttribute(key, val);
+      }
     }
 
-    let formHtml = `<form class="${formData.form.attributes.class || 'ccform'}">`;
-    if (formData.fields) {
-      formData.fields.forEach((field) => {
-        if (field.type === 'submit') {
-          formHtml += `<button type="submit">${field.value}</button>`;
-        } else if (field.type === 'textarea') {
-          formHtml += `<textarea placeholder="${field.placeholder}" rows="${field.rows}"></textarea>`;
-        } else {
-          formHtml += `<input type="${field.type}" placeholder="${field.placeholder}" ${
-            field.required ? 'required' : ''
-          }>`;
-        }
+    // 2. Create the Form Element (form#contact)
+    const formEl = document.createElement(formData.form.tag);
+    if (formData.form.attributes) {
+      for (const [key, val] of Object.entries(formData.form.attributes)) {
+        formEl.setAttribute(key, val);
+      }
+    }
+
+    // 3. Render Headers (h3, h4)
+    if (formData.form.headers) {
+      formData.form.headers.forEach((header) => {
+        const h = document.createElement(header.tag);
+        h.textContent = header.text;
+        formEl.appendChild(h);
       });
     }
-    formHtml += `</form>`;
 
-    sectionWrapper.innerHTML = `<h3>${formData.title || 'Contact'}</h3>` + formHtml;
+    // 4. Render Fields wrapped in Fieldsets
+    formData.fields.forEach((fieldData) => {
+      // Create the wrapper (fieldset)
+      const wrapperEl = document.createElement(fieldData.wrapperTag || 'div');
 
+      // Create the input/textarea/button
+      const inputEl = document.createElement(fieldData.tag);
+
+      // Add text (specifically for the <button>Submit</button>)
+      if (fieldData.text) {
+        inputEl.textContent = fieldData.text;
+      }
+
+      // Apply attributes
+      if (fieldData.attributes) {
+        for (const [key, val] of Object.entries(fieldData.attributes)) {
+          if (val === true) {
+            // Handle boolean attributes (required, autofocus)
+            inputEl.setAttribute(key, '');
+          } else {
+            inputEl.setAttribute(key, val);
+          }
+        }
+      }
+
+      // Append input to fieldset, fieldset to form
+      wrapperEl.appendChild(inputEl);
+      formEl.appendChild(wrapperEl);
+    });
+
+    sectionWrapper.appendChild(formEl);
+
+    // 5. Output to DOM
     dynamicContentArea.innerHTML = '';
     dynamicContentArea.appendChild(sectionWrapper);
   }
