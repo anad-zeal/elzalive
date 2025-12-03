@@ -357,6 +357,7 @@ main#dynamic-page-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
   min-height: 100vh;
   padding: 20px;
 }
@@ -369,106 +370,114 @@ main#dynamic-page-wrapper {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-/* body {
-  background-color: #f4f7f6;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 20px;
-}
-
-
-.body-paragraphs {
-  background-color: #ffffff;
-  padding: 40px;
-  border-radius: 8px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+.container {
+  max-width: 400px;
   width: 100%;
-  max-width: 500px;
-
-.body-paragraphs h2 {
-  margin-bottom: 25px;
-  color: #333;
-  text-align: center;
-  font-size: 1.8rem;
-}
-
-/* JSON Form Class: .ccform */
-.ccform {
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-
-/* Input Group styling to hold Icon + Input */
-.input-group {
+  margin: 0 auto;
   position: relative;
-  display: flex;
-  align-items: center;
 }
 
-/* Icon Styling */
-.input-group i {
-  position: absolute;
-  left: 15px;
-  color: #666;
-  font-size: 1rem;
-  pointer-events: none; /* Allows click-through to input */
+#contact input[type='text'],
+#contact input[type='email'],
+#contact input[type='tel'],
+#contact input[type='url'],
+#contact textarea,
+#contact button[type='submit'] {
+  font: 400 12px/16px 'Open Sans', Helvetica, Arial, sans-serif;
 }
 
-/* Input/Textarea Styling */
-.ccform input[type='text'],
-.ccform input[type='email'],
-.ccform textarea {
+#contact {
+  background: #f9f9f9;
+  padding: 25px;
+  margin: 50px 0;
+}
+
+#contact h3 {
+  color: #f96;
+  display: block;
+  font-size: 30px;
+  font-weight: 400;
+}
+
+#contact h4 {
+  margin: 5px 0 15px;
+  display: block;
+  font-size: 13px;
+}
+
+fieldset {
+  border: medium none !important;
+  margin: 0 0 10px;
+  min-width: 100%;
+  padding: 0;
   width: 100%;
-  padding: 12px 12px 12px 45px; /* Left padding makes room for the icon */
-  border: 1px solid #ddd;
-  border-radius: 5px;
-  font-size: 1rem;
-  transition: border-color 0.3s ease;
 }
 
-.ccform textarea {
-  resize: vertical;
-}
-
-/* Focus States */
-.ccform input:focus,
-.ccform textarea:focus {
-  outline: none;
-  border-color: #007bff;
-  box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
-}
-
-/* Focus state for icon color change */
-.ccform input:focus + i,
-.ccform textarea:focus + i {
-  color: #007bff;
-}
-
-/* Submit Button */
-.ccform input[type='submit'] {
+#contact input[type='text'],
+#contact input[type='email'],
+#contact input[type='tel'],
+#contact input[type='url'],
+#contact textarea {
   width: 100%;
-  padding: 12px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  font-size: 1rem;
-  font-weight: bold;
+  border: 1px solid #ccc;
+  background: #fff;
+  margin: 0 0 5px;
+  padding: 10px;
+}
+
+#contact input[type='text']:hover,
+#contact input[type='email']:hover,
+#contact input[type='tel']:hover,
+#contact input[type='url']:hover,
+#contact textarea:hover {
+  -webkit-transition: border-color 0.3s ease-in-out;
+  -moz-transition: border-color 0.3s ease-in-out;
+  transition: border-color 0.3s ease-in-out;
+  border: 1px solid #aaa;
+}
+
+#contact textarea {
+  height: 100px;
+  max-width: 100%;
+  resize: none;
+}
+
+#contact button[type='submit'] {
   cursor: pointer;
-  transition: background-color 0.3s ease;
-  margin-top: 10px;
+  width: 100%;
+  border: none;
+  background: #0cf;
+  color: #fff;
+  margin: 0 0 5px;
+  padding: 10px;
+  font-size: 15px;
 }
 
-.ccform input[type='submit']:hover {
-  background-color: #0056b3;
+#contact button[type='submit']:hover {
+  background: #09c;
+  -webkit-transition: background 0.3s ease-in-out;
+  -moz-transition: background 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 480px) {
-  .body-paragraphs {
-    padding: 20px;
-  }
+#contact button[type='submit']:active {
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+#contact input:focus,
+#contact textarea:focus {
+  outline: 0;
+  border: 1px solid #999;
+}
+::-webkit-input-placeholder {
+  color: #888;
+}
+:-moz-placeholder {
+  color: #888;
+}
+::-moz-placeholder {
+  color: #888;
+}
+:-ms-input-placeholder {
+  color: #888;
 }
