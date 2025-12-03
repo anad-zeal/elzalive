@@ -357,7 +357,7 @@ main#dynamic-page-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100%;
+  width: 100vvw;
   min-height: 100vh;
   padding: 20px;
 }
@@ -372,7 +372,7 @@ main#dynamic-page-wrapper {
 
 .container {
   max-width: 400px;
-  width: 100%;
+  width: 100vw;
   margin: 0 auto;
   position: relative;
 }
@@ -390,7 +390,6 @@ main#dynamic-page-wrapper {
   background: #f9f9f9;
   padding: 25px;
   margin: 50px 0;
-  width: 100vw;
 }
 
 #contact h3 {
