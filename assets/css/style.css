@@ -353,6 +353,7 @@ main#dynamic-page-wrapper {
 }
 
 .contact-wrapper {
+  position: relative;
   background-color: #1af0a9;
   display: flex;
   justify-content: center;
@@ -361,6 +362,7 @@ main#dynamic-page-wrapper {
   min-height: 100vh;
   padding: 20px;
   border: #f96 1px solid;
+  z-index: 999;
 }
 
 .container {
