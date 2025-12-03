@@ -369,7 +369,7 @@ main#dynamic-page-wrapper {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
-body {
+/* body {
   background-color: #f4f7f6;
   display: flex;
   justify-content: center;
@@ -378,7 +378,7 @@ body {
   padding: 20px;
 }
 
-/* JSON Wrapper: .body-paragraphs */
+
 .body-paragraphs {
   background-color: #ffffff;
   padding: 40px;
@@ -386,7 +386,6 @@ body {
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
   width: 100%;
   max-width: 500px;
-}
 
 .body-paragraphs h2 {
   margin-bottom: 25px;
