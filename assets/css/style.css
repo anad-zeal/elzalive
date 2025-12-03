@@ -368,6 +368,7 @@ main#dynamic-page-wrapper {
   width: 100vw;
   margin: 0 auto;
   position: relative;
+  border: rgb(26, 10, 2) 1px solid;
 }
 
 #contact input[type='text'],
