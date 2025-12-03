@@ -195,43 +195,85 @@
       "title": "Contact",
       "content": {
         "wrapper": {
-          "tag": "section",
+          "tag": "div",
           "attributes": {
-            "class": "contact-wrapper",
-            "aria-labelledby": "contact-page-heading"
+            "class": "container"
           }
         },
         "form": {
-          "attributes": { "method": "post", "action": "", "class": "ccform" }
+          "tag": "form",
+          "attributes": {
+            "id": "contact",
+            "action": "",
+            "method": "post"
+          },
+          "headers": [
+            { "tag": "h3", "text": "Quick Contact" },
+            { "tag": "h4", "text": "Contact us today, and get reply with in 24 hours!" }
+          ]
         },
         "fields": [
           {
-            "type": "text",
-            "icon": "fa-user",
-            "placeholder": "Your Name",
-            "required": true
+            "tag": "input",
+            "wrapperTag": "fieldset",
+            "attributes": {
+              "placeholder": "Your name",
+              "type": "text",
+              "tabindex": "1",
+              "required": true,
+              "autofocus": true
+            }
           },
           {
-            "type": "email",
-            "icon": "fa-envelope",
-            "placeholder": "Email",
-            "required": true
+            "tag": "input",
+            "wrapperTag": "fieldset",
+            "attributes": {
+              "placeholder": "Your Email Address",
+              "type": "email",
+              "tabindex": "2",
+              "required": true
+            }
           },
           {
-            "type": "text",
-            "icon": "fa-info",
-            "placeholder": "Subject",
-            "required": true
+            "tag": "input",
+            "wrapperTag": "fieldset",
+            "attributes": {
+              "placeholder": "Your Phone Number",
+              "type": "tel",
+              "tabindex": "3",
+              "required": true
+            }
           },
           {
-            "type": "textarea",
-            "icon": "fa-comment",
-            "placeholder": "Message",
-            "name": "comments",
-            "rows": 8,
-            "required": true
+            "tag": "input",
+            "wrapperTag": "fieldset",
+            "attributes": {
+              "placeholder": "Your Web Site starts with http://",
+              "type": "url",
+              "tabindex": "4",
+              "required": true
+            }
           },
-          { "type": "submit", "value": "Submit" }
+          {
+            "tag": "textarea",
+            "wrapperTag": "fieldset",
+            "attributes": {
+              "placeholder": "Type your Message Here....",
+              "tabindex": "5",
+              "required": true
+            }
+          },
+          {
+            "tag": "button",
+            "text": "Submit",
+            "wrapperTag": "fieldset",
+            "attributes": {
+              "name": "submit",
+              "type": "submit",
+              "id": "contact-submit",
+              "data-submit": "...Sending"
+            }
+          }
         ]
       }
     }
