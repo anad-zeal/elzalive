@@ -58,7 +58,9 @@
               "href": "/drip-series-paintings",
               "text": "Drip Series",
               "ariaLabel": "Go to Drip Series"
-            }
+            },
+            "paragraph": "Dynamic, controlled chaos capturing movement in paint."
+          }
         },
         {
           "type": "card",
@@ -69,7 +71,8 @@
               "href": "/black-and-white-paintings",
               "text": "Black & White",
               "ariaLabel": "Go to Black and White Paintings"
-            }
+            },
+            "paragraph": "Monochromatic studies focusing on light, shadow, and form."
           }
         },
         {
@@ -81,7 +84,8 @@
               "href": "/project-series-paintings",
               "text": "Projects",
               "ariaLabel": "Go to Project Series"
-            }
+            },
+            "paragraph": "Thematic collections and specific artistic explorations."
           }
         },
         {
@@ -93,7 +97,9 @@
               "href": "/decorative",
               "text": "Decorative",
               "ariaLabel": "Go to Decorative Painting"
-            }
+            },
+            "paragraph": "Murals, faux finishes, and custom decorative applications."
+          }
         },
         {
           "type": "card",
@@ -104,7 +110,9 @@
               "href": "/historic-preservation",
               "text": "Restoration",
               "ariaLabel": "Go to Historic Preservation"
-            }
+            },
+            "paragraph": "Restoring and preserving architectural history and detail."
+          }
         },
         {
           "type": "card",
@@ -115,9 +123,12 @@
               "href": "/biography",
               "text": "Biography",
               "ariaLabel": "Go to Biography"
-
+            },
+            "paragraph": "About the artist, the journey, and the philosophy."
+          }
         },
-
+        {
+          "type": "card",
           "content": {
             "type": "landingMenuItem",
             "class": "page",
