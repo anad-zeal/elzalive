@@ -10,7 +10,7 @@
         }
       },
       "form": {
-        "tag": "form",
+        "tag": "form",w
         "attributes": {
           "id": "contact",
           "action": "/submit-contact",
@@ -18,7 +18,6 @@
         },
         "headers": [
           { "tag": "h3", "text": "Quick Contact" },
-          { "tag": "h4", "text": "Contact us today, and get a reply within 24 hours!" }
         ]
       },
       "fields": [
