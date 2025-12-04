@@ -474,6 +474,7 @@ fieldset {
 
 #contact button[type='submit']:hover {
   background: var(--brand-hover);
+  padding: 12px;
 }
 
 #contact button[type='submit']:active {
