@@ -16,10 +16,7 @@
           "action": "/submit-contact",
           "method": "post"
         },
-        "headers": [
-          { "tag": "h3", "text": "Quick Contact" },
-          { "tag": "h4", "text": "" }
-        ]
+        "headers": [{ "tag": "h3", "text": "Quick Contact" }]
       },
       "fields": [
         {
