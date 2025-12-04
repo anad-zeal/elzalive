@@ -1,281 +1,100 @@
-{
-  "slideshowTemplate": {
-    "scriptToLoad": "assets/js/slideshow.js",
-    "wrapper": { "tag": "div", "class": "container", "role": "region" },
-    "slideContainerClass": "slideshow",
-    "autoplay": false,
-    "keyboardControls": true,
-    "previousButton": {
-      "wrapperClass": "prev-arrow",
-      "buttonId": "prev-slide",
-      "imgSrc": "assets/images/misc-images/prev.png",
-      "imgAlt": "Previous Slide",
-      "ariaLabel": "Go to previous slide"
-    },
-    "nextButton": {
-      "wrapperClass": "next-arrow",
-      "buttonId": "next-slide",
-      "imgSrc": "assets/images/misc-images/next.png",
-      "imgAlt": "Next Slide",
-      "ariaLabel": "Go to next slide"
-    },
-    "caption": { "paragraphId": "caption-text", "ariaLabel": "Slide caption" },
-    "description": {
-      "paragraphId": "description-text",
-      "ariaLabel": "Slide description"
-    },
-    "rtnArrow": {
-      "wrapperClass": "return-arrow",
-      "imgSrc": "assets/images/misc-images/arrow-return.png",
-      "imgAlt": "Return to Artworks",
-      "ariaLabel": "Return to Artworks Gallery"
+"content": [
+  {
+    "type": "card",
+    "content": {
+      "type": "landingMenuItem",
+      "class": "page",
+      "link": {
+        "href": "/encaustic-paintings",
+        "text": "Encaustic",
+        "ariaLabel": "Go to Encaustic Paintings"
+      },
+      "paragraph": "Layered wax and pigment exploring texture and translucency."
     }
   },
-  "pages": {
-    "home": {
-      "type": "cardGrid",
-      "title": "Portfolio Home",
-      "content": [
-        {
-          "type": "card",
-          "content": {
-            "type": "landingMenuItem",
-            "class": "page",
-            "link": {
-              "href": "/encaustic-paintings",
-              "text": "Encaustic",
-              "ariaLabel": "Go to Encaustic Paintings"
-            },
-            "paragraph": "Layered wax and pigment exploring texture and translucency."
-          }
-        },
-        {
-          "type": "card",
-          "content": {
-            "type": "landingMenuItem",
-            "class": "page",
-            "link": {
-              "href": "/drip-series-paintings",
-              "text": "Drip Series",
-              "ariaLabel": "Go to Drip Series"
-            },
-            "paragraph": "Dynamic, controlled chaos capturing movement in paint."
-          }
-        },
-        {
-          "type": "card",
-          "content": {
-            "type": "landingMenuItem",
-            "class": "page",
-            "link": {
-              "href": "/black-and-white-paintings",
-              "text": "Black & White",
-              "ariaLabel": "Go to Black and White Paintings"
-            }
-          }
-        },
-        {
-          "type": "card",
-          "content": {
-            "type": "landingMenuItem",
-            "class": "page",
-            "link": {
-              "href": "/project-series-paintings",
-              "text": "Projects",
-              "ariaLabel": "Go to Project Series"
-            },
-            "paragraph": "Thematic collections and specific artistic explorations."
-          }
-        },
-        {
-          "type": "card",
-          "content": {
-            "type": "landingMenuItem",
-            "class": "page",
-            "link": {
-              "href": "/decorative",
-              "text": "Decorative",
-              "ariaLabel": "Go to Decorative Painting"
-            },
-            "paragraph": "Murals, faux finishes, and custom decorative applications."
-          }
-        },
-        {
-          "type": "card",
-          "content": {
-            "type": "landingMenuItem",
-            "class": "page",
-            "link": {
-              "href": "/historic-preservation",
-              "text": "Restoration",
-              "ariaLabel": "Go to Historic Preservation"
-            },
-            "paragraph": "Restoring and preserving architectural history and detail."
-          }
-        },
-        {
-          "type": "card",
-          "content": {
-            "type": "landingMenuItem",
-            "class": "page",
-            "link": {
-              "href": "/biography",
-              "text": "Biography",
-              "ariaLabel": "Go to Biography"
-            },
-            "paragraph": "About the artist, the journey, and the philosophy."
-          }
-        },
-        {
-          "type": "card",
-          "content": {
-            "type": "landingMenuItem",
-            "class": "page",
-            "link": {
-              "href": "/contact",
-              "text": "Contact",
-              "ariaLabel": "Go to Contact"
-            },
-            "paragraph": "Get in touch for inquiries, commissions, or collaborations."
-          }
-        }
-      ]
-    },
-    "encaustic-paintings": {
-      "type": "slideshow",
-      "title": "Encaustic Paintings",
-      "gallerySource": "encaustic-slideshow.json",
-      "ariaLabel": "Encaustic Paintings Slideshow"
-    },
-    "drip-series-paintings": {
-      "type": "slideshow",
-      "title": "Drip Series Paintings",
-      "gallerySource": "drip-series-slideshow.json",
-      "ariaLabel": "Drip Series Paintings Slideshow"
-    },
-    "black-and-white-paintings": {
-      "type": "slideshow",
-      "title": "Black and White Paintings",
-      "gallerySource": "black-and-white-slideshow.json",
-      "ariaLabel": "Black and White Paintings Slideshow"
-    },
-    "project-series-paintings": {
-      "type": "slideshow",
-      "title": "Project Series Paintings",
-      "gallerySource": "projects-slideshow.json",
-      "ariaLabel": "Project Series Paintings Slideshow"
-    },
-    "decorative": {
-      "type": "slideshow",
-      "title": "Decorative Painting",
-      "gallerySource": "decorative-slideshow.json",
-      "ariaLabel": "Decorative Painting Slideshow"
-    },
-    "historic-preservation": {
-      "type": "slideshow",
-      "title": "Historic Preservation",
-      "gallerySource": "preservation-slideshow.json",
-      "ariaLabel": "Historic Preservation Slideshow"
-    },
-    "biography": {
-      "type": "contentSection",
-      "title": "Biography",
-      "content": {
-        "tag": "article",
-        "attributes": { "class": "content-section bio" },
-        "paragraphs": [
-          "This is where the artist's biography will go.",
-          "Add more paragraphs as needed in the JSON file."
-        ]
-      }
-    },
-    "contact": {
-      "type": "contactForm",
-      "title": "Contact",
-      "content": {
-        "wrapper": {
-          "tag": "section",
-          "attributes": {
-            "class": "contact-wrapper",
-            "aria-labelledby": "contact-heading"
-          }
-        },
-        "form": {
-          "tag": "form",
-          "attributes": {
-            "id": "contact",
-            "action": "",
-            "method": "post"
-          },
-          "headers": [
-            { "tag": "h3", "text": "Quick Contact", "attributes": { "id": "contact-heading" } },
-            { "tag": "h4", "text": "" }
-          ]
-        },
-        "fields": [
-          {
-            "tag": "input",
-            "wrapperTag": "fieldset",
-            "attributes": {
-              "placeholder": "Your name",
-              "type": "text",
-              "tabindex": "1",
-              "required": true,
-              "autofocus": true
-            }
-          },
-          {
-            "tag": "input",
-            "wrapperTag": "fieldset",
-            "attributes": {
-              "placeholder": "Your Email Address",
-              "type": "email",
-              "tabindex": "2",
-              "required": true
-            }
-          },
-          {
-            "tag": "input",
-            "wrapperTag": "fieldset",
-            "attributes": {
-              "placeholder": "Your Phone Number",
-              "type": "tel",
-              "tabindex": "3",
-              "required": true
-            }
-          },
-          {
-            "tag": "input",
-            "wrapperTag": "fieldset",
-            "attributes": {
-              "placeholder": "Your Web Site starts with http://",
-              "type": "url",
-              "tabindex": "4",
-              "required": true
-            }
-          },
-          {
-            "tag": "textarea",
-            "wrapperTag": "fieldset",
-            "attributes": {
-              "placeholder": "Type your Message Here....",
-              "tabindex": "5",
-              "required": true
-            }
-          },
-          {
-            "tag": "button",
-            "text": "Submit",
-            "wrapperTag": "fieldset",
-            "attributes": {
-              "name": "submit",
-              "type": "submit",
-              "id": "contact-submit",
-              "data-submit": "...Sending"
-            }
-          }
-        ]
+  {
+    "type": "card",
+    "content": {
+      "type": "landingMenuItem",
+      "class": "page",
+      "link": {
+        "href": "/drip-series-paintings",
+        "text": "Drip Series",
+        "ariaLabel": "Go to Drip Series"
       }
     }
+  },
+  {
+    "type": "card",
+    "content": {
+      "type": "landingMenuItem",
+      "class": "page",
+      "link": {
+        "href": "/black-and-white-paintings",
+        "text": "Black & White",
+        "ariaLabel": "Go to Black and White Paintings"
+      }
+    }
+  },
+  {
+    "type": "card",
+    "content": {
+      "type": "landingMenuItem",
+      "class": "page",
+      "link": {
+        "href": "/project-series-paintings",
+        "text": "Projects",
+        "ariaLabel": "Go to Project Series"
+      }
+    }
+  },
+  {
+    "type": "card",
+    "content": {
+      "type": "landingMenuItem",
+      "class": "page",
+      "link": {
+        "href": "/decorative",
+        "text": "Decorative",
+        "ariaLabel": "Go to Decorative Painting"
+      }
+    }
+  },
+  {
+    "type": "card",
+    "content": {
+      "type": "landingMenuItem",
+      "class": "page",
+      "link": {
+        "href": "/historic-preservation",
+        "text": "Restoration",
+        "ariaLabel": "Go to Historic Preservation"
+      }
+    }
+  },
+  {
+    "type": "card",
+    "content": {
+      "type": "landingMenuItem",
+      "class": "page",
+      "link": {
+        "href": "/biography",
+        "text": "Biography",
+        "ariaLabel": "Go to Biography"
+      }
+    }
+  },
+  {
+    "type": "card",
+    "content": {
+      "type": "landingMenuItem",
+      "class": "page",
+      "link": {
+        "href": "/contact",
+        "text": "Contact",
+        "ariaLabel": "Go to Contact"
+      },
+      "paragraph": "Get in touch for inquiries, commissions, or collaborations."
+    }
   }
-}
+]
