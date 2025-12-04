@@ -197,7 +197,7 @@
         "wrapper": {
           "tag": "section",
           "attributes": {
-            "class": "contact-wrapper container",
+            "class": "contact-wrapper",
             "aria-labelledby": "contact-heading"
           }
         },
