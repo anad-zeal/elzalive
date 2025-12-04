@@ -209,8 +209,8 @@
             "method": "post"
           },
           "headers": [
-            { "tag": "h3", "text": "Quick Contact", "attributes": { "id": "contact-heading" } }
-            // { "tag": "h4", "text": "Contact us today, and get reply with in 24 hours!" }
+            { "tag": "h3", "text": "Quick Contact", "attributes": { "id": "contact-heading" } },
+            { "tag": "h4", "text": "" }
           ]
         },
         "fields": [

@@ -371,7 +371,7 @@ main#dynamic-page-wrapper {
   align-items: center; /* Vertical Center */
   min-height: 100vh; /* Full Viewport Height */
   width: 100%;
-  padding: 20px; /* Prevents form touching edges on mobile */
+  padding: 0px; /* Prevents form touching edges on mobile */
   max-width: 100% !important; /* Overrides generic .container limits */
   margin: 0 !important;
 }
