@@ -365,6 +365,7 @@ main#dynamic-page-wrapper {
 */
 .contact-wrapper {
   position: relative;
+  top: -5vh;
   background-color: #f4f7f6; /* Neutral background color */
   display: flex;
   justify-content: center; /* Horizontal Center */
@@ -382,6 +383,8 @@ main#dynamic-page-wrapper {
    This is the actual white box.
 */
 #contact {
+  position: relative;
+  top: -5vh;
   background: #ffffff;
   padding: 30px;
   width: 100%;
