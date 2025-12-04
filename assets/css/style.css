@@ -147,7 +147,7 @@ main#dynamic-page-wrapper {
 }
 
 .card-grid .card {
-  display: flex;
+  /* display: flex;
   flex-direction: column;
   justify-content: center;
   text-align: center;
@@ -160,7 +160,7 @@ main#dynamic-page-wrapper {
   padding: 2rem 1.5rem;
 
   /* Optional: Minimum height to ensure uniformity */
-  min-height: 250px;
+  min-height: 250px; */
 }
 
 .card-grid .card:hover {
