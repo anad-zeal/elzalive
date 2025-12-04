@@ -365,7 +365,6 @@ main#dynamic-page-wrapper {
 */
 .contact-wrapper {
   position: relative;
-  top: -10vh;
   background-color: #f4f7f6; /* Neutral background color */
   display: flex;
   justify-content: center; /* Horizontal Center */
@@ -375,6 +374,7 @@ main#dynamic-page-wrapper {
   padding: 0px; /* Prevents form touching edges on mobile */
   max-width: 100% !important; /* Overrides generic .container limits */
   margin: 0 !important;
+  z-index: 999;
 }
 
 /*
