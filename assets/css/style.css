@@ -358,7 +358,7 @@ main#dynamic-page-wrapper {
 }
 
 /*
-   1. THE WRAPPER
+1. THE WRAPPER
    This acts as the full-screen background.
    We override the generic .container class constraints here
    to ensure it fills the screen.
@@ -379,7 +379,7 @@ main#dynamic-page-wrapper {
 }
 
 /*
-   2. THE FORM CARD
+2. THE FORM CARD
    This is the actual white box.
 */
 #contact {
@@ -422,7 +422,7 @@ fieldset {
 }
 
 /*
-   3. INPUTS & TEXTAREA
+3. INPUTS & TEXTAREA
 */
 #contact input[type='text'],
 #contact input[type='email'],
@@ -460,7 +460,7 @@ fieldset {
 }
 
 /*
-   4. SUBMIT BUTTON
+4. SUBMIT BUTTON
 */
 #contact button[type='submit'] {
   cursor: pointer;
