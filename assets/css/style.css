@@ -164,9 +164,9 @@ main#dynamic-page-wrapper {
 }
 
 .card-grid .card:hover {
-  transform: translateY(-5px);
+  /* transform: translateY(-5px);
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-  border-bottom: 3px solid var(--brand);
+  border-bottom: 3px solid var(--brand); */
 }
 
 .card-grid .page-link {
