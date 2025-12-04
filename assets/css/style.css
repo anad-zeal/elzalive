@@ -472,7 +472,7 @@ fieldset {
   transition: background 0.3s ease-in-out;
 }
 
-#contact button[type='submit']:hover {
+#contact-submit button[type='submit']:hover {
   background: -var(--brand-hover);
 }
 
