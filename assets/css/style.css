@@ -472,9 +472,14 @@ fieldset {
   transition: background 0.3s ease-in-out;
 }
 
+#contact button[type='submit'] {
+  background: var(--brand);
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
 #contact button[type='submit']:hover {
   background: var(--brand-hover);
-  height: 110%;
+  transform: scale(1.05);
 }
 
 #contact button[type='submit']:active {
