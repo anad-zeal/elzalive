@@ -461,7 +461,7 @@ fieldset {
   cursor: pointer;
   width: 100%;
   border: none;
-  background: var(--brand)
+  background: var(--brand);
   color: #fff;
   margin: 0 0 5px;
   padding: 12px;
