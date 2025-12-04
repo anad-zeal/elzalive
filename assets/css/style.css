@@ -365,6 +365,7 @@ main#dynamic-page-wrapper {
 */
 .contact-wrapper {
   position: relative;
+  top: -10vh;
   background-color: #f4f7f6; /* Neutral background color */
   display: flex;
   justify-content: center; /* Horizontal Center */
