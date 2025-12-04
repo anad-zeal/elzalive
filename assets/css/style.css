@@ -9,8 +9,8 @@
   --paper: hsl(36, 21%, 65%);
   --soft: hsl(0 0% 96%);
   --brand: rgb(122, 1, 1);
-  --brand-hover: rgb(88, 1, 1);
-  --focus-ring: hsl(0, 88%, 49%);
+  --brand-hover: rgb(232, 15, 15);
+  --focus-ring: hsl(0, 2%, 55%);
 
   /* Typography */
   --font-body: 'Montserrat', sans-serif;
