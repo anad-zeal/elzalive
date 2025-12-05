@@ -300,8 +300,9 @@ main#dynamic-page-wrapper {
   align-items: center;
   /* min-height: 100vh; */
   width: 100%;
-  padding: 1em;
+  padding: 2px;
   z-index: 999;
+  border-radius: 8px;
 }
 
 #contact {
