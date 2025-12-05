@@ -302,7 +302,7 @@ main#dynamic-page-wrapper {
   width: 100%;
   padding: 2px;
   z-index: 999;
-  border-radius: 4px;
+  border-radius: 10px;
 }
 
 #contact {
