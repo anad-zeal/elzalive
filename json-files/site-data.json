@@ -97,9 +97,6 @@
           }
         },
         {
-          "type": "card",
-          "content": {
-            "type": "landingMenuItem",
             "class": "page",
             "link": {
               "href": "/historic-preservation",
