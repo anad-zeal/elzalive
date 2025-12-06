@@ -1,13 +1,45 @@
+// Enhanced script.js with JSDoc, debugging logs, transitions, scroll restoration, modular structure
+
 /**
  * assets/js/script.js
- * Main Router and Page Renderer
+ * Main Router and Page Renderer (Enhanced)
+ * Includes:
+ *  - JSDoc annotations
+ *  - Debug logging
+ *  - Crossfade transitions
+ *  - Scroll restoration per page
+ *  - Internal modular organization (no external modules)
  */
+
+/** Enable or disable debug logging */
+const DEBUG = true;
+const log = (...args) => DEBUG && console.log('[AEP]', ...args);
+
+/** Apply a simple fade transition to the dynamic content area */
+function fadeSwap(element, newContentCallback) {
+  element.classList.add('fade-out');
+  setTimeout(() => {
+    newContentCallback();
+    element.classList.remove('fade-out');
+    element.classList.add('fade-in');
+    setTimeout(() => element.classList.remove('fade-in'), 300);
+  }, 300);
+}
+
+/** Stores scroll positions by page */
+const scrollMemory = {};
+
+// -----------------------------------------------------------------------------
+//  Main Initialization Wrapper
+// -----------------------------------------------------------------------------
 document.addEventListener('DOMContentLoaded', () => {
+  log('Initializing site application...');
+
   const body = document.body;
   const navLinks = document.querySelectorAll('.main-nav-menu a');
   const dynamicContentArea = document.getElementById('dynamic-content-area');
 
-  // Menu DOM Elements
+  // Menu Elements
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const closeNavBtn = document.getElementById('close-nav-btn');
   const navMenu = document.getElementById('main-nav');
@@ -15,11 +47,21 @@ document.addEventListener('DOMContentLoaded', () => {
 
   let siteData = null;
 
-  // --- Script Loader ---
+  // ---------------------------------------------------------------------------
+  //  Script Loader
+  // ---------------------------------------------------------------------------
+  /**
+   * Dynamically load a JavaScript file only once
+   * @param {string} path
+   * @param {Function} callback
+   */
   function loadScript(path, callback) {
+    log('Loading script:', path);
+
     const existingScript = document.querySelector(`script[src="${path}"]`);
     if (existingScript) {
-      if (callback) callback();
+      log('Script already loaded:', path);
+      callback && callback();
       return;
     }
 
@@ -29,19 +71,23 @@ document.addEventListener('DOMContentLoaded', () => {
     script.setAttribute('data-dynamic-script', 'true');
 
     script.onload = () => {
-      if (callback) callback();
+      log('Loaded script:', path);
+      callback && callback();
     };
 
-    script.onerror = () => {
-      console.error('Failed to load script:', path);
-    };
+    script.onerror = () => console.error('Failed to load script:', path);
 
     document.body.appendChild(script);
   }
 
-  // --- Rendering Functions ---
+  // ---------------------------------------------------------------------------
+  //  Render Functions
+  // ---------------------------------------------------------------------------
 
+  /** Render a card grid */
   function renderCardGrid(cardGrid) {
+    log('Rendering card grid...');
+
     const sectionWrapper = document.createElement('section');
     sectionWrapper.className = 'card-grid';
 
@@ -58,18 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const linkElement = document.createElement('a');
         linkElement.href = content.link.href;
         linkElement.textContent = content.link.text;
-
-        if (content.link.class) {
-          linkElement.className = content.link.class;
-        } else {
-          linkElement.className = 'page-link';
-        }
-
+        linkElement.className = content.link.class || 'page-link';
         const pageName = content.link.href.replace(/^\//, '').trim();
-
-        if (pageName) linkElement.setAttribute('data-page', pageName);
+        if (pageName) linkElement.dataset.page = pageName;
         if (content.link.ariaLabel) linkElement.setAttribute('aria-label', content.link.ariaLabel);
-
         cardContent.appendChild(linkElement);
       }
 
@@ -77,8 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (typeof content.paragraph === 'object' && content.paragraph.type === 'image') {
           const img = document.createElement('img');
           img.src = content.paragraph.src;
-          if (content.paragraph.class) img.className = content.paragraph.class;
           img.alt = content.paragraph.alt || '';
+          if (content.paragraph.class) img.className = content.paragraph.class;
           cardContent.appendChild(img);
         } else {
           const p = document.createElement('p');
@@ -91,160 +129,147 @@ document.addEventListener('DOMContentLoaded', () => {
       sectionWrapper.appendChild(card);
     });
 
-    dynamicContentArea.innerHTML = '';
-    dynamicContentArea.appendChild(sectionWrapper);
+    fadeSwap(dynamicContentArea, () => {
+      dynamicContentArea.innerHTML = '';
+      dynamicContentArea.appendChild(sectionWrapper);
+    });
   }
 
+  /** Render a content section */
   function renderContentSection(sectionData) {
-    const wrapperElement = document.createElement(sectionData.tag);
-    for (const key in sectionData.attributes) {
-      wrapperElement.setAttribute(key, sectionData.attributes[key]);
-    }
+    log('Rendering content section...');
 
-    sectionData.paragraphs.forEach((pText) => {
+    const wrapperElement = document.createElement(sectionData.tag);
+    Object.entries(sectionData.attributes).forEach(([k, v]) => wrapperElement.setAttribute(k, v));
+
+    sectionData.paragraphs.forEach((txt) => {
       const p = document.createElement('p');
-      p.textContent = pText;
+      p.textContent = txt;
       wrapperElement.appendChild(p);
     });
 
-    dynamicContentArea.innerHTML = '';
-    dynamicContentArea.appendChild(wrapperElement);
+    fadeSwap(dynamicContentArea, () => {
+      dynamicContentArea.innerHTML = '';
+      dynamicContentArea.appendChild(wrapperElement);
+    });
   }
 
+  /** Render contact form */
   function renderContactForm(formData) {
-    // 1. Create the Outer Wrapper (div.container)
+    log('Rendering contact form...');
+
     const sectionWrapper = document.createElement(formData.wrapper.tag);
-    if (formData.wrapper.attributes) {
-      for (const [key, val] of Object.entries(formData.wrapper.attributes)) {
-        sectionWrapper.setAttribute(key, val);
-      }
-    }
+    Object.entries(formData.wrapper.attributes || {}).forEach(([k, v]) => sectionWrapper.setAttribute(k, v));
 
-    // 2. Create the Form Element (form#contact)
     const formEl = document.createElement(formData.form.tag);
-    if (formData.form.attributes) {
-      for (const [key, val] of Object.entries(formData.form.attributes)) {
-        formEl.setAttribute(key, val);
-      }
-    }
+    Object.entries(formData.form.attributes || {}).forEach(([k, v]) => formEl.setAttribute(k, v));
 
-    // 3. Render Headers (h3, h4)
-    if (formData.form.headers) {
-      formData.form.headers.forEach((header) => {
-        const h = document.createElement(header.tag);
-        h.textContent = header.text;
-        formEl.appendChild(h);
-      });
-    }
+    ;(formData.form.headers || []).forEach((header) => {
+      const h = document.createElement(header.tag);
+      h.textContent = header.text;
+      formEl.appendChild(h);
+    });
 
-    // 4. Render Fields wrapped in Fieldsets
     formData.fields.forEach((fieldData) => {
-      // Create the wrapper (fieldset)
       const wrapperEl = document.createElement(fieldData.wrapperTag || 'div');
-
-      // Create the input/textarea/button
       const inputEl = document.createElement(fieldData.tag);
+      if (fieldData.text) inputEl.textContent = fieldData.text;
 
-      // Add text (specifically for the <button>Submit</button>)
-      if (fieldData.text) {
-        inputEl.textContent = fieldData.text;
-      }
+      Object.entries(fieldData.attributes || {}).forEach(([k, v]) => {
+        if (v === true) inputEl.setAttribute(k, '');
+        else inputEl.setAttribute(k, v);
+      });
 
-      // Apply attributes
-      if (fieldData.attributes) {
-        for (const [key, val] of Object.entries(fieldData.attributes)) {
-          if (val === true) {
-            // Handle boolean attributes (required, autofocus)
-            inputEl.setAttribute(key, '');
-          } else {
-            inputEl.setAttribute(key, val);
-          }
-        }
-      }
-
-      // Append input to fieldset, fieldset to form
       wrapperEl.appendChild(inputEl);
       formEl.appendChild(wrapperEl);
     });
 
     sectionWrapper.appendChild(formEl);
 
-    // 5. Output to DOM
-    dynamicContentArea.innerHTML = '';
-    dynamicContentArea.appendChild(sectionWrapper);
+    fadeSwap(dynamicContentArea, () => {
+      dynamicContentArea.innerHTML = '';
+      dynamicContentArea.appendChild(sectionWrapper);
+    });
   }
 
+  /** Render slideshow */
   function renderSlideshow(template, pageTitle) {
+    log('Rendering slideshow:', pageTitle);
+
     const wrapper = document.createElement(template.wrapper.tag);
     wrapper.className = template.wrapper.class;
 
     wrapper.innerHTML = `
-        <div class="logo"><p>The Life of an Artist</p></div>
-        <div class="category"><p>${pageTitle}</p></div>
+      <div class="logo"><p>The Life of an Artist</p></div>
+      <div class="category"><p>${pageTitle}</p></div>
 
-        <div class="${template.previousButton.wrapperClass}">
-          <button id="${template.previousButton.buttonId}" aria-label="${template.previousButton.ariaLabel}">
-            <img src="${template.previousButton.imgSrc}" alt="${template.previousButton.imgAlt}">
-          </button>
-        </div>
+      <div class="${template.previousButton.wrapperClass}">
+        <button id="${template.previousButton.buttonId}" aria-label="${template.previousButton.ariaLabel}">
+          <img src="${template.previousButton.imgSrc}" alt="${template.previousButton.imgAlt}">
+        </button>
+      </div>
 
-        <div class="${template.slideContainerClass}" data-gallery-source="${template.gallerySource}">
-             <div class="loading-msg">Loading Gallery...</div>
-        </div>
+      <div class="${template.slideContainerClass}" data-gallery-source="${template.gallerySource}">
+           <div class="loading-msg">Loading Gallery...</div>
+      </div>
 
-        <div class="${template.nextButton.wrapperClass}">
-          <button id="${template.nextButton.buttonId}" aria-label="${template.nextButton.ariaLabel}">
-            <img src="${template.nextButton.imgSrc}" alt="${template.nextButton.imgAlt}">
-          </button>
-        </div>
+      <div class="${template.nextButton.wrapperClass}">
+        <button id="${template.nextButton.buttonId}" aria-label="${template.nextButton.ariaLabel}">
+          <img src="${template.nextButton.imgSrc}" alt="${template.nextButton.imgAlt}">
+        </button>
+      </div>
 
-        <div class="${template.rtnArrow.wrapperClass}">
-          <a href="/" data-page="home" aria-label="${template.rtnArrow.ariaLabel}">
-            <img src="${template.rtnArrow.imgSrc}" alt="${template.rtnArrow.imgAlt}">
-          </a>
-        </div>
+      <div class="${template.rtnArrow.wrapperClass}">
+        <a href="/" data-page="home" aria-label="${template.rtnArrow.ariaLabel}">
+          <img src="${template.rtnArrow.imgSrc}" alt="${template.rtnArrow.imgAlt}">
+        </a>
+      </div>
 
-        <div class="description">
-          <p id="${template.caption.paragraphId}"></p>
-          <p id="${template.description.paragraphId}"></p>
-        </div>
-      `;
+      <div class="description">
+        <p id="${template.caption.paragraphId}"></p>
+        <p id="${template.description.paragraphId}"></p>
+      </div>
+    `;
 
-    dynamicContentArea.innerHTML = '';
-    dynamicContentArea.appendChild(wrapper);
+    fadeSwap(dynamicContentArea, () => {
+      dynamicContentArea.innerHTML = '';
+      dynamicContentArea.appendChild(wrapper);
+    });
 
     if (template.scriptToLoad) {
       loadScript(template.scriptToLoad, () => {
         if (typeof initSlideshow === 'function') {
+          log('Initializing slideshow logic...');
           initSlideshow();
         }
       });
     }
   }
 
-  // --- Page Controller ---
-  function renderPageContent(data) {
+  // ---------------------------------------------------------------------------
+  //  Page Controller
+  // ---------------------------------------------------------------------------
+  function renderPageContent(data, pageName) {
+    log('Routing to page:', pageName);
+
+    // Save scroll position for previous page
+    if (history.state?.page) {
+      scrollMemory[history.state.page] = window.scrollY;
+    }
+
     document.title = `${data.title} | AEPaints`;
+    body.classList.toggle('slideshow-active', Boolean(data.slideshowTemplate));
 
-    if (data.slideshowTemplate) {
-      body.classList.add('slideshow-active');
-    } else {
-      body.classList.remove('slideshow-active');
-    }
+    if (data.cardGrid) renderCardGrid(data.cardGrid);
+    else if (data.contentSection) renderContentSection(data.contentSection);
+    else if (data.contactForm) renderContactForm(data.contactForm);
+    else if (data.slideshowTemplate) renderSlideshow(data.slideshowTemplate, data.title);
+    else dynamicContentArea.innerHTML = '<p>No content available.</p>';
 
-    if (data.cardGrid) {
-      renderCardGrid(data.cardGrid);
-    } else if (data.contentSection) {
-      renderContentSection(data.contentSection);
-    } else if (data.contactForm) {
-      renderContactForm(data.contactForm);
-    } else if (data.slideshowTemplate) {
-      renderSlideshow(data.slideshowTemplate, data.title);
-    } else {
-      dynamicContentArea.innerHTML = `<p>No content available.</p>`;
-    }
-
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    // Restore scroll if available
+    setTimeout(() => {
+      window.scrollTo({ top: scrollMemory[pageName] || 0, behavior: 'smooth' });
+    }, 50);
   }
 
   async function loadPage(pageName, addToHistory = true) {
@@ -252,109 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (!pageName || pageName === '/') pageName = 'home';
 
+    log('loadPage():', pageName);
+
     const pageData = siteData.pages[pageName];
-
-    if (!pageData) {
-      console.error('Page not found:', pageName);
-      return;
-    }
-
-    let finalData = { title: pageData.title };
-
-    if (pageData.type === 'slideshow') {
-      const templateCopy = JSON.parse(JSON.stringify(siteData.slideshowTemplate));
-      templateCopy.gallerySource = pageData.gallerySource;
-      finalData.slideshowTemplate = templateCopy;
-    } else if (pageData.type === 'cardGrid') {
-      finalData.cardGrid = pageData.content;
-    } else if (pageData.type === 'contentSection') {
-      finalData.contentSection = pageData.content;
-    } else if (pageData.type === 'contactForm') {
-      finalData.contactForm = pageData.content;
-    }
-
-    renderPageContent(finalData);
-
-    const activeLink = document.querySelector(`.main-nav-menu a[data-page="${pageName}"]`);
-    if (activeLink) {
-      // Remove active class from all
-      document.querySelectorAll('.main-nav-menu a').forEach((a) => a.classList.remove('is-active'));
-      activeLink.classList.add('is-active');
-    }
-
-    if (addToHistory) {
-      history.pushState(
-        { page: pageName },
-        finalData.title,
-        `/${pageName === 'home' ? '' : pageName}`
-      );
-    }
-  }
-
-  // --- Menu Toggle Logic (SAFELY PATCHED) ---
-  function toggleMenu(show) {
-    // Safety check: ensure elements exist before using them
-    if (!navMenu) {
-      console.error('Menu element #main-nav not found. Check includes/menu.php');
-      return;
-    }
-
-    if (show) {
-      navMenu.classList.add('is-open');
-      if (hamburgerBtn) {
-        hamburgerBtn.classList.add('is-hidden');
-        hamburgerBtn.setAttribute('aria-expanded', 'true');
-      }
-    } else {
-      navMenu.classList.remove('is-open');
-      if (hamburgerBtn) {
-        hamburgerBtn.classList.remove('is-hidden');
-        hamburgerBtn.setAttribute('aria-expanded', 'false');
-      }
-    }
-  }
-
-  if (hamburgerBtn) {
-    hamburgerBtn.addEventListener('click', () => toggleMenu(true));
-  }
-
-  if (closeNavBtn) {
-    closeNavBtn.addEventListener('click', () => toggleMenu(false));
-  }
-
-  if (navBackdrop) {
-    navBackdrop.addEventListener('click', () => toggleMenu(false));
-  }
-
-  // --- Init ---
-  async function init() {
-    try {
-      const response = await fetch('json-files/site-data.json');
-      if (!response.ok) throw new Error('Failed to load site data.');
-      siteData = await response.json();
-
-      const path = window.location.pathname.replace(/^\//, '');
-      const initialPage = path || 'home';
-      loadPage(initialPage, false);
-    } catch (error) {
-      console.error('Fatal Error:', error);
-    }
-  }
-
-  // --- Global Event Listeners ---
-  document.addEventListener('click', (event) => {
-    const link = event.target.closest('a[data-page]');
-    if (link) {
-      event.preventDefault();
-      toggleMenu(false); // Close menu on click
-      loadPage(link.dataset.page);
-    }
-  });
-
-  window.addEventListener('popstate', (event) => {
-    const statePage = event.state ? event.state.page : 'home';
-    loadPage(statePage, false);
-  });
-
-  init();
-});
+    if (!pageData) return console.error('
