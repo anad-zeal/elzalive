@@ -1,6 +1,6 @@
 /**
  * assets/js/script.js
- * Combined Router, Page Renderer, and Cross-Fading Slideshow
+ * Final Refactor: Strict Index1 Structure compliance
  */
 
 const DEBUG = true;
@@ -77,28 +77,35 @@ function initSlideshow(jsonFilename) {
 }
 
 function createSlides(container) {
-  // Ensure container allows absolute positioning of children
+  // Essential styles for the container to hold absolute images
   container.style.position = 'relative';
-  if (container.clientHeight === 0) container.style.minHeight = '500px';
+  container.style.width = '100%';
+  container.style.height = '100%';
+
+  // Fallback height if CSS Grid hasn't sized it yet
+  if (container.clientHeight < 50) container.style.minHeight = '60vh';
 
   slideshowState.slides.forEach(({ src }, index) => {
     const img = document.createElement('img');
     img.src = src;
     img.className = 'slide';
 
-    // Cross-fade styles
+    // Exact styles needed for centering and cross-fading
     Object.assign(img.style, {
       opacity: 0,
       transition: 'opacity 1.5s ease-in-out',
       position: 'absolute',
       maxWidth: '100%',
       maxHeight: '100%',
+      width: 'auto',
+      height: 'auto',
       top: 0,
       left: 0,
       right: 0,
       bottom: 0,
       margin: 'auto',
       display: 'block',
+      objectFit: 'contain', // Ensures image isn't stretched
     });
 
     container.appendChild(img);
@@ -112,31 +119,32 @@ function fadeInFirstSlide(captionEl) {
   const firstSlide = slidesDOM[0];
 
   firstSlide.style.opacity = 0;
-  firstSlide.style.transition = 'opacity 2s ease-in-out';
-
-  setTimeout(() => {
+  // Use a slight delay to ensure the browser registers the transition
+  requestAnimationFrame(() => {
     firstSlide.style.opacity = 1;
+  });
 
-    if (captionEl && slideshowState.slides[0]) {
-      captionEl.textContent = slideshowState.slides[0].caption || '';
+  if (captionEl && slideshowState.slides[0]) {
+    captionEl.textContent = slideshowState.slides[0].caption || '';
+    captionEl.style.opacity = 0;
+    setTimeout(() => {
       captionEl.style.transition = 'opacity 1.5s ease-in-out';
-      captionEl.style.opacity = 0;
-      setTimeout(() => {
-        captionEl.style.opacity = 1;
-      }, 300);
-    }
-  }, 50);
+      captionEl.style.opacity = 1;
+    }, 100);
+  }
 
+  // Start autoplay
   setTimeout(() => {
     showSlide(0);
     startAutoPlay();
-  }, 2000);
+  }, 3000);
 }
 
 function showSlide(index) {
   const slidesDOM = document.querySelectorAll('.slide');
   const captionEl = document.getElementById('caption-text');
 
+  // Update Caption
   if (captionEl) {
     captionEl.style.opacity = 0;
     setTimeout(() => {
@@ -144,9 +152,10 @@ function showSlide(index) {
         captionEl.textContent = slideshowState.slides[index].caption || '';
       }
       captionEl.style.opacity = 1;
-    }, 300);
+    }, 500); // Wait for fade out
   }
 
+  // Update Images
   slidesDOM.forEach((img, i) => {
     img.style.opacity = i === index ? 1 : 0;
     img.style.zIndex = i === index ? 2 : 1;
@@ -178,13 +187,15 @@ function resetAutoPlay() {
 
 function setupControls(prevBtn, nextBtn, container) {
   if (nextBtn) {
-    nextBtn.onclick = () => {
+    nextBtn.onclick = (e) => {
+      e.preventDefault();
       nextSlide();
       resetAutoPlay();
     };
   }
   if (prevBtn) {
-    prevBtn.onclick = () => {
+    prevBtn.onclick = (e) => {
+      e.preventDefault();
       prevSlide();
       resetAutoPlay();
     };
@@ -227,9 +238,9 @@ document.addEventListener('DOMContentLoaded', () => {
   log('Initializing site application...');
 
   const body = document.body;
-  // Use existing .container or dynamic wrapper
+  // Prefer the container, fall back to dynamic-content-area
   const targetContainer =
-    document.getElementById('dynamic-content-area') || document.querySelector('.container');
+    document.querySelector('.container') || document.getElementById('dynamic-content-area');
   const navMenu = document.getElementById('main-nav');
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const closeNavBtn = document.getElementById('close-nav-btn');
@@ -335,29 +346,34 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /** Render slideshow */
   function renderSlideshow(template, pageTitle, gallerySource) {
-    // FIX: Match exact HTML structure of index1.php
-    // Removed .logo and .category divs to prevent grid breakage.
-    // Ensure classes "previous", "next", "caption", "footer" match index1.php.
+    // FIX: EXACT Match to index1.php Structure.
+    // Omitted: Logo, Category, Return Arrow (these break the CSS Grid for .container)
 
+    // We use hardcoded HTML matching index1.php exactly,
+    // plugging in IDs and Srcs from the JSON template.
     const htmlContent = `
       <div class="slideshow">
-           <div class="loading-msg">Loading Gallery...</div>
+           <div class="loading-msg">Loading...</div>
       </div>
 
       <div class="previous">
-        <button id="${template.previousButton.buttonId}" class="prev-next circle" aria-label="${template.previousButton.ariaLabel}">
-          <img src="${template.previousButton.imgSrc}" class="prev-nexts" width="50" alt="${template.previousButton.imgAlt}">
+        <button id="${
+          template.previousButton.buttonId || 'prev-slide'
+        }" class="prev-next circle" aria-label="Previous">
+          <img src="${template.previousButton.imgSrc}" class="prev-nexts" width="50" alt="Previous">
         </button>
       </div>
 
       <div class="next">
-        <button id="${template.nextButton.buttonId}" class="prev-next circle" aria-label="${template.nextButton.ariaLabel}">
-          <img src="${template.nextButton.imgSrc}" class="prev-nexts" width="50" alt="${template.nextButton.imgAlt}">
+        <button id="${
+          template.nextButton.buttonId || 'next-slide'
+        }" class="prev-next circle" aria-label="Next">
+          <img src="${template.nextButton.imgSrc}" class="prev-nexts" width="50" alt="Next">
         </button>
       </div>
 
       <div class="caption">
-        <p id="${template.caption.paragraphId}"></p>
+        <p id="${template.caption.paragraphId || 'caption-text'}"></p>
       </div>
 
       <div class="footer">
@@ -415,9 +431,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderPageContent(finalData, pageName);
 
-    // Update active menu state
+    // Update Menu Active States
     const menuButtons = document.querySelectorAll('.gallery-menu .menu-button, .main-nav-menu a');
     menuButtons.forEach((btn) => btn.classList.remove('active', 'is-active'));
+    // Try to find matching button
     const activeBtn = document.querySelector(
       `[data-gallery="${pageName}"], [data-page="${pageName}"]`
     );
@@ -448,6 +465,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Global Listeners
   document.addEventListener('click', (event) => {
+    // 1. Handle Navigation Links/Buttons
     const link = event.target.closest('a[data-page], button[data-gallery]');
     if (link) {
       if (link.tagName === 'BUTTON') {
@@ -458,7 +476,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadPage(link.dataset.page);
       }
     }
-    // Handle Mobile Menu
+    // 2. Handle Mobile Menu Toggles
     if (event.target.closest('#hamburger-btn')) {
       if (navMenu) navMenu.classList.add('is-open');
     }
