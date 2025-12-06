@@ -159,12 +159,14 @@ document.addEventListener('DOMContentLoaded', () => {
     log('Rendering contact form...');
 
     const sectionWrapper = document.createElement(formData.wrapper.tag);
-    Object.entries(formData.wrapper.attributes || {}).forEach(([k, v]) => sectionWrapper.setAttribute(k, v));
+    Object.entries(formData.wrapper.attributes || {}).forEach(([k, v]) =>
+      sectionWrapper.setAttribute(k, v)
+    );
 
     const formEl = document.createElement(formData.form.tag);
     Object.entries(formData.form.attributes || {}).forEach(([k, v]) => formEl.setAttribute(k, v));
 
-    ;(formData.form.headers || []).forEach((header) => {
+    (formData.form.headers || []).forEach((header) => {
       const h = document.createElement(header.tag);
       h.textContent = header.text;
       formEl.appendChild(h);
@@ -280,4 +282,95 @@ document.addEventListener('DOMContentLoaded', () => {
     log('loadPage():', pageName);
 
     const pageData = siteData.pages[pageName];
-    if (!pageData) return console.error('
+    if (!pageData) return console.error('Page not found:', pageName);
+
+    let finalData = { title: pageData.title };
+
+    if (pageData.type === 'slideshow') {
+      const templateCopy = JSON.parse(JSON.stringify(siteData.slideshowTemplate));
+      templateCopy.gallerySource = pageData.gallerySource;
+      finalData.slideshowTemplate = templateCopy;
+    } else if (pageData.type === 'cardGrid') {
+      finalData.cardGrid = pageData.content;
+    } else if (pageData.type === 'contentSection') {
+      finalData.contentSection = pageData.content;
+    } else if (pageData.type === 'contactForm') {
+      finalData.contactForm = pageData.content;
+    }
+
+    renderPageContent(finalData, pageName);
+
+    // Highlight active link
+    document.querySelectorAll('.main-nav-menu a').forEach((a) => a.classList.remove('is-active'));
+    const activeLink = document.querySelector(`.main-nav-menu a[data-page="${pageName}"]`);
+    if (activeLink) activeLink.classList.add('is-active');
+
+    if (addToHistory) {
+      history.pushState(
+        { page: pageName },
+        finalData.title,
+        `/${pageName === 'home' ? '' : pageName}`
+      );
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  //  Menu Logic
+  // ---------------------------------------------------------------------------
+  function toggleMenu(show) {
+    if (!navMenu) return console.error('#main-nav missing');
+    log('toggleMenu:', show);
+
+    navMenu.classList.toggle('is-open', show);
+
+    if (hamburgerBtn) {
+      hamburgerBtn.classList.toggle('is-hidden', show);
+      hamburgerBtn.setAttribute('aria-expanded', show ? 'true' : 'false');
+    }
+  }
+
+  if (hamburgerBtn) hamburgerBtn.addEventListener('click', () => toggleMenu(true));
+  if (closeNavBtn) closeNavBtn.addEventListener('click', () => toggleMenu(false));
+  if (navBackdrop) navBackdrop.addEventListener('click', () => toggleMenu(false));
+
+  // ---------------------------------------------------------------------------
+  //  Initialization
+  // ---------------------------------------------------------------------------
+  async function init() {
+    try {
+      log('Loading site-data.json...');
+
+      const response = await fetch('json-files/site-data.json');
+      if (!response.ok) throw new Error('Bad JSON response');
+      siteData = await response.json();
+
+      const path = window.location.pathname.replace(/^\//, '');
+      const initialPage = path || 'home';
+
+      log('Initial page:', initialPage);
+      loadPage(initialPage, false);
+    } catch (err) {
+      console.error('FATAL INIT ERROR:', err);
+    }
+  }
+
+  // ---------------------------------------------------------------------------
+  //  Global Listeners
+  // ---------------------------------------------------------------------------
+  document.addEventListener('click', (event) => {
+    const link = event.target.closest('a[data-page]');
+    if (link) {
+      event.preventDefault();
+      toggleMenu(false);
+      loadPage(link.dataset.page);
+    }
+  });
+
+  window.addEventListener('popstate', (event) => {
+    const page = event.state?.page || 'home';
+    log('popstate →', page);
+    loadPage(page, false);
+  });
+
+  init();
+});
