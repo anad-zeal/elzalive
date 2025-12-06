@@ -182,9 +182,7 @@
       "title": "Biography",
       "content": {
         "tag": "article",
-        "attributes": {
-          "class": "content-section bio"
-        },
+        "attributes": { "class": "content-section bio" },
         "paragraphs": [
           "This is where the artist's biography will go.",
           "Add more paragraphs as needed in the JSON file."
@@ -213,9 +211,7 @@
             {
               "tag": "h3",
               "text": "Quick Contact",
-              "attributes": {
-                "id": "contact-heading"
-              }
+              "attributes": { "id": "contact-heading" }
             },
             {
               "tag": "h4",
