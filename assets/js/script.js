@@ -77,8 +77,8 @@ function initSlideshow(jsonFilename) {
 }
 
 function createSlides(container) {
+  // Ensure container allows absolute positioning of children
   container.style.position = 'relative';
-  // Safety height to prevent collapse before images load
   if (container.clientHeight === 0) container.style.minHeight = '500px';
 
   slideshowState.slides.forEach(({ src }, index) => {
@@ -86,7 +86,7 @@ function createSlides(container) {
     img.src = src;
     img.className = 'slide';
 
-    // Cross-fade styles from script2.js
+    // Cross-fade styles
     Object.assign(img.style, {
       opacity: 0,
       transition: 'opacity 1.5s ease-in-out',
@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
   log('Initializing site application...');
 
   const body = document.body;
-  // Use the existing .container if dynamic-content-area isn't found
+  // Use existing .container or dynamic wrapper
   const targetContainer =
     document.getElementById('dynamic-content-area') || document.querySelector('.container');
   const navMenu = document.getElementById('main-nav');
@@ -238,6 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
   let siteData = null;
 
   // Render Functions
+
   function renderCardGrid(cardGrid) {
     const sectionWrapper = document.createElement('section');
     sectionWrapper.className = 'card-grid';
@@ -261,7 +262,6 @@ document.addEventListener('DOMContentLoaded', () => {
         cardContent.appendChild(linkElement);
       }
 
-      // Handle simple Paragraph/Image content
       if (content.paragraph) {
         if (typeof content.paragraph === 'object' && content.paragraph.type === 'image') {
           const img = document.createElement('img');
@@ -335,35 +335,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /** Render slideshow */
   function renderSlideshow(template, pageTitle, gallerySource) {
-    // FIX: Do NOT create a new wrapper div with class 'container'.
-    // Use the HTML string to fill the EXISTING 'container' targeted by targetContainer.
-    // We explicitly use classes "previous" and "next" to match index1 structure and CSS.
+    // FIX: Match exact HTML structure of index1.php
+    // Removed .logo and .category divs to prevent grid breakage.
+    // Ensure classes "previous", "next", "caption", "footer" match index1.php.
 
     const htmlContent = `
-      <div class="logo"><p>The Life of an Artist</p></div>
-      <div class="category"><p>${pageTitle}</p></div>
-
       <div class="slideshow">
            <div class="loading-msg">Loading Gallery...</div>
       </div>
 
       <div class="previous">
-        <button id="${template.previousButton.buttonId}" class="prev-next circle" aria-label="${
-      template.previousButton.ariaLabel
-    }">
-          <img src="${template.previousButton.imgSrc}" class="prev-nexts" width="50" alt="${
-      template.previousButton.imgAlt
-    }">
+        <button id="${template.previousButton.buttonId}" class="prev-next circle" aria-label="${template.previousButton.ariaLabel}">
+          <img src="${template.previousButton.imgSrc}" class="prev-nexts" width="50" alt="${template.previousButton.imgAlt}">
         </button>
       </div>
 
       <div class="next">
-        <button id="${template.nextButton.buttonId}" class="prev-next circle" aria-label="${
-      template.nextButton.ariaLabel
-    }">
-          <img src="${template.nextButton.imgSrc}" class="prev-nexts" width="50" alt="${
-      template.nextButton.imgAlt
-    }">
+        <button id="${template.nextButton.buttonId}" class="prev-next circle" aria-label="${template.nextButton.ariaLabel}">
+          <img src="${template.nextButton.imgSrc}" class="prev-nexts" width="50" alt="${template.nextButton.imgAlt}">
         </button>
       </div>
 
@@ -378,17 +367,6 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </footer>
       </div>
-
-      ${
-        template.rtnArrow
-          ? `
-      <div class="${template.rtnArrow.wrapperClass || 'return-arrow'}">
-        <a href="/" data-page="home" aria-label="${template.rtnArrow.ariaLabel}">
-          <img src="${template.rtnArrow.imgSrc}" alt="${template.rtnArrow.imgAlt}">
-        </a>
-      </div>`
-          : ''
-      }
     `;
 
     fadeSwap(targetContainer, () => {
@@ -437,6 +415,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     renderPageContent(finalData, pageName);
 
+    // Update active menu state
     const menuButtons = document.querySelectorAll('.gallery-menu .menu-button, .main-nav-menu a');
     menuButtons.forEach((btn) => btn.classList.remove('active', 'is-active'));
     const activeBtn = document.querySelector(
@@ -479,7 +458,7 @@ document.addEventListener('DOMContentLoaded', () => {
         loadPage(link.dataset.page);
       }
     }
-    // Handle Toggle Menu
+    // Handle Mobile Menu
     if (event.target.closest('#hamburger-btn')) {
       if (navMenu) navMenu.classList.add('is-open');
     }
