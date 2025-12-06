@@ -3,40 +3,38 @@
 /**
  * assets/js/script.js
  * Main Router and Page Renderer (Enhanced)
- * Includes:
- *  - JSDoc annotations
- *  - Debug logging
- *  - Crossfade transitions
- *  - Scroll restoration per page
- *  - Internal modular organization (no external modules)
  */
 
-/** Enable or disable debug logging */
 const DEBUG = true;
 const log = (...args) => DEBUG && console.log('[AEP]', ...args);
-
-/** Apply a simple fade transition to the dynamic content area */
-function fadeSwap(element, newContentCallback) {
-  element.classList.add('fade-out');
-  setTimeout(() => {
-    newContentCallback();
-    element.classList.remove('fade-out');
-    element.classList.add('fade-in');
-    setTimeout(() => element.classList.remove('fade-in'), 300);
-  }, 300);
-}
 
 /** Stores scroll positions by page */
 const scrollMemory = {};
 
-// -----------------------------------------------------------------------------
-//  Main Initialization Wrapper
-// -----------------------------------------------------------------------------
+/**
+ * Apply a simple fade transition to the dynamic content area
+ * @param {HTMLElement} element - The container to fade
+ * @param {Function} newContentCallback - Function to execute when element is hidden (DOM update)
+ */
+function fadeSwap(element, newContentCallback) {
+  element.classList.add('fade-out');
+  setTimeout(() => {
+    // 1. Update the DOM
+    newContentCallback();
+
+    // 2. Fade back in
+    element.classList.remove('fade-out');
+    element.classList.add('fade-in');
+
+    // 3. Cleanup class
+    setTimeout(() => element.classList.remove('fade-in'), 300);
+  }, 300);
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   log('Initializing site application...');
 
   const body = document.body;
-  const navLinks = document.querySelectorAll('.main-nav-menu a');
   const dynamicContentArea = document.getElementById('dynamic-content-area');
 
   // Menu Elements
@@ -50,21 +48,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // ---------------------------------------------------------------------------
   //  Script Loader
   // ---------------------------------------------------------------------------
-  /**
-   * Dynamically load a JavaScript file only once
-   * @param {string} path
-   * @param {Function} callback
-   */
   function loadScript(path, callback) {
-    log('Loading script:', path);
-
+    // Check if script is already in the DOM
     const existingScript = document.querySelector(`script[src="${path}"]`);
+
     if (existingScript) {
       log('Script already loaded:', path);
-      callback && callback();
+      // Execute callback immediately if script exists
+      if (callback) callback();
       return;
     }
 
+    log('Loading script:', path);
     const script = document.createElement('script');
     script.src = path;
     script.defer = true;
@@ -72,11 +67,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     script.onload = () => {
       log('Loaded script:', path);
-      callback && callback();
+      if (callback) callback();
     };
 
     script.onerror = () => console.error('Failed to load script:', path);
-
     document.body.appendChild(script);
   }
 
@@ -84,10 +78,8 @@ document.addEventListener('DOMContentLoaded', () => {
   //  Render Functions
   // ---------------------------------------------------------------------------
 
-  /** Render a card grid */
   function renderCardGrid(cardGrid) {
     log('Rendering card grid...');
-
     const sectionWrapper = document.createElement('section');
     sectionWrapper.className = 'card-grid';
 
@@ -105,9 +97,11 @@ document.addEventListener('DOMContentLoaded', () => {
         linkElement.href = content.link.href;
         linkElement.textContent = content.link.text;
         linkElement.className = content.link.class || 'page-link';
+
         const pageName = content.link.href.replace(/^\//, '').trim();
         if (pageName) linkElement.dataset.page = pageName;
         if (content.link.ariaLabel) linkElement.setAttribute('aria-label', content.link.ariaLabel);
+
         cardContent.appendChild(linkElement);
       }
 
@@ -135,10 +129,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /** Render a content section */
   function renderContentSection(sectionData) {
-    log('Rendering content section...');
-
     const wrapperElement = document.createElement(sectionData.tag);
     Object.entries(sectionData.attributes).forEach(([k, v]) => wrapperElement.setAttribute(k, v));
 
@@ -154,10 +145,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  /** Render contact form */
   function renderContactForm(formData) {
-    log('Rendering contact form...');
-
     const sectionWrapper = document.createElement(formData.wrapper.tag);
     Object.entries(formData.wrapper.attributes || {}).forEach(([k, v]) =>
       sectionWrapper.setAttribute(k, v)
@@ -233,19 +221,23 @@ document.addEventListener('DOMContentLoaded', () => {
       </div>
     `;
 
+    // FIX: Script loading must happen INSIDE the callback
+    // to ensure the DOM elements exist before initSlideshow runs.
     fadeSwap(dynamicContentArea, () => {
       dynamicContentArea.innerHTML = '';
       dynamicContentArea.appendChild(wrapper);
-    });
 
-    if (template.scriptToLoad) {
-      loadScript(template.scriptToLoad, () => {
-        if (typeof initSlideshow === 'function') {
-          log('Initializing slideshow logic...');
-          initSlideshow();
-        }
-      });
-    }
+      if (template.scriptToLoad) {
+        loadScript(template.scriptToLoad, () => {
+          if (typeof initSlideshow === 'function') {
+            log('Initializing slideshow logic...');
+            initSlideshow();
+          } else {
+            console.error('initSlideshow function not found in loaded script.');
+          }
+        });
+      }
+    });
   }
 
   // ---------------------------------------------------------------------------
@@ -276,10 +268,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function loadPage(pageName, addToHistory = true) {
     if (!siteData) return;
-
     if (!pageName || pageName === '/') pageName = 'home';
-
-    log('loadPage():', pageName);
 
     const pageData = siteData.pages[pageName];
     if (!pageData) return console.error('Page not found:', pageName);
@@ -318,11 +307,8 @@ document.addEventListener('DOMContentLoaded', () => {
   //  Menu Logic
   // ---------------------------------------------------------------------------
   function toggleMenu(show) {
-    if (!navMenu) return console.error('#main-nav missing');
-    log('toggleMenu:', show);
-
+    if (!navMenu) return;
     navMenu.classList.toggle('is-open', show);
-
     if (hamburgerBtn) {
       hamburgerBtn.classList.toggle('is-hidden', show);
       hamburgerBtn.setAttribute('aria-expanded', show ? 'true' : 'false');
@@ -339,15 +325,12 @@ document.addEventListener('DOMContentLoaded', () => {
   async function init() {
     try {
       log('Loading site-data.json...');
-
       const response = await fetch('json-files/site-data.json');
       if (!response.ok) throw new Error('Bad JSON response');
       siteData = await response.json();
 
       const path = window.location.pathname.replace(/^\//, '');
       const initialPage = path || 'home';
-
-      log('Initial page:', initialPage);
       loadPage(initialPage, false);
     } catch (err) {
       console.error('FATAL INIT ERROR:', err);
@@ -368,7 +351,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   window.addEventListener('popstate', (event) => {
     const page = event.state?.page || 'home';
-    log('popstate →', page);
     loadPage(page, false);
   });
 
