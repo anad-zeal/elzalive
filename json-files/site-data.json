@@ -9,7 +9,7 @@
     "slideContainerClass": "slideshow",
     "autoplay": false,
     "keyboardControls": true,
-
+    "ariaLabel": "Artwork Slideshow",
     "caption": {
       "paragraphId": "caption-text",
       "ariaLabel": "Slide caption"
