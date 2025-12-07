@@ -8,7 +8,7 @@
     },
     "slideContainerClass": "slideshow",
     "autoplay": false,
-    "keyboardControls": true,
+    "keyboardControls": true,{},
     // "previousButton": {
     //   "wrapperClass": "prev-arrow",
     //   "buttonId": "prev-slide",
