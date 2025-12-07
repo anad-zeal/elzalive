@@ -590,4 +590,3 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   init();
-});
