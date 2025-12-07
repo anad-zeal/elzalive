@@ -8,21 +8,21 @@
     },
     "slideContainerClass": "slideshow",
     "autoplay": false,
-    "keyboardControls": true,{},
-    // "previousButton": {
-    //   "wrapperClass": "prev-arrow",
-    //   "buttonId": "prev-slide",
-    //   "imgSrc": "assets/images/misc-images/prev.png",
-    //   "imgAlt": "Previous Slide",
-    //   "ariaLabel": "Go to previous slide"
-    // },
-    // "nextButton": {
-    //   "wrapperClass": "next-arrow",
-    //   "buttonId": "next-slide",
-    //   "imgSrc": "assets/images/misc-images/next.png",
-    //   "imgAlt": "Next Slide",
-    //   "ariaLabel": "Go to next slide"
-    // },
+    "keyboardControls": true,
+    "previousButton": {
+      "wrapperClass": "prev-arrow",
+      "buttonId": "prev-slide",
+      "imgSrc": "assets/images/misc-images/prev.png",
+      "imgAlt": "Previous Slide",
+      "ariaLabel": "Go to previous slide"
+    },
+    "nextButton": {
+      "wrapperClass": "next-arrow",
+      "buttonId": "next-slide",
+      "imgSrc": "assets/images/misc-images/next.png",
+      "imgAlt": "Next Slide",
+      "ariaLabel": "Go to next slide"
+    },
     "caption": {
       "paragraphId": "caption-text",
       "ariaLabel": "Slide caption"
