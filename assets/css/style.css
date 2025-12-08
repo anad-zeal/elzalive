@@ -294,7 +294,7 @@ main#dynamic-page-wrapper {
 
 .contact-wrapper {
   position: relative;
-  background-color: blue;
+  background-color: var(--brand)
   display: flex;
   justify-content: center;
   align-items: center;
