@@ -18,31 +18,35 @@ let slideshowState = {
 };
 
 // ---------------------------------------------------------------------------
-//  Helper: Transition / DOM Swap
+//  Helper: Transition / DOM Swap with Height Locking
 // ---------------------------------------------------------------------------
 
-/**
- * Apply a simple fade transition to the dynamic content area
- * @param {HTMLElement} element - The container to fade
- * @param {Function} newContentCallback - Function to execute when element is hidden (DOM update)
- */
 function fadeSwap(element, newContentCallback) {
+  // 1. Lock the container height to prevent layout shifting/collapsing
+  const currentHeight = element.offsetHeight;
+  element.style.minHeight = `${currentHeight}px`;
+
+  // 2. Start Fade Out
   element.classList.add('fade-out');
+
   setTimeout(() => {
-    // 1. Update the DOM
+    // 3. Update the DOM (Swap Content)
     newContentCallback();
 
-    // 2. Fade back in
+    // 4. Fade back in
     element.classList.remove('fade-out');
     element.classList.add('fade-in');
 
-    // 3. Cleanup class
-    setTimeout(() => element.classList.remove('fade-in'), 300);
+    // 5. Cleanup: Remove fade class and release height lock
+    setTimeout(() => {
+      element.classList.remove('fade-in');
+      element.style.minHeight = ''; // Release height lock so it can grow/shrink naturally
+    }, 300);
   }, 300);
 }
 
 // ---------------------------------------------------------------------------
-//  Slideshow Logic (Refactored from script2.js)
+//  Slideshow Logic
 // ---------------------------------------------------------------------------
 
 function clearSlideshow() {
@@ -61,12 +65,8 @@ function initSlideshow(jsonFilename) {
   const prevBtn = document.getElementById('prev-slide');
   const nextBtn = document.getElementById('next-slide');
 
-  if (!slideshowContainer) {
-    console.error('Slideshow container not found.');
-    return;
-  }
+  if (!slideshowContainer) return;
 
-  // Ensure we look in the json-files directory
   const fetchPath = `json-files/${jsonFilename}`;
 
   fetch(fetchPath)
@@ -76,8 +76,6 @@ function initSlideshow(jsonFilename) {
     })
     .then((data) => {
       slideshowState.slides = data;
-
-      // Clear any existing content (like loading messages)
       slideshowContainer.innerHTML = '';
 
       createSlides(slideshowContainer);
@@ -88,29 +86,29 @@ function initSlideshow(jsonFilename) {
 }
 
 function createSlides(container) {
-  // Ensure container allows absolute positioning of children
   container.style.position = 'relative';
-  // Ensure container has height (fallback if CSS doesn't set it)
-  if (container.clientHeight === 0) container.style.minHeight = '500px';
+  if (container.clientHeight < 50) container.style.minHeight = '60vh';
 
   slideshowState.slides.forEach(({ src }, index) => {
     const img = document.createElement('img');
     img.src = src;
     img.className = 'slide';
 
-    // Apply cross-fade styles defined in script2.js
     Object.assign(img.style, {
       opacity: 0,
       transition: 'opacity 1.5s ease-in-out',
       position: 'absolute',
       maxWidth: '100%',
       maxHeight: '100%',
+      width: 'auto',
+      height: 'auto',
       top: 0,
       left: 0,
       right: 0,
       bottom: 0,
       margin: 'auto',
       display: 'block',
+      objectFit: 'contain',
     });
 
     container.appendChild(img);
@@ -123,24 +121,21 @@ function fadeInFirstSlide(captionEl) {
 
   const firstSlide = slidesDOM[0];
 
-  // Logic from script2: Specific initial fade sequence
   firstSlide.style.opacity = 0;
-  firstSlide.style.transition = 'opacity 2s ease-in-out';
-
-  setTimeout(() => {
+  requestAnimationFrame(() => {
     firstSlide.style.opacity = 1;
+  });
 
-    if (captionEl && slideshowState.slides[0]) {
-      captionEl.textContent = slideshowState.slides[0].caption || '';
+  if (captionEl && slideshowState.slides[0]) {
+    captionEl.textContent = slideshowState.slides[0].caption || '';
+    captionEl.style.opacity = 0;
+    setTimeout(() => {
       captionEl.style.transition = 'opacity 1.5s ease-in-out';
-      captionEl.style.opacity = 0;
-      setTimeout(() => {
-        captionEl.style.opacity = 1;
-      }, 300);
-    }
-  }, 50);
+      captionEl.style.opacity = 1;
+    }, 100);
+  }
 
-  // Start autoplay after initial fade
+  // Start autoplay
   setTimeout(() => {
     showSlide(0);
     startAutoPlay();
@@ -151,7 +146,6 @@ function showSlide(index) {
   const slidesDOM = document.querySelectorAll('.slide');
   const captionEl = document.getElementById('caption-text');
 
-  // Handle Caption Fade
   if (captionEl) {
     captionEl.style.opacity = 0;
     setTimeout(() => {
@@ -159,13 +153,11 @@ function showSlide(index) {
         captionEl.textContent = slideshowState.slides[index].caption || '';
       }
       captionEl.style.opacity = 1;
-    }, 300);
+    }, 500);
   }
 
-  // Handle Image Cross-fade
   slidesDOM.forEach((img, i) => {
     img.style.opacity = i === index ? 1 : 0;
-    // Z-index management ensures the fading-in slide is on top if transparent
     img.style.zIndex = i === index ? 2 : 1;
   });
 
@@ -195,20 +187,20 @@ function resetAutoPlay() {
 
 function setupControls(prevBtn, nextBtn, container) {
   if (nextBtn) {
-    nextBtn.onclick = () => {
+    nextBtn.onclick = (e) => {
+      e.preventDefault();
       nextSlide();
       resetAutoPlay();
     };
   }
-
   if (prevBtn) {
-    prevBtn.onclick = () => {
+    prevBtn.onclick = (e) => {
+      e.preventDefault();
       prevSlide();
       resetAutoPlay();
     };
   }
 
-  // Hover/Touch Pause Logic
   container.addEventListener('mouseenter', () => {
     slideshowState.isPaused = true;
     if (slideshowTimer) clearInterval(slideshowTimer);
@@ -239,35 +231,23 @@ function setupControls(prevBtn, nextBtn, container) {
 }
 
 // ---------------------------------------------------------------------------
-//  Main Application Logic (DOMContentLoaded)
+//  Main Application Logic
 // ---------------------------------------------------------------------------
 
 document.addEventListener('DOMContentLoaded', () => {
   log('Initializing site application...');
 
   const body = document.body;
-  const dynamicContentArea = document.getElementById('dynamic-content-area'); // Ensure this ID exists in your HTML container
-  // Note: Based on index1.php, the "dynamic-content-area" is effectively the .container
-  // or a wrapper you might need to add if swapping the ENTIRE container.
-  // Assuming the script1.js logic implies a wrapper, e.g., <div class="container" id="dynamic-content-area">...</div>
-  // If index1.php is strictly what is provided, we might need to target '.container' directly,
-  // but usually SPA routers target a specific wrapper.
-  // I will target '.container' if 'dynamic-content-area' is missing.
-
   const targetContainer =
     document.getElementById('dynamic-content-area') || document.querySelector('.container');
-
-  // Menu Elements
+  const navMenu = document.getElementById('main-nav');
   const hamburgerBtn = document.getElementById('hamburger-btn');
   const closeNavBtn = document.getElementById('close-nav-btn');
-  const navMenu = document.getElementById('main-nav');
   const navBackdrop = document.getElementById('nav-backdrop');
 
   let siteData = null;
 
-  // ---------------------------------------------------------------------------
-  //  Render Functions
-  // ---------------------------------------------------------------------------
+  // Render Functions
 
   function renderCardGrid(cardGrid) {
     const sectionWrapper = document.createElement('section');
@@ -280,6 +260,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
       const cardContent = document.createElement('div');
       cardContent.className = content.type;
+
+      // FIX 1: Ensure card content takes up full space
+      cardContent.style.width = '100%';
+      cardContent.style.height = '100%';
+      cardContent.style.display = 'flex';
+      cardContent.style.justifyContent = 'center';
+      cardContent.style.alignItems = 'center';
+
       if (content.class) cardContent.classList.add(...content.class.split(' '));
 
       if (content.link) {
@@ -288,20 +276,26 @@ document.addEventListener('DOMContentLoaded', () => {
         linkElement.textContent = content.link.text;
         linkElement.className = content.link.class || 'page-link';
 
-        // Handle SPA Routing attributes
+        // FIX 2: Make the link fill the card for easier clicking
+        linkElement.style.display = 'flex';
+        linkElement.style.justifyContent = 'center';
+        linkElement.style.alignItems = 'center';
+        linkElement.style.width = '100%';
+        linkElement.style.height = '100%';
+        linkElement.style.textDecoration = 'none';
+
         const pageName = content.link.href.replace(/^\//, '').trim();
         if (pageName) linkElement.dataset.page = pageName;
-
         if (content.link.ariaLabel) linkElement.setAttribute('aria-label', content.link.ariaLabel);
+
         cardContent.appendChild(linkElement);
       }
 
+      // Handle Paragraphs/Images if present
       if (content.paragraph) {
-        // Handle simple text or image objects in paragraphs
         if (typeof content.paragraph === 'object' && content.paragraph.type === 'image') {
           const img = document.createElement('img');
           img.src = content.paragraph.src;
-          img.alt = content.paragraph.alt || '';
           if (content.paragraph.class) img.className = content.paragraph.class;
           cardContent.appendChild(img);
         } else {
@@ -344,7 +338,6 @@ document.addEventListener('DOMContentLoaded', () => {
     Object.entries(formData.wrapper.attributes || {}).forEach(([k, v]) =>
       sectionWrapper.setAttribute(k, v)
     );
-
     const formEl = document.createElement(formData.form.tag);
     Object.entries(formData.form.attributes || {}).forEach(([k, v]) => formEl.setAttribute(k, v));
 
@@ -358,63 +351,45 @@ document.addEventListener('DOMContentLoaded', () => {
       const wrapperEl = document.createElement(fieldData.wrapperTag || 'div');
       const inputEl = document.createElement(fieldData.tag);
       if (fieldData.text) inputEl.textContent = fieldData.text;
-
-      Object.entries(fieldData.attributes || {}).forEach(([k, v]) => {
-        if (v === true) inputEl.setAttribute(k, '');
-        else inputEl.setAttribute(k, v);
-      });
-
+      Object.entries(fieldData.attributes || {}).forEach(([k, v]) => inputEl.setAttribute(k, v));
       wrapperEl.appendChild(inputEl);
       formEl.appendChild(wrapperEl);
     });
 
     sectionWrapper.appendChild(formEl);
-
     fadeSwap(targetContainer, () => {
       targetContainer.innerHTML = '';
       targetContainer.appendChild(sectionWrapper);
     });
   }
 
-  /** Render slideshow */
   function renderSlideshow(template, pageTitle, gallerySource) {
-    log('Rendering slideshow shell for:', pageTitle);
-
-    // Create wrapper structure based on index1.php / site-data.json
-    const wrapper = document.createElement(template.wrapper.tag || 'div');
-    if (template.wrapper.class) wrapper.className = template.wrapper.class;
-
-    // Construct HTML string matching index1.php
-    wrapper.innerHTML = `
-      <div class="logo"><p>The Life of an Artist</p></div>
-      <div class="category"><p>${pageTitle}</p></div>
-
+    // Standardizing HTML to match index1.php exactly
+    // Logo and Category titles are handled by the static PHP header,
+    // so we do NOT include them here to prevent grid layout breakage.
+    const htmlContent = `
       <div class="slideshow">
-           <div class="loading-msg">Loading Gallery...</div>
+           <div class="loading-msg">Loading...</div>
       </div>
 
       <div class="previous">
-        <button id="${template.previousButton.buttonId}" class="prev-next circle" aria-label="${
-      template.previousButton.ariaLabel
-    }">
-          <img src="${template.previousButton.imgSrc}" class="prev-nexts" width="50" alt="${
-      template.previousButton.imgAlt
-    }">
+        <button id="${
+          template.previousButton.buttonId || 'prev-slide'
+        }" class="prev-next circle" aria-label="Previous">
+          <img src="${template.previousButton.imgSrc}" class="prev-nexts" width="50" alt="Previous">
         </button>
       </div>
 
       <div class="next">
-        <button id="${template.nextButton.buttonId}" class="prev-next circle" aria-label="${
-      template.nextButton.ariaLabel
-    }">
-          <img src="${template.nextButton.imgSrc}" class="prev-nexts" width="50" alt="${
-      template.nextButton.imgAlt
-    }">
+        <button id="${
+          template.nextButton.buttonId || 'next-slide'
+        }" class="prev-next circle" aria-label="Next">
+          <img src="${template.nextButton.imgSrc}" class="prev-nexts" width="50" alt="Next">
         </button>
       </div>
 
       <div class="caption">
-        <p id="${template.caption.paragraphId}"></p>
+        <p id="${template.caption.paragraphId || 'caption-text'}"></p>
       </div>
 
       <div class="footer">
@@ -424,61 +399,32 @@ document.addEventListener('DOMContentLoaded', () => {
           </div>
         </footer>
       </div>
-
-      <!-- Return Arrow if defined in template -->
-      ${
-        template.rtnArrow
-          ? `
-      <div class="${template.rtnArrow.wrapperClass || 'return-arrow'}">
-        <a href="/" data-page="home" aria-label="${template.rtnArrow.ariaLabel}">
-          <img src="${template.rtnArrow.imgSrc}" alt="${template.rtnArrow.imgAlt}">
-        </a>
-      </div>`
-          : ''
-      }
     `;
 
     fadeSwap(targetContainer, () => {
-      targetContainer.innerHTML = '';
-      targetContainer.appendChild(wrapper);
-
-      // Initialize the integrated slideshow logic
+      targetContainer.innerHTML = htmlContent;
       initSlideshow(gallerySource);
     });
   }
 
-  // ---------------------------------------------------------------------------
-  //  Page Controller
-  // ---------------------------------------------------------------------------
+  // Page Controller
   function renderPageContent(data, pageName) {
-    log('Routing to page:', pageName);
+    if (history.state?.page) scrollMemory[history.state.page] = window.scrollY;
 
-    // Save scroll position for previous page
-    if (history.state?.page) {
-      scrollMemory[history.state.page] = window.scrollY;
-    }
-
-    // CLEANUP: Stop any running slideshow before rendering new content
     clearSlideshow();
-
     document.title = `${data.title} | Alexis Elza`;
-
-    // Toggle class on body if needed for specific styling hooks
     body.classList.toggle('slideshow-active', Boolean(data.slideshowTemplate));
 
-    if (data.cardGrid) {
-      renderCardGrid(data.cardGrid);
-    } else if (data.contentSection) {
-      renderContentSection(data.contentSection);
-    } else if (data.contactForm) {
-      renderContactForm(data.contactForm);
-    } else if (data.slideshowTemplate) {
+    if (data.cardGrid) renderCardGrid(data.cardGrid);
+    else if (data.contentSection) renderContentSection(data.contentSection);
+    else if (data.contactForm) renderContactForm(data.contactForm);
+    else if (data.slideshowTemplate) {
       renderSlideshow(data.slideshowTemplate, data.title, data.slideshowTemplate.gallerySource);
     } else {
       targetContainer.innerHTML = '<p>No content available.</p>';
     }
 
-    // Restore scroll if available
+    // Scroll restoration - delay slightly to allow DOM paint
     setTimeout(() => {
       window.scrollTo({ top: scrollMemory[pageName] || 0, behavior: 'smooth' });
     }, 50);
@@ -489,98 +435,70 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!pageName || pageName === '/') pageName = 'home';
 
     const pageData = siteData.pages[pageName];
-    if (!pageData) {
-      console.error('Page not found:', pageName);
-      return;
-    }
+    if (!pageData) return console.error('Page not found:', pageName);
 
     let finalData = { title: pageData.title };
-
     if (pageData.type === 'slideshow') {
       const templateCopy = JSON.parse(JSON.stringify(siteData.slideshowTemplate));
       templateCopy.gallerySource = pageData.gallerySource;
       finalData.slideshowTemplate = templateCopy;
-    } else if (pageData.type === 'cardGrid') {
-      finalData.cardGrid = pageData.content;
-    } else if (pageData.type === 'contentSection') {
-      finalData.contentSection = pageData.content;
-    } else if (pageData.type === 'contactForm') {
-      finalData.contactForm = pageData.content;
-    }
+    } else if (pageData.type === 'cardGrid') finalData.cardGrid = pageData.content;
+    else if (pageData.type === 'contentSection') finalData.contentSection = pageData.content;
+    else if (pageData.type === 'contactForm') finalData.contactForm = pageData.content;
 
     renderPageContent(finalData, pageName);
 
-    // Highlight active link in Menu
     const menuButtons = document.querySelectorAll('.gallery-menu .menu-button, .main-nav-menu a');
     menuButtons.forEach((btn) => btn.classList.remove('active', 'is-active'));
 
-    // Try to find matching button by data-gallery or data-page
     const activeBtn = document.querySelector(
       `[data-gallery="${pageName}"], [data-page="${pageName}"]`
     );
     if (activeBtn) activeBtn.classList.add('active');
 
-    if (addToHistory) {
+    if (addToHistory)
       history.pushState(
         { page: pageName },
         finalData.title,
         `/${pageName === 'home' ? '' : pageName}`
       );
-    }
   }
 
-  // ---------------------------------------------------------------------------
-  //  Menu Logic
-  // ---------------------------------------------------------------------------
-  function toggleMenu(show) {
-    if (!navMenu) return;
-    navMenu.classList.toggle('is-open', show);
-    if (hamburgerBtn) {
-      hamburgerBtn.classList.toggle('is-hidden', show);
-      hamburgerBtn.setAttribute('aria-expanded', show ? 'true' : 'false');
-    }
-  }
-
-  if (hamburgerBtn) hamburgerBtn.addEventListener('click', () => toggleMenu(true));
-  if (closeNavBtn) closeNavBtn.addEventListener('click', () => toggleMenu(false));
-  if (navBackdrop) navBackdrop.addEventListener('click', () => toggleMenu(false));
-
-  // ---------------------------------------------------------------------------
-  //  Initialization
-  // ---------------------------------------------------------------------------
+  // Initialization
   async function init() {
     try {
-      log('Loading site-data.json...');
       const response = await fetch('json-files/site-data.json');
       if (!response.ok) throw new Error('Bad JSON response');
       siteData = await response.json();
 
       const path = window.location.pathname.replace(/^\//, '');
       const initialPage = path || 'home';
-      // If path is empty, load 'home', otherwise load the page
       loadPage(initialPage, false);
     } catch (err) {
       console.error('FATAL INIT ERROR:', err);
     }
   }
 
-  // ---------------------------------------------------------------------------
-  //  Global Listeners
-  // ---------------------------------------------------------------------------
+  // Global Listeners
   document.addEventListener('click', (event) => {
-    // Handle menu buttons and links
+    // Handle Navigation
     const link = event.target.closest('a[data-page], button[data-gallery]');
     if (link) {
-      // Don't prevent default if it's a standard link, but here we act as SPA
-      // If it's a button
       if (link.tagName === 'BUTTON') {
         const gallery = link.dataset.gallery;
         if (gallery) loadPage(gallery);
       } else {
-        event.preventDefault();
-        toggleMenu(false);
+        event.preventDefault(); // Prevent standard navigation
         loadPage(link.dataset.page);
       }
+    }
+
+    // Handle Mobile Menu
+    if (event.target.closest('#hamburger-btn')) {
+      if (navMenu) navMenu.classList.add('is-open');
+    }
+    if (event.target.closest('#close-nav-btn') || event.target.closest('#nav-backdrop')) {
+      if (navMenu) navMenu.classList.remove('is-open');
     }
   });
 
