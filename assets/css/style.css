@@ -294,7 +294,7 @@ main#dynamic-page-wrapper {
 
 .contact-wrapper {
   position: relative;
-  background-color: var(--brand);
+  background-color: blue;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -415,57 +415,3 @@ fieldset {
   }
 }
 /* ============================================= */
-/* ============================================= */
-/* Card Grid Layout (Home & Artworks)            */
-/* ============================================= */
-
-/* The main container for the grid */
-.card-grid-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-  gap: 2rem; /* Space between cards */
-  padding: 2rem;
-  max-width: 1200px;
-  margin: 0 auto; /* Center the grid on the screen */
-}
-
-/* Individual Card Styling */
-.card {
-  background: #ffffff; /* Or use var(--bg-card) if you have one */
-  border: 1px solid #ddd; /* Subtle border */
-  border-radius: 8px;
-  padding: 1.5rem;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Soft shadow */
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-/* Hover effect for cards */
-.card:hover {
-  transform: translateY(-5px); /* Moves up slightly */
-  box-shadow: 0 8px 12px rgba(0, 0, 0, 0.15);
-}
-
-/* The Title Links inside the cards */
-.card h3 {
-  margin-top: 0;
-  margin-bottom: 1rem;
-  font-family: var(--font-heading, sans-serif); /* Uses your site font */
-  font-size: 1.5rem;
-  color: var(--brand, #333);
-}
-
-.card a {
-  text-decoration: none;
-  color: inherit;
-}
-
-/* The Description Text */
-.card p {
-  font-size: 1rem;
-  color: #666;
-  line-height: 1.5;
-}
