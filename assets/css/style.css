@@ -46,6 +46,10 @@
   padding: 0;
 }
 
+h1 {
+  text-grow: per-line scale;
+}
+
 html,
 body {
   height: 100%;
