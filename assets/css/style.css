@@ -1,0 +1,417 @@
+/* ==========================================================================
+   1. Design Tokens & Global Reset
+   ========================================================================== */
+
+:root {
+  /* Colors */
+  --ink: hsl(0, 0%, 10%);
+  --ink-muted: hsl(0, 0%, 45%);
+  --paper: hsl(36, 21%, 65%);
+  --soft: hsl(0, 0%, 96%);
+
+  --brand: rgb(122, 1, 1);
+  --brand-hover: rgb(122, 99, 99);
+  --focus-ring: hsl(0, 2%, 55%);
+  --focus-active: hsl(0, 2%, 55%);
+
+  /* Typography */
+  --font-body: 'Montserrat', sans-serif;
+  --font-ui: 'Inter', sans-serif;
+  --font-display: 'Montserrat', sans-serif;
+  --font-title: 'Montserrat', sans-serif;
+  --font-script: 'Bonheur Royale', cursive;
+
+  /* Layout */
+  --gap: clamp(0.75rem, 2vw, 1.25rem);
+  --narrow-max: 90ch;
+
+  /* Motion */
+  --speed: 280ms;
+  --easing: cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+@font-face {
+  font-family: 'mort-variable';
+  src: url('../fonts/mort-variable.ttf') format('truetype');
+  font-weight: 100;
+  font-style: normal;
+  font-display: swap;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+/* ============================================= */
+/* 2. Core Layout Structure                      */
+/* ============================================= */
+
+body {
+  display: grid;
+  grid-template-rows: auto auto 1fr auto;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  background-color: rgba(250, 235, 215, 0.5);
+  color: var(--ink);
+}
+
+main#dynamic-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 2rem 0;
+  width: 100%;
+}
+
+/* ============================================= */
+/* 3. Header & Hero                              */
+/* ============================================= */
+
+.site-header {
+  padding: 1rem 0;
+  text-align: center;
+  position: relative; /* Context for absolute positioning if needed */
+}
+
+.hero {
+  text-align: center;
+  padding: 0;
+}
+
+.hero .sub-title {
+  margin-top: 2rem;
+  font-family: var(--font-script);
+  font-size: 3.5em;
+  font-weight: 500;
+  color: var(--brand);
+}
+
+.hero .page-title {
+  font-family: var(--font-title);
+  font-size: 1.25em;
+  margin-top: 0.5rem;
+  color: var(--ink-muted);
+  display: none;
+}
+
+/* ============================================= */
+/* 4. HAMBURGER NAVIGATION (GLOBAL)              */
+/* ============================================= */
+
+/* 1. The Hamburger Button (Visible on ALL screens) */
+.hamburger-btn {
+  position: fixed;
+  top: 2rem;
+  left: 2rem;
+  z-index: 2000;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  width: 40px;
+  height: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 0;
+}
+
+.hamburger-btn .bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background-color: var(--brand);
+  transition: all 0.3s ease;
+}
+
+.hamburger-btn:hover .bar {
+  background-color: var(--ink);
+}
+
+/* Hide hamburger when menu is open (optional style) */
+.hamburger-btn.is-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* 2. The Navigation Container (Hidden/Off-canvas by default) */
+.main-nav-menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1999;
+  pointer-events: none;
+  display: block;
+}
+
+/* The actual slide-out panel */
+.main-nav-menu .nav-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 300px;
+  height: 100%;
+  background-color: #faf3ea;
+  box-shadow: 5px 0 25px rgba(0, 0, 0, 0.1);
+  padding: 6rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  /* Hidden State */
+  transform: translateX(-100%);
+  transition: transform 0.4s var(--easing);
+  pointer-events: auto;
+}
+
+/* The Backdrop */
+.main-nav-menu .nav-backdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+}
+
+/* 3. Close Button (Inside Menu) */
+.close-nav-btn {
+  display: block;
+  position: absolute;
+  top: 1.5rem;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  font-size: 3rem;
+  color: var(--brand);
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* 4. Links Styling */
+.main-nav-menu a {
+  font-family: var(--font-title);
+  font-size: 1.5rem;
+  text-decoration: none;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+
+  /* Animation Setup */
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: all 0.3s ease;
+}
+
+.main-nav-menu a:hover,
+.main-nav-menu a.is-active {
+  color: var(--brand);
+  padding-left: 10px;
+}
+
+/* ============================================= */
+/* 5. OPEN STATE (Applied via JS)                */
+/* ============================================= */
+
+.main-nav-menu.is-open {
+  pointer-events: auto;
+}
+
+.main-nav-menu.is-open .nav-content {
+  transform: translateX(0);
+}
+
+.main-nav-menu.is-open .nav-backdrop {
+  opacity: 1;
+}
+
+/* Staggered Link Animation */
+.main-nav-menu.is-open a {
+  opacity: 1;
+  transform: translateX(0);
+}
+.main-nav-menu.is-open a:nth-child(1) {
+  transition-delay: 0.1s;
+}
+.main-nav-menu.is-open a:nth-child(2) {
+  transition-delay: 0.2s;
+}
+.main-nav-menu.is-open a:nth-child(3) {
+  transition-delay: 0.3s;
+}
+.main-nav-menu.is-open a:nth-child(4) {
+  transition-delay: 0.4s;
+}
+
+/* ============================================= */
+/* 6. Card Grid                                  */
+/* ============================================= */
+
+.card-grid {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 1fr;
+  gap: 1.5rem;
+}
+
+.card-grid .page-link {
+  font-family: var(--font-title);
+  font-size: 1.4em;
+  font-weight: 300;
+  color: var(--brand);
+  text-decoration: none;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.card-grid .landingMenuItem p {
+  font-family: var(--font-body);
+  font-size: 0.95em;
+  color: var(--ink-muted);
+  line-height: 1.5;
+}
+
+/* ============================================= */
+/* 7. Contact Form                               */
+/* ============================================= */
+
+.contact-wrapper {
+  position: relative;
+  background-color: var(--brand)
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* min-height: 100vh; */
+  width: 100%;
+  padding: 2px;
+  z-index: 999;
+  border-radius: 10px;
+}
+
+#contact {
+  background: #ffffff;
+  padding: 30px;
+  width: 100%;
+  max-width: 450px;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+#contact h3 {
+  color: var(--brand);
+  font-size: 30px;
+  font-weight: 400;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+#contact h4 {
+  margin: 0 0 20px;
+  font-size: 13px;
+  text-align: center;
+  color: var(--ink-muted);
+}
+
+fieldset {
+  border: none;
+  margin: 0 0 15px;
+  padding: 0;
+  width: 100%;
+}
+
+#contact input,
+#contact textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  background: #fff;
+  margin: 0 0 5px;
+  padding: 12px;
+  font-family: var(--font-ui);
+  font-size: 13px;
+  border-radius: 4px;
+  transition: border-color 0.3s ease-in-out;
+}
+
+#contact input:hover,
+#contact textarea:hover {
+  border-color: #aaa;
+}
+
+#contact input:focus,
+#contact textarea:focus {
+  outline: 0;
+  border: 1px solid var(--focus-active);
+}
+
+#contact textarea {
+  height: 120px;
+  resize: vertical;
+}
+
+#contact button[type='submit'] {
+  cursor: pointer;
+  width: 100%;
+  border: none;
+  background: var(--brand);
+  color: #fff;
+  margin: 0 0 5px;
+  padding: 12px;
+  font-size: 15px;
+  font-weight: bold;
+  border-radius: 4px;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+#contact button[type='submit']:hover {
+  background: var(--brand-hover);
+  transform: scale(1.02);
+}
+
+.site-footer {
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.9em;
+}
+
+/* ============================================= */
+/* 8. Responsiveness                             */
+/* ============================================= */
+
+/* Tablet: 2 Columns */
+@media (max-width: 1024px) {
+  .card-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Mobile: 1 Column */
+@media (max-width: 600px) {
+  .card-grid {
+    grid-template-columns: 1fr;
+    padding: 0 1rem;
+  }
+
+  /* On mobile, adjust Hamburger position if needed */
+  .hamburger-btn {
+    top: 1.5rem;
+    left: 1.5rem;
+  }
+}
+/* ============================================= */
