@@ -1,0 +1,85 @@
+{
+  "contact": {
+    "type": "contactForm",
+    "title": "Contact",
+    "content": {
+      "wrapper": {
+        "tag": "div",
+        "attributes": {
+          "class": "container"
+        }
+      },
+      "form": {
+        "tag": "form",
+        "attributes": {
+          "id": "contact",
+          "action": "/submit-contact",
+          "method": "post"
+        },
+        "headers": [
+          { "tag": "h3", "text": "Quick Contact" },
+          { "tag": "h4", "text": "Contact us today, and get a reply within 24 hours!" }
+        ]
+      },
+      "fields": [
+        {
+          "tag": "input",
+          "wrapperTag": "fieldset",
+          "attributes": {
+            "placeholder": "Your Name",
+            "type": "text",
+            "required": true,
+            "autofocus": true
+          }
+        },
+        {
+          "tag": "input",
+          "wrapperTag": "fieldset",
+          "attributes": {
+            "placeholder": "Your Email Address",
+            "type": "email",
+            "required": true
+          }
+        },
+        {
+          "tag": "input",
+          "wrapperTag": "fieldset",
+          "attributes": {
+            "placeholder": "Your Phone Number",
+            "type": "tel",
+            "pattern": "[0-9]{3}-[0-9]{3}-[0-9]{4}",
+            "required": true
+          }
+        },
+        {
+          "tag": "input",
+          "wrapperTag": "fieldset",
+          "attributes": {
+            "placeholder": "Your Website (http:// or https://)",
+            "type": "url",
+            "required": true
+          }
+        },
+        {
+          "tag": "textarea",
+          "wrapperTag": "fieldset",
+          "attributes": {
+            "placeholder": "Type your Message Here...",
+            "required": true
+          }
+        },
+        {
+          "tag": "button",
+          "text": "Submit",
+          "wrapperTag": "fieldset",
+          "attributes": {
+            "name": "submit",
+            "type": "submit",
+            "id": "contact-submit",
+            "data-submit": "...Sending"
+          }
+        }
+      ]
+    }
+  }
+}
