@@ -261,12 +261,15 @@ document.addEventListener('DOMContentLoaded', () => {
       const cardContent = document.createElement('div');
       cardContent.className = content.type;
 
-      // FIX 1: Ensure card content takes up full space
+      // 1. FIX CONTAINER LAYOUT
       cardContent.style.width = '100%';
       cardContent.style.height = '100%';
       cardContent.style.display = 'flex';
+      cardContent.style.flexDirection = 'column'; // <--- ADD THIS (Stacks text vertically)
       cardContent.style.justifyContent = 'center';
       cardContent.style.alignItems = 'center';
+      cardContent.style.textAlign = 'center'; // <--- ADD THIS (Centers text)
+      cardContent.style.padding = '1rem'; // <--- ADD THIS (Prevents edge touching)
 
       if (content.class) cardContent.classList.add(...content.class.split(' '));
 
@@ -276,13 +279,9 @@ document.addEventListener('DOMContentLoaded', () => {
         linkElement.textContent = content.link.text;
         linkElement.className = content.link.class || 'page-link';
 
-        // FIX 2: Make the link fill the card for easier clicking
-        linkElement.style.display = 'flex';
-        linkElement.style.justifyContent = 'center';
-        linkElement.style.alignItems = 'center';
-        linkElement.style.width = '100%';
-        linkElement.style.height = '100%';
+        // 2. FIX LINK STYLES (Remove width/height 100% that caused overlap)
         linkElement.style.textDecoration = 'none';
+        linkElement.style.marginBottom = '0.5rem';
 
         const pageName = content.link.href.replace(/^\//, '').trim();
         if (pageName) linkElement.dataset.page = pageName;
