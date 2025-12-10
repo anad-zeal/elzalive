@@ -207,7 +207,11 @@
         },
         "form": {
           "tag": "form",
-          "attributes": { "method": "post", "action": "", "class": "ccform" }
+          "attributes": {
+            "method": "post",
+            "action": "",
+            "class": "ccform"
+          }
         },
         "fields": [
           {
@@ -241,8 +245,8 @@
             "tag": "textarea",
             "wrapperTag": "div",
             "attributes": {
-              "placeholder": "Message",
               "name": "comments",
+              "placeholder": "Message",
               "rows": "8",
               "required": "true"
             }
